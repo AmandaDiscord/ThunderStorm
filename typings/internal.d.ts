@@ -3,7 +3,7 @@ import Constants = require("../constants.js");
 type EVENTS = typeof Constants.EVENTS;
 
 export type CloudStormEventDataTable = {
-	CHANNEL_CREATE: DMChannelData | TextChannelData | CategoryChannelData | AnnouncementsChannelData | VoiceChannelData;
+	CHANNEL_CREATE: DMChannelData | TextChannelData | CategoryChannelData | NewsChannelData | VoiceChannelData;
 	CHANNEL_PINS_UPDATE: ChannelPinData;
 	GUILD_CREATE: GuildData;
 	GUILD_EMOJIS_UPDATE: GuildEmojisUpdateData;
@@ -204,7 +204,7 @@ export type GuildData = {
 	vanity_url_code?: string;
 	premium_subscription_count: number;
 	name: string;
-	channels: Array<TextChannelData | VoiceChannelData | CategoryChannelData | AnnouncementsChannelData>;
+	channels: Array<TextChannelData | VoiceChannelData | CategoryChannelData | NewsChannelData>;
 	joined_at: string;
 	unavailable: boolean;
 	guild_hashes: GuildHashData;
@@ -313,9 +313,22 @@ export interface TextableChannelData extends ChannelData {
 	last_pin_timestamp?: string;
 }
 
+export interface TextChannelData extends GuildChannelData, TextableChannelData {
+	rate_limit_per_user: number;
+	topic?: string;
+	nsfw: boolean;
+	type: 0;
+}
+
 export interface DMChannelData extends TextableChannelData {
 	recipients: Array<UserData>;
 	type: 1;
+}
+
+export interface VoiceChannelData extends GuildChannelData {
+	bitrate: number;
+	user_limit: number;
+	type: 2;
 }
 
 export interface GuildChannelData extends ChannelData {
@@ -329,21 +342,8 @@ export interface CategoryChannelData extends GuildChannelData {
 	type: 4;
 }
 
-export interface TextChannelData extends GuildChannelData, TextableChannelData {
-	rate_limit_per_user: number;
-	topic?: string;
-	nsfw: boolean;
-	type: 0;
-}
-
-export interface AnnouncementsChannelData extends TextChannelData {
+export interface NewsChannelData extends TextChannelData {
 	type: 5;
-}
-
-export interface VoiceChannelData extends GuildChannelData {
-	bitrate: number;
-	user_limit: number;
-	type: 2;
 }
 
 export interface Snowflake extends String {}

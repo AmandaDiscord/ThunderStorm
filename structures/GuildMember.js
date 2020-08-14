@@ -1,6 +1,6 @@
 const User = require("./User");
 
-class Member {
+class GuildMember {
 	/**
 	 * @param {import("../typings/internal").MemberData & { user: import("../typings/internal").UserData }} data
 	 * @param {import("../typings/index").Client} client
@@ -21,4 +21,4 @@ class Member {
 	}
 }
 
-module.exports = Member;
+module.exports = GuildMember;

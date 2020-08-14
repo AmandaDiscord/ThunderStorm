@@ -1,5 +1,5 @@
 const User = require("./User");
-const Member = require("./Member");
+const GuildMember = require("./GuildMember");
 
 class Message {
 	/**
@@ -13,7 +13,7 @@ class Message {
 		this.channelID = data.channel_id;
 		this.guildID = data.guild_id || null;
 		this.author = data.author ? new User(data.author, client) : null;
-		this.member = data.member ? new Member({ user: data.author, ...data.member }, client) : null;
+		this.member = data.member && data.author ? new GuildMember({ user: data.author, ...data.member }, client) : null;
 		this.attachments = data.attachments;
 		this.content = data.content || "";
 		this.editedAt = data.edited_timestamp ? new Date(data.edited_timestamp) : null;
@@ -22,7 +22,7 @@ class Message {
 		this.flags = data.flags;
 		this.createdAt = new Date(data.timestamp);
 		this.createdTimestamp = this.createdAt.getTime();
-		this.mentions = data.mentions.map(user => new Member({ user, ...user.member }, client));
+		this.mentions = data.mentions ? data.mentions.map(user => new GuildMember({ user, ...user.member }, client)) : [];
 		this.nonce = data.nonce;
 		this.pinned = data.pinned;
 		this.tts = data.tts;

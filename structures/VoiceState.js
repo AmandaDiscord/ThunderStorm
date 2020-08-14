@@ -1,4 +1,4 @@
-const Member = require("./Member");
+const GuildMember = require("./GuildMember");
 
 class VoiceState {
 	/**
@@ -10,7 +10,7 @@ class VoiceState {
 
 		this.channelID = data.channel_id;
 		this.guildID = data.guild_id || null;
-		this.member = data.member ? new Member(data.member, client) : null;
+		this.member = data.member ? new GuildMember(data.member, client) : null;
 		this.serverDeaf = data.deaf;
 		this.selfDeaf = data.self_deaf;
 		this.serverMute = data.mute;

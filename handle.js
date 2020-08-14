@@ -1,15 +1,12 @@
 const Constants = require("./constants");
 
+const CategoryChannel = require("./structures/CategoryChannel");
 const ClientUser = require("./structures/ClientUser");
-
-const Guild = require("./structures/Guild");
-
-const Message = require("./structures/Message");
-
-const TextChannel = require("./structures/TextChannel");
 const DMChannel = require("./structures/DMChannel");
+const Guild = require("./structures/Guild");
+const Message = require("./structures/Message");
+const TextChannel = require("./structures/TextChannel");
 const VoiceChannel = require("./structures/VoiceChannel");
-
 const VoiceState = require("./structures/VoiceState");
 
 /**
@@ -43,6 +40,7 @@ function handle(data, client) {
 		if (typed.d.type === 0) chan = new TextChannel(typed.d, client);
 		else if (typed.d.type === 1) chan = new DMChannel(typed.d, client);
 		else if (typed.d.type === 2) chan = new VoiceChannel(typed.d, client);
+		else if (typed.d.type === 4) chan = new CategoryChannel(typed.d, client);
 		client.emit(Constants.EVENTS.CHANNEL_CREATE, chan);
 	}
 

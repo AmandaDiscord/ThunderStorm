@@ -1,26 +1,26 @@
 import { EventEmitter } from "events";
-import Internal = require("./internal");
 import SnowTransfer = require("snowtransfer");
-import CloudStorm = require("cloudstorm");
 
-export import ClientUser = require("../structures/ClientUser");
-export import User = require("../structures/User");
+import Internal = require("./internal");
 
-export import Message = require("../structures/Message");
+export import handle = require("../handle");
 
-export import Guild = require("../structures/Guild");
-
-export import Member = require("../structures/member");
-
+export import CategoryChannel = require("../structures/CategoryChannel");
 export import Channel = require("../structures/Channel");
+export import ClientUser = require("../structures/ClientUser");
 export import DMChannel = require("../structures/DMChannel");
+export import Guild = require("../structures/Guild");
+export import GuildChannel = require("../structures/GuildChannel");
+export import GuildMember = require("../structures/GuildMember");
+export import Message = require("../structures/Message");
+export import NewsChannel = require("../structures/NewsChannel");
 export import TextChannel = require("../structures/TextChannel");
+export import User = require("../structures/User");
 export import VoiceChannel = require("../structures/VoiceChannel");
-
 export import VoiceState = require("../structures/VoiceState");
 
 export interface ClientEvents {
-	channelCreate: [DMChannel | TextChannel | VoiceChannel];
+	channelCreate: [DMChannel | TextChannel | VoiceChannel | CategoryChannel | NewsChannel];
 	channelPinsUpdate: [];
 	guildCreate: [Guild];
 	guildEmojisUpdate: [];
@@ -30,7 +30,7 @@ export interface ClientEvents {
 	messageReactionAdd: [Internal.MessageReactionAddData];
 	messageReactionRemove: [Internal.MessageReactionRemoveData];
 	messageReactionRemoveAll: [Internal.MessageReactionRemoveAllData];
-	raw: [Internal.InboundDataType<keyof Internal.CloudStormEventDataTable>]
+	raw: [Internal.InboundDataType<keyof Internal.CloudStormEventDataTable>];
 	ready: [ClientUser];
 	shardReady: [number];
 	shardResume: [number];
@@ -41,7 +41,6 @@ export interface ClientEvents {
 export interface ClientOptions {
 	disableEveryone?: boolean;
 	snowtransfer: typeof SnowTransfer.prototype;
-	cloudstorm: CloudStorm.Client;
 }
 
 export class Client extends EventEmitter {
@@ -51,9 +50,7 @@ export class Client extends EventEmitter {
 	public token: string;
 
 	public _snow: typeof SnowTransfer.prototype;
-	public _cloud: CloudStorm.Client;
 
-	public _handle(data: Internal.InboundDataType<keyof Internal.CloudStormEventDataTable>, client: Client): void;
 	public on<E extends keyof ClientEvents>(event: E, handler: (...args: ClientEvents[E]) => any): any;
 	public once<E extends keyof ClientEvents>(event: E, handler: (...args: ClientEvents[E]) => any): any;
 	public emit<E extends keyof ClientEvents>(event: E, ...args: ClientEvents[E]): any;

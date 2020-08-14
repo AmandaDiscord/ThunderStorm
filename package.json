@@ -1,6 +1,6 @@
 {
   "name": "thunderstorm",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "A layer between CloudStorm and Discord.js-like code",
   "main": "index.js",
   "types": "./typings/index.d.ts",
@@ -9,6 +9,7 @@
   },
   "keywords": [
     "cloudstorm",
+    "snowtransfer",
     "discord.js",
     "amanda",
     "discord"
@@ -16,7 +17,6 @@
   "author": "PapiOphidian",
   "license": "MIT",
   "dependencies": {
-    "cloudstorm": "github:AmandaDiscord/CloudStorm",
     "snowtransfer": "github:AmandaDiscord/SnowTransfer"
   }
 }
