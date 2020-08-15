@@ -18,10 +18,10 @@ class TextChannel extends GuildChannel {
 		this.topic = data.topic || "";
 	}
 	/**
-	 * @param {string} content
-	 * @param {*} options
+	 * @param {import("../typings/index").StringResolvable} content
+	 * @param {import("../typings/index").MessageOptions} [options]
 	 */
-	send(content, options) {
+	send(content, options = {}) {
 		return TextBasedChannel.send(this, content, options);
 	}
 }

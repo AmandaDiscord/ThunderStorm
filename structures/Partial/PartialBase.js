@@ -26,17 +26,24 @@ class PartialBase {
 
 		if (this.type === "Channel") {
 			const channeldata = await this.client._snow.channel.getChannel(this.id);
+			// @ts-ignore
 			if (channeldata.type === 0) data = new TextChannel(channeldata, this.client);
+			// @ts-ignore
 			else if (channeldata.type === 1) data = new DMChannel(channeldata, this.client);
+			// @ts-ignore
 			else if (channeldata.type === 2) data = new VoiceChannel(channeldata, this.client);
+			// @ts-ignore
 			else if (channeldata.type === 4) data = new CategoryChannel(channeldata, this.client);
+			// @ts-ignore
 			else if (channeldata.type === 5) data = new NewsChannel(channeldata, this.client);
 			else data = channeldata;
 		} else if (this.type === "Guild") {
 			const guilddata = await this.client._snow.guild.getGuild(this.id);
+			// @ts-ignore
 			data = new Guild(guilddata, this.client);
 		} else if (this.type === "User") {
 			const userdata = await this.client._snow.user.getUser(this.id);
+			// @ts-ignore
 			data = new User(userdata, this.client);
 		}
 

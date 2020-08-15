@@ -18,6 +18,7 @@ class PartialGuild extends PartialBase {
 	 * @returns {Promise<Guild>}
 	 */
 	fetch() {
+		// @ts-ignore
 		return super.fetch();
 	}
 }

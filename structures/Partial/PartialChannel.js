@@ -25,16 +25,17 @@ class PartialChannel extends PartialBase {
 		return `<#${this.id}>`;
 	}
 	/**
-	 * @param {string} content
-	 * @param {*} options
+	 * @param {import("../../typings/index").StringResolvable} content
+	 * @param {import("../../typings/index").MessageOptions} [options]
 	 */
-	send(content, options) {
+	send(content, options = {}) {
 		return TextBasedChannel.send(this, content, options);
 	}
 	/**
 	 * @returns {Promise<CategoryChannel | DMChannel | NewsChannel | TextChannel | VoiceChannel>}
 	 */
 	fetch() {
+		// @ts-ignore
 		return super.fetch();
 	}
 }

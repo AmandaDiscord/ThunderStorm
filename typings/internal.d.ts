@@ -154,21 +154,52 @@ export type UserData = {
 
 export type EmbedData = {
 	author?: {
+		url?: string;
 		icon_url?: string;
+		iconURL?: string;
 		name?: string;
 		proxy_icon_url?: string;
+		proxyIconURL?: string;
 	};
 	color?: number;
 	description?: string;
 	timestamp?: string;
 	title?: string;
-	type: "rich";
+	type?: "rich";
 	url?: string;
 	icon_url?: string;
 	name?: string;
 	fields?: Array<any>;
 	footer?: {
 		text?: string;
+		icon_url?: string;
+		iconURL?: string;
+		proxy_icon_url?: string;
+		proxyIconURL?: string;
+	}
+	thumbnail?: {
+		url?: string;
+		proxy_url?: string;
+		proxyURL?: string;
+		height?: number;
+		width?: number;
+	};
+	image?: {
+		url?: string;
+		proxy_url?: string;
+		proxyURL?: string;
+		height?: number;
+		width?: number;
+	};
+	video?: {
+		url?: string;
+		proxy_url?: string;
+		proxyURL?: string;
+		height?: number;
+		width?: number;
+	};
+	provider?: {
+		name?: string;
 	}
 }
 
@@ -352,4 +383,4 @@ export interface PartialData {
 	number?: number;
 }
 
-export interface Snowflake extends String {}
+export type Snowflake = string;

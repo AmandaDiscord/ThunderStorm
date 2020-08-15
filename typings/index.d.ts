@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import SnowTransfer = require("snowtransfer");
+import "snowtransfer";
 
 import Internal = require("./internal");
 
@@ -13,6 +13,8 @@ export import Guild = require("../structures/Guild");
 export import GuildChannel = require("../structures/GuildChannel");
 export import GuildMember = require("../structures/GuildMember");
 export import Message = require("../structures/Message");
+export import MessageAttachment = require("../structures/MessageAttachment");
+export import MessageEmbed = require("../structures/MessageEmbed");
 export import NewsChannel = require("../structures/NewsChannel");
 export import TextChannel = require("../structures/TextChannel");
 export import User = require("../structures/User");
@@ -22,6 +24,7 @@ export import VoiceState = require("../structures/VoiceState");
 export import PartialChannel = require("./structures/Partial/PartialChannel");
 export import PartialGuild = require("./structures/Partial/PartialGuild");
 export import PartialUser = require("./structures/Partial/PartialUser");
+import SnowTransfer = require("snowtransfer/src/SnowTransfer");
 
 export interface ClientEvents {
 	channelCreate: [DMChannel | TextChannel | VoiceChannel | CategoryChannel | NewsChannel];
@@ -44,7 +47,7 @@ export interface ClientEvents {
 
 export interface ClientOptions {
 	disableEveryone?: boolean;
-	snowtransfer: typeof SnowTransfer.prototype;
+	snowtransfer: SnowTransfer;
 }
 
 export class Client extends EventEmitter {
@@ -53,9 +56,32 @@ export class Client extends EventEmitter {
 	public user: ClientUser;
 	public token: string;
 
-	public _snow: typeof SnowTransfer.prototype;
+	public _snow: SnowTransfer;
 
 	public on<E extends keyof ClientEvents>(event: E, handler: (...args: ClientEvents[E]) => any): any;
 	public once<E extends keyof ClientEvents>(event: E, handler: (...args: ClientEvents[E]) => any): any;
 	public emit<E extends keyof ClientEvents>(event: E, ...args: ClientEvents[E]): any;
+}
+
+/**
+ * Data that can be resolved to give a string. This can be:
+ * * A string
+ * * An array (joined with a new line delimiter to give a string)
+ * * Any value
+ */
+export type StringResolvable = string | Array<any> | *;
+/**
+ * Data that can be resolved to give a Buffer. This can be:
+ * * A Buffer
+ * * The path to a local file
+ * * A URL
+ */
+export type BufferResolvable = string | Buffer;
+export type MessageOptions = {
+	tts?: boolean;
+	nonce?: string;
+	content?: string;
+	embed?: MessageEmbed;
+	disableEveryone?: boolean;
+	files?: Array<MessageAttachment>;
 }

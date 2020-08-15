@@ -10,6 +10,7 @@ class Message {
 		this.client = client;
 		this.id = data.id;
 
+		const MessageEmbed = require("./MessageEmbed");
 		const PartalGuild = require("./Partial/PartialGuild");
 		const PartialChannel = require("./Partial/PartialChannel"); // lazy load
 
@@ -23,7 +24,7 @@ class Message {
 		this.content = data.content || "";
 		this.editedAt = data.edited_timestamp ? new Date(data.edited_timestamp) : null;
 		this.editedTimestamp = this.editedAt ? this.editedAt.getTime() : null;
-		this.embeds = data.embeds;
+		this.embeds = data.embeds && data.embeds.length > 0 ? data.embeds.map(embed => new MessageEmbed(embed, true)) : [];
 		this.flags = data.flags;
 		this.createdAt = new Date(data.timestamp);
 		this.createdTimestamp = this.createdAt.getTime();
@@ -38,11 +39,12 @@ class Message {
 		return this.content;
 	}
 	/**
-	 * @param {string} content
-	 * @param {*} options
+	 * @param {import("../typings/index").StringResolvable} content
+	 * @param {import("../typings/index").MessageOptions} [options]
 	 */
-	async edit(content, options) {
-		const msg = await this.client._snow.channel.editMessage(this.channel.id, this.id, content);
+	async edit(content, options = {}) {
+		const TextBasedChannel = require("./Interfaces/TextBasedChannel");
+		const msg = await this.client._snow.channel.editMessage(this.channel.id, this.id, TextBasedChannel.transform(content, options, true), { disableEveryone: options.disableEveryone || false });
 		if (this.guild) msg.guild_id = this.guild.id;
 		return new Message(msg, this.client);
 	}
