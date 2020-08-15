@@ -5,6 +5,8 @@ class Channel {
 	 */
 	constructor(data, client) {
 		this.client = client;
+		/** @type {false} */
+		this.partial = false;
 
 		this.id = data.id;
 		this.name = data.name;

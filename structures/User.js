@@ -1,3 +1,5 @@
+const TextBasedChannel = require("./Interfaces/TextBasedChannel");
+
 const Constants = require("../constants");
 
 class User {
@@ -7,6 +9,8 @@ class User {
 	 */
 	constructor(data, client) {
 		this.client = client;
+		/** @type {false} */
+		this.partial = false;
 
 		this.username = data.username;
 		this.discriminator = data.discriminator;
@@ -19,6 +23,12 @@ class User {
 	get tag() {
 		return `${this.username}#${this.discriminator}`;
 	}
+	get defaultAvatarURL() {
+		return `${Constants.BASE_CDN_URL}/embed/avatars/${Number(this.discriminator) % 5}.png`;
+	}
+	toString() {
+		return `<@${this.id}>`;
+	}
 	avatarURL(options = { size: 128, format: "png", dynamic: true }) {
 		if (!this.avatar) return null;
 		let format = this.avatar.startsWith("a_") && options.dynamic ? "gif" : options.format;
@@ -28,8 +38,12 @@ class User {
 		if (!this.avatar) return this.defaultAvatarURL;
 		else return this.avatarURL(options);
 	}
-	get defaultAvatarURL() {
-		return `${Constants.BASE_CDN_URL}/embed/avatars/${Number(this.discriminator) % 5}.png`;
+	/**
+	 * @param {string} content
+	 * @param {*} options
+	 */
+	send(content, options) {
+		return TextBasedChannel.send(this, content, options);
 	}
 }
 

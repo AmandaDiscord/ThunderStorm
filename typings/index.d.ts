@@ -19,6 +19,10 @@ export import User = require("../structures/User");
 export import VoiceChannel = require("../structures/VoiceChannel");
 export import VoiceState = require("../structures/VoiceState");
 
+export import PartialChannel = require("./structures/Partial/PartialChannel");
+export import PartialGuild = require("./structures/Partial/PartialGuild");
+export import PartialUser = require("./structures/Partial/PartialUser");
+
 export interface ClientEvents {
 	channelCreate: [DMChannel | TextChannel | VoiceChannel | CategoryChannel | NewsChannel];
 	channelPinsUpdate: [];

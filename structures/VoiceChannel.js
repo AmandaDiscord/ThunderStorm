@@ -7,6 +7,9 @@ class VoiceChannel extends Channel {
 	 */
 	constructor(data, client) {
 		super(data, client);
+
+		this.bitrate = data.bitrate || 8;
+		this.userLimit = data.user_limit || 0;
 	}
 }
 

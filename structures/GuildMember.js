@@ -1,3 +1,5 @@
+const TextBasedChannel = require("./Interfaces/TextBasedChannel");
+
 const User = require("./User");
 
 class GuildMember {
@@ -7,6 +9,8 @@ class GuildMember {
 	 */
 	constructor(data, client) {
 		this.client = client;
+		/** @type {false} */
+		this.partial = false;
 
 		this.user = new User(data.user, client);
 		this.id = data.user.id;
@@ -18,6 +22,13 @@ class GuildMember {
 	}
 	get displayName() {
 		return this.nickname || this.user.username
+	}
+	/**
+	 * @param {string} content
+	 * @param {*} options
+	 */
+	send(content, options) {
+		return TextBasedChannel.send(this, content, options);
 	}
 }
 

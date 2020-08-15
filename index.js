@@ -1,3 +1,8 @@
+const PartialBase = require("./structures/Partial/PartialBase");
+const PartialChannel = require("./structures/Partial/PartialChannel");
+const PartialGuild = require("./structures/Partial/PartialGuild");
+const PartialUser = require("./structures/Partial/PartialUser");
+
 const CategoryChannel = require("./structures/CategoryChannel");
 const Channel = require("./structures/Channel");
 const Client = require("./structures/Client");
@@ -30,6 +35,11 @@ module.exports = {
 	User,
 	VoiceChannel,
 	VoiceState,
+
+	PartialBase,
+	PartialChannel,
+	PartialGuild,
+	PartialUser,
 
 	handle
 }

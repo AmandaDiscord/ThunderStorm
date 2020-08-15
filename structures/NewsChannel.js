@@ -1,3 +1,5 @@
+const TextBasedChannel = require("./Interfaces/TextBasedChannel");
+
 const GuildChannel = require("./GuildChannel");
 
 class NewsChannel extends GuildChannel {
@@ -7,6 +9,13 @@ class NewsChannel extends GuildChannel {
 	 */
 	constructor(data, client) {
 		super(data, client);
+	}
+	/**
+	 * @param {string} content
+	 * @param {*} options
+	 */
+	send(content, options) {
+		return TextBasedChannel.send(this, content, options);
 	}
 }
 

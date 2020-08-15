@@ -1,3 +1,5 @@
+const TextBasedChannel = require("./Interfaces/TextBasedChannel");
+
 const GuildChannel = require("./GuildChannel");
 
 class TextChannel extends GuildChannel {
@@ -7,6 +9,20 @@ class TextChannel extends GuildChannel {
 	 */
 	constructor(data, client) {
 		super(data, client);
+
+		this.lastMessageID = data.last_message_id || null;
+		this.lastPinAt = data.last_pin_timestamp ? new Date(data.last_pin_timestamp) : null;
+		this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
+		this.nsfw = data.nsfw || false;
+		this.rateLimitPerUser = data.rate_limit_per_user || 0;
+		this.topic = data.topic || "";
+	}
+	/**
+	 * @param {string} content
+	 * @param {*} options
+	 */
+	send(content, options) {
+		return TextBasedChannel.send(this, content, options);
 	}
 }
 
