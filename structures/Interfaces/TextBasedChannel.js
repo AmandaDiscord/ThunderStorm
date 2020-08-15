@@ -27,7 +27,7 @@ async function send(instance, content, options = {}) {
 	if (mode == "user") ID = await instance.client._snow.user.createDirectMessageChannel(instance.id).then(chan => chan.id || chan.Id);
 	else ID = instance.id;
 
-	const msg = await instance.client._snow.channel.createMessage(ID, payload, { disableEveryone: options.disableEveryone || false });
+	const msg = await instance.client._snow.channel.createMessage(ID, payload, { disableEveryone: options.disableEveryone || instance.client._snow.options.disableEveryone || false });
 	return new Message(msg, instance.client);
 }
 
