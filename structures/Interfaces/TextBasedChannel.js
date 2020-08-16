@@ -32,6 +32,40 @@ async function send(instance, content, options = {}) {
 }
 
 /**
+ * @param {import("../../typings/index").Client} client
+ * @param {string} channelID
+ * @param {string} messageID
+ * @param {number} [timeout]
+ * @returns {Promise<void>}
+ */
+function deleteMessage(client, channelID, messageID, timeout = 0) {
+	return new Promise((res, rej) => {
+		const action = async () => {
+			await client._snow.channel.deleteMessage(channelID, messageID).catch(rej);
+			return;
+		}
+		if (timeout) {
+			setTimeout(async () => {
+				return res(action());
+			}, timeout);
+		} else {
+			res(action());
+		}
+	});
+}
+
+/**
+ * @param {import("../../typings/index").Client} client
+ * @param {string} channelID
+ * @param {string} messageID
+ */
+function fetchMessage(client, channelID, messageID) {
+	const Message = require("../Message"); // lazy load
+
+	return client._snow.channel.getChannelMessage(channelID, messageID).then(data => new Message(data, client));
+}
+
+/**
  * @param {import("../../typings/index").StringResolvable} content
  * @param {import("../../typings/index").MessageOptions} [options]
  * @param {boolean} [isEdit]
@@ -87,5 +121,7 @@ function transform(content, options = {}, isEdit = false) {
 
 module.exports = {
 	send,
+	deleteMessage,
+	fetchMessage,
 	transform
 }

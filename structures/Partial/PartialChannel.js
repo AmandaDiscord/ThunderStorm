@@ -33,6 +33,19 @@ class PartialChannel extends PartialBase {
 		return TextBasedChannel.send(this, content, options);
 	}
 	/**
+	 * @param {string} messageID
+	 * @param {number} [timeout]
+	 */
+	async deleteMessage(messageID, timeout = 0) {
+		await TextBasedChannel.deleteMessage(this.client, this.id, messageID, timeout);
+	}
+	/**
+	 * @param {string} messageID
+	 */
+	fetchMessage(messageID) {
+		return TextBasedChannel.fetchMessage(this.client, this.id, messageID);
+	}
+	/**
 	 * @returns {Promise<CategoryChannel | DMChannel | NewsChannel | TextChannel | VoiceChannel>}
 	 */
 	fetch() {

@@ -53,20 +53,44 @@ class Message {
 	 * @returns {Promise<this>}
 	 */
 	async delete(timeout = 0) {
-		const value = this;
-		return new Promise((res, rej) => {
-			const action = async () => {
-				await this.client._snow.channel.deleteMessage(this.channel.id, this.id).catch(rej);
-				return value;
-			}
-			if (timeout) {
-				setTimeout(async () => {
-					return res(action());
-				}, timeout);
-			} else {
-				res(action());
-			}
-		});
+		const TextBasedChannel = require("./Interfaces/TextBasedChannel");
+		await TextBasedChannel.deleteMessage(this.client, this.channel.id, this.id, timeout);
+		return this;
+	}
+	/**
+	 * @param {string} emoji
+	 */
+	async react(emoji) {
+		if (emoji.match(/^\d+$/)) throw new TypeError("The reaction provided must be in name:id format");
+		const ceregex = /<?a?:?(\w+):(\d+)>?/;
+		let value;
+		const match = emoji.match(ceregex);
+		if (match) value = `${match[1]}:${match[2]}`;
+		else value = emoji;
+		await this.client._snow.channel.createReaction(this.channel.id, this.id, encodeURIComponent(value));
+		return this;
+	}
+	/**
+	 * @param {string | User | GuildMember | import("./Partial/PartialUser")} user
+	 * @param {string} emoji
+	 */
+	async deleteReaction(user, emoji) {
+		if (emoji.match(/^\d+$/)) throw new TypeError("The reaction provided must be in name:id format");
+		const ceregex = /<?a?:?(\w+):(\d+)>?/;
+		let value;
+		const match = emoji.match(ceregex);
+		if (match) value = `${match[1]}:${match[2]}`;
+		else value = emoji;
+		let userID;
+		if (typeof user === "string") userID = user;
+		else userID = user.id;
+		if (userID === this.client.user.id) await this.client._snow.channel.deleteReactionSelf(this.channel.id, this.id, encodeURIComponent(value));
+		else await this.client._snow.channel.deleteReaction(this.channel.id, this.id, encodeURIComponent(value), userID);
+		return this;
+	}
+	async clearReactions() {
+		await this.client._snow.channel.deleteAllReactions(this.channel.id, this.id);
+		return this;
 	}
 }
 

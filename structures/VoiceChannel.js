@@ -1,6 +1,6 @@
-const Channel = require("./Channel");
+const GuildChannel = require("./GuildChannel");
 
-class VoiceChannel extends Channel {
+class VoiceChannel extends GuildChannel {
 	/**
 	 * @param {import("../typings/internal").VoiceChannelData} data
 	 * @param {import("../typings/index").Client} client
