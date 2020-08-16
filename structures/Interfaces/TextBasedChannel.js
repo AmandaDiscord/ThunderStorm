@@ -16,8 +16,8 @@ async function send(instance, content, options = {}) {
 	let mode, payload = transform(content, options);
 
 	if (instance instanceof PartialBase) {
-		if (instance.type == "Channel") mode = "channel";
-		if (instance.type == "User") mode = "user";
+		if (instance.partialType == "Channel") mode = "channel";
+		if (instance.partialType == "User") mode = "user";
 	} else if (instance instanceof Channel) mode = "channel";
 	else if (instance instanceof User) mode = "user";
 	else if (instance instanceof GuildMember) mode = "user";
