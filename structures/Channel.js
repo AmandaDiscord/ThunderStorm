@@ -1,6 +1,6 @@
 class Channel {
 	/**
-	 * @param {import("../typings/internal").ChannelData} data
+	 * @param {import("@amanda/discordtypings").ChannelData} data
 	 * @param {import("../typings/index").Client} client
 	 */
 	constructor(data, client) {

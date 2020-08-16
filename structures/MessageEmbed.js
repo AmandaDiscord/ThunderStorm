@@ -141,14 +141,14 @@ class MessageEmbed {
 	/**
 	 * @name MessageEmbed
 	 * @kind constructor
-	 * @param {import("../typings/internal").EmbedData} [data={}] MessageEmbed to clone or raw embed data
+	 * @param {import("@amanda/discordtypings").EmbedData} [data={}] MessageEmbed to clone or raw embed data
 	 */
 	constructor(data = {}, skipValidation = false) {
 		this.setup(data, skipValidation);
 	}
 
 	/**
-	 * @param {import("../typings/internal").EmbedData} data
+	 * @param {import("@amanda/discordtypings").EmbedData} data
 	 * @param {boolean} skipValidation
 	 */
 	setup(data, skipValidation) {

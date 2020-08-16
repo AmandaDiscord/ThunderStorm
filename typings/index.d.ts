@@ -2,6 +2,7 @@ import { EventEmitter } from "events";
 import "snowtransfer";
 
 import Internal = require("./internal");
+import Discord = require("@amanda/discordtypings");
 
 export import handle = require("../handle");
 
@@ -32,11 +33,11 @@ export interface ClientEvents {
 	guildCreate: [Guild];
 	guildEmojisUpdate: [];
 	message: [Message];
-	messageDelete: [Internal.MessageDeleteData];
+	messageDelete: [Discord.MessageDeleteData];
 	messageUpdate: [Message];
-	messageReactionAdd: [Internal.MessageReactionAddData];
-	messageReactionRemove: [Internal.MessageReactionRemoveData];
-	messageReactionRemoveAll: [Internal.MessageReactionRemoveAllData];
+	messageReactionAdd: [Discord.MessageReactionAddData];
+	messageReactionRemove: [Discord.MessageReactionRemoveData];
+	messageReactionRemoveAll: [Discord.MessageReactionRemoveAllData];
 	raw: [Internal.InboundDataType<keyof Internal.CloudStormEventDataTable>];
 	ready: [ClientUser];
 	shardReady: [number];

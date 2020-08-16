@@ -2,7 +2,7 @@ const GuildChannel = require("./GuildChannel");
 
 class VoiceChannel extends GuildChannel {
 	/**
-	 * @param {import("../typings/internal").VoiceChannelData} data
+	 * @param {import("@amanda/discordtypings").VoiceChannelData} data
 	 * @param {import("../typings/index").Client} client
 	 */
 	constructor(data, client) {

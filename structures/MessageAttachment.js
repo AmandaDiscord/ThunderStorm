@@ -96,7 +96,7 @@ class MessageAttachment {
 	_patch(data) {
 		/**
 		 * The ID of this attachment
-		 * @type {import("../typings/internal").Snowflake}
+		 * @type {import("@amanda/discordtypings").Snowflake}
 		 */
 		this.id = data.id;
 

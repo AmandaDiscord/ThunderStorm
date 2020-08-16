@@ -2,7 +2,7 @@ const GuildMember = require("./GuildMember");
 
 class VoiceState {
 	/**
-	 * @param {import("../typings/internal").VoiceStateData} data
+	 * @param {import("@amanda/discordtypings").VoiceStateData} data
 	 * @param {import("../typings/index").Client} client
 	 */
 	constructor(data, client) {

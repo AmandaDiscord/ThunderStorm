@@ -4,7 +4,7 @@ const Constants = require("../constants");
 
 class User {
 	/**
-	 * @param {import("../typings/internal").UserData} data
+	 * @param {import("@amanda/discordtypings").UserData} data
 	 * @param {import("../typings/index").Client} client
 	 */
 	constructor(data, client) {

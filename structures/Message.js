@@ -3,7 +3,7 @@ const GuildMember = require("./GuildMember");
 
 class Message {
 	/**
-	 * @param {import("../typings/internal").MessageData} data
+	 * @param {import("@amanda/discordtypings").MessageData} data
 	 * @param {import("../typings/index").Client} client
 	 */
 	constructor(data, client) {

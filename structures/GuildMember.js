@@ -4,7 +4,7 @@ const User = require("./User");
 
 class GuildMember {
 	/**
-	 * @param {import("../typings/internal").MemberData & { user: import("../typings/internal").UserData }} data
+	 * @param {import("@amanda/discordtypings").MemberData & { user: import("@amanda/discordtypings").UserData }} data
 	 * @param {import("../typings/index").Client} client
 	 */
 	constructor(data, client) {

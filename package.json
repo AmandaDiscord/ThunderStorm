@@ -17,6 +17,7 @@
   "author": "PapiOphidian",
   "license": "MIT",
   "dependencies": {
+    "@amanda/discordtypings": "github:AmandaDiscord/DiscordTypings",
     "snowtransfer": "github:AmandaDiscord/SnowTransfer"
   }
 }

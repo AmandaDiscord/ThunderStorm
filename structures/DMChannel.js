@@ -5,7 +5,7 @@ const User = require("./User");
 
 class DMChannel extends Channel {
 	/**
-	 * @param {import("../typings/internal").DMChannelData} data
+	 * @param {import("@amanda/discordtypings").DMChannelData} data
 	 * @param {import("../typings/index").Client} client
 	 */
 	constructor(data, client) {
