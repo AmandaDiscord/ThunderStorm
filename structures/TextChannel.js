@@ -16,6 +16,8 @@ class TextChannel extends GuildChannel {
 		this.nsfw = data.nsfw || false;
 		this.rateLimitPerUser = data.rate_limit_per_user || 0;
 		this.topic = data.topic || "";
+		/** @type {"text"} */
+		this.type = "text";
 	}
 	/**
 	 * @param {import("../typings/index").StringResolvable} content

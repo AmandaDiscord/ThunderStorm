@@ -9,6 +9,9 @@ class NewsChannel extends GuildChannel {
 	 */
 	constructor(data, client) {
 		super(data, client);
+
+		/** @type {"news"} */
+		this.type = "news";
 	}
 	/**
 	 * @param {import("../typings/index").StringResolvable} content

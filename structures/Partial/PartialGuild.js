@@ -11,7 +11,7 @@ class PartialGuild extends PartialBase {
 		super(data, client);
 
 		/** @type {"Guild"} */
-		this.type = "Guild";
+		this.partialType = "Guild";
 		this.memberCount = data.number || 0;
 	}
 	/**

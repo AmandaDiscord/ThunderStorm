@@ -23,15 +23,15 @@ class Guild {
 		this.ownerID = data.owner_id;
 		this.owner = new PartialUser({ id: data.owner_id }, client);
 
-		this.members = new Map(data.members.map(member => [member.user.id, new GuildMember(member, client)]));
-		this.channels = new Map(data.channels.map(channel => {
+		this.members = data.members ? new Map(data.members.map(member => [member.user.id, new GuildMember(member, client)])) : new Map();
+		this.channels = data.channels? new Map(data.channels.map(channel => {
 			let chan;
 			if (channel.type === 0) chan = new TextChannel(channel, client);
 			else if (channel.type === 2) chan = new VoiceChannel(channel, client);
 			else if (channel.type === 4) chan = new CategoryChannel(channel, client);
 			else if (channel.type === 5) chan = new NewsChannel(channel, client);
 			return [channel.id, chan];
-		}));
+		})) : new Map();
 	}
 }
 

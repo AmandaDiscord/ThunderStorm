@@ -10,6 +10,8 @@ class VoiceChannel extends Channel {
 
 		this.bitrate = data.bitrate || 8;
 		this.userLimit = data.user_limit || 0;
+		/** @type {"voice"} */
+		this.type = "voice";
 	}
 }
 

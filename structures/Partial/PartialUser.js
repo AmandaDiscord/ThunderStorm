@@ -13,7 +13,7 @@ class PartialUser extends PartialBase {
 		super(data, client);
 
 		/** @type {"User"} */
-		this.type = "User";
+		this.partialType = "User";
 	}
 	toString() {
 		return `<@${this.id}>`;

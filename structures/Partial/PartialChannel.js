@@ -18,8 +18,9 @@ class PartialChannel extends PartialBase {
 		super(data, client);
 
 		/** @type {"Channel"} */
-		this.type = "Channel";
+		this.partialType = "Channel";
 		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
+		this.type = "unkown";
 	}
 	toString() {
 		return `<#${this.id}>`;

@@ -7,6 +7,9 @@ class CategoryChannel extends GuildChannel {
 	 */
 	constructor(data, client) {
 		super(data, client);
+
+		/** @type {"category"} */
+		this.type = "category";
 	}
 }
 

@@ -10,7 +10,7 @@ class Channel {
 
 		this.id = data.id;
 		this.name = data.name;
-		this.type = null;
+		this.type = "unknown";
 	}
 	toString() {
 		return `<#${this.id}>`;
