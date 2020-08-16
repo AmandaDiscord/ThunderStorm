@@ -10,6 +10,7 @@ class CategoryChannel extends GuildChannel {
 
 		/** @type {"category"} */
 		this.type = "category";
+		this.nsfw = data.nsfw || false;
 	}
 }
 

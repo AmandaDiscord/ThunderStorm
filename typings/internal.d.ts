@@ -143,7 +143,7 @@ export type UserData = {
 	avatar: string;
 	discriminator: string;
 	id: Snowflake;
-	public_flags: number;
+	public_flags?: number;
 	username: string;
 	bot?: boolean;
 	system?: boolean;

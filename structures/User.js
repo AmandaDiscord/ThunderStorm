@@ -17,7 +17,7 @@ class User {
 		this.bot = data.bot || false;
 		this.id = data.id;
 		this.avatar = data.avatar || null;
-		this.flags = data.public_flags;
+		this.flags = data.public_flags || 0;
 		this.system = data.system || false;
 	}
 	get tag() {

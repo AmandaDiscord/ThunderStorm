@@ -21,6 +21,14 @@ class Client extends EventEmitter {
 	toString() {
 		return this.user ? `<@${this.user.id}>` : "Client";
 	}
+	/**
+	 * @param {string} userID
+	 */
+	fetchUser(userID) {
+		const User = require("./User");
+		// @ts-ignore
+		return this._snow.user.getUser(userID).then(user => new User(user, this));
+	}
 }
 
 module.exports = Client;
