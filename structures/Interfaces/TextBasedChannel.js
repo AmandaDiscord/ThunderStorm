@@ -69,35 +69,29 @@ function fetchMessage(client, channelID, messageID) {
  * @param {import("../../typings/index").StringResolvable} content
  * @param {import("../../typings/index").MessageOptions} [options]
  * @param {boolean} [isEdit]
- * @returns {{ content?: ?string, embeds?: Array<any>, nonce?: string, tts?: boolean, files?: Array<any> }}
+ * @returns {{ content?: ?string, embeds?: Array<any>, nonce?: string, tts?: boolean, file?: any }}
  */
 function transform(content, options = {}, isEdit = false) {
 	const MessageEmbed = require("../MessageEmbed");
-	const MessageAttachment = require("../MessageAttachment");
 
 	let payload = {};
 
 	if (isObject(content) && !Array.isArray(content) && (content.content || content.embed || content.nonce || content.tts || content.file)) {
-		options = content;
+		if (content.attachment) options.file = content
+		else options = content;
 		content = undefined;
 	} else if (content instanceof MessageEmbed) {
 		options.embed = content;
 		content = undefined;
-	} else if (content instanceof MessageAttachment) {
-		options.files = [content];
-		content = undefined;
 	} else if (Array.isArray(content)) {
-		 if (content.every(item => item instanceof MessageAttachment)) {
-			options.files = content;
-			content = undefined;
-		} else content = content.join("\n");
+		content = content.join("\n");
 	} else content = String(content);
 
 	payload["content"] = options.content || content || "";
 	payload["embed"] = options.embed ? options.embed.toJSON() : undefined;
 	payload["nonce"] = options.nonce;
 	payload["tts"] = options.tts || false;
-	payload["files"] = options.files ? options.files.map(file => file.toJSON()) : undefined;
+	payload["file"] = options.file ? { name: options.file.name || "file.png", file: options.file.attachment } : undefined;
 
 	if (isEdit && !payload["content"]) payload["content"] = null;
 
@@ -105,7 +99,7 @@ function transform(content, options = {}, isEdit = false) {
 	if (!payload["embed"]) delete payload["embed"];
 	if (!payload["nonce"]) delete payload["nonce"];
 	if (!payload["tts"]) delete payload["tts"];
-	if (!payload["files"]) delete payload["files"];
+	if (!payload["file"]) delete payload["file"];
 
 	if (payload["embed"]) {
 		delete payload["embed"]["type"];

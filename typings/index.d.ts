@@ -89,5 +89,5 @@ export type MessageOptions = {
 	content?: string;
 	embed?: MessageEmbed;
 	disableEveryone?: boolean;
-	files?: Array<MessageAttachment>;
+	file?: MessageAttachment;
 }
