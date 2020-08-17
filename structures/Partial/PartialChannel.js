@@ -45,6 +45,9 @@ class PartialChannel extends PartialBase {
 	fetchMessage(messageID) {
 		return TextBasedChannel.fetchMessage(this.client, this.id, messageID);
 	}
+	sendTyping() {
+		return TextBasedChannel.sendTyping(this.client, this.id);
+	}
 	/**
 	 * @returns {Promise<CategoryChannel | DMChannel | NewsChannel | TextChannel | VoiceChannel>}
 	 */

@@ -119,8 +119,17 @@ function transform(content, options = {}, isEdit = false) {
 	return payload;
 }
 
+/**
+ * @param {import("../../typings/index").Client} client
+ * @param {string} channelID
+ */
+function sendTyping(client, channelID) {
+	return client._snow.channel.startChannelTyping(channelID);
+}
+
 module.exports = {
 	send,
+	sendTyping,
 	deleteMessage,
 	fetchMessage,
 	transform
