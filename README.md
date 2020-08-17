@@ -1,15 +1,15 @@
 # ThunderStorm
 My cats don't like it when they hear the thunder.
 
-ThunderStorm is a work in progress library to act as a sort of compatibility layer between WeatherStack modules and bot codebases which are based off Discord.js.
+ThunderStorm is a work in progress library to act as a sort of compatibility layer between WeatherStack modules and bot codebases which are based off Discord.js. This library could qualify as Rest only since it does not internally cache objects
 
 This library is originally meant to just be used by AmandaDiscord so features from Discord.js may not get added as they are released but compatibility with the Discord API will continue to be supported for the forseeable future.
 
 # Why?
-Well. A minimal amount of data is cached so memory usage will be significantly lower than managed libs. The data closely resembles a managed lib but working around not having much data will be a challenge. There is also the added benefit of helping you understand what your client actually needs cached and what it doesn't.
+Well, virtually nothing is cached internally, so memory usage will be significantly lower than libs with internally managed caches. The structures try to closely resemble Discord.js but working around not having access to Gateway actions or cache makes it very limited. There is also the added benefit of helping you understand what your client actually needs cached and what it doesn't.
 
 # Getting Started
-Currently ThunderStorm is based off Discord.js prior to the Manager PR. Managers will be implemented eventually but this project is very new.
+Currently ThunderStorm is based off Discord.js prior to the Manager PR. Managers *might* get implemented eventually but this project is very new.
 
 ## What You Need
 You need to install these libs:
