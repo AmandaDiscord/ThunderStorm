@@ -5,6 +5,7 @@ import Internal = require("./internal");
 import Discord = require("@amanda/discordtypings");
 
 export import handle = require("../handle");
+export import Constants = require("../constants");
 
 export import CategoryChannel = require("../structures/CategoryChannel");
 export import Channel = require("../structures/Channel");
