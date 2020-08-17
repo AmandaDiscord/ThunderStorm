@@ -63,6 +63,10 @@ export class Client extends EventEmitter {
 	public on<E extends keyof ClientEvents>(event: E, handler: (...args: ClientEvents[E]) => any): any;
 	public once<E extends keyof ClientEvents>(event: E, handler: (...args: ClientEvents[E]) => any): any;
 	public emit<E extends keyof ClientEvents>(event: E, ...args: ClientEvents[E]): any;
+
+	public toString(): string;
+
+	public fetchUser(userID: string): Promise<User>;
 }
 
 /**
