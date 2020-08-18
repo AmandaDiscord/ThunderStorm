@@ -21,6 +21,12 @@ class PartialGuild extends PartialBase {
 		// @ts-ignore
 		return super.fetch();
 	}
+	toJSON() {
+		return {
+			member_count: this.memberCount,
+			...super.toJSON()
+		}
+	}
 	/**
 	 * @param {string | { ids?: Array<string>, query?: string, limit?: number, after?: string }} options
 	 */
