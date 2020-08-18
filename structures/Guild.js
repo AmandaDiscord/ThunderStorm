@@ -22,6 +22,7 @@ class Guild {
 		this.memberCount = data.member_count || 0;
 		this.ownerID = data.owner_id;
 		this.owner = new PartialUser({ id: data.owner_id }, client);
+		this.region = data.region;
 
 		this.members = data.members ? new Map(data.members.map(member => [member.user.id, new GuildMember(member, client)])) : new Map();
 		this.channels = data.channels? new Map(data.channels.map(channel => {
