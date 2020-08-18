@@ -18,6 +18,11 @@ class PartialUser extends PartialBase {
 	toString() {
 		return `<@${this.id}>`;
 	}
+	toJSON() {
+		return {
+			id: this.id
+		}
+	}
 	/**
 	 * @param {import("../../typings/index").StringResolvable} content
 	 * @param {import("../../typings/index").MessageOptions} [options]

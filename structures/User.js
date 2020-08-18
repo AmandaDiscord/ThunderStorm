@@ -29,6 +29,16 @@ class User {
 	toString() {
 		return `<@${this.id}>`;
 	}
+	toJSON() {
+		return {
+			username: this.username,
+			discriminator: this.discriminator,
+			bot: this.bot,
+			id: this.id,
+			avatar: this.avatar,
+			public_flags: this.flags,
+		}
+	}
 	avatarURL(options = { size: 128, format: "png", dynamic: true }) {
 		if (!this.avatar) return null;
 		let format = this.avatar.startsWith("a_") && options.dynamic ? "gif" : options.format;
