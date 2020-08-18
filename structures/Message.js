@@ -34,6 +34,7 @@ class Message {
 		this.tts = data.tts;
 		this.type = data.type;
 		this.system = this.author && this.author.system ? true : false;
+		this.webhookID = data.webhook_id || null;
 	}
 	toString() {
 		return this.content;
