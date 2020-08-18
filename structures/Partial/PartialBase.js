@@ -21,6 +21,11 @@ class PartialBase {
 
 		this.id = data.id;
 	}
+	toJSON() {
+		return {
+			id: this.id
+		}
+	}
 	async fetch() {
 		let data;
 

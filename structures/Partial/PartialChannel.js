@@ -19,11 +19,19 @@ class PartialChannel extends PartialBase {
 
 		/** @type {"Channel"} */
 		this.partialType = "Channel";
+		/** @type {?PartialGuild} */
 		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
 		this.type = "unkown";
 	}
 	toString() {
 		return `<#${this.id}>`;
+	}
+	toJSON() {
+		return {
+			/** @type {?string} */
+			guild_id: this.guild ? this.guild.id : null,
+			...super.toJSON()
+		}
 	}
 	/**
 	 * @param {import("../../typings/index").StringResolvable} content

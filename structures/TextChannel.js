@@ -19,6 +19,17 @@ class TextChannel extends GuildChannel {
 		/** @type {"text"} */
 		this.type = "text";
 	}
+	toJSON() {
+		return {
+			last_message_id: this.lastMessageID,
+			last_pin_timestamp: this.lastPinTimestamp,
+			nsfw: this.nsfw,
+			rate_limit_per_user: this.rateLimitPerUser,
+			topic: this.topic,
+			type: 0,
+			...super.toJSON()
+		}
+	}
 	/**
 	 * @param {import("../typings/index").StringResolvable} content
 	 * @param {import("../typings/index").MessageOptions} [options]

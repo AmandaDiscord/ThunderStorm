@@ -13,6 +13,14 @@ class VoiceChannel extends GuildChannel {
 		/** @type {"voice"} */
 		this.type = "voice";
 	}
+	toJSON() {
+		return {
+			bitrate: this.bitrate,
+			user_limit: this.userLimit,
+			type: 2,
+			...super.toJSON()
+		}
+	}
 }
 
 module.exports = VoiceChannel;

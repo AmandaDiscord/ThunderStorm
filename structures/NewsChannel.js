@@ -20,6 +20,12 @@ class NewsChannel extends GuildChannel {
 	send(content, options = {}) {
 		return TextBasedChannel.send(this, content, options);
 	}
+	toJSON() {
+		return {
+			type: 5,
+			...super.toJSON()
+		}
+	}
 	sendTyping() {
 		return TextBasedChannel.sendTyping(this.client, this.id);
 	}

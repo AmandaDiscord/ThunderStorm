@@ -19,6 +19,15 @@ class DMChannel extends Channel {
 		/** @type {"dm"} */
 		this.type = "dm";
 	}
+	toJSON() {
+		return {
+			last_message_id: this.lastMessageID,
+			last_pin_timestamp: this.lastPinAt,
+			recipients: [...this.recipients.values()].map(u => u.toJSON()),
+			type: 1,
+			...super.toJSON()
+		}
+	}
 	/**
 	 * @param {import("../typings/index").StringResolvable} content
 	 * @param {import("../typings/index").MessageOptions} [options]

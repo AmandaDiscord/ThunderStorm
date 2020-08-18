@@ -10,6 +10,15 @@ class GuildChannel extends Channel {
 
 		this.parentID = data.parent_id || null;
 		this.position = data.position;
+		this.guildID = data.guild_id || "";
+	}
+	toJSON() {
+		return {
+			guild_id: this.guildID,
+			parent_id: this.parentID,
+			position: this.position,
+			...super.toJSON()
+		}
 	}
 }
 

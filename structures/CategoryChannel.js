@@ -12,6 +12,13 @@ class CategoryChannel extends GuildChannel {
 		this.type = "category";
 		this.nsfw = data.nsfw || false;
 	}
+	toJSON() {
+		return {
+			type: 4,
+			nsfw: this.nsfw,
+			...super.toJSON()
+		}
+	}
 }
 
 module.exports = CategoryChannel;

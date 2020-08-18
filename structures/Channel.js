@@ -15,6 +15,12 @@ class Channel {
 	toString() {
 		return `<#${this.id}>`;
 	}
+	toJSON() {
+		return {
+			id: this.id,
+			name: this.id
+		}
+	}
 }
 
 module.exports = Channel;
