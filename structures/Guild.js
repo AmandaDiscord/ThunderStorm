@@ -3,6 +3,7 @@ const CategoryChannel = require("./CategoryChannel");
 const NewsChannel = require("./NewsChannel");
 const TextChannel = require("./TextChannel");
 const VoiceChannel = require("./VoiceChannel");
+const { GuildChannel } = require("../typings");
 
 class Guild {
 	/**
@@ -24,7 +25,13 @@ class Guild {
 		this.owner = new PartialUser({ id: data.owner_id }, client);
 		this.region = data.region;
 
+		/**
+		 * @type {Map<string, GuildMember>}
+		 */
 		this.members = data.members ? new Map(data.members.map(member => [member.user.id, new GuildMember(member, client)])) : new Map();
+		/**
+		 * @type {Map<string, GuildChannel>}
+		 */
 		this.channels = data.channels? new Map(data.channels.map(channel => {
 			let chan;
 			if (channel.type === 0) chan = new TextChannel(channel, client);
@@ -33,6 +40,18 @@ class Guild {
 			else if (channel.type === 5) chan = new NewsChannel(channel, client);
 			return [channel.id, chan];
 		})) : new Map();
+	}
+	toJSON() {
+		return {
+			name: this.name,
+			id: this.id,
+			unavailable: !this.available,
+			member_count: this.memberCount,
+			owner_id: this.ownerID,
+			region: this.region,
+			members: [...this.members.values()].map(mem => mem.toJSON()),
+			channels: [...this.channels.values()].map(chan => chan.toJSON())
+		}
 	}
 	/**
 	 * @param {string | { ids?: Array<string>, query?: string, limit?: number, after?: string }} options
