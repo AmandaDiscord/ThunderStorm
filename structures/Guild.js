@@ -3,7 +3,6 @@ const CategoryChannel = require("./CategoryChannel");
 const NewsChannel = require("./NewsChannel");
 const TextChannel = require("./TextChannel");
 const VoiceChannel = require("./VoiceChannel");
-const { GuildChannel } = require("../typings");
 
 class Guild {
 	/**
@@ -30,7 +29,7 @@ class Guild {
 		 */
 		this.members = data.members ? new Map(data.members.map(member => [member.user.id, new GuildMember(member, client)])) : new Map();
 		/**
-		 * @type {Map<string, GuildChannel>}
+		 * @type {Map<string, import("../typings/index").GuildChannel>}
 		 */
 		this.channels = data.channels? new Map(data.channels.map(channel => {
 			let chan;
