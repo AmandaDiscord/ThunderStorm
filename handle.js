@@ -18,10 +18,9 @@ const PartialRole = require("./structures/Partial/PartialRole");
  * @param {import("./typings/index").Client} client
  */
 function handle(data, client) {
-	if (!client.user) return;
-	client.emit(Constants.CLIENT_ONLY_EVENTS.EVENT, data);
 
 	if (data.t === "READY") {
+		client.emit(Constants.CLIENT_ONLY_EVENTS.EVENT, data);
 		/** @type {InboundDataType<"READY">} */
 		// @ts-ignore
 		const typed = data;
@@ -29,7 +28,10 @@ function handle(data, client) {
 		client.emit(Constants.CLIENT_ONLY_EVENTS.READY, client.user);
 	}
 
-	else if (data.t === "GUILD_CREATE") {
+	if (!client.user) return;
+	if (data.t !== "READY") client.emit(Constants.CLIENT_ONLY_EVENTS.EVENT, data);
+
+	if (data.t === "GUILD_CREATE") {
 		/** @type {InboundDataType<"GUILD_CREATE">} */
 		// @ts-ignore
 		const typed = data;
