@@ -9,12 +9,16 @@ const Message = require("./structures/Message");
 const TextChannel = require("./structures/TextChannel");
 const VoiceChannel = require("./structures/VoiceChannel");
 const VoiceState = require("./structures/VoiceState");
+const Role = require("./structures/Role");
+
+const PartialRole = require("./structures/Partial/PartialRole");
 
 /**
  * @param {InboundDataType<keyof import("./typings/internal").CloudStormEventDataTable>} data
  * @param {import("./typings/index").Client} client
  */
 function handle(data, client) {
+	if (!client.user) return;
 	client.emit(Constants.CLIENT_ONLY_EVENTS.EVENT, data);
 
 	if (data.t === "READY") {
@@ -103,6 +107,27 @@ function handle(data, client) {
 		const typed = data;
 		// @ts-ignore
 		client.emit(Constants.EVENTS.GUILD_MEMBER_UPDATE, new GuildMember(typed.d, client))
+	}
+
+	else if (data.t === "GUILD_ROLE_CREATE") {
+		/** @type {InboundDataType<"GUILD_ROLE_CREATE">} */
+		// @ts-ignore
+		const typed = data;
+		client.emit(Constants.EVENTS.GUILD_ROLE_CREATE, new Role({ guild_id: typed.d.guild_id, ...typed.d.role }, client));
+	}
+
+	else if (data.t === "GUILD_ROLE_UPDATE") {
+		/** @type {InboundDataType<"GUILD_ROLE_UPDATE">} */
+		// @ts-ignore
+		const typed = data;
+		client.emit(Constants.EVENTS.GUILD_ROLE_UPDATE, new Role({ guild_id: typed.d.guild_id, ...typed.d.role }, client));
+	}
+
+	else if (data.t === "GUILD_ROLE_DELETE") {
+		/** @type {InboundDataType<"GUILD_ROLE_DELETE">} */
+		// @ts-ignore
+		const typed = data;
+		client.emit(Constants.EVENTS.GUILD_ROLE_DELETE, new PartialRole({ id: typed.d.role_id, guild_id: typed.d.guild_id }, client))
 	}
 }
 

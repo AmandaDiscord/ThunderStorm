@@ -6,6 +6,9 @@ export type CloudStormEventDataTable = {
 	GUILD_CREATE: Discord.GuildData;
 	GUILD_EMOJIS_UPDATE: Discord.GuildEmojisUpdateData;
 	GUILD_MEMBER_UPDATE: Discord.MemberData;
+	GUILD_ROLE_CREATE: { guild_id: string, role: Discord.RoleData };
+	GUILD_ROLE_DELETE: { guild_id: string, role_id: string };
+	GUILD_ROLE_UPDATE: { guild_id: string, role: Discord.RoleData };
 	MESSAGE_CREATE: Discord.MessageData;
 	MESSAGE_DELETE: Discord.MessageDeleteData;
 	MESSAGE_UPDATE: Discord.MessageData;

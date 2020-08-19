@@ -15,7 +15,7 @@ class PartialBase {
 		this.client = client;
 		this.partial = true;
 		/**
-		 * @type {"User" | "Channel" | "Guild" | "Base"}
+		 * @type {"User" | "Channel" | "Guild" | "Role" | "Base"}
 		 */
 		this.partialType = "Base";
 
@@ -50,6 +50,15 @@ class PartialBase {
 			const userdata = await this.client._snow.user.getUser(this.id);
 			// @ts-ignore
 			data = new User(userdata, this.client);
+		} else if (this.partialType === "Role") {
+			const Role = require("../Role"); // lazy load
+			// @ts-ignore
+			if (!this.guild) return null;
+			// @ts-ignore
+			const rolesdata = await this.client._snow.guild.getGuildRoles(this.guild.id);
+			const roledata = rolesdata.find(r => r.id === this.id);
+			// @ts-ignore
+			data = new Role(roledata, this.client);
 		}
 
 		return data;

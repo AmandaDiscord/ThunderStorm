@@ -14,6 +14,15 @@ const EVENTS = {
 	/** @type {"guildMemberUpdate"} */
 	// @ts-ignore
 	GUILD_MEMBER_UPDATE: "guildMemberUpdate",
+	/** @type {"guildRoleCreate"} */
+	// @ts-ignore
+	GUILD_ROLE_CREATE: "guildRoleCreate",
+	/** @type {"guildRoleDelete"} */
+	// @ts-ignore
+	GUILD_ROLE_DELETE: "guildRoleDelete",
+	/** @type {"guildRoleUpdate"} */
+	// @ts-ignore
+	GUILD_ROLE_UPDATE: "guildRoleUpdate",
 	/** @type {"message"} */
 	// @ts-ignore
 	MESSAGE_CREATE: "message",

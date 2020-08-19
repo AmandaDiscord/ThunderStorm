@@ -18,22 +18,26 @@ export import Message = require("../structures/Message");
 export import MessageAttachment = require("../structures/MessageAttachment");
 export import MessageEmbed = require("../structures/MessageEmbed");
 export import NewsChannel = require("../structures/NewsChannel");
+export import Role = require("../structures/Role");
 export import TextChannel = require("../structures/TextChannel");
 export import User = require("../structures/User");
 export import VoiceChannel = require("../structures/VoiceChannel");
 export import VoiceState = require("../structures/VoiceState");
 
-export import PartialChannel = require("./structures/Partial/PartialChannel");
-export import PartialGuild = require("./structures/Partial/PartialGuild");
-export import PartialUser = require("./structures/Partial/PartialUser");
+export import PartialChannel = require("../structures/Partial/PartialChannel");
+export import PartialGuild = require("../structures/Partial/PartialGuild");
+export import PartialRole = require("../structures/Partial/PartialRole");
+export import PartialUser = require("../structures/Partial/PartialUser");
 import SnowTransfer = require("snowtransfer/src/SnowTransfer");
 
 export interface ClientEvents {
 	channelCreate: [DMChannel | TextChannel | VoiceChannel | CategoryChannel | NewsChannel];
-	channelPinsUpdate: [];
 	guildCreate: [Guild];
-	guildEmojisUpdate: [];
+	guildEmojisUpdate: [Role];
 	guildMemberUpdate: [GuildMember];
+	guildRoleCreate: [Role];
+	guildRoleDelete: [PartialRole];
+	guildRoleUpdate: [Role];
 	message: [Message];
 	messageDelete: [Discord.MessageDeleteData];
 	messageUpdate: [Message];
