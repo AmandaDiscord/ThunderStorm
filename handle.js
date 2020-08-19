@@ -37,6 +37,15 @@ function handle(data, client) {
 		client.emit(Constants.EVENTS.GUILD_CREATE, guild);
 	}
 
+	else if (data.t === "GUILD_DELETE") {
+		const PartialGuild = require("./structures/Partial/PartialGuild");
+		/** @type {InboundDataType<"GUILD_DELETE">} */
+		// @ts-ignore
+		const typed = data;
+		// @ts-ignore
+		client.emit(Constants.EVENTS.GUILD_DELETE, new PartialGuild({ id: typed.d.id, unavailable: typed.d.unavailable }, client))
+	}
+
 	else if (data.t === "CHANNEL_CREATE") {
 		/** @type {InboundDataType<"CHANNEL_CREATE">} */
 		// @ts-ignore

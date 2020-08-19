@@ -4,6 +4,7 @@ export type CloudStormEventDataTable = {
 	CHANNEL_CREATE: Discord.DMChannelData | Discord.TextChannelData | Discord.CategoryChannelData | Discord.NewsChannelData | Discord.VoiceChannelData;
 	CHANNEL_PINS_UPDATE: Discord.ChannelPinData;
 	GUILD_CREATE: Discord.GuildData;
+	GUILD_DELETE: { id: string, unavailable: boolean };
 	GUILD_EMOJIS_UPDATE: Discord.GuildEmojisUpdateData;
 	GUILD_MEMBER_UPDATE: Discord.MemberData;
 	GUILD_ROLE_CREATE: { guild_id: string, role: Discord.RoleData };

@@ -8,6 +8,9 @@ const EVENTS = {
 	/** @type {"guildCreate"} */
 	// @ts-ignore
 	GUILD_CREATE: "guildCreate",
+	/** @type {"guildDelete"} */
+	// @ts-ignore
+	GUILD_DELETE: "guildDelete",
 	/** @type {"guildEmojisUpdate"} */
 	// @ts-ignore
 	GUILD_EMOJIS_UPDATE: "guildEmojisUpdate",

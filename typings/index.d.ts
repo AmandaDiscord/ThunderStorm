@@ -33,6 +33,7 @@ import SnowTransfer = require("snowtransfer/src/SnowTransfer");
 export interface ClientEvents {
 	channelCreate: [DMChannel | TextChannel | VoiceChannel | CategoryChannel | NewsChannel];
 	guildCreate: [Guild];
+	guildDelete: [PartialGuild];
 	guildEmojisUpdate: [Role];
 	guildMemberUpdate: [GuildMember];
 	guildRoleCreate: [Role];

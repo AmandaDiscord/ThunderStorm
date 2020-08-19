@@ -17,6 +17,12 @@ class PartialRole extends PartialBase {
 	toString() {
 		return `<@&${this.id}>`
 	}
+	toJSON() {
+		return {
+			guild_id: this.guild ? this.guild.id : null,
+			...super.toJSON()
+		}
+	}
 	/** @returns {Promise<import("../Role")>} */
 	fetch() {
 		// @ts-ignore

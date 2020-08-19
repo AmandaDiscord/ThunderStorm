@@ -36,7 +36,9 @@ class GuildMember {
 			mute: this.mute,
 			joined_at: this.joinedAt,
 			premium_since: this.premiumSince,
-			user: this.user.toJSON()
+			user: this.user.toJSON(),
+			roles: this.roles,
+			guild_id: this.guild ? this.guild.id : undefined
 		}
 	}
 	/**

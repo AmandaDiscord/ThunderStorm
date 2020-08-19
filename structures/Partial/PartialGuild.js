@@ -13,6 +13,8 @@ class PartialGuild extends PartialBase {
 		/** @type {"Guild"} */
 		this.partialType = "Guild";
 		this.memberCount = data.number || 0;
+		// @ts-ignore
+		this.available = data.unavailable ? !data.unavailable : true
 	}
 	/**
 	 * @returns {Promise<Guild>}
@@ -24,6 +26,7 @@ class PartialGuild extends PartialBase {
 	toJSON() {
 		return {
 			member_count: this.memberCount,
+			unavailable: !this.available,
 			...super.toJSON()
 		}
 	}
