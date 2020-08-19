@@ -11,6 +11,9 @@ const EVENTS = {
 	/** @type {"guildEmojisUpdate"} */
 	// @ts-ignore
 	GUILD_EMOJIS_UPDATE: "guildEmojisUpdate",
+	/** @type {"guildMemberUpdate"} */
+	// @ts-ignore
+	GUILD_MEMBER_UPDATE: "guildMemberUpdate",
 	/** @type {"message"} */
 	// @ts-ignore
 	MESSAGE_CREATE: "message",

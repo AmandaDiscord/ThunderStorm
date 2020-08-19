@@ -4,6 +4,7 @@ const CategoryChannel = require("./structures/CategoryChannel");
 const ClientUser = require("./structures/ClientUser");
 const DMChannel = require("./structures/DMChannel");
 const Guild = require("./structures/Guild");
+const GuildMember = require("./structures/GuildMember");
 const Message = require("./structures/Message");
 const TextChannel = require("./structures/TextChannel");
 const VoiceChannel = require("./structures/VoiceChannel");
@@ -94,6 +95,14 @@ function handle(data, client) {
 		const typed = data;
 		const voicestate = new VoiceState(typed.d, client);
 		client.emit(Constants.EVENTS.VOICE_STATE_UPDATE, voicestate);
+	}
+
+	else if (data.t === "GUILD_MEMBER_UPDATE") {
+		/** @type {InboundDataType<"GUILD_MEMBER_UPDATE">} */
+		// @ts-ignore
+		const typed = data;
+		// @ts-ignore
+		client.emit(Constants.EVENTS.GUILD_MEMBER_UPDATE, new GuildMember(typed.d, client))
 	}
 }
 

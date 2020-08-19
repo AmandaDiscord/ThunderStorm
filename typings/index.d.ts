@@ -33,6 +33,7 @@ export interface ClientEvents {
 	channelPinsUpdate: [];
 	guildCreate: [Guild];
 	guildEmojisUpdate: [];
+	guildMemberUpdate: [GuildMember];
 	message: [Message];
 	messageDelete: [Discord.MessageDeleteData];
 	messageUpdate: [Message];

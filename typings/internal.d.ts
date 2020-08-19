@@ -5,6 +5,7 @@ export type CloudStormEventDataTable = {
 	CHANNEL_PINS_UPDATE: Discord.ChannelPinData;
 	GUILD_CREATE: Discord.GuildData;
 	GUILD_EMOJIS_UPDATE: Discord.GuildEmojisUpdateData;
+	GUILD_MEMBER_UPDATE: Discord.MemberData;
 	MESSAGE_CREATE: Discord.MessageData;
 	MESSAGE_DELETE: Discord.MessageDeleteData;
 	MESSAGE_UPDATE: Discord.MessageData;

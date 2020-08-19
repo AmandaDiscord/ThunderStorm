@@ -19,6 +19,7 @@ class GuildMember {
 		this.mute = data.mute || false;
 		this.joinedAt = new Date(data.joined_at);
 		this.premiumSince = data.premium_since || null;
+		this.roles = data.roles || []
 	}
 	get displayName() {
 		return this.nickname || this.user.username
