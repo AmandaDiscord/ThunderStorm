@@ -8,6 +8,8 @@ class GuildMember {
 	 * @param {import("../typings/index").Client} client
 	 */
 	constructor(data, client) {
+		const PartialGuild = require("./Partial/PartialGuild");
+
 		this.client = client;
 		/** @type {false} */
 		this.partial = false;
@@ -19,7 +21,10 @@ class GuildMember {
 		this.mute = data.mute || false;
 		this.joinedAt = new Date(data.joined_at);
 		this.premiumSince = data.premium_since || null;
-		this.roles = data.roles || []
+		this.roles = data.roles || [];
+
+		// @ts-ignore
+		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, this.client) : null;
 	}
 	get displayName() {
 		return this.nickname || this.user.username
