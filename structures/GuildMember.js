@@ -29,6 +29,9 @@ class GuildMember {
 	get displayName() {
 		return this.nickname || this.user.username
 	}
+	toString() {
+		return `<@${this.id}>`;
+	}
 	toJSON() {
 		return {
 			id: this.id,
