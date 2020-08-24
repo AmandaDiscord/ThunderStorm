@@ -15,7 +15,7 @@ class DMChannel extends Channel {
 		this.lastMessageID = data.last_message_id || null;
 		this.lastPinAt = data.last_pin_timestamp ? new Date(data.last_pin_timestamp) : null;
 		this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
-		this.recipients = new Map(data.recipients.map(user => [user.id, new User(user, client)]));
+		this.recipients = data.recipients ? new Map(data.recipients.map(user => [user.id, new User(user, client)])) : new Map();
 		/** @type {"dm"} */
 		this.type = "dm";
 	}
