@@ -117,6 +117,8 @@ function handle(data, client) {
 		// @ts-ignore
 		const typed = data;
 		// @ts-ignore
+		if (!typed.d.user) return
+		// @ts-ignore
 		client.emit(Constants.EVENTS.GUILD_MEMBER_UPDATE, new GuildMember(typed.d, client))
 	}
 
