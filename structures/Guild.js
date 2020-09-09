@@ -31,7 +31,7 @@ class Guild {
 		/**
 		 * @type {Map<string, import("../typings/index").GuildChannel>}
 		 */
-		this.channels = data.channels? new Map(data.channels.map(channel => {
+		this.channels = data.channels && Array.isArray(data.channels) ? new Map(data.channels.map(channel => {
 			let chan;
 			if (channel.type === 0) chan = new TextChannel(channel, client);
 			else if (channel.type === 2) chan = new VoiceChannel(channel, client);
