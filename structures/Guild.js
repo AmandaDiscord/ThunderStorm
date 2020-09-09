@@ -27,7 +27,7 @@ class Guild {
 		/**
 		 * @type {Map<string, GuildMember>}
 		 */
-		this.members = data.members ? new Map(data.members.map(member => [member.user.id, new GuildMember(member, client)])) : new Map();
+		this.members = data.members && Array.isArray(data.members) ? new Map(data.members.map(member => [member.user.id, new GuildMember(member, client)])) : new Map();
 		/**
 		 * @type {Map<string, import("../typings/index").GuildChannel>}
 		 */
