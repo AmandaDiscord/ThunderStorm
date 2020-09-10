@@ -4,6 +4,8 @@ const NewsChannel = require("./NewsChannel");
 const TextChannel = require("./TextChannel");
 const VoiceChannel = require("./VoiceChannel");
 
+const Constants = require("../constants");
+
 class Guild {
 	/**
 	 * @param {import("@amanda/discordtypings").GuildData} data
@@ -16,13 +18,14 @@ class Guild {
 
 		const PartialUser = require("./Partial/PartialUser"); // lazy load
 
-		this.name = data.name;
+		this.name = data.name || "Unknown";
 		this.id = data.id;
 		this.available = !data.unavailable;
 		this.memberCount = data.member_count || 0;
 		this.ownerID = data.owner_id;
 		this.owner = new PartialUser({ id: data.owner_id }, client);
 		this.region = data.region;
+		this.icon = data.icon;
 
 		/**
 		 * @type {Map<string, GuildMember>}
@@ -40,6 +43,22 @@ class Guild {
 			return [channel.id, chan];
 		})) : new Map();
 	}
+	/**
+	 * The acronym that shows up in place of a guild icon.
+	 * @type {string}
+	 * @readonly
+	 */
+	get nameAcronym() {
+		return this.name
+			.replace(/'s /g, ' ')
+			.replace(/\w+/g, e => e[0])
+			.replace(/\s/g, '');
+	}
+	iconURL(options = { size: 128, format: "png", dynamic: true }) {
+		if (!this.icon) return null;
+		let format = this.icon.startsWith("a_") && options.dynamic ? "gif" : options.format;
+		return `${Constants.BASE_CDN_URL}/icons/${this.id}/${this.icon}.${format}${!["gif", "webp"].includes(format) ? `?size=${options.size}` : ""}`;
+	}
 	toJSON() {
 		return {
 			name: this.name,
@@ -48,6 +67,7 @@ class Guild {
 			member_count: this.memberCount,
 			owner_id: this.ownerID,
 			region: this.region,
+			icon: this.icon,
 			members: [...this.members.values()].map(mem => mem.toJSON()),
 			channels: [...this.channels.values()].map(chan => chan.toJSON())
 		}
