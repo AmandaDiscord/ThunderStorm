@@ -18,13 +18,13 @@ class Guild {
 
 		const PartialUser = require("./Partial/PartialUser"); // lazy load
 
-		this.name = data.name || "Unknown";
+		this.name = data.name || "unknown";
 		this.id = data.id;
-		this.available = !data.unavailable;
+		this.available = data.unavailable != undefined ? !data.unavailable : true;
 		this.memberCount = data.member_count || 0;
-		this.ownerID = data.owner_id;
-		this.owner = new PartialUser({ id: data.owner_id }, client);
-		this.region = data.region;
+		this.ownerID = data.owner_id || Constants.SYSTEM_USER_ID; // fallback to System User (yes, System really has an ID.)
+		this.owner = new PartialUser({ id: this.ownerID }, client);
+		this.region = data.region || "unknown";
 		this.icon = data.icon;
 
 		/**
@@ -54,9 +54,12 @@ class Guild {
 			.replace(/\w+/g, e => e[0])
 			.replace(/\s/g, '');
 	}
+	fetch() {
+		return Promise.resolve(this);
+	}
 	iconURL(options = { size: 128, format: "png", dynamic: true }) {
 		if (!this.icon) return null;
-		let format = this.icon.startsWith("a_") && options.dynamic ? "gif" : options.format;
+		const format = this.icon.startsWith("a_") && options.dynamic ? "gif" : options.format;
 		return `${Constants.BASE_CDN_URL}/icons/${this.id}/${this.icon}.${format}${!["gif", "webp"].includes(format) ? `?size=${options.size}` : ""}`;
 	}
 	toJSON() {

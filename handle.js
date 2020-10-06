@@ -25,6 +25,7 @@ function handle(data, client) {
 		// @ts-ignore
 		const typed = data;
 		client.user = new ClientUser(typed.d.user, client);
+		client.readyTimestamp = Date.now();
 		client.emit(Constants.CLIENT_ONLY_EVENTS.READY, client.user);
 	}
 

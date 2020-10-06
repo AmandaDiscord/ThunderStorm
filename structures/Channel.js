@@ -12,6 +12,9 @@ class Channel {
 		this.name = data.name;
 		this.type = "unknown";
 	}
+	fetch() {
+		return Promise.resolve(this);
+	}
 	toString() {
 		return `<#${this.id}>`;
 	}

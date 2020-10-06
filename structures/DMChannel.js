@@ -9,7 +9,7 @@ class DMChannel extends Channel {
 	 * @param {import("../typings/index").Client} client
 	 */
 	constructor(data, client) {
-		data.name = data.recipients ? data.recipients[0].username : "Unknown";
+		data.name = data.recipients ? data.recipients[0].username : "unknown";
 		super(data, client);
 
 		this.lastMessageID = data.last_message_id || null;

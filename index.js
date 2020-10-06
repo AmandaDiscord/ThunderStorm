@@ -11,6 +11,7 @@ const DMChannel = require("./structures/DMChannel");
 const Guild = require("./structures/Guild");
 const GuildChannel = require("./structures/GuildChannel");
 const GuildMember = require("./structures/GuildMember");
+const Invite = require("./structures/Invite");
 const Message = require("./structures/Message");
 const MessageAttachment = require("./structures/MessageAttachment");
 const MessageEmbed = require("./structures/MessageEmbed");
@@ -18,6 +19,7 @@ const NewsChannel = require("./structures/NewsChannel");
 const TextChannel = require("./structures/TextChannel");
 const User = require("./structures/User");
 const VoiceChannel = require("./structures/VoiceChannel");
+const VoiceRegion = require("./structures/VoiceRegion");
 const VoiceState = require("./structures/VoiceState");
 
 const handle = require("./handle");
@@ -32,6 +34,7 @@ module.exports = {
 	Guild,
 	GuildChannel,
 	GuildMember,
+	Invite,
 	Message,
 	MessageAttachment,
 	MessageEmbed,
@@ -39,6 +42,7 @@ module.exports = {
 	TextChannel,
 	User,
 	VoiceChannel,
+	VoiceRegion,
 	VoiceState,
 
 	PartialBase,

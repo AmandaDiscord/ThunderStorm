@@ -95,6 +95,7 @@ const Constants = {
 	BASE_API_ENDPOINT: `/api/v${API_VERSION}`,
 	BASE_CDN_URL: "https://cdn.discordapp.com",
 	BASE_HOST: "https://discord.com",
+	SYSTEM_USER_ID: "643945264868098049",
 	CLIENT_ONLY_EVENTS,
 	CLOUD_ONLY_EVENTS,
 	EVENTS,

@@ -30,7 +30,7 @@ export type InboundDataType<E extends keyof CloudStormEventDataTable> = {
 }
 
 export interface PartialData {
-	id: import("@amanda/discordtypings").Snowflake;
-	guild_id?: import("@amanda/discordtypings").Snowflake;
+	id: Discord.Snowflake;
+	guild_id?: Discord.Snowflake;
 	number?: number;
 }

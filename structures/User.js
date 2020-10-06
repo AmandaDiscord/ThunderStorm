@@ -48,6 +48,9 @@ class User {
 		if (!this.avatar) return this.defaultAvatarURL;
 		else return this.avatarURL(options);
 	}
+	fetch() {
+		return Promise.resolve(this);
+	}
 	/**
 	 * @param {import("../typings/index").StringResolvable} content
 	 * @param {import("../typings/index").MessageOptions} [options]

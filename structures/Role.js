@@ -19,6 +19,9 @@ class Role {
 
 		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, this.client) : null;
 	}
+	fetch() {
+		return Promise.resolve(this);
+	}
 	toString() {
 		return `<@&${this.id}>`
 	}

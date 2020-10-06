@@ -14,7 +14,7 @@ class GuildMember {
 		/** @type {false} */
 		this.partial = false;
 
-		this.user = new User(data.user, client);
+		this.user = data.user.id === client.user.id ? client.user : new User(data.user, client);
 		this.id = data.user.id;
 		this.nickname = data.nick;
 		this.deaf = data.deaf || false;
@@ -24,7 +24,7 @@ class GuildMember {
 		this.roles = data.roles || [];
 
 		// @ts-ignore
-		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, this.client) : null;
+		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
 	}
 	get displayName() {
 		return this.nickname || this.user.username
