@@ -8,7 +8,7 @@ declare class MessageAttachment {
     proxyURL: string;
     height: number | null;
     width: number | null;
-    constructor(attachment: import("../types").BufferResolvable | import("stream").Stream, name: string | null | undefined, data: any);
+    constructor(attachment: import("../types").BufferResolvable | import("stream").Stream, name?: string | null, data?: any);
     setFile(attachment: import("../types").BufferResolvable | import("stream").Stream, name?: string | null): this;
     setName(name: string): this;
     _patch(data: any): void;

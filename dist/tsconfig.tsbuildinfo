@@ -537,8 +537,8 @@
         "affectsGlobalScope": false
       },
       "../src/structures/messageattachment.ts": {
-        "version": "4efc61d331fbb7bebdedc71ef6b07a634a7d00a193d96bbe4623a5a469ffa2a4",
-        "signature": "df65f96c30fc18539d1ed85080985a30fd8c2fb19856e992e0a1db31e0c180e4",
+        "version": "87b46b757b10adfc74f318f630c41b5eb1f65f92a1d11a3031cb4eb1d7f2a6b0",
+        "signature": "a1fa770943d89b86d4c647308272702210e399a3f2e0efd24a5a21ccafe38e0b",
         "affectsGlobalScope": false
       },
       "../src/structures/messageembed.ts": {
@@ -647,7 +647,7 @@
         "affectsGlobalScope": false
       },
       "../src/structures/client.ts": {
-        "version": "c86daaecbcc2c67db7e5d8cf512d8f37469da1675280007c949749b606fae258",
+        "version": "e9571e578b1df3e11982b3e47feb86001a8c44ee66c7bcf20d39c424e1362da1",
         "signature": "3bce1c667f4423911516d8b3f02b347ba92baa758e344ec6b9dc9e7b0e8f98f3",
         "affectsGlobalScope": false
       },
@@ -672,8 +672,8 @@
         "affectsGlobalScope": false
       },
       "../src/index.ts": {
-        "version": "9bb9137fafdd9ae58bbd9d3292d035cf302a311cea861970a550a09fb9c35343",
-        "signature": "0504bc0f7cd2013fc79f0fa41a8ec2345e132f8c140060c9ad2083c5462dea4b",
+        "version": "b12d32a9e997c54377baa2cb3e80df5cd332b2893d130853c3b5810490050929",
+        "signature": "fa62042060026cb73dac1e1979736cb196612223dfb14ec15cab20114f1bfe9d",
         "affectsGlobalScope": false
       }
     },
@@ -989,7 +989,8 @@
         "../src/structures/user.ts",
         "../src/structures/voicechannel.ts",
         "../src/structures/voiceregion.ts",
-        "../src/structures/voicestate.ts"
+        "../src/structures/voicestate.ts",
+        "../src/types.ts"
       ],
       "../src/internal.ts": [
         "../node_modules/@amanda/discordtypings/index.d.ts"
@@ -1456,7 +1457,8 @@
         "../src/structures/user.ts",
         "../src/structures/voicechannel.ts",
         "../src/structures/voiceregion.ts",
-        "../src/structures/voicestate.ts"
+        "../src/structures/voicestate.ts",
+        "../src/types.ts"
       ],
       "../src/internal.ts": [
         "../node_modules/@amanda/discordtypings/index.d.ts"

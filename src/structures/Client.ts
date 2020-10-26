@@ -24,7 +24,7 @@ class Client extends EventEmitter {
 	}
 
 	public emit<E extends keyof import("../types").ClientEvents>(event: E, ...args: import("../types").ClientEvents[E]) {
-		return super.emit(event, args);
+		return super.emit(event, ...args);
 	}
 	public once<E extends keyof import("../types").ClientEvents>(event: E, listener: (...args: import("../types").ClientEvents[E]) => any) {
 		// @ts-ignore SHUT UP!!!

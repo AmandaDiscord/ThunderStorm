@@ -22,5 +22,6 @@ import VoiceRegion from "./structures/VoiceRegion";
 import VoiceState from "./structures/VoiceState";
 import handle from "./handle";
 import Constants from "./constants";
+export * from "./types";
 declare const version = "11.6.4";
 export { CategoryChannel, Channel, Client, ClientUser, DMChannel, Guild, GuildChannel, GuildMember, Invite, Message, MessageAttachment, MessageEmbed, NewsChannel, TextChannel, User, VoiceChannel, VoiceRegion, VoiceState, PartialBase, PartialChannel, PartialGuild, PartialUser, handle, Constants, version };
