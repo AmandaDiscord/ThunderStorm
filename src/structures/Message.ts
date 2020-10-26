@@ -59,8 +59,9 @@ class Message {
 	}
 
 	public async edit(content: import("../types").StringResolvable, options: import("../types").MessageOptions = {}) {
-		const TextBasedChannel = require("./Interfaces/TextBasedChannel");
-		const msg = await this.client._snow.channel.editMessage(this.channel.id, this.id, TextBasedChannel.transform(content, options, true), { disableEveryone: options.disableEveryone || this.client._snow.options.disableEveryone || false });
+		const TextBasedChannel: typeof import("./Interfaces/TextBasedChannel") = require("./Interfaces/TextBasedChannel");
+		const data = await TextBasedChannel.transform(content, options, true);
+		const msg = await this.client._snow.channel.editMessage(this.channel.id, this.id, data, { disableEveryone: options.disableEveryone || this.client._snow.options.disableEveryone || false });
 		if (this.guild) msg.guild_id = this.guild.id;
 		return new Message(msg, this.client);
 	}

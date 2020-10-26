@@ -607,7 +607,7 @@
         "affectsGlobalScope": false
       },
       "../src/structures/message.ts": {
-        "version": "6a2c8414f9377ea12041755007c94df2f5706061cb682adddac5f84f8e2aa170",
+        "version": "5878e587ef5635d3b6d32198723517fff05187f6bfc7700faebbfee7fe1bd7f4",
         "signature": "62ef55ee1014780c652ca404cc7d30290e496fc4428b09d411376e91456faedf",
         "affectsGlobalScope": false
       },
@@ -1074,6 +1074,7 @@
         "../src/constants.ts",
         "../src/structures/client.ts",
         "../src/structures/guildmember.ts",
+        "../src/structures/interfaces/textbasedchannel.ts",
         "../src/structures/messageembed.ts",
         "../src/structures/partial/partialchannel.ts",
         "../src/structures/partial/partialguild.ts",
