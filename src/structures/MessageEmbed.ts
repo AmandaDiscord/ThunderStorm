@@ -473,7 +473,7 @@ class MessageEmbed {
 	 * @param iconURL The icon URL of the author
 	 * @param url The URL of the author
 	 */
-	public setAuthor(name: import("../types").StringResolvable, iconURL: string, url: string): this {
+	public setAuthor(name: import("../types").StringResolvable, iconURL?: string, url?: string): this {
 		// @ts-ignore
 		this.author = { name: resolveString(name), iconURL, url };
 		return this;
@@ -503,7 +503,7 @@ class MessageEmbed {
 	 * @param text The text of the footer
 	 * @param iconURL The icon URL of the footer
 	 */
-	public setFooter(text: import("../types").StringResolvable, iconURL: string): this {
+	public setFooter(text: import("../types").StringResolvable, iconURL?: string): this {
 		text = resolveString(text);
 		// @ts-ignore
 		this.footer = { text, iconURL, proxyIconURL: undefined };

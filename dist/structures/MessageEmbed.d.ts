@@ -102,10 +102,10 @@ declare class MessageEmbed {
     addFields(...fields: (EmbedFieldData | EmbedFieldData[])[]): this;
     spliceFields(index: number, deleteCount: number, ...fields: (EmbedFieldData | EmbedFieldData[])[]): this;
     attachFiles(files: Array<FileOptions | string | import("./MessageAttachment")>): this;
-    setAuthor(name: import("../types").StringResolvable, iconURL: string, url: string): this;
+    setAuthor(name: import("../types").StringResolvable, iconURL?: string, url?: string): this;
     setColor(color: ColorResolvable): this;
     setDescription(description: import("../types").StringResolvable): this;
-    setFooter(text: import("../types").StringResolvable, iconURL: string): this;
+    setFooter(text: import("../types").StringResolvable, iconURL?: string): this;
     setImage(url: string): this;
     setThumbnail(url: string): this;
     setTimestamp(timestamp?: Date | number): this;
