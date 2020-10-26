@@ -25,6 +25,8 @@ import VoiceState from "./structures/VoiceState";
 import handle from "./handle";
 import Constants from "./constants";
 
+export * from "./types";
+
 const version = "11.6.4";
 
 export {

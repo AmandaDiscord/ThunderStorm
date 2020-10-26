@@ -93,7 +93,7 @@ class MessageAttachment {
 	 * @param name The name of the file, if any
 	 * @param data Extra data
 	 */
-	public constructor(attachment: import("../types").BufferResolvable | import("stream").Stream, name: string | null = null, data: any) {
+	public constructor(attachment: import("../types").BufferResolvable | import("stream").Stream, name: string | null = null, data?: any) {
 		this.attachment = attachment;
 		this.name = name;
 		if (data) this._patch(data);
