@@ -25,7 +25,9 @@ import VoiceState from "./structures/VoiceState";
 import handle from "./handle";
 import Constants from "./constants";
 
-export = {
+const version = "11.6.4";
+
+export {
 	CategoryChannel,
 	Channel,
 	Client,
@@ -52,5 +54,5 @@ export = {
 
 	handle,
 	Constants,
-	version: "11.6.4"
-}
+	version
+};

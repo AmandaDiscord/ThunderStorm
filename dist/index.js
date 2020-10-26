@@ -2,54 +2,55 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.version = exports.Constants = exports.handle = exports.PartialUser = exports.PartialGuild = exports.PartialChannel = exports.PartialBase = exports.VoiceState = exports.VoiceRegion = exports.VoiceChannel = exports.User = exports.TextChannel = exports.NewsChannel = exports.MessageEmbed = exports.MessageAttachment = exports.Message = exports.Invite = exports.GuildMember = exports.GuildChannel = exports.Guild = exports.DMChannel = exports.ClientUser = exports.Client = exports.Channel = exports.CategoryChannel = void 0;
 const PartialBase_1 = __importDefault(require("./structures/Partial/PartialBase"));
+exports.PartialBase = PartialBase_1.default;
 const PartialChannel_1 = __importDefault(require("./structures/Partial/PartialChannel"));
+exports.PartialChannel = PartialChannel_1.default;
 const PartialGuild_1 = __importDefault(require("./structures/Partial/PartialGuild"));
+exports.PartialGuild = PartialGuild_1.default;
 const PartialUser_1 = __importDefault(require("./structures/Partial/PartialUser"));
+exports.PartialUser = PartialUser_1.default;
 const CategoryChannel_1 = __importDefault(require("./structures/CategoryChannel"));
+exports.CategoryChannel = CategoryChannel_1.default;
 const Channel_1 = __importDefault(require("./structures/Channel"));
+exports.Channel = Channel_1.default;
 const Client_1 = __importDefault(require("./structures/Client"));
+exports.Client = Client_1.default;
 const ClientUser_1 = __importDefault(require("./structures/ClientUser"));
+exports.ClientUser = ClientUser_1.default;
 const DMChannel_1 = __importDefault(require("./structures/DMChannel"));
+exports.DMChannel = DMChannel_1.default;
 const Guild_1 = __importDefault(require("./structures/Guild"));
+exports.Guild = Guild_1.default;
 const GuildChannel_1 = __importDefault(require("./structures/GuildChannel"));
+exports.GuildChannel = GuildChannel_1.default;
 const GuildMember_1 = __importDefault(require("./structures/GuildMember"));
+exports.GuildMember = GuildMember_1.default;
 const Invite_1 = __importDefault(require("./structures/Invite"));
+exports.Invite = Invite_1.default;
 const Message_1 = __importDefault(require("./structures/Message"));
+exports.Message = Message_1.default;
 const MessageAttachment_1 = __importDefault(require("./structures/MessageAttachment"));
+exports.MessageAttachment = MessageAttachment_1.default;
 const MessageEmbed_1 = __importDefault(require("./structures/MessageEmbed"));
+exports.MessageEmbed = MessageEmbed_1.default;
 const NewsChannel_1 = __importDefault(require("./structures/NewsChannel"));
+exports.NewsChannel = NewsChannel_1.default;
 const TextChannel_1 = __importDefault(require("./structures/TextChannel"));
+exports.TextChannel = TextChannel_1.default;
 const User_1 = __importDefault(require("./structures/User"));
+exports.User = User_1.default;
 const VoiceChannel_1 = __importDefault(require("./structures/VoiceChannel"));
+exports.VoiceChannel = VoiceChannel_1.default;
 const VoiceRegion_1 = __importDefault(require("./structures/VoiceRegion"));
+exports.VoiceRegion = VoiceRegion_1.default;
 const VoiceState_1 = __importDefault(require("./structures/VoiceState"));
+exports.VoiceState = VoiceState_1.default;
 const handle_1 = __importDefault(require("./handle"));
+exports.handle = handle_1.default;
 const constants_1 = __importDefault(require("./constants"));
-module.exports = {
-    CategoryChannel: CategoryChannel_1.default,
-    Channel: Channel_1.default,
-    Client: Client_1.default,
-    ClientUser: ClientUser_1.default,
-    DMChannel: DMChannel_1.default,
-    Guild: Guild_1.default,
-    GuildChannel: GuildChannel_1.default,
-    GuildMember: GuildMember_1.default,
-    Invite: Invite_1.default,
-    Message: Message_1.default,
-    MessageAttachment: MessageAttachment_1.default,
-    MessageEmbed: MessageEmbed_1.default,
-    NewsChannel: NewsChannel_1.default,
-    TextChannel: TextChannel_1.default,
-    User: User_1.default,
-    VoiceChannel: VoiceChannel_1.default,
-    VoiceRegion: VoiceRegion_1.default,
-    VoiceState: VoiceState_1.default,
-    PartialBase: PartialBase_1.default,
-    PartialChannel: PartialChannel_1.default,
-    PartialGuild: PartialGuild_1.default,
-    PartialUser: PartialUser_1.default,
-    handle: handle_1.default,
-    Constants: constants_1.default,
-    version: "11.6.4"
-};
+exports.Constants = constants_1.default;
+const version = "11.6.4";
+exports.version = version;

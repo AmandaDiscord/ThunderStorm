@@ -672,8 +672,8 @@
         "affectsGlobalScope": false
       },
       "../src/index.ts": {
-        "version": "824a4355a89a1dac3289e86a074d9f441b5c89d3dc97b47b924455e17085967b",
-        "signature": "8dcb32894cc224c2e52833f06b3184e2d9675ac86291ec3ea913bf41ac7206d6",
+        "version": "9bb9137fafdd9ae58bbd9d3292d035cf302a311cea861970a550a09fb9c35343",
+        "signature": "0504bc0f7cd2013fc79f0fa41a8ec2345e132f8c140060c9ad2083c5462dea4b",
         "affectsGlobalScope": false
       }
     },
@@ -1433,6 +1433,7 @@
         "../src/structures/client.ts"
       ],
       "../src/index.ts": [
+        "../src/constants.ts",
         "../src/handle.ts",
         "../src/structures/categorychannel.ts",
         "../src/structures/channel.ts",
