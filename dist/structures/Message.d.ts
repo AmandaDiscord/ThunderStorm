@@ -1,0 +1,33 @@
+import User from "./User";
+import GuildMember from "./GuildMember";
+declare class Message {
+    client: import("./Client");
+    id: string;
+    channel: import("./Partial/PartialChannel");
+    guild: import("./Partial/PartialGuild");
+    author: import("./User");
+    member: GuildMember | null;
+    attachments: Array<import("@amanda/discordtypings").AttachmentData>;
+    content: string;
+    editedAt: Date | null;
+    editedTimestamp: number | null;
+    embeds: Array<import("./MessageEmbed")>;
+    flags: number;
+    createdAt: Date;
+    createdTimestamp: number;
+    mentions: Array<GuildMember>;
+    nonce: string;
+    pinned: boolean;
+    tts: boolean;
+    type: number;
+    system: boolean;
+    webhookID: string | null;
+    constructor(data: import("@amanda/discordtypings").MessageData, client: import("./Client"));
+    toString(): string;
+    edit(content: import("../types").StringResolvable, options?: import("../types").MessageOptions): Promise<Message>;
+    delete(timeout?: number): Promise<this>;
+    react(emoji: string): Promise<this>;
+    deleteReaction(user: string | User | GuildMember | import("./Partial/PartialUser"), emoji: string): Promise<this>;
+    clearReactions(): Promise<this>;
+}
+export = Message;
