@@ -31,53 +31,53 @@ declare const Colors: {
     RANDOM: string;
 };
 declare type ColorResolvable = keyof typeof Colors | number | Array<number>;
-interface EmbedField {
+declare type EmbedField = {
     name: string;
     value: string;
     inline: boolean;
-}
-interface FileOptions {
+};
+declare type FileOptions = {
     attachment: import("../types").BufferResolvable;
     name?: string;
-}
-interface MessageEmbedThumbnail {
+};
+declare type MessageEmbedThumbnail = {
     url: string;
     proxyURL: string;
     height: number;
     width: number;
-}
-interface MessageEmbedImage {
+};
+declare type MessageEmbedImage = {
     url: string;
     proxyURL: string;
     height: number;
     width: number;
-}
-interface MessageEmbedVideo {
+};
+declare type MessageEmbedVideo = {
     url: string;
     proxyURL: string;
     height: number;
     width: number;
-}
-interface MessageEmbedAuthor {
+};
+declare type MessageEmbedAuthor = {
     name: string;
     url: string;
     iconURL: string;
     proxyIconURL: string;
-}
-interface MessageEmbedProvider {
+};
+declare type MessageEmbedProvider = {
     name: string;
     url: string;
-}
-interface MessageEmbedFooter {
+};
+declare type MessageEmbedFooter = {
     text: string;
     iconURL: string;
     proxyIconURL: string;
-}
-interface EmbedFieldData {
+};
+declare type EmbedFieldData = {
     name: import("../types").StringResolvable;
     value: import("../types").StringResolvable;
     inline?: boolean;
-}
+};
 declare class MessageEmbed {
     type: string;
     title: string | null;

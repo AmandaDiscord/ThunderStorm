@@ -542,8 +542,8 @@
         "affectsGlobalScope": false
       },
       "../src/structures/messageembed.ts": {
-        "version": "e89cf666a9d5b1f9764be9d09a15ec9a05ea55949e500ddafd4af8a369b70ee4",
-        "signature": "ee563243d28e91c623012d163a12c67a10ef4d367e4f71ae9821b8ef0fae424f",
+        "version": "99e4efc0d7abd24b9fac70c176192ceafe172ee2cfc7a2d079e6d58d4f524466",
+        "signature": "79b0f97db2c47b1cbdb1b7581140b1a95823d079659a60cb8c36aa075689f1e3",
         "affectsGlobalScope": false
       },
       "../src/structures/user.ts": {
@@ -607,8 +607,8 @@
         "affectsGlobalScope": false
       },
       "../src/structures/message.ts": {
-        "version": "5878e587ef5635d3b6d32198723517fff05187f6bfc7700faebbfee7fe1bd7f4",
-        "signature": "62ef55ee1014780c652ca404cc7d30290e496fc4428b09d411376e91456faedf",
+        "version": "a7e5e30fc77c1f38ed2c36ebbd67dfdd3cfa828fdbc5d920ab869fb5d369eb1b",
+        "signature": "b700857467f2b125dc2d1475fee7364803456eee70a9176f77db07fd9f9fe03d",
         "affectsGlobalScope": false
       },
       "../src/structures/interfaces/textbasedchannel.ts": {

@@ -33,6 +33,34 @@ class Message {
         this.system = this.author && this.author.system ? true : false;
         this.webhookID = data.webhook_id || null;
     }
+    toJSON() {
+        var _a, _b, _c;
+        return {
+            id: this.id,
+            channel_id: this.channel.id,
+            guild_id: ((_a = this.guild) === null || _a === void 0 ? void 0 : _a.id) || null,
+            author: this.author.toJSON(),
+            member: ((_b = this.member) === null || _b === void 0 ? void 0 : _b.toJSON()) || null,
+            attachments: this.attachments,
+            content: this.content,
+            edited_timestamp: ((_c = this.editedAt) === null || _c === void 0 ? void 0 : _c.toUTCString()) || null,
+            embeds: this.embeds.map(i => i.toJSON()),
+            flags: this.flags,
+            timestamp: this.createdAt.toUTCString(),
+            mentions: this.mentions.map(i => {
+                const result = i.toJSON();
+                const user = result.user;
+                delete result.user;
+                return { member: result, ...user };
+            }),
+            nonce: this.nonce,
+            pinned: this.pinned,
+            tts: this.tts,
+            type: this.type,
+            system: this.system,
+            webhook_id: this.webhookID
+        };
+    }
     toString() {
         return this.content;
     }

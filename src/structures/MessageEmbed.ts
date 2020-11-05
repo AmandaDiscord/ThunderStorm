@@ -78,7 +78,7 @@ type ColorResolvable = keyof typeof Colors | number | Array<number>;
 /**
  * Represents a field of a MessageEmbed
  */
-interface EmbedField {
+type EmbedField = {
 	/**
 	 * The name of this field
 	 */
@@ -93,7 +93,7 @@ interface EmbedField {
 	inline: boolean;
 }
 
-interface FileOptions {
+type FileOptions = {
 	/**
 	 * File to attach
 	 */
@@ -107,7 +107,7 @@ interface FileOptions {
 /**
  * Represents the thumbnail of a MessageEmbed
  */
-interface MessageEmbedThumbnail {
+type MessageEmbedThumbnail = {
 	/**
 	 * URL for this thumbnail
 	 */
@@ -129,7 +129,7 @@ interface MessageEmbedThumbnail {
 /**
  * Represents the image of a MessageEmbed
  */
-interface MessageEmbedImage {
+type MessageEmbedImage = {
 	/**
 	 * URL for this image
 	 */
@@ -151,7 +151,7 @@ interface MessageEmbedImage {
 /**
  * Represents the video of a MessageEmbed
  */
-interface MessageEmbedVideo {
+type MessageEmbedVideo = {
 	/**
 	 * URL of this video
 	 */
@@ -173,7 +173,7 @@ interface MessageEmbedVideo {
 /**
  * Represents the author field of a MessageEmbed
  */
-interface MessageEmbedAuthor {
+type MessageEmbedAuthor = {
 	/**
 	 * The name of this author
 	 */
@@ -195,7 +195,7 @@ interface MessageEmbedAuthor {
 /**
  * Represents the provider of a MessageEmbed
  */
-interface MessageEmbedProvider {
+type MessageEmbedProvider = {
 	/**
 	 * The name of this provider
 	 */
@@ -209,7 +209,7 @@ interface MessageEmbedProvider {
 /**
  * Represents the footer field of a MessageEmbed
  */
-interface MessageEmbedFooter {
+type MessageEmbedFooter = {
 	/**
 	 * The text of this footer
 	 */
@@ -224,7 +224,7 @@ interface MessageEmbedFooter {
 	proxyIconURL: string;
 }
 
-interface EmbedFieldData {
+type EmbedFieldData = {
 	name: import("../types").StringResolvable;
 	value: import("../types").StringResolvable;
 	inline?: boolean
@@ -328,7 +328,7 @@ class MessageEmbed {
 	/**
 	 * The files of this embed
 	 */
-	public files!: Array<FileOptions|string|import("./MessageAttachment")>;
+	public files!: Array<FileOptions | string | import("./MessageAttachment")>;
 	public video!: MessageEmbedVideo | null;
 
 	/**
@@ -338,7 +338,7 @@ class MessageEmbed {
 		this.setup(data, skipValidation);
 	}
 
-	private setup(data: import("@amanda/discordtypings").EmbedData, skipValidation: boolean) {
+	private setup(data: import("@amanda/discordtypings").EmbedData, skipValidation: boolean): void {
 		this.type = data.type || "rich";
 		this.title = data.title || null;
 		this.description = data.description || null;

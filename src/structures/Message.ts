@@ -54,6 +54,35 @@ class Message {
 		this.webhookID = data.webhook_id || null;
 	}
 
+	public toJSON() {
+		return {
+			id: this.id,
+			channel_id: this.channel.id,
+			guild_id: this.guild?.id || null,
+			author: this.author.toJSON(),
+			member: this.member?.toJSON() || null,
+			attachments: this.attachments,
+			content: this.content,
+			edited_timestamp: this.editedAt?.toUTCString() || null,
+			embeds: this.embeds.map(i => i.toJSON()),
+			flags: this.flags,
+			timestamp: this.createdAt.toUTCString(),
+			mentions: this.mentions.map(i => {
+				const result = i.toJSON();
+				const user = result.user;
+				// @ts-ignore
+				delete result.user;
+				return { member: result, ...user };
+			}),
+			nonce: this.nonce,
+			pinned: this.pinned,
+			tts: this.tts,
+			type: this.type,
+			system: this.system,
+			webhook_id: this.webhookID
+		};
+	}
+
 	public toString() {
 		return this.content;
 	}

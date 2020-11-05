@@ -23,6 +23,106 @@ declare class Message {
     system: boolean;
     webhookID: string | null;
     constructor(data: import("@amanda/discordtypings").MessageData, client: import("./Client"));
+    toJSON(): {
+        id: string;
+        channel_id: string;
+        guild_id: string | null;
+        author: {
+            username: string;
+            discriminator: string;
+            bot: boolean;
+            id: string;
+            avatar: string | null;
+            public_flags: number;
+        };
+        member: {
+            id: string;
+            nick: string;
+            mute: boolean;
+            joined_at: Date;
+            premium_since: string | null;
+            user: {
+                username: string;
+                discriminator: string;
+                bot: boolean;
+                id: string;
+                avatar: string | null;
+                public_flags: number;
+            };
+            roles: string[];
+            guild_id: string | undefined;
+        } | null;
+        attachments: import("@amanda/discordtypings").AttachmentData[];
+        content: string;
+        edited_timestamp: string | null;
+        embeds: {
+            title: string | null;
+            type: string;
+            description: string | null;
+            url: string | null;
+            timestamp: Date | null;
+            color: number;
+            fields: {
+                name: string;
+                value: string;
+                inline: boolean;
+            }[];
+            thumbnail: {
+                url: string;
+                proxyURL: string;
+                height: number;
+                width: number;
+            } | null;
+            image: {
+                url: string;
+                proxyURL: string;
+                height: number;
+                width: number;
+            } | null;
+            author: {
+                name: string;
+                url: string;
+                icon_url: string;
+            } | null;
+            footer: {
+                text: string;
+                icon_url: string;
+            } | null;
+        }[];
+        flags: number;
+        timestamp: string;
+        mentions: {
+            username: string;
+            discriminator: string;
+            bot: boolean;
+            id: string;
+            avatar: string | null;
+            public_flags: number;
+            member: {
+                id: string;
+                nick: string;
+                mute: boolean;
+                joined_at: Date;
+                premium_since: string | null;
+                user: {
+                    username: string;
+                    discriminator: string;
+                    bot: boolean;
+                    id: string;
+                    avatar: string | null;
+                    public_flags: number;
+                };
+                roles: string[];
+                guild_id: string | undefined;
+            };
+        }[];
+        nonce: string;
+        pinned: boolean;
+        tts: boolean;
+        type: number;
+        system: boolean;
+        webhook_id: string | null;
+    };
     toString(): string;
     edit(content: import("../types").StringResolvable, options?: import("../types").MessageOptions): Promise<Message>;
     delete(timeout?: number): Promise<this>;
