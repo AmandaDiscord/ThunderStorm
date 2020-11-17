@@ -201,6 +201,157 @@ export const SnowflakeUtil = {
 	}
 };
 
+/**
+ * Escapes any Discord-flavour markdown in a string.
+ * @param text Content to escape
+ * @param options What types of markdown to escape
+ */
+export function escapeMarkdown(
+	text: string,
+	{
+		codeBlock = true,
+		inlineCode = true,
+		bold = true,
+		italic = true,
+		underline = true,
+		strikethrough = true,
+		spoiler = true,
+		codeBlockContent = true,
+		inlineCodeContent = true
+	} = {}
+): string {
+	if (!codeBlockContent) {
+		return text
+			.split("```")
+			.map((subString, index, array) => {
+				if (index % 2 && index !== array.length - 1) return subString;
+				return escapeMarkdown(subString, {
+					inlineCode,
+					bold,
+					italic,
+					underline,
+					strikethrough,
+					spoiler,
+					inlineCodeContent
+				});
+			})
+			.join(codeBlock ? "\\`\\`\\`" : "```");
+	}
+	if (!inlineCodeContent) {
+		return text
+			.split(/(?<=^|[^`])`(?=[^`]|$)/g)
+			.map((subString, index, array) => {
+				if (index % 2 && index !== array.length - 1) return subString;
+				return escapeMarkdown(subString, {
+					codeBlock,
+					bold,
+					italic,
+					underline,
+					strikethrough,
+					spoiler
+				});
+			})
+			.join(inlineCode ? "\\`" : "`");
+	}
+	if (inlineCode) text = escapeInlineCode(text);
+	if (codeBlock) text = escapeCodeBlock(text);
+	if (italic) text = escapeItalic(text);
+	if (bold) text = escapeBold(text);
+	if (underline) text = escapeUnderline(text);
+	if (strikethrough) text = escapeStrikethrough(text);
+	if (spoiler) text = escapeSpoiler(text);
+	return text;
+}
+
+/**
+ * Escapes code block markdown in a string.
+ * @param text Content to escape
+ */
+export function escapeCodeBlock(text: string): string {
+	return text.replace(/```/g, "\\`\\`\\`");
+}
+
+/**
+ * Escapes inline code markdown in a string.
+ * @param text Content to escape
+ */
+export function escapeInlineCode(text: string): string {
+	return text.replace(/(?<=^|[^`])`(?=[^`]|$)/g, "\\`");
+}
+
+/**
+ * Escapes italic markdown in a string.
+ * @param text Content to escape
+ */
+export function escapeItalic(text: string): string {
+	let i = 0;
+	text = text.replace(/(?<=^|[^*])\*([^*]|\*\*|$)/g, (_, match) => {
+		if (match === "**") return ++i % 2 ? `\\*${match}` : `${match}\\*`;
+		return `\\*${match}`;
+	});
+	i = 0;
+	return text.replace(/(?<=^|[^_])_([^_]|__|$)/g, (_, match) => {
+		if (match === "__") return ++i % 2 ? `\\_${match}` : `${match}\\_`;
+		return `\\_${match}`;
+	});
+}
+
+/**
+ * Escapes bold markdown in a string.
+ * @param text Content to escape
+ */
+export function escapeBold(text: string): string {
+	let i = 0;
+	return text.replace(/\*\*(\*)?/g, (_, match) => {
+		if (match) return ++i % 2 ? `${match}\\*\\*` : `\\*\\*${match}`;
+		return "\\*\\*";
+	});
+}
+
+/**
+ * Escapes underline markdown in a string.
+ * @param text Content to escape
+ */
+export function escapeUnderline(text: string): string {
+	let i = 0;
+	return text.replace(/__(_)?/g, (_, match) => {
+		if (match) return ++i % 2 ? `${match}\\_\\_` : `\\_\\_${match}`;
+		return "\\_\\_";
+	});
+}
+
+/**
+ * Escapes strikethrough markdown in a string.
+ * @param text Content to escape
+ */
+export function escapeStrikethrough(text: string): string {
+	return text.replace(/~~/g, "\\~\\~");
+}
+
+/**
+ * Escapes spoiler markdown in a string.
+ * @param text Content to escape
+ */
+export function escapeSpoiler(text: string): string {
+	return text.replace(/\|\|/g, "\\|\\|");
+}
+
+/**
+ * Parses emoji info out of a string. The string must be one of:
+ * * A UTF-8 emoji (no ID)
+ * * A URL-encoded UTF-8 emoji (no ID)
+ * * A Discord custom emoji (`<:name:id>` or `<a:name:id>`)
+ * @param text Emoji string to parse
+ * @returns Object with `animated`, `name`, and `id` properties
+ */
+export function parseEmoji(text: string) {
+	if (text.includes("%")) text = decodeURIComponent(text);
+	if (!text.includes(":")) return { animated: false, name: text, id: null };
+	const m = text.match(/<?(?:(a):)?(\w{2,32}):(\d{17,19})?>?/);
+	if (!m) return null;
+	return { animated: Boolean(m[1]), name: m[2], id: m[3] || null };
+}
+
 export default {
 	isObject,
 	flatten,
@@ -208,5 +359,14 @@ export default {
 	resolveColor,
 	resolveString,
 	cloneObject,
-	SnowflakeUtil
+	SnowflakeUtil,
+	escapeMarkdown,
+	escapeCodeBlock,
+	escapeInlineCode,
+	escapeItalic,
+	escapeBold,
+	escapeUnderline,
+	escapeStrikethrough,
+	escapeSpoiler,
+	parseEmoji
 };

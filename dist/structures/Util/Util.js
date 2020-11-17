@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SnowflakeUtil = exports.idToBinary = exports.binaryToID = exports.cloneObject = exports.resolveString = exports.resolveColor = exports.basename = exports.flatten = exports.isObject = void 0;
+exports.parseEmoji = exports.escapeSpoiler = exports.escapeStrikethrough = exports.escapeUnderline = exports.escapeBold = exports.escapeItalic = exports.escapeInlineCode = exports.escapeCodeBlock = exports.escapeMarkdown = exports.SnowflakeUtil = exports.idToBinary = exports.binaryToID = exports.cloneObject = exports.resolveString = exports.resolveColor = exports.basename = exports.flatten = exports.isObject = void 0;
 const path_1 = require("path");
 const Constants_1 = require("../../Constants");
 function isObject(d) {
@@ -136,6 +136,119 @@ exports.SnowflakeUtil = {
         return res;
     }
 };
+function escapeMarkdown(text, { codeBlock = true, inlineCode = true, bold = true, italic = true, underline = true, strikethrough = true, spoiler = true, codeBlockContent = true, inlineCodeContent = true } = {}) {
+    if (!codeBlockContent) {
+        return text
+            .split("```")
+            .map((subString, index, array) => {
+            if (index % 2 && index !== array.length - 1)
+                return subString;
+            return escapeMarkdown(subString, {
+                inlineCode,
+                bold,
+                italic,
+                underline,
+                strikethrough,
+                spoiler,
+                inlineCodeContent
+            });
+        })
+            .join(codeBlock ? "\\`\\`\\`" : "```");
+    }
+    if (!inlineCodeContent) {
+        return text
+            .split(/(?<=^|[^`])`(?=[^`]|$)/g)
+            .map((subString, index, array) => {
+            if (index % 2 && index !== array.length - 1)
+                return subString;
+            return escapeMarkdown(subString, {
+                codeBlock,
+                bold,
+                italic,
+                underline,
+                strikethrough,
+                spoiler
+            });
+        })
+            .join(inlineCode ? "\\`" : "`");
+    }
+    if (inlineCode)
+        text = escapeInlineCode(text);
+    if (codeBlock)
+        text = escapeCodeBlock(text);
+    if (italic)
+        text = escapeItalic(text);
+    if (bold)
+        text = escapeBold(text);
+    if (underline)
+        text = escapeUnderline(text);
+    if (strikethrough)
+        text = escapeStrikethrough(text);
+    if (spoiler)
+        text = escapeSpoiler(text);
+    return text;
+}
+exports.escapeMarkdown = escapeMarkdown;
+function escapeCodeBlock(text) {
+    return text.replace(/```/g, "\\`\\`\\`");
+}
+exports.escapeCodeBlock = escapeCodeBlock;
+function escapeInlineCode(text) {
+    return text.replace(/(?<=^|[^`])`(?=[^`]|$)/g, "\\`");
+}
+exports.escapeInlineCode = escapeInlineCode;
+function escapeItalic(text) {
+    let i = 0;
+    text = text.replace(/(?<=^|[^*])\*([^*]|\*\*|$)/g, (_, match) => {
+        if (match === "**")
+            return ++i % 2 ? `\\*${match}` : `${match}\\*`;
+        return `\\*${match}`;
+    });
+    i = 0;
+    return text.replace(/(?<=^|[^_])_([^_]|__|$)/g, (_, match) => {
+        if (match === "__")
+            return ++i % 2 ? `\\_${match}` : `${match}\\_`;
+        return `\\_${match}`;
+    });
+}
+exports.escapeItalic = escapeItalic;
+function escapeBold(text) {
+    let i = 0;
+    return text.replace(/\*\*(\*)?/g, (_, match) => {
+        if (match)
+            return ++i % 2 ? `${match}\\*\\*` : `\\*\\*${match}`;
+        return "\\*\\*";
+    });
+}
+exports.escapeBold = escapeBold;
+function escapeUnderline(text) {
+    let i = 0;
+    return text.replace(/__(_)?/g, (_, match) => {
+        if (match)
+            return ++i % 2 ? `${match}\\_\\_` : `\\_\\_${match}`;
+        return "\\_\\_";
+    });
+}
+exports.escapeUnderline = escapeUnderline;
+function escapeStrikethrough(text) {
+    return text.replace(/~~/g, "\\~\\~");
+}
+exports.escapeStrikethrough = escapeStrikethrough;
+function escapeSpoiler(text) {
+    return text.replace(/\|\|/g, "\\|\\|");
+}
+exports.escapeSpoiler = escapeSpoiler;
+function parseEmoji(text) {
+    if (text.includes("%"))
+        text = decodeURIComponent(text);
+    if (!text.includes(":"))
+        return { animated: false, name: text, id: null };
+    const m = text.match(/<?(?:(a):)?(\w{2,32}):(\d{17,19})?>?/);
+    if (!m)
+        return null;
+    return { animated: Boolean(m[1]), name: m[2], id: m[3] || null };
+}
+exports.parseEmoji = parseEmoji;
 exports.default = {
     isObject,
     flatten,
@@ -143,5 +256,14 @@ exports.default = {
     resolveColor,
     resolveString,
     cloneObject,
-    SnowflakeUtil: exports.SnowflakeUtil
+    SnowflakeUtil: exports.SnowflakeUtil,
+    escapeMarkdown,
+    escapeCodeBlock,
+    escapeInlineCode,
+    escapeItalic,
+    escapeBold,
+    escapeUnderline,
+    escapeStrikethrough,
+    escapeSpoiler,
+    parseEmoji
 };
