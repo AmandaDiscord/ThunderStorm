@@ -1,9 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-const immutable_1 = __importDefault(require("@augu/immutable"));
-class Collection extends immutable_1.default.Collection {
+const Immutable = require("@augu/immutable");
+class Collection extends Immutable.Collection {
     constructor(from) {
         super(from);
     }
