@@ -207,13 +207,8 @@
         "affectsGlobalScope": true
       },
       "../src/constants.ts": {
-        "version": "974ae42c0f599faec4a50e5f294a3657fa147209cddc8def19358cb8957350d8",
-        "signature": "a43ccd24ed9c14e4f681e135e8791b7c9015a1035f62657e75b828cac5471fc4",
-        "affectsGlobalScope": false
-      },
-      "../src/structures/voiceregion.ts": {
-        "version": "ade8f6e57c62807093fdce763f2dbc1cae12417ccf5b5685fb88966a4768291b",
-        "signature": "97a2e3089cec7e433e5d38beac74c6fcf615c0aad30207fa0421e0600c1981d3",
+        "version": "a41154d007338079704e53a0270f671753026256f8e60586d1744d3f796d9780",
+        "signature": "338f77e4801d14f3f61aa317eeeba88fabf8ba3381dcfa2072d915f9ac606b39",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/node/globals.d.ts": {
@@ -536,19 +531,34 @@
         "signature": "d38813af40cf6ade237b269b2c03b694a5bffd6b9580bb756a675c38a7644cab",
         "affectsGlobalScope": false
       },
+      "../src/structures/util/util.ts": {
+        "version": "2d7d5a55d9b54e004249599b4aee5d7994ab3bfd55b401c7a4b050382d294095",
+        "signature": "d496c63d64746d07b4d6cb0bd1085efc771660f70f1bd2d83bf5dfefa0bd2f65",
+        "affectsGlobalScope": false
+      },
       "../src/structures/messageattachment.ts": {
-        "version": "87b46b757b10adfc74f318f630c41b5eb1f65f92a1d11a3031cb4eb1d7f2a6b0",
-        "signature": "a1fa770943d89b86d4c647308272702210e399a3f2e0efd24a5a21ccafe38e0b",
+        "version": "97cc05a42c2f88fb423aa5f0566bb0557f8afcee5ba44dfacd28a4ac9205181c",
+        "signature": "61d354e5735eeebebbd6a758df2546f289b0fa1d17cd055bfd329798b155e342",
         "affectsGlobalScope": false
       },
       "../src/structures/messageembed.ts": {
-        "version": "99e4efc0d7abd24b9fac70c176192ceafe172ee2cfc7a2d079e6d58d4f524466",
-        "signature": "79b0f97db2c47b1cbdb1b7581140b1a95823d079659a60cb8c36aa075689f1e3",
+        "version": "979b5195aba1743d289f3ee3780f51aa0bb62534ad263206eb9eb14dd35f9148",
+        "signature": "e2e15f3adce1ec681560f42392e28cebb613e057df00fd56a678769e1b1ecb35",
+        "affectsGlobalScope": false
+      },
+      "../src/structures/voiceregion.ts": {
+        "version": "ade8f6e57c62807093fdce763f2dbc1cae12417ccf5b5685fb88966a4768291b",
+        "signature": "97a2e3089cec7e433e5d38beac74c6fcf615c0aad30207fa0421e0600c1981d3",
         "affectsGlobalScope": false
       },
       "../src/structures/user.ts": {
-        "version": "3f20049ea88f27754992a083982bcc0d3bcc82cf96afabb4cf41e3c852bc7943",
-        "signature": "438d4df96f0f3d96ec3b6a2aecec00bec56607f1fc30bb553f7b2e2b529d3558",
+        "version": "0ad694699d5bda2b272639d95bda690407bff0ba3e9c55c3d9958f9f756abe65",
+        "signature": "11af5393afca578fb92fd06c03bf09e1ecb8541c3342d88a9861696a9c301b3f",
+        "affectsGlobalScope": false
+      },
+      "../src/structures/clientuser.ts": {
+        "version": "7827eede0916a69ca29e9c890a742eccd4cf04499f132a119117abe466bc0907",
+        "signature": "295d43136dad083cc49410d14b11f0bc8bf056c68628171e74dd2dd2593e8ba3",
         "affectsGlobalScope": false
       },
       "../src/internal.ts": {
@@ -557,23 +567,23 @@
         "affectsGlobalScope": false
       },
       "../src/structures/partial/partialguild.ts": {
-        "version": "d4fbbdbb4db5aa689b9e7326fdcc3539f6b90b546a4b234b9537c29c72afb218",
-        "signature": "5e15be5cd2929ea62689920d9cc7757cf2d478adc074855a064ff7751784b059",
+        "version": "a7277cc5993834fb1a340b5dd9cacce0e586144210c56ea0b07a45eea4b21315",
+        "signature": "40baaa761bd4995319e4496b0da3985a4f44481758f57904f773af3563b820f0",
         "affectsGlobalScope": false
       },
       "../src/structures/guildmember.ts": {
-        "version": "68d739153b7ade8ffa0c54c761486de9344274cd384f6ceb1ee4afbd94c913d9",
-        "signature": "0c606c7ce9ef771ec193413114cb9b8c8f1cbed01f62317deacda6e2ef9cf352",
+        "version": "65b763c788796c6b742369d3f5e25e479a00bb4e1e3330e71ea08478a51c45cf",
+        "signature": "ca931020598e293befe6908ec3c0660a9527312f0a3562352b1d644d46c637ef",
         "affectsGlobalScope": false
       },
       "../src/structures/newschannel.ts": {
-        "version": "8c44949ef6390da3981afa6de2701358bb830b4173d1e13ac64ef551722d127b",
-        "signature": "05e52017717502529ee155b020be2d57fc25328b8e961693c7655c67a8b719f4",
+        "version": "23db160cb94666836af929334cef751575bc3a6f7395ff381d39e56b797a5d27",
+        "signature": "edffe21cd6d1e337c3ea17a1dad1db39d3c85ef0e0560f39dfba3b169bad1b66",
         "affectsGlobalScope": false
       },
       "../src/structures/textchannel.ts": {
-        "version": "1f981c8fe9a8fced3f69f18fd6c9957759f21deaca2f15c33725d08467301d0b",
-        "signature": "95a30db6a650fd69cbbdf6795978cdce265df643c3af65043263cc37cfd5fa7b",
+        "version": "1c9d4ea50d8385f880cf7865bf7bcad5237a19c6c9adccf24c010fb436e34195",
+        "signature": "7317a2934695423ce48a2537460a90a3335bbbb90a02ef18801c6b56756c6b3f",
         "affectsGlobalScope": false
       },
       "../src/structures/voicechannel.ts": {
@@ -582,78 +592,33 @@
         "affectsGlobalScope": false
       },
       "../src/structures/partial/partialuser.ts": {
-        "version": "c446db42812133c470db49969d42eafbc252da91fa7b0ccffa05889f4ab93255",
-        "signature": "4f1290e941db9e658c4dfac7f9b61b32cc540cc6f4aba8c8d828f2718db1b1ce",
+        "version": "b33cb715b084a15be3dc62daaafd67151730c3c95ae39bb0b40929e70605e9d5",
+        "signature": "05a5733e5e9f6b346dbae4bbe0879a43eed7873053f18a34efab30254d15c872",
         "affectsGlobalScope": false
       },
       "../src/structures/guild.ts": {
-        "version": "132dcaa8a8a93954a25633c2091818a941bc64a1cac1de5e0e913342b444b05f",
-        "signature": "ac5066558b5c32babf852bbf939d1b3a59f6753b39d9bb921562fbbba575d24e",
-        "affectsGlobalScope": false
-      },
-      "../src/structures/role.ts": {
-        "version": "523221049ec76485d8092c0035ecd35a03a448cc3be52acc848d0ab2adef2d91",
-        "signature": "6a247a38840fd6c6b6e075af03a3db5d44d3e35f4cc7c0861cd2f071e7e87d52",
-        "affectsGlobalScope": false
-      },
-      "../src/structures/partial/partialbase.ts": {
-        "version": "ca9ead8570c13934165d513c46fc9a64a2a72680963733fcc58f70754b50fee7",
-        "signature": "9b6727c17de4d36f28914ed3772dfb231dd3c7199d37f0188cb59bf3803ea8db",
+        "version": "ad07e3573543ef48d33a4e75b5a334be66a0913b29082f01ae9beea447d627cf",
+        "signature": "1452915cb170e515aee29ccd44adf09fd012215a12d72b74c2f2c2449e2068b4",
         "affectsGlobalScope": false
       },
       "../src/structures/partial/partialchannel.ts": {
-        "version": "0ca0a4273febfdaab213fad75d9a89a1bb105aad4f17448e61573d8dcd672119",
-        "signature": "31f8e45438fcd252a95a6d2dfce4c7824a73bd13e0528b172462994785ab3d0b",
-        "affectsGlobalScope": false
-      },
-      "../src/structures/message.ts": {
-        "version": "a7e5e30fc77c1f38ed2c36ebbd67dfdd3cfa828fdbc5d920ab869fb5d369eb1b",
-        "signature": "b700857467f2b125dc2d1475fee7364803456eee70a9176f77db07fd9f9fe03d",
-        "affectsGlobalScope": false
-      },
-      "../src/structures/interfaces/textbasedchannel.ts": {
-        "version": "cbe40bdebd254d67118592c11ce10b0d3d762fd3877d9eb6e78b4ada7a00f3af",
-        "signature": "d7f9405eb61e7465260572fa560458fd4d6255027b4939d19e12bdf78e6ca3ad",
-        "affectsGlobalScope": false
-      },
-      "../src/structures/dmchannel.ts": {
-        "version": "a0058f23abd4636c8aefe8e6f3915dcfe50f16c42bfef1fdc5f39dc2da69d92f",
-        "signature": "aa7df44155d6f435481535628d2ad8b86cf6149e98ee579ecbca543562c272a3",
-        "affectsGlobalScope": false
-      },
-      "../src/structures/partial/partialrole.ts": {
-        "version": "d20193d0c1e9d6b0eaa66e5d4150d3c2f80563ca9f4ba334d3e196a2ed088bb1",
-        "signature": "28aa110923fe979a2ddb97b56f1998c067b4dc295ba67263c0d6143f57760130",
-        "affectsGlobalScope": false
-      },
-      "../src/structures/clientuser.ts": {
-        "version": "7827eede0916a69ca29e9c890a742eccd4cf04499f132a119117abe466bc0907",
-        "signature": "295d43136dad083cc49410d14b11f0bc8bf056c68628171e74dd2dd2593e8ba3",
-        "affectsGlobalScope": false
-      },
-      "../src/structures/voicestate.ts": {
-        "version": "5b614525bea91f4c20437c0d4582a7d793863b8030a0b7b318cdcc7583ec3f16",
-        "signature": "ecfe7c4308bc7ade1dcddc0cd09037899e7782e4b35ea142723da57e5bbefec8",
-        "affectsGlobalScope": false
-      },
-      "../src/types.ts": {
-        "version": "22bf6878c51656b75f3e28003eb988f3447833cef6ee11cbdd8b87bf289984ad",
-        "signature": "0e119ea949e51b29d779fe2e01b5ba27b34df6c3345c155cd35f1f0c48eb7a4b",
+        "version": "a2a94a116232f51cfcd898336fbe30454f2a7fd2cd2c1d0eaa82b00b56465910",
+        "signature": "6a0ea35a6f59badc364633444081f81cfed14cf21b58a1af17f567fba1cd6e92",
         "affectsGlobalScope": false
       },
       "../src/structures/invite.ts": {
-        "version": "eb840030bd124324a8b0749fb412915e858190f3392be7166a4011a5e622c9ca",
+        "version": "5d5e38f4fa4414eff96dcbde44747bf6a7dd89a48c1c4718beb412cc62617e03",
         "signature": "61f5c28b4868e1686356d2ad3261bde6090b52e5c37fb4b3da43620328d611a0",
         "affectsGlobalScope": false
       },
       "../src/structures/client.ts": {
-        "version": "e9571e578b1df3e11982b3e47feb86001a8c44ee66c7bcf20d39c424e1362da1",
-        "signature": "3bce1c667f4423911516d8b3f02b347ba92baa758e344ec6b9dc9e7b0e8f98f3",
+        "version": "357c382ca288aa726786188a2c27ff819c11c2d37c4fcb8262f7affc7b40df5e",
+        "signature": "165f3463c14d4b83aadd7b1d1825e3adf02ba483256a8cd701ab5d991c471089",
         "affectsGlobalScope": false
       },
       "../src/structures/channel.ts": {
-        "version": "79d95175eda11b93558b6bf4ec3c2b1ed293565c937a999e1aec2a6341bff4e1",
-        "signature": "d414e9f9e2c5142b081f7d57ee86407d3c52b6064347e2ab186590a2edbad10e",
+        "version": "ec8f40ee5d0d804040c8661706d4ca4b4cd9c0ae1c5ba9e10084bd600fd4b610",
+        "signature": "d1c181ac7e7dcbd32db38aa9a802c18ae977bbbbb86babaa8e67326b43f1fb0e",
         "affectsGlobalScope": false
       },
       "../src/structures/guildchannel.ts": {
@@ -666,14 +631,64 @@
         "signature": "13e66370c0d4061af981370ac97e3e0f21c31610aca9627d87215e2228f6198e",
         "affectsGlobalScope": false
       },
+      "../src/structures/role.ts": {
+        "version": "523221049ec76485d8092c0035ecd35a03a448cc3be52acc848d0ab2adef2d91",
+        "signature": "6a247a38840fd6c6b6e075af03a3db5d44d3e35f4cc7c0861cd2f071e7e87d52",
+        "affectsGlobalScope": false
+      },
+      "../src/structures/partial/partialbase.ts": {
+        "version": "79602050b8a8e447af2e3a792919e2f40c762cb6a9a75e8afe87904ba42a2a7f",
+        "signature": "66ca63c4cfaa4322be0d2f801cf72afafd0d6b14911fee05a1713ae391fd18f0",
+        "affectsGlobalScope": false
+      },
+      "../src/structures/message.ts": {
+        "version": "56dcf4ff1be0730a733edb45022403e43da9a3cd7fb1b781cb96bafa948e5335",
+        "signature": "5ea107710a2bd7d63eef8d9235c66de849a089ba97dba9f4cd99465e42f4d83f",
+        "affectsGlobalScope": false
+      },
+      "../src/structures/interfaces/textbasedchannel.ts": {
+        "version": "88fc8f1a2ab21b90144d80e7812c6d36b71fa96de1442df7b3d9e1e37be03f90",
+        "signature": "234b5e5af1c0e0ffa9300fb83d846a9ecc5a9b083ea0a7e425c6eb413be9b8c8",
+        "affectsGlobalScope": false
+      },
+      "../src/structures/dmchannel.ts": {
+        "version": "37af9f1b4237a93a6cf5779a228ee06d1dfb1eacb303c05e500151c552e7effa",
+        "signature": "6b523f6363671b923589527e4b66d150d4ae6dab14f204e5cd5c6c10117e5600",
+        "affectsGlobalScope": false
+      },
+      "../src/structures/partial/partialrole.ts": {
+        "version": "d20193d0c1e9d6b0eaa66e5d4150d3c2f80563ca9f4ba334d3e196a2ed088bb1",
+        "signature": "28aa110923fe979a2ddb97b56f1998c067b4dc295ba67263c0d6143f57760130",
+        "affectsGlobalScope": false
+      },
+      "../src/structures/voicestate.ts": {
+        "version": "5b614525bea91f4c20437c0d4582a7d793863b8030a0b7b318cdcc7583ec3f16",
+        "signature": "ecfe7c4308bc7ade1dcddc0cd09037899e7782e4b35ea142723da57e5bbefec8",
+        "affectsGlobalScope": false
+      },
+      "../src/types.ts": {
+        "version": "60188f1d7f1e91512b8be2263931ccec20eb01c3aa07009350685d9f5e34c810",
+        "signature": "5dc59adf7dae9b4499c57c36cec4a367de74b507e54c4da923be7eeac9a8a63c",
+        "affectsGlobalScope": false
+      },
       "../src/handle.ts": {
-        "version": "9e236fd733dac1f1575a57210025e2893813b978565387de5a365275e36a60fb",
+        "version": "596bebe39dbf7a1dda25be5a419c32fc519e0013bacccf7c313e6724a1ca9aea",
         "signature": "1c015e15d2408173f3c331d7c60943aa365e84b3fa5bb9d4967603871da4faa3",
         "affectsGlobalScope": false
       },
+      "../node_modules/@augu/immutable/index.d.ts": {
+        "version": "dc3c23c9a4811a78c71ff1e646b1bb50b38998b457ae057178809aafdf1acf46",
+        "signature": "dc3c23c9a4811a78c71ff1e646b1bb50b38998b457ae057178809aafdf1acf46",
+        "affectsGlobalScope": false
+      },
+      "../src/structures/util/collection.ts": {
+        "version": "5ea5248f2329fd730df114ce059702341e08e6cc01a693c6fa1067608d3791ae",
+        "signature": "f56c5f6749d396be9e9c48c08beb20fdd3f58228fcc4c4268d1b1f1d2b951512",
+        "affectsGlobalScope": false
+      },
       "../src/index.ts": {
-        "version": "b12d32a9e997c54377baa2cb3e80df5cd332b2893d130853c3b5810490050929",
-        "signature": "fa62042060026cb73dac1e1979736cb196612223dfb14ec15cab20114f1bfe9d",
+        "version": "2d0020a3447410675080436b97f39be7b530c4481b0a6d5160fc8e3fb68e9846",
+        "signature": "3c71ebe67436930a60545ab5709cf590fff14965876881a630a4823559443cb4",
         "affectsGlobalScope": false
       }
     },
@@ -715,6 +730,9 @@
       "configFilePath": "../tsconfig.json"
     },
     "referencedMap": {
+      "../node_modules/@augu/immutable/index.d.ts": [
+        "../node_modules/@types/node/events.d.ts"
+      ],
       "../node_modules/@types/node/base.d.ts": [
         "../node_modules/@types/node/assert.d.ts",
         "../node_modules/@types/node/ts3.6/base.d.ts"
@@ -987,6 +1005,8 @@
         "../src/structures/partial/partialuser.ts",
         "../src/structures/textchannel.ts",
         "../src/structures/user.ts",
+        "../src/structures/util/collection.ts",
+        "../src/structures/util/util.ts",
         "../src/structures/voicechannel.ts",
         "../src/structures/voiceregion.ts",
         "../src/structures/voicestate.ts",
@@ -1002,7 +1022,8 @@
       ],
       "../src/structures/channel.ts": [
         "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts"
+        "../src/structures/client.ts",
+        "../src/structures/util/util.ts"
       ],
       "../src/structures/client.ts": [
         "../node_modules/@types/node/events.d.ts",
@@ -1036,7 +1057,9 @@
         "../src/structures/newschannel.ts",
         "../src/structures/partial/partialuser.ts",
         "../src/structures/textchannel.ts",
-        "../src/structures/voicechannel.ts"
+        "../src/structures/util/util.ts",
+        "../src/structures/voicechannel.ts",
+        "../src/types.ts"
       ],
       "../src/structures/guildchannel.ts": [
         "../node_modules/@amanda/discordtypings/index.d.ts",
@@ -1060,6 +1083,7 @@
         "../src/structures/messageembed.ts",
         "../src/structures/partial/partialbase.ts",
         "../src/structures/user.ts",
+        "../src/structures/util/util.ts",
         "../src/types.ts"
       ],
       "../src/structures/invite.ts": [
@@ -1083,13 +1107,14 @@
         "../src/types.ts"
       ],
       "../src/structures/messageattachment.ts": [
-        "../node_modules/@types/node/path.d.ts",
         "../node_modules/@types/node/stream.d.ts",
+        "../src/structures/util/util.ts",
         "../src/types.ts"
       ],
       "../src/structures/messageembed.ts": [
         "../node_modules/@amanda/discordtypings/index.d.ts",
         "../src/structures/messageattachment.ts",
+        "../src/structures/util/util.ts",
         "../src/types.ts"
       ],
       "../src/structures/newschannel.ts": [
@@ -1111,6 +1136,7 @@
         "../src/structures/role.ts",
         "../src/structures/textchannel.ts",
         "../src/structures/user.ts",
+        "../src/structures/util/util.ts",
         "../src/structures/voicechannel.ts"
       ],
       "../src/structures/partial/partialchannel.ts": [
@@ -1162,6 +1188,15 @@
         "../src/constants.ts",
         "../src/structures/client.ts",
         "../src/structures/interfaces/textbasedchannel.ts",
+        "../src/structures/util/util.ts",
+        "../src/types.ts"
+      ],
+      "../src/structures/util/collection.ts": [
+        "../node_modules/@augu/immutable/index.d.ts"
+      ],
+      "../src/structures/util/util.ts": [
+        "../node_modules/@types/node/path.d.ts",
+        "../src/constants.ts",
         "../src/types.ts"
       ],
       "../src/structures/voicechannel.ts": [
@@ -1177,6 +1212,7 @@
       "../src/types.ts": [
         "../node_modules/@amanda/discordtypings/index.d.ts",
         "../node_modules/snowtransfer/dist/src/snowtransfer.d.ts",
+        "../src/constants.ts",
         "../src/internal.ts",
         "../src/structures/categorychannel.ts",
         "../src/structures/clientuser.ts",
@@ -1196,6 +1232,9 @@
       ]
     },
     "exportedModulesMap": {
+      "../node_modules/@augu/immutable/index.d.ts": [
+        "../node_modules/@types/node/events.d.ts"
+      ],
       "../node_modules/@types/node/base.d.ts": [
         "../node_modules/@types/node/assert.d.ts",
         "../node_modules/@types/node/ts3.6/base.d.ts"
@@ -1456,6 +1495,8 @@
         "../src/structures/partial/partialuser.ts",
         "../src/structures/textchannel.ts",
         "../src/structures/user.ts",
+        "../src/structures/util/collection.ts",
+        "../src/structures/util/util.ts",
         "../src/structures/voicechannel.ts",
         "../src/structures/voiceregion.ts",
         "../src/structures/voicestate.ts",
@@ -1500,7 +1541,8 @@
         "../src/structures/client.ts",
         "../src/structures/guildchannel.ts",
         "../src/structures/guildmember.ts",
-        "../src/structures/partial/partialuser.ts"
+        "../src/structures/partial/partialuser.ts",
+        "../src/types.ts"
       ],
       "../src/structures/guildchannel.ts": [
         "../node_modules/@amanda/discordtypings/index.d.ts",
@@ -1617,6 +1659,12 @@
         "../src/structures/message.ts",
         "../src/types.ts"
       ],
+      "../src/structures/util/collection.ts": [
+        "../node_modules/@augu/immutable/index.d.ts"
+      ],
+      "../src/structures/util/util.ts": [
+        "../src/types.ts"
+      ],
       "../src/structures/voicechannel.ts": [
         "../node_modules/@amanda/discordtypings/index.d.ts",
         "../src/structures/client.ts",
@@ -1630,6 +1678,7 @@
       "../src/types.ts": [
         "../node_modules/@amanda/discordtypings/index.d.ts",
         "../node_modules/snowtransfer/dist/src/snowtransfer.d.ts",
+        "../src/constants.ts",
         "../src/internal.ts",
         "../src/structures/categorychannel.ts",
         "../src/structures/clientuser.ts",
@@ -1650,6 +1699,7 @@
     },
     "semanticDiagnosticsPerFile": [
       "../node_modules/@amanda/discordtypings/index.d.ts",
+      "../node_modules/@augu/immutable/index.d.ts",
       "../node_modules/@types/node/assert.d.ts",
       "../node_modules/@types/node/async_hooks.d.ts",
       "../node_modules/@types/node/base.d.ts",
@@ -1780,6 +1830,8 @@
       "../src/structures/role.ts",
       "../src/structures/textchannel.ts",
       "../src/structures/user.ts",
+      "../src/structures/util/collection.ts",
+      "../src/structures/util/util.ts",
       "../src/structures/voicechannel.ts",
       "../src/structures/voiceregion.ts",
       "../src/structures/voicestate.ts",

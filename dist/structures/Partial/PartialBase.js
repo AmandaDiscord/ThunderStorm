@@ -28,12 +28,19 @@ const NewsChannel_1 = __importDefault(require("../NewsChannel"));
 const TextChannel_1 = __importDefault(require("../TextChannel"));
 const User_1 = __importDefault(require("../User"));
 const VoiceChannel_1 = __importDefault(require("../VoiceChannel"));
+const Util_1 = require("../Util/Util");
 class PartialBase {
     constructor(data, client) {
         this.client = client;
         this.partial = true;
         this.partialType = "Base";
         this.id = data.id;
+    }
+    get createdTimestamp() {
+        return Util_1.SnowflakeUtil.deconstruct(this.id).timestamp;
+    }
+    get createdAt() {
+        return new Date(this.createdTimestamp);
     }
     toJSON() {
         return {

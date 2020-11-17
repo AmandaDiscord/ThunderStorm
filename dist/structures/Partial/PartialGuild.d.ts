@@ -12,6 +12,6 @@ declare class PartialGuild extends PartialBase<import("../Guild")> {
         unavailable: boolean;
     };
     fetchMembers(options: string): Promise<import("../GuildMember") | null>;
-    fetchMembers(options: import("../../types").FetchMemberOptions): Promise<Array<import("../GuildMember")> | null>;
+    fetchMembers(options: import("../../Types").FetchMemberOptions): Promise<Array<import("../GuildMember")> | null>;
 }
 export = PartialGuild;

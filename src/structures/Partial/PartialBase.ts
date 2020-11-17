@@ -6,6 +6,8 @@ import TextChannel from "../TextChannel";
 import User from "../User";
 import VoiceChannel from "../VoiceChannel";
 
+import { SnowflakeUtil } from "../Util/Util";
+
 interface FetchData {
 	"User": import("../User")
 	"Channel": import("../Channel")
@@ -27,6 +29,14 @@ class PartialBase<Type extends FetchData[keyof FetchData]> {
 		this.partialType = "Base";
 
 		this.id = data.id;
+	}
+
+	public get createdTimestamp() {
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
+	}
+
+	public get createdAt() {
+		return new Date(this.createdTimestamp);
 	}
 
 	public toJSON() {

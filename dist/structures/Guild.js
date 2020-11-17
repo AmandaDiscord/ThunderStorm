@@ -7,7 +7,8 @@ const CategoryChannel_1 = __importDefault(require("./CategoryChannel"));
 const NewsChannel_1 = __importDefault(require("./NewsChannel"));
 const TextChannel_1 = __importDefault(require("./TextChannel"));
 const VoiceChannel_1 = __importDefault(require("./VoiceChannel"));
-const constants_1 = __importDefault(require("../constants"));
+const Constants_1 = __importDefault(require("../Constants"));
+const Util_1 = require("./Util/Util");
 class Guild {
     constructor(data, client) {
         this.client = client;
@@ -17,7 +18,7 @@ class Guild {
         this.id = data.id;
         this.available = data.unavailable != undefined ? !data.unavailable : true;
         this.memberCount = data.member_count || 0;
-        this.ownerID = data.owner_id || constants_1.default.SYSTEM_USER_ID;
+        this.ownerID = data.owner_id || Constants_1.default.SYSTEM_USER_ID;
         this.owner = new PartialUser({ id: this.ownerID }, client);
         this.region = data.region || "unknown";
         this.icon = data.icon || null;
@@ -35,6 +36,12 @@ class Guild {
             return [channel.id, chan];
         })) : new Map();
     }
+    get createdTimestamp() {
+        return Util_1.SnowflakeUtil.deconstruct(this.id).timestamp;
+    }
+    get createdAt() {
+        return new Date(this.createdTimestamp);
+    }
     get nameAcronym() {
         return this.name
             .replace(/'s /g, " ")
@@ -48,7 +55,7 @@ class Guild {
         if (!this.icon)
             return null;
         const format = this.icon.startsWith("a_") && options.dynamic ? "gif" : options.format;
-        return `${constants_1.default.BASE_CDN_URL}/icons/${this.id}/${this.icon}.${format}${!["gif", "webp"].includes(format) ? `?size=${options.size}` : ""}`;
+        return `${Constants_1.default.BASE_CDN_URL}/icons/${this.id}/${this.icon}.${format}${!["gif", "webp"].includes(format) ? `?size=${options.size}` : ""}`;
     }
     toJSON() {
         return {

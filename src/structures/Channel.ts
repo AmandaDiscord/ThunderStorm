@@ -1,3 +1,5 @@
+import { SnowflakeUtil } from "./Util/Util";
+
 class Channel {
 	public client: import("./Client");
 	public partial: false;
@@ -12,6 +14,14 @@ class Channel {
 		this.id = data.id;
 		this.name = data.name;
 		this.type = "unknown";
+	}
+
+	public get createdTimestamp() {
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
+	}
+
+	public get createdAt() {
+		return new Date(this.createdTimestamp);
 	}
 
 	public fetch() {

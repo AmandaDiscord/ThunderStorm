@@ -1,18 +1,16 @@
-function isObject(d: any) {
-	return typeof d === "object" && d !== null;
-}
+import { isObject } from "../Util/Util";
 
-export async function send(instance: import("../Partial/PartialBase")<any> | import("../Channel") | import("../User") | import("../GuildMember"), content: import("../../types").StringResolvable, options: import("../../types").MessageOptions | undefined = {}) {
-	const PartialBase = (await import("../Partial/PartialBase")).default;
+export async function send(instance: import("../Partial/PartialBase")<any> | import("../Channel") | import("../User") | import("../GuildMember"), content: import("../../Types").StringResolvable, options: import("../../Types").MessageOptions | undefined = {}) {
+	const PartialBase: typeof import("../Partial/PartialBase") = require("../Partial/PartialBase");
 
-	const User = (await import("../User")).default;
-	const Channel = (await import("../Channel")).default;
-	const GuildMember = (await import("../GuildMember")).default;
+	const User: typeof import("../User") = require("../User");
+	const Channel: typeof import("../Channel") = require("../Channel");
+	const GuildMember: typeof import("../GuildMember") = require("../GuildMember");
 
-	const Message = (await import("../Message")).default; // lazy load
+	const Message: typeof import("../Message") = require("../Message"); // lazy load
 
 	let mode;
-	const payload = await transform(content, options);
+	const payload = transform(content, options);
 
 	if (instance instanceof PartialBase) {
 		if (instance.partialType == "Channel") mode = "channel";
@@ -52,8 +50,8 @@ export async function fetchMessage(client: import("../Client"), channelID: strin
 	return client._snow.channel.getChannelMessage(channelID, messageID).then(data => new Message(data, client));
 }
 
-export async function transform(content: import("../../types").StringResolvable, options: import("../../types").MessageOptions = {}, isEdit: boolean | undefined = false): Promise<{ content?: string | null; embeds?: Array<any>; nonce?: string; tts?: boolean; file?: any; }> {
-	const MessageEmbed = (await (import("../MessageEmbed"))).default;
+export function transform(content: import("../../Types").StringResolvable, options: import("../../Types").MessageOptions = {}, isEdit: boolean | undefined = false): { content?: string | null; embeds?: Array<any>; nonce?: string; tts?: boolean; file?: any; } {
+	const MessageEmbed: typeof import("../MessageEmbed") = require("../MessageEmbed");
 
 	const payload: { content?: string | null; embed?: any; nonce?: string; tts?: boolean; file?: { name?: string, file: string } } = {};
 

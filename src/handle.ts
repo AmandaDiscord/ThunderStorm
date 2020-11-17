@@ -1,4 +1,4 @@
-import Constants from "./constants";
+import Constants from "./Constants";
 
 import CategoryChannel from "./structures/CategoryChannel";
 import ClientUser from "./structures/ClientUser";

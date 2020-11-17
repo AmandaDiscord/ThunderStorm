@@ -1,4 +1,3 @@
-import GuildMember from "./GuildMember";
 declare class Guild {
     client: import("./Client");
     partial: false;
@@ -13,6 +12,8 @@ declare class Guild {
     members: Map<string, import("./GuildMember")>;
     channels: Map<string, import("./GuildChannel")>;
     constructor(data: import("@amanda/discordtypings").GuildData, client: import("./Client"));
+    get createdTimestamp(): number;
+    get createdAt(): Date;
     get nameAcronym(): string;
     fetch(): Promise<this>;
     iconURL(options?: {
@@ -53,11 +54,7 @@ declare class Guild {
             position: number;
         }[];
     };
-    fetchMembers(options: string | {
-        ids?: Array<string>;
-        query?: string;
-        limit?: number;
-        after?: string;
-    }): Promise<GuildMember | GuildMember[] | null>;
+    fetchMembers(options: string): Promise<import("./GuildMember") | null>;
+    fetchMembers(options: import("../Types").FetchMemberOptions): Promise<Array<import("./GuildMember")> | null>;
 }
 export = Guild;

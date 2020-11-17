@@ -1,34 +1,5 @@
 "use strict";
-const path_1 = require("path");
-const isObject = (d) => typeof d === "object" && d !== null;
-function flatten(obj, ...props) {
-    if (!isObject(obj))
-        return obj;
-    const objProps = Object.keys(obj)
-        .filter(k => !k.startsWith("_"))
-        .map(k => ({ [k]: true }));
-    props = objProps.length ? Object.assign(...objProps, ...props) : Object.assign({}, ...props);
-    const out = {};
-    for (let [prop, newProp] of Object.entries(props)) {
-        if (!newProp)
-            continue;
-        newProp = newProp === true ? prop : newProp;
-        const element = obj[prop];
-        const elemIsObj = isObject(element);
-        const valueOf = elemIsObj && typeof element.valueOf === "function" ? element.valueOf() : null;
-        if (Array.isArray(element))
-            out[newProp] = element.map(e => flatten(e));
-        else if (typeof valueOf !== "object")
-            out[newProp] = valueOf;
-        else if (!elemIsObj)
-            out[newProp] = element;
-    }
-    return out;
-}
-function basename(path, ext) {
-    const res = path_1.parse(path);
-    return ext && res.ext.startsWith(ext) ? res.name : res.base.split("?")[0];
-}
+const Util_1 = require("./Util/Util");
 class MessageAttachment {
     constructor(attachment, name = null, data) {
         this.attachment = attachment;
@@ -54,10 +25,10 @@ class MessageAttachment {
         this.width = typeof data.width !== "undefined" ? data.width : null;
     }
     get spoiler() {
-        return basename(this.url).startsWith("SPOILER_");
+        return Util_1.basename(this.url).startsWith("SPOILER_");
     }
     toJSON() {
-        return flatten(this);
+        return Util_1.flatten(this);
     }
 }
 module.exports = MessageAttachment;

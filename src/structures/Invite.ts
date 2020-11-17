@@ -1,4 +1,4 @@
-import Constants from "../constants";
+import Constants from "../Constants";
 
 class Invite {
 	public client: import("./Client");

@@ -23,9 +23,11 @@ import VoiceRegion from "./structures/VoiceRegion";
 import VoiceState from "./structures/VoiceState";
 
 import handle from "./handle";
-import Constants from "./constants";
+import Collection from "./structures/Util/Collection";
+import Constants from "./Constants";
+import Util from "./structures/Util/Util";
 
-export * from "./types";
+export * from "./Types";
 
 const version = "11.6.4";
 
@@ -55,6 +57,8 @@ export {
 	PartialUser,
 
 	handle,
+	Collection,
 	Constants,
+	Util,
 	version
 };

@@ -62,23 +62,9 @@ declare class Message {
             url: string | null;
             timestamp: Date | null;
             color: number;
-            fields: {
-                name: string;
-                value: string;
-                inline: boolean;
-            }[];
-            thumbnail: {
-                url: string;
-                proxyURL: string;
-                height: number;
-                width: number;
-            } | null;
-            image: {
-                url: string;
-                proxyURL: string;
-                height: number;
-                width: number;
-            } | null;
+            fields: import("../Types").EmbedField[];
+            thumbnail: import("../Types").MessageEmbedThumbnail | null;
+            image: import("../Types").MessageEmbedImage | null;
             author: {
                 name: string;
                 url: string;
@@ -124,7 +110,7 @@ declare class Message {
         webhook_id: string | null;
     };
     toString(): string;
-    edit(content: import("../types").StringResolvable, options?: import("../types").MessageOptions): Promise<Message>;
+    edit(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<Message>;
     delete(timeout?: number): Promise<this>;
     react(emoji: string): Promise<this>;
     deleteReaction(user: string | User | GuildMember | import("./Partial/PartialUser"), emoji: string): Promise<this>;

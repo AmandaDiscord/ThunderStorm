@@ -11,6 +11,8 @@ declare class User {
     constructor(data: import("@amanda/discordtypings").UserData, client: import("./Client"));
     get tag(): string;
     get defaultAvatarURL(): string;
+    get createdTimestamp(): number;
+    get createdAt(): Date;
     toString(): string;
     toJSON(): {
         username: string;
@@ -31,6 +33,6 @@ declare class User {
         dynamic: boolean;
     }): string | null;
     fetch(): Promise<this>;
-    send(content: import("../types").StringResolvable, options?: import("../types").MessageOptions): Promise<import("./Message")>;
+    send(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<import("./Message")>;
 }
 export = User;

@@ -31,7 +31,7 @@ class DMChannel extends Channel {
 		};
 	}
 
-	public send(content: import("../types").StringResolvable, options: import("../types").MessageOptions = {}) {
+	public send(content: import("../Types").StringResolvable, options: import("../Types").MessageOptions = {}) {
 		return TextBasedChannel.send(this, content, options);
 	}
 

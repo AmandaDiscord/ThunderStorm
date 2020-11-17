@@ -2,15 +2,15 @@
 import { EventEmitter } from "events";
 import VoiceRegion from "./VoiceRegion";
 declare class Client extends EventEmitter {
-    options: import("../types").ClientOptions;
+    options: import("../Types").ClientOptions;
     readyTimestamp: number | null;
     token: string;
     user: import("./ClientUser") | null;
     _snow: import("snowtransfer");
-    constructor(options: import("../types").ClientOptions);
-    emit<E extends keyof import("../types").ClientEvents>(event: E, ...args: import("../types").ClientEvents[E]): boolean;
-    once<E extends keyof import("../types").ClientEvents>(event: E, listener: (...args: import("../types").ClientEvents[E]) => any): this;
-    on<E extends keyof import("../types").ClientEvents>(event: E, listener: (...args: import("../types").ClientEvents[E]) => any): this;
+    constructor(options: import("../Types").ClientOptions);
+    emit<E extends keyof import("../Types").ClientEvents>(event: E, ...args: import("../Types").ClientEvents[E]): boolean;
+    once<E extends keyof import("../Types").ClientEvents>(event: E, listener: (...args: import("../Types").ClientEvents[E]) => any): this;
+    on<E extends keyof import("../Types").ClientEvents>(event: E, listener: (...args: import("../Types").ClientEvents[E]) => any): this;
     get readyAt(): Date | null;
     get uptime(): number;
     toString(): string;

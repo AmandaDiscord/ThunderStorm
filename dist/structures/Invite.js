@@ -2,7 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const constants_1 = __importDefault(require("../constants"));
+const Constants_1 = __importDefault(require("../Constants"));
 class Invite {
     constructor(data, client) {
         var _a;
@@ -23,7 +23,7 @@ class Invite {
         this.maxAge = data.max_age || 0;
         this.uses = data.uses || 0;
         this.maxUses = data.max_uses || 0;
-        this.inviter = data.inviter ? (data.invite.id === ((_a = client.user) === null || _a === void 0 ? void 0 : _a.id) ? client.user : new User(data.inviter, client)) : new PartialUser({ id: constants_1.default.SYSTEM_USER_ID }, client);
+        this.inviter = data.inviter ? (data.invite.id === ((_a = client.user) === null || _a === void 0 ? void 0 : _a.id) ? client.user : new User(data.inviter, client)) : new PartialUser({ id: Constants_1.default.SYSTEM_USER_ID }, client);
         this.channel = new PartialChannel({ id: data.channel.id, guild_id: data.guild.id }, client);
         this.createdTimestamp = data.created_at ? new Date(data.created_at).getTime() : new Date().getTime();
     }

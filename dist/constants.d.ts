@@ -17,6 +17,38 @@ declare const Constants: {
         READY: string;
         SHARD_READY: string;
     };
+    Colors: {
+        DEFAULT: number;
+        WHITE: number;
+        AQUA: number;
+        GREEN: number;
+        BLUE: number;
+        YELLOW: number;
+        PURPLE: number;
+        LUMINOUS_VIVID_PINK: number;
+        GOLD: number;
+        ORANGE: number;
+        RED: number;
+        GREY: number;
+        NAVY: number;
+        DARK_AQUA: number;
+        DARK_GREEN: number;
+        DARK_BLUE: number;
+        DARK_PURPLE: number;
+        DARK_VIVID_PINK: number;
+        DARK_GOLD: number;
+        DARK_ORANGE: number;
+        DARK_RED: number;
+        DARK_GREY: number;
+        DARKER_GREY: number;
+        LIGHT_GREY: number;
+        DARK_NAVY: number;
+        BLURPLE: number;
+        GREYPLE: number;
+        DARK_BUT_NOT_BLACK: number;
+        NOT_QUITE_BLACK: number;
+        RANDOM: string;
+    };
     EVENTS: {
         CHANNEL_CREATE: string;
         CHANNEL_PINS_UPDATE: string;

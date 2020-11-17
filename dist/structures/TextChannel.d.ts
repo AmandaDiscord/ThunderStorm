@@ -21,7 +21,7 @@ declare class TextChannel extends GuildChannel {
         topic: string;
         type: number;
     };
-    send(content: import("../types").StringResolvable, options?: import("../types").MessageOptions): Promise<import("./Message")>;
+    send(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<import("./Message")>;
     sendTyping(): Promise<void>;
     deleteMessage(messageID: string, timeout?: number): Promise<void>;
     fetchMessage(messageID: string): Promise<import("./Message")>;

@@ -33,6 +33,6 @@ declare class GuildMember {
         roles: string[];
         guild_id: string | undefined;
     };
-    send(content: import("../types").StringResolvable, options?: import("../types").MessageOptions): Promise<import("./Message")>;
+    send(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<import("./Message")>;
 }
 export = GuildMember;

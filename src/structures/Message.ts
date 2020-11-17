@@ -1,6 +1,6 @@
 import User from "./User";
 import GuildMember from "./GuildMember";
-import Constants from "../constants";
+import Constants from "../Constants";
 
 class Message {
 	public client: import("./Client");
@@ -87,9 +87,9 @@ class Message {
 		return this.content;
 	}
 
-	public async edit(content: import("../types").StringResolvable, options: import("../types").MessageOptions = {}) {
+	public async edit(content: import("../Types").StringResolvable, options: import("../Types").MessageOptions = {}) {
 		const TextBasedChannel: typeof import("./Interfaces/TextBasedChannel") = require("./Interfaces/TextBasedChannel");
-		const data = await TextBasedChannel.transform(content, options, true);
+		const data = TextBasedChannel.transform(content, options, true);
 		const msg = await this.client._snow.channel.editMessage(this.channel.id, this.id, data, { disableEveryone: options.disableEveryone || this.client._snow.options.disableEveryone || false });
 		if (this.guild) msg.guild_id = this.guild.id;
 		return new Message(msg, this.client);

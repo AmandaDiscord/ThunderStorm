@@ -5,6 +5,8 @@ declare class Channel {
     name: string;
     type: string;
     constructor(data: import("@amanda/discordtypings").ChannelData, client: import("./Client"));
+    get createdTimestamp(): number;
+    get createdAt(): Date;
     fetch(): Promise<this>;
     toString(): string;
     toJSON(): {

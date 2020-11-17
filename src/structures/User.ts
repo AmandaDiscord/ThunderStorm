@@ -1,6 +1,8 @@
 import TextBasedChannel from "./Interfaces/TextBasedChannel";
 
-import Constants from "../constants";
+import Constants from "../Constants";
+
+import { SnowflakeUtil } from "./Util/Util";
 
 class User {
 	public client: import("./Client");
@@ -34,6 +36,14 @@ class User {
 		return `${Constants.BASE_CDN_URL}/embed/avatars/${Number(this.discriminator) % 5}.png`;
 	}
 
+	public get createdTimestamp() {
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
+	}
+
+	public get createdAt() {
+		return new Date(this.createdTimestamp);
+	}
+
 	public toString() {
 		return `<@${this.id}>`;
 	}
@@ -64,7 +74,7 @@ class User {
 		return Promise.resolve(this);
 	}
 
-	send(content: import("../types").StringResolvable, options: import("../types").MessageOptions = {}) {
+	public send(content: import("../Types").StringResolvable, options: import("../Types").MessageOptions = {}) {
 		return TextBasedChannel.send(this, content, options);
 	}
 }

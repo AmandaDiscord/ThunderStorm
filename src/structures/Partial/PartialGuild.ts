@@ -22,8 +22,8 @@ class PartialGuild extends PartialBase<import("../Guild")> {
 	}
 
 	public async fetchMembers(options: string): Promise<import("../GuildMember") | null>
-	public async fetchMembers(options: import("../../types").FetchMemberOptions): Promise<Array<import("../GuildMember")> | null>
-	public async fetchMembers(options: string | import("../../types").FetchMemberOptions): Promise<import("../GuildMember") | Array<import("../GuildMember")> | null> {
+	public async fetchMembers(options: import("../../Types").FetchMemberOptions): Promise<Array<import("../GuildMember")> | null>
+	public async fetchMembers(options: string | import("../../Types").FetchMemberOptions): Promise<import("../GuildMember") | Array<import("../GuildMember")> | null> {
 		const GuildMember = (await import("../GuildMember")).default;
 		// @ts-ignore
 		if (typeof options === "string") return this.client._snow.guild.getGuildMember(this.id, options).then(d => d ? new GuildMember(d, this.client) : null);

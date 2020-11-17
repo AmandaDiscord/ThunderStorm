@@ -12,6 +12,8 @@ declare class PartialBase<Type extends FetchData[keyof FetchData]> {
     id: string;
     guild?: import("./PartialGuild") | null;
     constructor(data: import("../../internal").PartialData, client: import("../Client"));
+    get createdTimestamp(): number;
+    get createdAt(): Date;
     toJSON(): {
         id: string;
     };

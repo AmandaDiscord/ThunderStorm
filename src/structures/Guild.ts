@@ -4,7 +4,9 @@ import NewsChannel from "./NewsChannel";
 import TextChannel from "./TextChannel";
 import VoiceChannel from "./VoiceChannel";
 
-import Constants from "../constants";
+import Constants from "../Constants";
+
+import { SnowflakeUtil } from "./Util/Util";
 
 class Guild {
 	public client: import("./Client");
@@ -47,6 +49,14 @@ class Guild {
 		})) : new Map();
 	}
 
+	public get createdTimestamp() {
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
+	}
+
+	public get createdAt() {
+		return new Date(this.createdTimestamp);
+	}
+
 	/**
 	 * The acronym that shows up in place of a guild icon.
 	 */
@@ -81,6 +91,8 @@ class Guild {
 		};
 	}
 
+	public async fetchMembers(options: string): Promise<import("./GuildMember") | null>
+	public async fetchMembers(options: import("../Types").FetchMemberOptions): Promise<Array<import("./GuildMember")> | null>
 	public async fetchMembers(options: string | { ids?: Array<string>; query?: string; limit?: number; after?: string; }) {
 		// @ts-ignore
 		if (typeof options === "string") return this.client._snow.guild.getGuildMember(this.id, options).then(d => new GuildMember(d, this.client));

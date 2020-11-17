@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const User_1 = __importDefault(require("./User"));
 const GuildMember_1 = __importDefault(require("./GuildMember"));
-const constants_1 = __importDefault(require("../constants"));
+const Constants_1 = __importDefault(require("../Constants"));
 class Message {
     constructor(data, client) {
         var _a;
@@ -15,7 +15,7 @@ class Message {
         const PartialChannel = require("./Partial/PartialChannel");
         this.channel = new PartialChannel({ id: data.channel_id, guild_id: data.guild_id }, client);
         this.guild = data.guild_id ? new PartalGuild({ id: data.guild_id }, client) : null;
-        this.author = data.author ? data.author.id === ((_a = this.client.user) === null || _a === void 0 ? void 0 : _a.id) ? this.client.user : new User_1.default(data.author, client) : new User_1.default({ username: "Discord", discriminator: "0000", id: constants_1.default.SYSTEM_USER_ID, avatar: "d9fa72d57744dea056b12e2b34a87173" }, client);
+        this.author = data.author ? data.author.id === ((_a = this.client.user) === null || _a === void 0 ? void 0 : _a.id) ? this.client.user : new User_1.default(data.author, client) : new User_1.default({ username: "Discord", discriminator: "0000", id: Constants_1.default.SYSTEM_USER_ID, avatar: "d9fa72d57744dea056b12e2b34a87173" }, client);
         this.member = data.member && data.author ? new GuildMember_1.default({ user: data.author, ...data.member }, client) : null;
         this.attachments = data.attachments;
         this.content = data.content || "";
@@ -66,7 +66,7 @@ class Message {
     }
     async edit(content, options = {}) {
         const TextBasedChannel = require("./Interfaces/TextBasedChannel");
-        const data = await TextBasedChannel.transform(content, options, true);
+        const data = TextBasedChannel.transform(content, options, true);
         const msg = await this.client._snow.channel.editMessage(this.channel.id, this.id, data, { disableEveryone: options.disableEveryone || this.client._snow.options.disableEveryone || false });
         if (this.guild)
             msg.guild_id = this.guild.id;

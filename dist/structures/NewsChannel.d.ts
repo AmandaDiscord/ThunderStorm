@@ -2,7 +2,7 @@ import GuildChannel from "./GuildChannel";
 declare class NewsChannel extends GuildChannel {
     type: "news";
     constructor(data: import("@amanda/discordtypings").NewsChannelData, client: import("./Client"));
-    send(content: import("../types").StringResolvable, options?: import("../types").MessageOptions): Promise<import("./Message")>;
+    send(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<import("./Message")>;
     toJSON(): {
         id: string;
         name: string;

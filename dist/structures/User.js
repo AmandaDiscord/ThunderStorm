@@ -3,7 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const TextBasedChannel_1 = __importDefault(require("./Interfaces/TextBasedChannel"));
-const constants_1 = __importDefault(require("../constants"));
+const Constants_1 = __importDefault(require("../Constants"));
+const Util_1 = require("./Util/Util");
 class User {
     constructor(data, client) {
         this.client = client;
@@ -20,7 +21,13 @@ class User {
         return `${this.username}#${this.discriminator}`;
     }
     get defaultAvatarURL() {
-        return `${constants_1.default.BASE_CDN_URL}/embed/avatars/${Number(this.discriminator) % 5}.png`;
+        return `${Constants_1.default.BASE_CDN_URL}/embed/avatars/${Number(this.discriminator) % 5}.png`;
+    }
+    get createdTimestamp() {
+        return Util_1.SnowflakeUtil.deconstruct(this.id).timestamp;
+    }
+    get createdAt() {
+        return new Date(this.createdTimestamp);
     }
     toString() {
         return `<@${this.id}>`;
@@ -39,7 +46,7 @@ class User {
         if (!this.avatar)
             return null;
         const format = this.avatar.startsWith("a_") && options.dynamic ? "gif" : options.format;
-        return `${constants_1.default.BASE_CDN_URL}/avatars/${this.id}/${this.avatar}.${format}${!["gif", "webp"].includes(format) ? `?size=${options.size}` : ""}`;
+        return `${Constants_1.default.BASE_CDN_URL}/avatars/${this.id}/${this.avatar}.${format}${!["gif", "webp"].includes(format) ? `?size=${options.size}` : ""}`;
     }
     displayAvatarURL(options = { size: 128, format: "png", dynamic: true }) {
         if (!this.avatar)

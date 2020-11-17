@@ -20,17 +20,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendTyping = exports.transform = exports.fetchMessage = exports.deleteMessage = exports.send = void 0;
-function isObject(d) {
-    return typeof d === "object" && d !== null;
-}
+const Util_1 = require("../Util/Util");
 async function send(instance, content, options = {}) {
-    const PartialBase = (await Promise.resolve().then(() => __importStar(require("../Partial/PartialBase")))).default;
-    const User = (await Promise.resolve().then(() => __importStar(require("../User")))).default;
-    const Channel = (await Promise.resolve().then(() => __importStar(require("../Channel")))).default;
-    const GuildMember = (await Promise.resolve().then(() => __importStar(require("../GuildMember")))).default;
-    const Message = (await Promise.resolve().then(() => __importStar(require("../Message")))).default;
+    const PartialBase = require("../Partial/PartialBase");
+    const User = require("../User");
+    const Channel = require("../Channel");
+    const GuildMember = require("../GuildMember");
+    const Message = require("../Message");
     let mode;
-    const payload = await transform(content, options);
+    const payload = transform(content, options);
     if (instance instanceof PartialBase) {
         if (instance.partialType == "Channel")
             mode = "channel";
@@ -74,10 +72,10 @@ async function fetchMessage(client, channelID, messageID) {
     return client._snow.channel.getChannelMessage(channelID, messageID).then(data => new Message(data, client));
 }
 exports.fetchMessage = fetchMessage;
-async function transform(content, options = {}, isEdit = false) {
-    const MessageEmbed = (await (Promise.resolve().then(() => __importStar(require("../MessageEmbed"))))).default;
+function transform(content, options = {}, isEdit = false) {
+    const MessageEmbed = require("../MessageEmbed");
     const payload = {};
-    if (isObject(content) && !Array.isArray(content) && (content.content || content.embed || content.nonce || content.tts || content.file)) {
+    if (Util_1.isObject(content) && !Array.isArray(content) && (content.content || content.embed || content.nonce || content.tts || content.file)) {
         if (content.attachment)
             options.file = content;
         else
