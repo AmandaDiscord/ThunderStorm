@@ -57,7 +57,7 @@ declare class Collection<K, V> extends Immutable.Collection<V> {
     entries(): IterableIterator<[K, V]>;
     sortKeys(compareFn: (this: Collection<K, V>, a: K, b: K) => number): (string | number | bigint)[];
     someKeys(func: (this: Collection<K, V>, key: K) => boolean): boolean;
-    forEach(callbackfn: (value: V, key: K, collection: Collection<K, V>) => void, thisArg: any): void;
+    forEach(callbackfn: (value: V, key: K, collection: Collection<K, V>) => void, thisArg?: any): void;
     static from<Ky, Vl>(values: Array<Vl> | Vl | Array<[Ky, Vl]> | Record<Ky, Vl>): Collection<Ky, Vl>;
 }
 export = Collection;

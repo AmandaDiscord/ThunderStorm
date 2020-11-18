@@ -349,7 +349,7 @@ class Collection<K, V> extends Immutable.Collection<V> {
 	}
 
 	// @ts-ignore
-	public forEach(callbackfn: (value: V, key: K, collection: Collection<K, V>) => void, thisArg: any) {
+	public forEach(callbackfn: (value: V, key: K, collection: Collection<K, V>) => void, thisArg?: any) {
 		// @ts-ignore
 		return super.forEach(callbackfn, thisArg);
 	}
