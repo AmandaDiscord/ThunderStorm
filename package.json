@@ -19,7 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "@amanda/discordtypings": "github:AmandaDiscord/DiscordTypings",
-    "@augu/immutable": "^0.5.0",
+    "@augu/immutable": "^0.6.0",
     "@types/node": "^14.14.3",
     "snowtransfer": "github:AmandaDiscord/SnowTransfer"
   },

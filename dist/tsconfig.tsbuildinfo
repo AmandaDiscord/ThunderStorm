@@ -677,13 +677,13 @@
         "affectsGlobalScope": false
       },
       "../node_modules/@augu/immutable/index.d.ts": {
-        "version": "dc3c23c9a4811a78c71ff1e646b1bb50b38998b457ae057178809aafdf1acf46",
-        "signature": "dc3c23c9a4811a78c71ff1e646b1bb50b38998b457ae057178809aafdf1acf46",
+        "version": "10108281d51ff814d4084c1b393b622b7a7f72a5c8cf0a68180965415b4dcf19",
+        "signature": "10108281d51ff814d4084c1b393b622b7a7f72a5c8cf0a68180965415b4dcf19",
         "affectsGlobalScope": false
       },
       "../src/structures/util/collection.ts": {
-        "version": "bd278666379a59236b052a794b728e32d13daffe6a7ebf4e28c984b5b894a8a1",
-        "signature": "cd8c79e1befd8ae2ae8ac284c93239c4bcd3b49c41e1246a2f38d4b48fc3b186",
+        "version": "c1ab6fc800a14c06fdc66fa0e11b5a1cb759d92e55131a87a95817c727c78bdc",
+        "signature": "1527627ef19f7af84d78292e5dc8e160eeec124d28afa12e04858d8137728e88",
         "affectsGlobalScope": false
       },
       "../src/index.ts": {
@@ -1192,7 +1192,8 @@
         "../src/types.ts"
       ],
       "../src/structures/util/collection.ts": [
-        "../node_modules/@augu/immutable/index.d.ts"
+        "../node_modules/@augu/immutable/index.d.ts",
+        "../src/structures/util/util.ts"
       ],
       "../src/structures/util/util.ts": [
         "../node_modules/@types/node/path.d.ts",
