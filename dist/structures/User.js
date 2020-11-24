@@ -45,7 +45,7 @@ class User {
     avatarURL(options = { size: 128, format: "png", dynamic: true }) {
         if (!this.avatar)
             return null;
-        const format = this.avatar.startsWith("a_") && options.dynamic ? "gif" : options.format;
+        const format = this.avatar.startsWith("a_") && options.dynamic ? "gif" : (options.format || "png");
         return `${Constants_1.default.BASE_CDN_URL}/avatars/${this.id}/${this.avatar}.${format}${!["gif", "webp"].includes(format) ? `?size=${options.size}` : ""}`;
     }
     displayAvatarURL(options = { size: 128, format: "png", dynamic: true }) {

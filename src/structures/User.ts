@@ -59,13 +59,13 @@ class User {
 		};
 	}
 
-	public avatarURL(options = { size: 128, format: "png", dynamic: true }) {
+	public avatarURL(options: { size?: number; format?: "png" | "jpg" | "gif" | "webp"; dynamic?: boolean } = { size: 128, format: "png", dynamic: true }) {
 		if (!this.avatar) return null;
-		const format = this.avatar.startsWith("a_") && options.dynamic ? "gif" : options.format;
+		const format = this.avatar.startsWith("a_") && options.dynamic ? "gif" : (options.format || "png");
 		return `${Constants.BASE_CDN_URL}/avatars/${this.id}/${this.avatar}.${format}${!["gif", "webp"].includes(format) ? `?size=${options.size}` : ""}`;
 	}
 
-	public displayAvatarURL(options = { size: 128, format: "png", dynamic: true }) {
+	public displayAvatarURL(options: { size?: number; format?: "png" | "jpg" | "gif" | "webp"; dynamic?: boolean } = { size: 128, format: "png", dynamic: true }) {
 		if (!this.avatar) return this.defaultAvatarURL;
 		else return this.avatarURL(options);
 	}

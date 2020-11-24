@@ -23,14 +23,14 @@ declare class User {
         public_flags: number;
     };
     avatarURL(options?: {
-        size: number;
-        format: string;
-        dynamic: boolean;
+        size?: number;
+        format?: "png" | "jpg" | "gif" | "webp";
+        dynamic?: boolean;
     }): string | null;
     displayAvatarURL(options?: {
-        size: number;
-        format: string;
-        dynamic: boolean;
+        size?: number;
+        format?: "png" | "jpg" | "gif" | "webp";
+        dynamic?: boolean;
     }): string | null;
     fetch(): Promise<this>;
     send(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<import("./Message")>;
