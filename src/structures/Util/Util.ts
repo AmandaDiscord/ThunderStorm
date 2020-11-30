@@ -148,59 +148,6 @@ export function idToBinary(num: string): string {
 	return bin;
 }
 
-// Discord epoch (2015-01-01T00:00:00.000Z)
-const EPOCH = 1420070400000;
-let INCREMENT = 0;
-
-/**
- * A container for useful snowflake-related methods.
- */
-export const SnowflakeUtil = {
-	/**
-	 * Generates a Discord snowflake.
-	 * This hardcodes the worker ID as 1 and the process ID as 0.
-	 * @param timestamp Timestamp or date of the snowflake to generate
-	 * @returns The generated snowflake
-	 */
-	generate(timestamp: number | Date = Date.now()): string {
-		if (timestamp instanceof Date) timestamp = timestamp.getTime();
-		if (typeof timestamp !== "number" || isNaN(timestamp)) {
-			throw new TypeError(
-				`"timestamp" argument must be a number (received ${isNaN(timestamp) ? "NaN" : typeof timestamp})`
-			);
-		}
-		if (INCREMENT >= 4095) INCREMENT = 0;
-		const BINARY = `${(timestamp - EPOCH).toString(2).padStart(42, "0")}0000100000${(INCREMENT++)
-			.toString(2)
-			.padStart(12, "0")}`;
-		return binaryToID(BINARY);
-	},
-
-	/**
-	 * Deconstructs a Discord snowflake.
-	 * @param snowflake Snowflake to deconstruct
-	 * @returns Deconstructed snowflake
-	 */
-	deconstruct(snowflake: string) {
-		// @ts-ignore
-		const BINARY = idToBinary(snowflake).toString(2).padStart(64, "0");
-		const res = {
-			timestamp: parseInt(BINARY.substring(0, 42), 2) + EPOCH,
-			workerID: parseInt(BINARY.substring(42, 47), 2),
-			processID: parseInt(BINARY.substring(47, 52), 2),
-			increment: parseInt(BINARY.substring(52, 64), 2),
-			binary: BINARY
-		};
-		Object.defineProperty(res, "date", {
-			get: function get() {
-				return new Date(this.timestamp);
-			},
-			enumerable: true
-		});
-		return res;
-	}
-};
-
 /**
  * Escapes any Discord-flavour markdown in a string.
  * @param text Content to escape
@@ -359,7 +306,8 @@ export default {
 	resolveColor,
 	resolveString,
 	cloneObject,
-	SnowflakeUtil,
+	binaryToID,
+	idToBinary,
 	escapeMarkdown,
 	escapeCodeBlock,
 	escapeInlineCode,

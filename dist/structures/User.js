@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const TextBasedChannel_1 = __importDefault(require("./Interfaces/TextBasedChannel"));
 const Constants_1 = __importDefault(require("../Constants"));
-const Util_1 = require("./Util/Util");
+const SnowflakeUtil_1 = __importDefault(require("./Util/SnowflakeUtil"));
 class User {
     constructor(data, client) {
         this.client = client;
@@ -24,7 +24,7 @@ class User {
         return `${Constants_1.default.BASE_CDN_URL}/embed/avatars/${Number(this.discriminator) % 5}.png`;
     }
     get createdTimestamp() {
-        return Util_1.SnowflakeUtil.deconstruct(this.id).timestamp;
+        return SnowflakeUtil_1.default.deconstruct(this.id).timestamp;
     }
     get createdAt() {
         return new Date(this.createdTimestamp);

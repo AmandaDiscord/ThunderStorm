@@ -1,3 +1,5 @@
+import SnowflakeUtil from "./Util/SnowflakeUtil";
+
 class Role {
 	public client: import("./Client");
 	public name: string;
@@ -25,6 +27,14 @@ class Role {
 		this.mentionable = data.mentionable;
 
 		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, this.client) : null;
+	}
+
+	public get createdTimestamp() {
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
+	}
+
+	public get createdAt() {
+		return new Date(this.createdTimestamp);
 	}
 
 	public fetch() {

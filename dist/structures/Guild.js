@@ -8,7 +8,7 @@ const NewsChannel_1 = __importDefault(require("./NewsChannel"));
 const TextChannel_1 = __importDefault(require("./TextChannel"));
 const VoiceChannel_1 = __importDefault(require("./VoiceChannel"));
 const Constants_1 = __importDefault(require("../Constants"));
-const Util_1 = require("./Util/Util");
+const SnowflakeUtil_1 = __importDefault(require("./Util/SnowflakeUtil"));
 class Guild {
     constructor(data, client) {
         this.client = client;
@@ -37,7 +37,7 @@ class Guild {
         })) : new Map();
     }
     get createdTimestamp() {
-        return Util_1.SnowflakeUtil.deconstruct(this.id).timestamp;
+        return SnowflakeUtil_1.default.deconstruct(this.id).timestamp;
     }
     get createdAt() {
         return new Date(this.createdTimestamp);

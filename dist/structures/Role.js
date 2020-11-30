@@ -1,4 +1,8 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+const SnowflakeUtil_1 = __importDefault(require("./Util/SnowflakeUtil"));
 class Role {
     constructor(data, client) {
         const PartialGuild = require("./Partial/PartialGuild");
@@ -12,6 +16,12 @@ class Role {
         this.position = data.position;
         this.mentionable = data.mentionable;
         this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, this.client) : null;
+    }
+    get createdTimestamp() {
+        return SnowflakeUtil_1.default.deconstruct(this.id).timestamp;
+    }
+    get createdAt() {
+        return new Date(this.createdTimestamp);
     }
     fetch() {
         return Promise.resolve(this);

@@ -6,7 +6,7 @@ import TextChannel from "../TextChannel";
 import User from "../User";
 import VoiceChannel from "../VoiceChannel";
 
-import { SnowflakeUtil } from "../Util/Util";
+import SnowflakeUtil from "../Util/SnowflakeUtil";
 
 interface FetchData {
 	"User": import("../User")

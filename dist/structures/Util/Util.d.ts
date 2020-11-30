@@ -8,16 +8,6 @@ export declare function resolveString(data: import("../../Types").StringResolvab
 export declare function cloneObject<T>(obj: T): T;
 export declare function binaryToID(num: string): string;
 export declare function idToBinary(num: string): string;
-export declare const SnowflakeUtil: {
-    generate(timestamp?: number | Date): string;
-    deconstruct(snowflake: string): {
-        timestamp: number;
-        workerID: number;
-        processID: number;
-        increment: number;
-        binary: string;
-    };
-};
 export declare function escapeMarkdown(text: string, { codeBlock, inlineCode, bold, italic, underline, strikethrough, spoiler, codeBlockContent, inlineCodeContent }?: {
     codeBlock?: boolean | undefined;
     inlineCode?: boolean | undefined;
@@ -48,16 +38,8 @@ declare const _default: {
     resolveColor: typeof resolveColor;
     resolveString: typeof resolveString;
     cloneObject: typeof cloneObject;
-    SnowflakeUtil: {
-        generate(timestamp?: number | Date): string;
-        deconstruct(snowflake: string): {
-            timestamp: number;
-            workerID: number;
-            processID: number;
-            increment: number;
-            binary: string;
-        };
-    };
+    binaryToID: typeof binaryToID;
+    idToBinary: typeof idToBinary;
     escapeMarkdown: typeof escapeMarkdown;
     escapeCodeBlock: typeof escapeCodeBlock;
     escapeInlineCode: typeof escapeInlineCode;

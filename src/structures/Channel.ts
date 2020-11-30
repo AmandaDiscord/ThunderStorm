@@ -1,4 +1,4 @@
-import { SnowflakeUtil } from "./Util/Util";
+import SnowflakeUtil from "./Util/SnowflakeUtil";
 
 class Channel {
 	public client: import("./Client");

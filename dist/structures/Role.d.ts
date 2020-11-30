@@ -12,6 +12,8 @@ declare class Role {
     constructor(data: import("@amanda/discordtypings").RoleData & {
         guild_id: string;
     }, client: import("./Client"));
+    get createdTimestamp(): number;
+    get createdAt(): Date;
     fetch(): Promise<this>;
     toString(): string;
     toJSON(): {

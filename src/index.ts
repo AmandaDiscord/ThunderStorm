@@ -26,6 +26,7 @@ import handle from "./handle";
 import Collection from "./structures/Util/Collection";
 import Constants from "./Constants";
 import Util from "./structures/Util/Util";
+import SnowflakeUtil from "./structures/Util/SnowflakeUtil";
 
 export * from "./Types";
 
@@ -60,5 +61,6 @@ export {
 	Collection,
 	Constants,
 	Util,
+	SnowflakeUtil,
 	version
 };

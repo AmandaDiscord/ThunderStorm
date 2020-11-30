@@ -2,7 +2,7 @@ import TextBasedChannel from "./Interfaces/TextBasedChannel";
 
 import Constants from "../Constants";
 
-import { SnowflakeUtil } from "./Util/Util";
+import SnowflakeUtil from "./Util/SnowflakeUtil";
 
 class User {
 	public client: import("./Client");

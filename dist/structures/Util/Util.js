@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseEmoji = exports.escapeSpoiler = exports.escapeStrikethrough = exports.escapeUnderline = exports.escapeBold = exports.escapeItalic = exports.escapeInlineCode = exports.escapeCodeBlock = exports.escapeMarkdown = exports.SnowflakeUtil = exports.idToBinary = exports.binaryToID = exports.cloneObject = exports.resolveString = exports.resolveColor = exports.basename = exports.flatten = exports.isObject = void 0;
+exports.parseEmoji = exports.escapeSpoiler = exports.escapeStrikethrough = exports.escapeUnderline = exports.escapeBold = exports.escapeItalic = exports.escapeInlineCode = exports.escapeCodeBlock = exports.escapeMarkdown = exports.idToBinary = exports.binaryToID = exports.cloneObject = exports.resolveString = exports.resolveColor = exports.basename = exports.flatten = exports.isObject = void 0;
 const path_1 = require("path");
 const Constants_1 = require("../../Constants");
 function isObject(d) {
@@ -102,40 +102,6 @@ function idToBinary(num) {
     return bin;
 }
 exports.idToBinary = idToBinary;
-const EPOCH = 1420070400000;
-let INCREMENT = 0;
-exports.SnowflakeUtil = {
-    generate(timestamp = Date.now()) {
-        if (timestamp instanceof Date)
-            timestamp = timestamp.getTime();
-        if (typeof timestamp !== "number" || isNaN(timestamp)) {
-            throw new TypeError(`"timestamp" argument must be a number (received ${isNaN(timestamp) ? "NaN" : typeof timestamp})`);
-        }
-        if (INCREMENT >= 4095)
-            INCREMENT = 0;
-        const BINARY = `${(timestamp - EPOCH).toString(2).padStart(42, "0")}0000100000${(INCREMENT++)
-            .toString(2)
-            .padStart(12, "0")}`;
-        return binaryToID(BINARY);
-    },
-    deconstruct(snowflake) {
-        const BINARY = idToBinary(snowflake).toString(2).padStart(64, "0");
-        const res = {
-            timestamp: parseInt(BINARY.substring(0, 42), 2) + EPOCH,
-            workerID: parseInt(BINARY.substring(42, 47), 2),
-            processID: parseInt(BINARY.substring(47, 52), 2),
-            increment: parseInt(BINARY.substring(52, 64), 2),
-            binary: BINARY
-        };
-        Object.defineProperty(res, "date", {
-            get: function get() {
-                return new Date(this.timestamp);
-            },
-            enumerable: true
-        });
-        return res;
-    }
-};
 function escapeMarkdown(text, { codeBlock = true, inlineCode = true, bold = true, italic = true, underline = true, strikethrough = true, spoiler = true, codeBlockContent = true, inlineCodeContent = true } = {}) {
     if (!codeBlockContent) {
         return text
@@ -256,7 +222,8 @@ exports.default = {
     resolveColor,
     resolveString,
     cloneObject,
-    SnowflakeUtil: exports.SnowflakeUtil,
+    binaryToID,
+    idToBinary,
     escapeMarkdown,
     escapeCodeBlock,
     escapeInlineCode,

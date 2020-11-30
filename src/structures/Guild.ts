@@ -6,7 +6,7 @@ import VoiceChannel from "./VoiceChannel";
 
 import Constants from "../Constants";
 
-import { SnowflakeUtil } from "./Util/Util";
+import SnowflakeUtil from "./Util/SnowflakeUtil";
 
 class Guild {
 	public client: import("./Client");

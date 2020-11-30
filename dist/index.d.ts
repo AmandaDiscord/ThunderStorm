@@ -24,6 +24,7 @@ import handle from "./handle";
 import Collection from "./structures/Util/Collection";
 import Constants from "./Constants";
 import Util from "./structures/Util/Util";
+import SnowflakeUtil from "./structures/Util/SnowflakeUtil";
 export * from "./Types";
 declare const version = "11.6.4";
-export { CategoryChannel, Channel, Client, ClientUser, DMChannel, Guild, GuildChannel, GuildMember, Invite, Message, MessageAttachment, MessageEmbed, NewsChannel, TextChannel, User, VoiceChannel, VoiceRegion, VoiceState, PartialBase, PartialChannel, PartialGuild, PartialUser, handle, Collection, Constants, Util, version };
+export { CategoryChannel, Channel, Client, ClientUser, DMChannel, Guild, GuildChannel, GuildMember, Invite, Message, MessageAttachment, MessageEmbed, NewsChannel, TextChannel, User, VoiceChannel, VoiceRegion, VoiceState, PartialBase, PartialChannel, PartialGuild, PartialUser, handle, Collection, Constants, Util, SnowflakeUtil, version };

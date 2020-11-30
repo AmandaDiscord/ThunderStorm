@@ -1,5 +1,8 @@
 "use strict";
-const Util_1 = require("./Util/Util");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+const SnowflakeUtil_1 = __importDefault(require("./Util/SnowflakeUtil"));
 class Channel {
     constructor(data, client) {
         this.client = client;
@@ -9,7 +12,7 @@ class Channel {
         this.type = "unknown";
     }
     get createdTimestamp() {
-        return Util_1.SnowflakeUtil.deconstruct(this.id).timestamp;
+        return SnowflakeUtil_1.default.deconstruct(this.id).timestamp;
     }
     get createdAt() {
         return new Date(this.createdTimestamp);
