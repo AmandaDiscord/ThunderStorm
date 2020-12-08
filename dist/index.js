@@ -1,19 +1,8 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.version = exports.SnowflakeUtil = exports.Util = exports.Constants = exports.Collection = exports.handle = exports.PartialUser = exports.PartialGuild = exports.PartialChannel = exports.PartialBase = exports.VoiceState = exports.VoiceRegion = exports.VoiceChannel = exports.User = exports.TextChannel = exports.NewsChannel = exports.MessageEmbed = exports.MessageAttachment = exports.Message = exports.Invite = exports.GuildMember = exports.GuildChannel = exports.Guild = exports.DMChannel = exports.ClientUser = exports.Client = exports.Channel = exports.CategoryChannel = void 0;
 const PartialBase_1 = __importDefault(require("./structures/Partial/PartialBase"));
 exports.PartialBase = PartialBase_1.default;
 const PartialChannel_1 = __importDefault(require("./structures/Partial/PartialChannel"));
@@ -68,6 +57,5 @@ const Util_1 = __importDefault(require("./structures/Util/Util"));
 exports.Util = Util_1.default;
 const SnowflakeUtil_1 = __importDefault(require("./structures/Util/SnowflakeUtil"));
 exports.SnowflakeUtil = SnowflakeUtil_1.default;
-__exportStar(require("./Types"), exports);
 const version = "11.6.4";
 exports.version = version;

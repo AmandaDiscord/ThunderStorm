@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseEmoji = exports.escapeSpoiler = exports.escapeStrikethrough = exports.escapeUnderline = exports.escapeBold = exports.escapeItalic = exports.escapeInlineCode = exports.escapeCodeBlock = exports.escapeMarkdown = exports.idToBinary = exports.binaryToID = exports.cloneObject = exports.resolveString = exports.resolveColor = exports.basename = exports.flatten = exports.isObject = void 0;
 const path_1 = require("path");
 const Constants_1 = require("../../Constants");
 function isObject(d) {

@@ -295,25 +295,25 @@ class Collection<K, V> extends Immutable.Collection<V> {
 	}
 
 	// @ts-ignore
-	public set(key: K, value: V) {
+	public set(key: K, value: V): this {
 		// @ts-ignore
 		return super.set(key, value);
 	}
 
 	// @ts-ignore
-	public get(key: K) {
+	public get(key: K): V | undefined {
 		// @ts-ignore
 		return super.get(key);
 	}
 
 	// @ts-ignore
-	public has(key: K) {
+	public has(key: K): boolean {
 		// @ts-ignore
 		return super.has(key);
 	}
 
 	// @ts-ignore
-	public delete(key: K) {
+	public delete(key: K): boolean {
 		// @ts-ignore
 		return super.delete(key);
 	}
@@ -325,7 +325,7 @@ class Collection<K, V> extends Immutable.Collection<V> {
 	}
 
 	// @ts-ignore
-	emplace(key: K, insert: V) {
+	emplace(key: K, insert: V): V {
 		// @ts-ignore
 		return super.emplace(key, insert);
 	}
@@ -337,19 +337,19 @@ class Collection<K, V> extends Immutable.Collection<V> {
 	}
 
 	// @ts-ignore
-	public sortKeys(compareFn: (this: Collection<K, V>, a: K, b: K) => number) {
+	public sortKeys(compareFn: (this: Collection<K, V>, a: K, b: K) => number): Array<(string | number | bigint)> {
 		// @ts-ignore
 		return super.sortKeys(compareFn);
 	}
 
 	// @ts-ignore
-	public someKeys(func: (this: Collection<K, V>, key: K) => boolean) {
+	public someKeys(func: (this: Collection<K, V>, key: K) => boolean): boolean {
 		// @ts-ignore
 		return super.someKeys(func);
 	}
 
 	// @ts-ignore
-	public forEach(callbackfn: (value: V, key: K, collection: Collection<K, V>) => void, thisArg?: any) {
+	public forEach(callbackfn: (value: V, key: K, collection: Collection<K, V>) => void, thisArg?: any): void {
 		// @ts-ignore
 		return super.forEach(callbackfn, thisArg);
 	}

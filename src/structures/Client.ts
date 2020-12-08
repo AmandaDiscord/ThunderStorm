@@ -23,14 +23,14 @@ class Client extends EventEmitter {
 		this._snow = options.snowtransfer;
 	}
 
-	public emit<E extends keyof import("../Types").ClientEvents>(event: E, ...args: import("../Types").ClientEvents[E]) {
+	public emit<E extends keyof import("../Types").ClientEvents>(event: E, ...args: import("../Types").ClientEvents[E]): boolean {
 		return super.emit(event, ...args);
 	}
-	public once<E extends keyof import("../Types").ClientEvents>(event: E, listener: (...args: import("../Types").ClientEvents[E]) => any) {
+	public once<E extends keyof import("../Types").ClientEvents>(event: E, listener: (...args: import("../Types").ClientEvents[E]) => any): this {
 		// @ts-ignore SHUT UP!!!
 		return super.once(event, listener);
 	}
-	public on<E extends keyof import("../Types").ClientEvents>(event: E, listener: (...args: import("../Types").ClientEvents[E]) => any) {
+	public on<E extends keyof import("../Types").ClientEvents>(event: E, listener: (...args: import("../Types").ClientEvents[E]) => any): this {
 		// @ts-ignore
 		return super.on(event, listener);
 	}
