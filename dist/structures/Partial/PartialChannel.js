@@ -28,8 +28,17 @@ class PartialChannel extends PartialBase_1.default {
     async deleteMessage(messageID, timeout = 0) {
         await TextBasedChannel_1.default.deleteMessage(this.client, this.id, messageID, timeout);
     }
-    fetchMessage(messageID) {
-        return TextBasedChannel_1.default.fetchMessage(this.client, this.id, messageID);
+    async fetchMessage(messageID) {
+        const data = await TextBasedChannel_1.default.fetchMessage(this.client, this.id, messageID);
+        if (this.guild)
+            data.guild = this.guild;
+        return data;
+    }
+    async fetchMessages(options) {
+        const data = await TextBasedChannel_1.default.fetchMessages(this.client, this.id, options);
+        if (this.guild)
+            data.forEach(i => i.guild = this.guild);
+        return data;
     }
     sendTyping() {
         return TextBasedChannel_1.default.sendTyping(this.client, this.id);

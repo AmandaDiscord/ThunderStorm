@@ -466,12 +466,12 @@
         "signature": "eb35746a8835ab2e8836d07fd42e8bd3e0018e5aee2f076ebd0922d8912a2091"
       },
       "../src/structures/newschannel.ts": {
-        "version": "23db160cb94666836af929334cef751575bc3a6f7395ff381d39e56b797a5d27",
-        "signature": "edffe21cd6d1e337c3ea17a1dad1db39d3c85ef0e0560f39dfba3b169bad1b66"
+        "version": "c6ba19954dabc7abd1b82bf91231f4eb1ee7fbd5eca071bb156a6e3268c3d05b",
+        "signature": "282a8111295fe6d3a84fc14bc96fa928a177002292e1eb57b531df29b8ee482e"
       },
       "../src/structures/textchannel.ts": {
-        "version": "1c9d4ea50d8385f880cf7865bf7bcad5237a19c6c9adccf24c010fb436e34195",
-        "signature": "7317a2934695423ce48a2537460a90a3335bbbb90a02ef18801c6b56756c6b3f"
+        "version": "e9f40dcc558533d4882901497144a713fadc705686114d07a0b34f708610d9da",
+        "signature": "4e8625500b5c471b502b0d572b2dc2de4bc29c296510faf5c4105de2805ad136"
       },
       "../src/structures/voicechannel.ts": {
         "version": "60d9771fcaecef15903542a7d35a1f4264085dc5dda0dcfdab442364778034b2",
@@ -486,8 +486,8 @@
         "signature": "49238e6fae29f5f57855a0c548598c2199bd17081065b56788d46183ad1e3907"
       },
       "../src/structures/partial/partialchannel.ts": {
-        "version": "a2a94a116232f51cfcd898336fbe30454f2a7fd2cd2c1d0eaa82b00b56465910",
-        "signature": "6a0ea35a6f59badc364633444081f81cfed14cf21b58a1af17f567fba1cd6e92"
+        "version": "9e7a3af9a7b7e3ffa45d24e05c8aa3c1d7d10a72800de849c8df0112d823fb63",
+        "signature": "e86c34e838e50c0b4ea8139af8294be8947a6058064cf595b3cd6684db9ad4b9"
       },
       "../src/structures/invite.ts": {
         "version": "5d5e38f4fa4414eff96dcbde44747bf6a7dd89a48c1c4718beb412cc62617e03",
@@ -518,12 +518,12 @@
         "signature": "66ca63c4cfaa4322be0d2f801cf72afafd0d6b14911fee05a1713ae391fd18f0"
       },
       "../src/structures/message.ts": {
-        "version": "5f673990e28c745cf3a5e5b8e9172c7585bf0f97334b35051cc4c795e38942b4",
-        "signature": "7e496310c8a9a7566a31fa1e5c83d85568a8b9a74a942f0428fbc975beb537f0"
+        "version": "f326f65b45d2d4011f4e5f32fd882725039c80fee9f982eb965ec4d0c414a1cb",
+        "signature": "83ddab58bf189454b6f8770550f3b34b39346b898389c19ff58e9c27264d3d73"
       },
       "../src/structures/interfaces/textbasedchannel.ts": {
-        "version": "88fc8f1a2ab21b90144d80e7812c6d36b71fa96de1442df7b3d9e1e37be03f90",
-        "signature": "234b5e5af1c0e0ffa9300fb83d846a9ecc5a9b083ea0a7e425c6eb413be9b8c8"
+        "version": "acc02c3c433cb2b5f74389529705ccb6bc34475b6e8d8df489410b9be2eb234e",
+        "signature": "6c25a3329159ded672cc8128f1fcae1ec5b498e232d28fa5974762e65eb450ca"
       },
       "../src/structures/dmchannel.ts": {
         "version": "37af9f1b4237a93a6cf5779a228ee06d1dfb1eacb303c05e500151c552e7effa",
@@ -1404,18 +1404,20 @@
         "../src/structures/message.ts"
       ],
       "../src/structures/newschannel.ts": [
-        "../src/structures/guildchannel.ts",
         "../node_modules/@amanda/discordtypings/index.d.ts",
         "../src/structures/client.ts",
         "../src/types.ts",
-        "../src/structures/message.ts"
+        "../src/structures/message.ts",
+        "../src/structures/interfaces/textbasedchannel.ts",
+        "../src/structures/guildchannel.ts"
       ],
       "../src/structures/textchannel.ts": [
-        "../src/structures/guildchannel.ts",
         "../node_modules/@amanda/discordtypings/index.d.ts",
         "../src/structures/client.ts",
         "../src/types.ts",
-        "../src/structures/message.ts"
+        "../src/structures/message.ts",
+        "../src/structures/interfaces/textbasedchannel.ts",
+        "../src/structures/guildchannel.ts"
       ],
       "../src/structures/voicechannel.ts": [
         "../src/structures/guildchannel.ts",
@@ -1439,13 +1441,14 @@
         "../src/types.ts"
       ],
       "../src/structures/partial/partialchannel.ts": [
-        "../src/structures/partial/partialbase.ts",
-        "../src/structures/partial/partialguild.ts",
         "../src/internal.ts",
         "../src/structures/client.ts",
         "../src/types.ts",
         "../src/structures/message.ts",
-        "../src/structures/channel.ts"
+        "../src/structures/interfaces/textbasedchannel.ts",
+        "../src/structures/channel.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../src/structures/partial/partialbase.ts"
       ],
       "../src/structures/invite.ts": [
         "../src/structures/client.ts",
@@ -1703,30 +1706,30 @@
       "../src/structures/voiceregion.ts",
       "../src/internal.ts",
       "../node_modules/@augu/immutable/index.d.ts",
-      "../src/structures/message.ts",
-      "../src/structures/guild.ts",
-      "../src/structures/partial/partialbase.ts",
+      "../src/structures/interfaces/textbasedchannel.ts",
+      "../src/structures/dmchannel.ts",
+      "../src/structures/partial/partialuser.ts",
+      "../src/structures/guildmember.ts",
+      "../src/structures/user.ts",
       "../src/structures/invite.ts",
-      "../src/structures/client.ts",
-      "../src/structures/partial/partialguild.ts",
       "../src/structures/util/util.ts",
       "../src/structures/messageattachment.ts",
       "../src/structures/messageembed.ts",
       "../src/structures/util/snowflakeutil.ts",
-      "../src/structures/user.ts",
       "../src/structures/clientuser.ts",
-      "../src/structures/guildmember.ts",
+      "../src/structures/partial/partialguild.ts",
       "../src/structures/newschannel.ts",
       "../src/structures/textchannel.ts",
       "../src/structures/voicechannel.ts",
-      "../src/structures/partial/partialuser.ts",
+      "../src/structures/guild.ts",
       "../src/structures/partial/partialchannel.ts",
+      "../src/structures/client.ts",
       "../src/structures/channel.ts",
       "../src/structures/guildchannel.ts",
       "../src/structures/categorychannel.ts",
       "../src/structures/role.ts",
-      "../src/structures/interfaces/textbasedchannel.ts",
-      "../src/structures/dmchannel.ts",
+      "../src/structures/partial/partialbase.ts",
+      "../src/structures/message.ts",
       "../src/structures/partial/partialrole.ts",
       "../src/structures/voicestate.ts",
       "../src/types.ts",

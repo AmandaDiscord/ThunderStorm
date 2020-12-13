@@ -47,8 +47,16 @@ class TextChannel extends GuildChannel {
 		await TextBasedChannel.deleteMessage(this.client, this.id, messageID, timeout);
 	}
 
-	public fetchMessage(messageID: string) {
-		return TextBasedChannel.fetchMessage(this.client, this.id, messageID);
+	public async fetchMessage(messageID: string) {
+		const data = await TextBasedChannel.fetchMessage(this.client, this.id, messageID);
+		if (this.guild) data.guild = this.guild;
+		return data;
+	}
+
+	public async fetchMessages(options?: import("./Interfaces/TextBasedChannel").FetchMessageOptions) {
+		const data = await TextBasedChannel.fetchMessages(this.client, this.id, options);
+		if (this.guild) data.forEach(i => i.guild = this.guild);
+		return data;
 	}
 }
 

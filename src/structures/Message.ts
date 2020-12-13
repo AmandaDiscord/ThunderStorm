@@ -6,7 +6,7 @@ class Message {
 	public client: import("./Client");
 	public id: string;
 	public channel: import("./Partial/PartialChannel");
-	public guild: import("./Partial/PartialGuild");
+	public guild: import("./Partial/PartialGuild") | null;
 	public author: import("./User");
 	public member: GuildMember | null;
 	public attachments: Array<import("@amanda/discordtypings").AttachmentData>;

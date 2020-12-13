@@ -4,7 +4,7 @@ declare class Message {
     client: import("./Client");
     id: string;
     channel: import("./Partial/PartialChannel");
-    guild: import("./Partial/PartialGuild");
+    guild: import("./Partial/PartialGuild") | null;
     author: import("./User");
     member: GuildMember | null;
     attachments: Array<import("@amanda/discordtypings").AttachmentData>;

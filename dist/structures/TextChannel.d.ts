@@ -25,5 +25,6 @@ declare class TextChannel extends GuildChannel {
     sendTyping(): Promise<void>;
     deleteMessage(messageID: string, timeout?: number): Promise<void>;
     fetchMessage(messageID: string): Promise<import("./Message")>;
+    fetchMessages(options?: import("./Interfaces/TextBasedChannel").FetchMessageOptions): Promise<import("./Message")[]>;
 }
 export = TextChannel;

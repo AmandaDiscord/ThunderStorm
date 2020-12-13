@@ -59,6 +59,11 @@ async function fetchMessage(client, channelID, messageID) {
     return client._snow.channel.getChannelMessage(channelID, messageID).then(data => new Message(data, client));
 }
 exports.fetchMessage = fetchMessage;
+async function fetchMessages(client, channelID, options) {
+    const Message = (await Promise.resolve().then(() => __importStar(require("../Message")))).default;
+    return client._snow.channel.getChannelMessages(channelID, options).then(data => data.map(i => new Message(i, client)));
+}
+exports.fetchMessages = fetchMessages;
 function transform(content, options = {}, isEdit = false) {
     const MessageEmbed = require("../MessageEmbed");
     const payload = {};
@@ -110,4 +115,4 @@ function sendTyping(client, channelID) {
     return client._snow.channel.startChannelTyping(channelID);
 }
 exports.sendTyping = sendTyping;
-exports.default = { send, sendTyping, deleteMessage, fetchMessage, transform };
+exports.default = { send, sendTyping, deleteMessage, fetchMessage, fetchMessages, transform };

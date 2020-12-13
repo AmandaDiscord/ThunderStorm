@@ -1,5 +1,12 @@
 import { isObject } from "../Util/Util";
 
+export interface FetchMessageOptions {
+	limit?: number;
+	before?: string;
+	after?: string;
+	around?: string;
+}
+
 export async function send(instance: import("../Partial/PartialBase")<any> | import("../Channel") | import("../User") | import("../GuildMember"), content: import("../../Types").StringResolvable, options: import("../../Types").MessageOptions | undefined = {}) {
 	const PartialBase: typeof import("../Partial/PartialBase") = require("../Partial/PartialBase");
 
@@ -44,10 +51,16 @@ export function deleteMessage(client: import("../Client"), channelID: string, me
 	});
 }
 
-export async function fetchMessage(client: import("../Client"), channelID: string, messageID: string) {
+export async function fetchMessage(client: import("../Client"), channelID: string, messageID: string): Promise<import("../Message")> {
 	const Message = (await import("../Message")).default; // lazy load
 
 	return client._snow.channel.getChannelMessage(channelID, messageID).then(data => new Message(data, client));
+}
+
+export async function fetchMessages(client: import("../Client"), channelID: string, options?: FetchMessageOptions): Promise<Array<import("../Message")>> {
+	const Message = (await import("../Message")).default; // lazy load
+
+	return client._snow.channel.getChannelMessages(channelID, options).then(data => data.map(i => new Message(i, client)));
 }
 
 export function transform(content: import("../../Types").StringResolvable, options: import("../../Types").MessageOptions = {}, isEdit: boolean | undefined = false): { content?: string | null; embeds?: Array<any>; nonce?: string; tts?: boolean; file?: any; } {
@@ -96,4 +109,4 @@ export function sendTyping(client: import("../Client"), channelID: string) {
 	return client._snow.channel.startChannelTyping(channelID);
 }
 
-export default { send, sendTyping, deleteMessage, fetchMessage, transform };
+export default { send, sendTyping, deleteMessage, fetchMessage, fetchMessages, transform };

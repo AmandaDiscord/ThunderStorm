@@ -14,6 +14,7 @@ declare class PartialChannel extends PartialBase<import("../Channel")> {
     send(content: import("../../Types").StringResolvable, options?: import("../../Types").MessageOptions): Promise<import("../Message")>;
     deleteMessage(messageID: string, timeout?: number): Promise<void>;
     fetchMessage(messageID: string): Promise<import("../Message")>;
+    fetchMessages(options?: import("../Interfaces/TextBasedChannel").FetchMessageOptions): Promise<import("../Message")[]>;
     sendTyping(): Promise<void>;
 }
 export = PartialChannel;
