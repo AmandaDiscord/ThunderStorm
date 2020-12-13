@@ -12,7 +12,7 @@ class GuildMember {
         this.partial = false;
         this.user = data.user.id === ((_a = client.user) === null || _a === void 0 ? void 0 : _a.id) ? client.user : new User_1.default(data.user, client);
         this.id = data.user.id;
-        this.nickname = data.nick;
+        this.nickname = data.nick || null;
         this.deaf = data.deaf || false;
         this.mute = data.mute || false;
         this.joinedAt = new Date(data.joined_at);

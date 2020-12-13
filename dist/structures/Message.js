@@ -17,19 +17,19 @@ class Message {
         this.guild = data.guild_id ? new PartalGuild({ id: data.guild_id }, client) : null;
         this.author = data.author ? data.author.id === ((_a = this.client.user) === null || _a === void 0 ? void 0 : _a.id) ? this.client.user : new User_1.default(data.author, client) : new User_1.default({ username: "Discord", discriminator: "0000", id: Constants_1.default.SYSTEM_USER_ID, avatar: "d9fa72d57744dea056b12e2b34a87173" }, client);
         this.member = data.member && data.author ? new GuildMember_1.default({ user: data.author, ...data.member }, client) : null;
-        this.attachments = data.attachments;
+        this.attachments = data.attachments || [];
         this.content = data.content || "";
         this.editedAt = data.edited_timestamp ? new Date(data.edited_timestamp) : null;
         this.editedTimestamp = this.editedAt ? this.editedAt.getTime() : null;
         this.embeds = data.embeds && data.embeds.length > 0 ? data.embeds.map(embed => new MessageEmbed(embed, true)) : [];
-        this.flags = data.flags;
-        this.createdAt = new Date(data.timestamp);
+        this.flags = data.flags || 0;
+        this.createdAt = data.timestamp ? new Date(data.timestamp) : new Date();
         this.createdTimestamp = this.createdAt.getTime();
         this.mentions = data.mentions ? data.mentions.map(user => new GuildMember_1.default({ user, ...user.member }, client)) : [];
-        this.nonce = data.nonce;
-        this.pinned = data.pinned;
-        this.tts = data.tts;
-        this.type = data.type;
+        this.nonce = data.nonce || "";
+        this.pinned = data.pinned || false;
+        this.tts = data.tts || false;
+        this.type = data.type || 0;
         this.system = this.author && this.author.system ? true : false;
         this.webhookID = data.webhook_id || null;
     }

@@ -3,7 +3,7 @@ declare class GuildMember {
     partial: false;
     user: import("./User");
     id: string;
-    nickname: string;
+    nickname: string | null;
     deaf: boolean;
     mute: boolean;
     joinedAt: Date;
@@ -18,7 +18,7 @@ declare class GuildMember {
     toString(): string;
     toJSON(): {
         id: string;
-        nick: string;
+        nick: string | null;
         mute: boolean;
         joined_at: Date;
         premium_since: string | null;

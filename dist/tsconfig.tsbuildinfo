@@ -462,8 +462,8 @@
         "signature": "40baaa761bd4995319e4496b0da3985a4f44481758f57904f773af3563b820f0"
       },
       "../src/structures/guildmember.ts": {
-        "version": "65b763c788796c6b742369d3f5e25e479a00bb4e1e3330e71ea08478a51c45cf",
-        "signature": "ca931020598e293befe6908ec3c0660a9527312f0a3562352b1d644d46c637ef"
+        "version": "ea757404a4f82b351eefb3cc1c0d2bd6975ac9920a391a5af7252ae135c0d062",
+        "signature": "eb35746a8835ab2e8836d07fd42e8bd3e0018e5aee2f076ebd0922d8912a2091"
       },
       "../src/structures/newschannel.ts": {
         "version": "23db160cb94666836af929334cef751575bc3a6f7395ff381d39e56b797a5d27",
@@ -483,7 +483,7 @@
       },
       "../src/structures/guild.ts": {
         "version": "99bdf53989e123bba484f9f9efca03e8e0d830bdc6ec79561fc64e1bfcdcae7c",
-        "signature": "1452915cb170e515aee29ccd44adf09fd012215a12d72b74c2f2c2449e2068b4"
+        "signature": "49238e6fae29f5f57855a0c548598c2199bd17081065b56788d46183ad1e3907"
       },
       "../src/structures/partial/partialchannel.ts": {
         "version": "a2a94a116232f51cfcd898336fbe30454f2a7fd2cd2c1d0eaa82b00b56465910",
@@ -491,7 +491,7 @@
       },
       "../src/structures/invite.ts": {
         "version": "5d5e38f4fa4414eff96dcbde44747bf6a7dd89a48c1c4718beb412cc62617e03",
-        "signature": "61f5c28b4868e1686356d2ad3261bde6090b52e5c37fb4b3da43620328d611a0"
+        "signature": "cf5d8b56658f3a7de1f28d734fbc3c21a51db1653bd611bf18b5735eca9ddaf8"
       },
       "../src/structures/client.ts": {
         "version": "7e2fab5cefd756dda31f0114a6c5c2a22d90e43775e943eb65259c728a4f301b",
@@ -518,8 +518,8 @@
         "signature": "66ca63c4cfaa4322be0d2f801cf72afafd0d6b14911fee05a1713ae391fd18f0"
       },
       "../src/structures/message.ts": {
-        "version": "56dcf4ff1be0730a733edb45022403e43da9a3cd7fb1b781cb96bafa948e5335",
-        "signature": "5ea107710a2bd7d63eef8d9235c66de849a089ba97dba9f4cd99465e42f4d83f"
+        "version": "5f673990e28c745cf3a5e5b8e9172c7585bf0f97334b35051cc4c795e38942b4",
+        "signature": "7e496310c8a9a7566a31fa1e5c83d85568a8b9a74a942f0428fbc975beb537f0"
       },
       "../src/structures/interfaces/textbasedchannel.ts": {
         "version": "88fc8f1a2ab21b90144d80e7812c6d36b71fa96de1442df7b3d9e1e37be03f90",
@@ -1492,15 +1492,15 @@
         "../src/internal.ts"
       ],
       "../src/structures/message.ts": [
-        "../src/structures/user.ts",
-        "../src/structures/guildmember.ts",
         "../src/structures/client.ts",
         "../src/structures/partial/partialchannel.ts",
         "../src/structures/partial/partialguild.ts",
+        "../src/structures/user.ts",
         "../node_modules/@amanda/discordtypings/index.d.ts",
         "../src/structures/messageembed.ts",
         "../src/types.ts",
-        "../src/structures/partial/partialuser.ts"
+        "../src/structures/partial/partialuser.ts",
+        "../src/structures/guildmember.ts"
       ],
       "../src/structures/interfaces/textbasedchannel.ts": [
         "../src/structures/partial/partialbase.ts",
@@ -1696,42 +1696,42 @@
       "../node_modules/snowtransfer/dist/src/methods/bots.d.ts",
       "../node_modules/snowtransfer/dist/src/methods/auditlog.d.ts",
       "../node_modules/snowtransfer/dist/src/snowtransfer.d.ts",
+      "../node_modules/@sapphire/snowflake/dist/lib/snowflake.d.ts",
+      "../node_modules/@sapphire/snowflake/dist/lib/discordsnowflake.d.ts",
+      "../node_modules/@sapphire/snowflake/dist/lib/twittersnowflake.d.ts",
+      "../node_modules/@sapphire/snowflake/dist/index.d.ts",
+      "../src/structures/voiceregion.ts",
+      "../src/internal.ts",
+      "../node_modules/@augu/immutable/index.d.ts",
+      "../src/structures/message.ts",
+      "../src/structures/guild.ts",
+      "../src/structures/partial/partialbase.ts",
+      "../src/structures/invite.ts",
+      "../src/structures/client.ts",
+      "../src/structures/partial/partialguild.ts",
       "../src/structures/util/util.ts",
       "../src/structures/messageattachment.ts",
       "../src/structures/messageembed.ts",
-      "../node_modules/@sapphire/snowflake/dist/lib/snowflake.d.ts",
-      "../src/structures/voiceregion.ts",
+      "../src/structures/util/snowflakeutil.ts",
+      "../src/structures/user.ts",
       "../src/structures/clientuser.ts",
-      "../src/internal.ts",
-      "../src/structures/partial/partialguild.ts",
       "../src/structures/guildmember.ts",
       "../src/structures/newschannel.ts",
       "../src/structures/textchannel.ts",
       "../src/structures/voicechannel.ts",
       "../src/structures/partial/partialuser.ts",
       "../src/structures/partial/partialchannel.ts",
-      "../src/structures/invite.ts",
-      "../src/structures/client.ts",
+      "../src/structures/channel.ts",
       "../src/structures/guildchannel.ts",
       "../src/structures/categorychannel.ts",
-      "../src/structures/message.ts",
+      "../src/structures/role.ts",
       "../src/structures/interfaces/textbasedchannel.ts",
       "../src/structures/dmchannel.ts",
       "../src/structures/partial/partialrole.ts",
       "../src/structures/voicestate.ts",
       "../src/types.ts",
       "../src/handle.ts",
-      "../node_modules/@augu/immutable/index.d.ts",
       "../src/structures/util/collection.ts",
-      "../node_modules/@sapphire/snowflake/dist/lib/discordsnowflake.d.ts",
-      "../node_modules/@sapphire/snowflake/dist/index.d.ts",
-      "../node_modules/@sapphire/snowflake/dist/lib/twittersnowflake.d.ts",
-      "../src/structures/util/snowflakeutil.ts",
-      "../src/structures/user.ts",
-      "../src/structures/guild.ts",
-      "../src/structures/channel.ts",
-      "../src/structures/role.ts",
-      "../src/structures/partial/partialbase.ts",
       "../src/index.ts"
     ]
   },

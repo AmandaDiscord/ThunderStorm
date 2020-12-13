@@ -7,7 +7,7 @@ class GuildMember {
 	public partial: false;
 	public user: import("./User");
 	public id: string;
-	public nickname: string;
+	public nickname: string | null;
 	public deaf: boolean;
 	public mute: boolean;
 	public joinedAt: Date;
@@ -23,7 +23,7 @@ class GuildMember {
 
 		this.user = data.user.id === client.user?.id ? client.user : new User(data.user, client);
 		this.id = data.user.id;
-		this.nickname = data.nick;
+		this.nickname = data.nick || null;
 		this.deaf = data.deaf || false;
 		this.mute = data.mute || false;
 		this.joinedAt = new Date(data.joined_at);

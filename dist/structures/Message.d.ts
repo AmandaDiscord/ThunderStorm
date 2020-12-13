@@ -37,7 +37,7 @@ declare class Message {
         };
         member: {
             id: string;
-            nick: string;
+            nick: string | null;
             mute: boolean;
             joined_at: Date;
             premium_since: string | null;
@@ -86,7 +86,7 @@ declare class Message {
             public_flags: number;
             member: {
                 id: string;
-                nick: string;
+                nick: string | null;
                 mute: boolean;
                 joined_at: Date;
                 premium_since: string | null;

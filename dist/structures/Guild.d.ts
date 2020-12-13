@@ -31,7 +31,7 @@ declare class Guild {
         icon: string | null;
         members: {
             id: string;
-            nick: string;
+            nick: string | null;
             mute: boolean;
             joined_at: Date;
             premium_since: string | null;
