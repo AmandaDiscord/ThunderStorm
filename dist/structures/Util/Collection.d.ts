@@ -1,9 +1,16 @@
-declare const Immutable: typeof import("@augu/immutable");
-declare class Collection<K, V> extends Immutable.Collection<V> {
-    mutable: boolean;
+import AC from "@augu/collections";
+interface CollectionConstructor {
+    new (): Collection<unknown, unknown>;
+    new <K, V>(entries?: ReadonlyArray<readonly [K, V]> | null): Collection<K, V>;
+    readonly prototype: Collection<unknown, unknown>;
+    readonly [Symbol.species]: CollectionConstructor;
+}
+declare class Collection<K, V> extends AC.Collection<K, V> {
     ["constructor"]: typeof Collection;
     [Symbol.iterator]: () => IterableIterator<[K, V]>;
-    constructor(from?: Array<V> | Array<[K, V]> | Record<string | number | symbol, V> | undefined);
+    static readonly default: typeof Collection;
+    readonly [Symbol.species]: CollectionConstructor;
+    constructor(from?: ReadonlyArray<readonly [K, V]> | null | undefined);
     private get _array();
     private get _keyArray();
     keyArray(): Array<K>;
@@ -33,30 +40,16 @@ declare class Collection<K, V> extends Immutable.Collection<V> {
     intersect(other: Collection<K, V>): Collection<K, V>;
     difference(other: Collection<K, V>): Collection<K, V>;
     sorted(compareFunction?: (firstValue: V, secondValue: V, firstKey: K, secondKey: K) => number): this;
+    partition(fn: (value: V, key: K, collection: this) => boolean): [this, this];
+    partition<T>(fn: (this: T, value: V, key: K, collection: this) => boolean, thisArg: T): [this, this];
+    toJSON(): any[];
     find(fn: (value: V, key: K, collection: this) => boolean): V | undefined;
     find<T>(fn: (this: T, value: V, key: K, collection: this) => boolean, thisArg: T): V | undefined;
     filter(fn: (value: V, key: K, collection: this) => boolean): this;
     filter<T>(fn: (this: T, value: V, key: K, collection: this) => boolean, thisArg: T): this;
-    partition(fn: (value: V, key: K, collection: this) => boolean): [this, this];
-    partition<T>(fn: (this: T, value: V, key: K, collection: this) => boolean, thisArg: T): [this, this];
     map<T>(fn: (value: V, key: K, collection: this) => T): T[];
     map<This, T>(fn: (this: This, value: V, key: K, collection: this) => T, thisArg: This): T[];
     sort(compareFunction?: (firstValue: V, secondValue: V, firstKey: K, secondKey: K) => number): this;
-    toKeyArray(): Array<K>;
-    keys(): IterableIterator<K>;
-    firstKey(): K | undefined;
-    firstKey(amount: number): Array<K>;
-    lastKey(): K | undefined;
-    lastKey(amount: number): Array<K>;
-    set(key: K, value: V): this;
-    get(key: K): V | undefined;
-    has(key: K): boolean;
-    delete(key: K): boolean;
-    merge(...collections: Array<Collection<K, V>>): Collection<K, V>;
-    emplace(key: K, insert: V): V;
-    entries(): IterableIterator<[K, V]>;
-    sortKeys(compareFn: (this: Collection<K, V>, a: K, b: K) => number): Array<(string | number | bigint)>;
-    someKeys(func: (this: Collection<K, V>, key: K) => boolean): boolean;
     forEach(callbackfn: (value: V, key: K, collection: Collection<K, V>) => void, thisArg?: any): void;
     static from<Ky, Vl>(values: Array<Vl> | Vl | Array<[Ky, Vl]> | Record<Ky, Vl>): Collection<Ky, Vl>;
 }

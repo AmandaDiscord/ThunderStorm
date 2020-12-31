@@ -1,20 +1,12 @@
 "use strict";
-const Immutable = require("@augu/immutable");
-const Util_1 = require("./Util");
-class Collection extends Immutable.Collection {
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+const collections_1 = __importDefault(require("@augu/collections"));
+const Util_1 = __importDefault(require("./Util"));
+class Collection extends collections_1.default.Collection {
     constructor(from) {
-        let mapped = false;
-        if (Array.isArray(from) && from.every(item => Array.isArray(item) && item.length === 2)) {
-            mapped = true;
-            super();
-        }
-        else
-            super(from);
-        if (mapped) {
-            for (const [key, value] of from) {
-                this.set(key, value);
-            }
-        }
+        super(from);
     }
     get _array() {
         return this.array();
@@ -153,6 +145,23 @@ class Collection extends Immutable.Collection {
         return new this.constructor[Symbol.species]([...this.entries()])
             .sort((av, bv, ak, bk) => compareFunction(av, bv, ak, bk));
     }
+    partition(fn, thisArg) {
+        if (typeof thisArg !== "undefined")
+            fn = fn.bind(thisArg);
+        const results = [new this.constructor[Symbol.species](), new this.constructor[Symbol.species]()];
+        for (const [key, val] of this) {
+            if (fn(val, key, this)) {
+                results[0].set(key, val);
+            }
+            else {
+                results[1].set(key, val);
+            }
+        }
+        return results;
+    }
+    toJSON() {
+        return this.map(e => { var _a; return (typeof ((_a = e) === null || _a === void 0 ? void 0 : _a.toJSON) === "function" ? e.toJSON() : Util_1.default.flatten(e)); });
+    }
     find(fn, thisArg) {
         if (typeof thisArg !== "undefined")
             fn = fn.bind(thisArg);
@@ -169,20 +178,6 @@ class Collection extends Immutable.Collection {
         for (const [key, val] of this) {
             if (fn(val, key, this))
                 results.set(key, val);
-        }
-        return results;
-    }
-    partition(fn, thisArg) {
-        if (typeof thisArg !== "undefined")
-            fn = fn.bind(thisArg);
-        const results = [new this.constructor[Symbol.species](), new this.constructor[Symbol.species]()];
-        for (const [key, val] of this) {
-            if (fn(val, key, this)) {
-                results[0].set(key, val);
-            }
-            else {
-                results[1].set(key, val);
-            }
         }
         return results;
     }
@@ -204,45 +199,6 @@ class Collection extends Immutable.Collection {
         }
         return this;
     }
-    toKeyArray() {
-        return super.toKeyArray();
-    }
-    keys() {
-        return super.keys();
-    }
-    firstKey(amount) {
-        return super.firstKey(amount);
-    }
-    lastKey(amount) {
-        return super.lastKey(amount);
-    }
-    set(key, value) {
-        return super.set(key, value);
-    }
-    get(key) {
-        return super.get(key);
-    }
-    has(key) {
-        return super.has(key);
-    }
-    delete(key) {
-        return super.delete(key);
-    }
-    merge(...collections) {
-        return super.merge(...collections);
-    }
-    emplace(key, insert) {
-        return super.emplace(key, insert);
-    }
-    entries() {
-        return super.entries();
-    }
-    sortKeys(compareFn) {
-        return super.sortKeys(compareFn);
-    }
-    someKeys(func) {
-        return super.someKeys(func);
-    }
     forEach(callbackfn, thisArg) {
         return super.forEach(callbackfn, thisArg);
     }
@@ -257,7 +213,7 @@ class Collection extends Immutable.Collection {
             for (let i = 0; i < values.length; i++)
                 collection.set(i, values[i]);
         }
-        else if (Util_1.isObject(values)) {
+        else if (Util_1.default.isObject(values)) {
             for (const [key, value] of Object.entries(values))
                 collection.set(key, value);
         }
@@ -267,4 +223,5 @@ class Collection extends Immutable.Collection {
         return collection;
     }
 }
+Collection.default = Collection;
 module.exports = Collection;

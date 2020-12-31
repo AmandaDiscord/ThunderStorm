@@ -1,5 +1,5 @@
 import Discord = require("@amanda/discordtypings");
-export declare type CloudStormEventDataTable = {
+export interface CloudStormEventDataTable {
     CHANNEL_CREATE: Discord.DMChannelData | Discord.TextChannelData | Discord.CategoryChannelData | Discord.NewsChannelData | Discord.VoiceChannelData;
     CHANNEL_PINS_UPDATE: Discord.ChannelPinData;
     GUILD_CREATE: Discord.GuildData;
@@ -8,7 +8,9 @@ export declare type CloudStormEventDataTable = {
         unavailable: boolean;
     };
     GUILD_EMOJIS_UPDATE: Discord.GuildEmojisUpdateData;
-    GUILD_MEMBER_UPDATE: Discord.MemberData;
+    GUILD_MEMBER_UPDATE: Discord.MemberData & {
+        user: Discord.UserData;
+    };
     GUILD_ROLE_CREATE: {
         guild_id: string;
         role: Discord.RoleData;
@@ -30,14 +32,14 @@ export declare type CloudStormEventDataTable = {
     READY: Discord.ReadyData;
     RESUMED: Discord.ResumeData;
     VOICE_STATE_UPDATE: Discord.VoiceStateData;
-};
-export declare type InboundDataType<E extends keyof CloudStormEventDataTable> = {
+}
+export interface InboundDataType<E extends keyof CloudStormEventDataTable> {
     d: CloudStormEventDataTable[E];
     op: number;
     s: number;
     t: E;
     shard_id: number;
-};
+}
 export interface PartialData {
     id: Discord.Snowflake;
     guild_id?: Discord.Snowflake;

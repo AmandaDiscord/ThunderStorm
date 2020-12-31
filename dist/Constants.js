@@ -16,21 +16,18 @@ const EVENTS = {
     MESSAGE_REACTION_REMOVE: "messageReactionRemove",
     MESSAGE_REACTION_REMOVE_ALL: "messageReactionRemoveAll",
     READY: "ready",
+    SHARD_READY: "shardReady",
     RESUMED: "ready",
     VOICE_STATE_UPDATE: "voiceStateUpdate"
 };
 const CLIENT_ONLY_EVENTS = {
     EVENT: "raw",
-    READY: "ready",
     SHARD_DISCONNECT: "shardDisconnect",
-    SHARD_READY: "shardReady",
     SHARD_RESUMED: "shardResume"
 };
 const CLOUD_ONLY_EVENTS = {
     DISCONNECTED: "disconnected",
-    EVENT: "event",
-    READY: "ready",
-    SHARD_READY: "shardReady"
+    EVENT: "event"
 };
 const Colors = {
     DEFAULT: 0x000000,

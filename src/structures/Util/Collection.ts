@@ -1,38 +1,36 @@
-const Immutable: typeof import("@augu/immutable") = require("@augu/immutable");
+import AC from "@augu/collections";
 
-import { isObject } from "./Util";
+import Util from "./Util";
 
-class Collection<K, V> extends Immutable.Collection<V> {
-	public mutable!: boolean; // For some reason, this wasn't showing in types.
-	public ["constructor"]: typeof Collection;
+interface CollectionConstructor {
+	new(): Collection<unknown, unknown>;
+	new<K, V>(entries?: ReadonlyArray<readonly [K, V]> | null): Collection<K, V>;
+	readonly prototype: Collection<unknown, unknown>;
+	readonly [Symbol.species]: CollectionConstructor;
+}
+
+// @ts-ignore Realistically, keys *could* be anything and not just a string | number | symbol
+class Collection<K, V> extends AC.Collection<K, V> {
 	// @ts-ignore
+	public ["constructor"]: typeof Collection;
 	public [Symbol.iterator]: () => IterableIterator<[K, V]>;
+	public static readonly default: typeof Collection = Collection;
+	readonly [Symbol.species]: CollectionConstructor;
 
-	public constructor(from?: Array<V> | Array<[K, V]> | Record<string | number | symbol, V> | undefined) {
-		let mapped = false;
-		if (Array.isArray(from) && (from as Array<[K, V]>).every(item => Array.isArray(item) && item.length === 2)) {
-			mapped = true;
-			super();
-		} else super(from as Array<V> | Record<string | number | symbol, V> | undefined);
-
-		if (mapped) {
-			for(const [key, value] of from as Array<[K, V]>) {
-				this.set(key, value);
-			}
-		}
+	public constructor(from?: ReadonlyArray<readonly [K, V]> | null | undefined) {
+		super(from);
 	}
 
 	// Added to support Discord.js Collections.
-	private get _array() {
+	private get _array(): Array<V> {
 		return this.array();
 	}
 
-	private get _keyArray() {
+	private get _keyArray(): Array<K> {
 		return this.keyArray();
 	}
 
 	public keyArray(): Array<K> {
-		// @ts-ignore
 		return this.toKeyArray();
 	}
 
@@ -136,7 +134,6 @@ class Collection<K, V> extends Immutable.Collection<V> {
 	public each(fn: (value: V, key: K, collection: this) => void): this;
 	public each<T>(fn: (this: T, value: V, key: K, collection: this) => void, thisArg: T): this;
 	public each(fn: (value: V, key: K, collection: this) => void, thisArg?: unknown): this {
-		// @ts-ignore
 		this.forEach(fn as (value: V, key: K, map: Map<K, V>) => void, thisArg);
 		return this;
 	}
@@ -186,6 +183,26 @@ class Collection<K, V> extends Immutable.Collection<V> {
 			.sort((av, bv, ak, bk) => compareFunction(av, bv, ak, bk));
 	}
 
+	public partition(fn: (value: V, key: K, collection: this) => boolean): [this, this];
+	public partition<T>(fn: (this: T, value: V, key: K, collection: this) => boolean, thisArg: T): [this, this];
+	public partition(fn: (value: V, key: K, collection: this) => boolean, thisArg?: unknown): [this, this] {
+		if (typeof thisArg !== "undefined") fn = fn.bind(thisArg);
+		const results: [this, this] = [new this.constructor[Symbol.species]() as this, new this.constructor[Symbol.species]() as this];
+		for (const [key, val] of this) {
+			if (fn(val, key, this)) {
+				results[0].set(key, val);
+			} else {
+				results[1].set(key, val);
+			}
+		}
+		return results;
+	}
+
+	toJSON() {
+		// @ts-ignore
+		return this.map(e => (typeof e?.toJSON === "function" ? e.toJSON() : Util.flatten(e)));
+	}
+
 
 	// Modified to support Discord.js Collections.
 	// @ts-ignore
@@ -216,24 +233,6 @@ class Collection<K, V> extends Immutable.Collection<V> {
 	}
 
 	// @ts-ignore
-	public partition(fn: (value: V, key: K, collection: this) => boolean): [this, this];
-	// @ts-ignore
-	public partition<T>(fn: (this: T, value: V, key: K, collection: this) => boolean, thisArg: T): [this, this];
-	// @ts-ignore
-	public partition(fn: (value: V, key: K, collection: this) => boolean, thisArg?: unknown): [this, this] {
-		if (typeof thisArg !== "undefined") fn = fn.bind(thisArg);
-		const results: [this, this] = [new this.constructor[Symbol.species]() as this, new this.constructor[Symbol.species]() as this];
-		for (const [key, val] of this) {
-			if (fn(val, key, this)) {
-				results[0].set(key, val);
-			} else {
-				results[1].set(key, val);
-			}
-		}
-		return results;
-	}
-
-	// @ts-ignore
 	public map<T>(fn: (value: V, key: K, collection: this) => T): T[];
 	// @ts-ignore
 	public map<This, T>(fn: (this: This, value: V, key: K, collection: this) => T, thisArg: This): T[];
@@ -250,7 +249,6 @@ class Collection<K, V> extends Immutable.Collection<V> {
 	// @ts-ignore
 	public sort(compareFunction: (firstValue: V, secondValue: V, firstKey: K, secondKey: K) => number = (x, y): number => Number(x > y) || Number(x === y) - 1): this {
 		const entries = [...this.entries()];
-		// @ts-ignore
 		entries.sort((a, b): number => compareFunction(a[1], b[1], a[0], b[0]));
 
 		super.clear();
@@ -262,93 +260,6 @@ class Collection<K, V> extends Immutable.Collection<V> {
 		return this;
 	}
 
-	// @ts-ignore
-	public toKeyArray(): Array<K> {
-		// @ts-ignore
-		return super.toKeyArray();
-	}
-
-	// @ts-ignore
-	public keys(): IterableIterator<K> {
-		// @ts-ignore
-		return super.keys();
-	}
-
-	// @ts-ignore
-	public firstKey(): K | undefined;
-	// @ts-ignore
-	public firstKey(amount: number): Array<K>;
-	// @ts-ignore
-	public firstKey(amount?: number): K | Array<K> | undefined {
-		// @ts-ignore
-		return super.firstKey(amount);
-	}
-
-	// @ts-ignore
-	public lastKey(): K | undefined;
-	// @ts-ignore
-	public lastKey(amount: number): Array<K>;
-	// @ts-ignore
-	public lastKey(amount?: number): K | Array<K> | undefined {
-		// @ts-ignore
-		return super.lastKey(amount);
-	}
-
-	// @ts-ignore
-	public set(key: K, value: V): this {
-		// @ts-ignore
-		return super.set(key, value);
-	}
-
-	// @ts-ignore
-	public get(key: K): V | undefined {
-		// @ts-ignore
-		return super.get(key);
-	}
-
-	// @ts-ignore
-	public has(key: K): boolean {
-		// @ts-ignore
-		return super.has(key);
-	}
-
-	// @ts-ignore
-	public delete(key: K): boolean {
-		// @ts-ignore
-		return super.delete(key);
-	}
-
-	// @ts-ignore
-	public merge(...collections: Array<Collection<K, V>>): Collection<K, V> {
-		// @ts-ignore
-		return super.merge(...collections);
-	}
-
-	// @ts-ignore
-	emplace(key: K, insert: V): V {
-		// @ts-ignore
-		return super.emplace(key, insert);
-	}
-
-	// @ts-ignore
-	public entries(): IterableIterator<[K, V]> {
-		// @ts-ignore
-		return super.entries();
-	}
-
-	// @ts-ignore
-	public sortKeys(compareFn: (this: Collection<K, V>, a: K, b: K) => number): Array<(string | number | bigint)> {
-		// @ts-ignore
-		return super.sortKeys(compareFn);
-	}
-
-	// @ts-ignore
-	public someKeys(func: (this: Collection<K, V>, key: K) => boolean): boolean {
-		// @ts-ignore
-		return super.someKeys(func);
-	}
-
-	// @ts-ignore
 	public forEach(callbackfn: (value: V, key: K, collection: Collection<K, V>) => void, thisArg?: any): void {
 		// @ts-ignore
 		return super.forEach(callbackfn, thisArg);
@@ -364,7 +275,7 @@ class Collection<K, V> extends Immutable.Collection<V> {
 		} else if (Array.isArray(values)) {
 			// @ts-ignore
 			for (let i = 0; i < values.length; i++) collection.set(i, values[i]);
-		} else if (isObject(values)) {
+		} else if (Util.isObject(values)) {
 			// @ts-ignore
 			for (const [key, value] of Object.entries(values)) collection.set(key, value);
 		} else {

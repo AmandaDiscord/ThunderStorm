@@ -5,17 +5,13 @@ declare const Constants: {
     BASE_HOST: string;
     SYSTEM_USER_ID: string;
     CLIENT_ONLY_EVENTS: {
-        EVENT: string;
-        READY: string;
-        SHARD_DISCONNECT: string;
-        SHARD_READY: string;
-        SHARD_RESUMED: string;
+        EVENT: "raw";
+        SHARD_DISCONNECT: "shardDisconnect";
+        SHARD_RESUMED: "shardResume";
     };
     CLOUD_ONLY_EVENTS: {
-        DISCONNECTED: string;
-        EVENT: string;
-        READY: string;
-        SHARD_READY: string;
+        DISCONNECTED: "disconnected";
+        EVENT: "event";
     };
     Colors: {
         DEFAULT: number;
@@ -50,24 +46,25 @@ declare const Constants: {
         RANDOM: string;
     };
     EVENTS: {
-        CHANNEL_CREATE: string;
-        CHANNEL_PINS_UPDATE: string;
-        GUILD_CREATE: string;
-        GUILD_DELETE: string;
-        GUILD_EMOJIS_UPDATE: string;
-        GUILD_MEMBER_UPDATE: string;
-        GUILD_ROLE_CREATE: string;
-        GUILD_ROLE_DELETE: string;
-        GUILD_ROLE_UPDATE: string;
-        MESSAGE_CREATE: string;
-        MESSAGE_DELETE: string;
-        MESSAGE_UPDATE: string;
-        MESSAGE_REACTION_ADD: string;
-        MESSAGE_REACTION_REMOVE: string;
-        MESSAGE_REACTION_REMOVE_ALL: string;
-        READY: string;
-        RESUMED: string;
-        VOICE_STATE_UPDATE: string;
+        CHANNEL_CREATE: "channelCreate";
+        CHANNEL_PINS_UPDATE: "channelPinsUpdate";
+        GUILD_CREATE: "guildCreate";
+        GUILD_DELETE: "guildDelete";
+        GUILD_EMOJIS_UPDATE: "guildEmojisUpdate";
+        GUILD_MEMBER_UPDATE: "guildMemberUpdate";
+        GUILD_ROLE_CREATE: "guildRoleCreate";
+        GUILD_ROLE_DELETE: "guildRoleDelete";
+        GUILD_ROLE_UPDATE: "guildRoleUpdate";
+        MESSAGE_CREATE: "message";
+        MESSAGE_DELETE: "messageDelete";
+        MESSAGE_UPDATE: "messageUpdate";
+        MESSAGE_REACTION_ADD: "messageReactionAdd";
+        MESSAGE_REACTION_REMOVE: "messageReactionRemove";
+        MESSAGE_REACTION_REMOVE_ALL: "messageReactionRemoveAll";
+        READY: "ready";
+        SHARD_READY: "shardReady";
+        RESUMED: "ready";
+        VOICE_STATE_UPDATE: "voiceStateUpdate";
     };
 };
 export = Constants;

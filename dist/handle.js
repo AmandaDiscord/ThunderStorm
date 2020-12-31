@@ -9,6 +9,7 @@ const DMChannel_1 = __importDefault(require("./structures/DMChannel"));
 const Guild_1 = __importDefault(require("./structures/Guild"));
 const GuildMember_1 = __importDefault(require("./structures/GuildMember"));
 const Message_1 = __importDefault(require("./structures/Message"));
+const NewsChannel_1 = __importDefault(require("./structures/NewsChannel"));
 const TextChannel_1 = __importDefault(require("./structures/TextChannel"));
 const VoiceChannel_1 = __importDefault(require("./structures/VoiceChannel"));
 const VoiceState_1 = __importDefault(require("./structures/VoiceState"));
@@ -20,7 +21,7 @@ function handle(data, client) {
         const typed = data;
         client.user = new ClientUser_1.default(typed.d.user, client);
         client.readyTimestamp = Date.now();
-        client.emit(Constants_1.default.CLIENT_ONLY_EVENTS.READY, client.user);
+        client.emit(Constants_1.default.EVENTS.READY, client.user);
     }
     if (!client.user)
         return;
@@ -32,8 +33,8 @@ function handle(data, client) {
         client.emit(Constants_1.default.EVENTS.GUILD_CREATE, guild);
     }
     else if (data.t === "GUILD_DELETE") {
-        const PartialGuild = require("./structures/Partial/PartialGuild");
         const typed = data;
+        const PartialGuild = require("./structures/Partial/PartialGuild");
         client.emit(Constants_1.default.EVENTS.GUILD_DELETE, new PartialGuild({ id: typed.d.id, unavailable: typed.d.unavailable }, client));
     }
     else if (data.t === "CHANNEL_CREATE") {
@@ -47,6 +48,10 @@ function handle(data, client) {
             chan = new VoiceChannel_1.default(typed.d, client);
         else if (typed.d.type === 4)
             chan = new CategoryChannel_1.default(typed.d, client);
+        else if (typed.d.type === 5)
+            chan = new NewsChannel_1.default(typed.d, client);
+        else
+            return;
         client.emit(Constants_1.default.EVENTS.CHANNEL_CREATE, chan);
     }
     else if (data.t === "MESSAGE_CREATE") {

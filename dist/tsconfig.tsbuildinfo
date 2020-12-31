@@ -150,8 +150,8 @@
         "signature": "0c9ea8c2028047f39a3f66752682604f543c08be8806258c3d95c93e75a43255"
       },
       "../src/constants.ts": {
-        "version": "a41154d007338079704e53a0270f671753026256f8e60586d1744d3f796d9780",
-        "signature": "338f77e4801d14f3f61aa317eeeba88fabf8ba3381dcfa2072d915f9ac606b39"
+        "version": "a19ade64d92fa7b14c5273d5dc1121cbf7ed3fcb45ac2c79109f828d42792918",
+        "signature": "f7f65a1a989064177ad66d9aba3b244209e54e81b9e338424262a4766e0610c9"
       },
       "../node_modules/@types/node/globals.d.ts": {
         "version": "56050f582fd08c001b713b168ade15cc8c1649801e13c94b4370f8f203e03087",
@@ -454,8 +454,8 @@
         "signature": "295d43136dad083cc49410d14b11f0bc8bf056c68628171e74dd2dd2593e8ba3"
       },
       "../src/internal.ts": {
-        "version": "bf5a72070e148cba3857907a60c3da40d9e7869f4e49bc36f342119e0664aeba",
-        "signature": "583e6a0a30d98d8be44263acf7f2afa4d75a48b23b6c792890054c77f5208be2"
+        "version": "5428c5fb87f7f6c99fbe0fda8653aa30d544c92850b8cdf3a25eec9f6994f6c8",
+        "signature": "73453bb46748fd47664ad052c9b2559108c6e7699f8e691395f4df39f325c982"
       },
       "../src/structures/partial/partialguild.ts": {
         "version": "a7277cc5993834fb1a340b5dd9cacce0e586144210c56ea0b07a45eea4b21315",
@@ -542,16 +542,16 @@
         "signature": "5dc59adf7dae9b4499c57c36cec4a367de74b507e54c4da923be7eeac9a8a63c"
       },
       "../src/handle.ts": {
-        "version": "596bebe39dbf7a1dda25be5a419c32fc519e0013bacccf7c313e6724a1ca9aea",
+        "version": "8725b425a8e403b79fa5639683823ff751d143e9a607b94352cb04f0defed7f7",
         "signature": "1c015e15d2408173f3c331d7c60943aa365e84b3fa5bb9d4967603871da4faa3"
       },
-      "../node_modules/@augu/immutable/index.d.ts": {
-        "version": "10108281d51ff814d4084c1b393b622b7a7f72a5c8cf0a68180965415b4dcf19",
-        "signature": "10108281d51ff814d4084c1b393b622b7a7f72a5c8cf0a68180965415b4dcf19"
+      "../node_modules/@augu/collections/index.d.ts": {
+        "version": "2f187645a374440bcb1ab4b9a1b18f2ce7122befd99c0f2776bd9ce30b68f573",
+        "signature": "2f187645a374440bcb1ab4b9a1b18f2ce7122befd99c0f2776bd9ce30b68f573"
       },
       "../src/structures/util/collection.ts": {
-        "version": "f556665424cc967f0abe48e52ba0514f46de86fce3197273797b899a1347a987",
-        "signature": "c96846284feac82c77a33ad4bf76af46ccb8cce8f874025b75c2a8e2e3112d9f"
+        "version": "c0fbaa5bd1e337daa93f15c8f619e237f288f8e262fbf79aae1f829bc412146c",
+        "signature": "48e49517cfed3a8eca689118b434aaff3554d5c8860dddcc60015d8f51b048b7"
       },
       "../src/index.ts": {
         "version": "7cbdbf78b3a77dcd761352fe4e456734e669dca531db85af8348e1d0f2135eb5",
@@ -1069,6 +1069,7 @@
         "../src/structures/guild.ts",
         "../src/structures/guildmember.ts",
         "../src/structures/message.ts",
+        "../src/structures/newschannel.ts",
         "../src/structures/textchannel.ts",
         "../src/structures/voicechannel.ts",
         "../src/structures/voicestate.ts",
@@ -1077,12 +1078,9 @@
         "../src/internal.ts",
         "../src/structures/client.ts"
       ],
-      "../node_modules/@augu/immutable/index.d.ts": [
-        "../node_modules/@types/node/events.d.ts"
-      ],
       "../src/structures/util/collection.ts": [
-        "../src/structures/util/util.ts",
-        "../node_modules/@augu/immutable/index.d.ts"
+        "../node_modules/@augu/collections/index.d.ts",
+        "../src/structures/util/util.ts"
       ],
       "../src/index.ts": [
         "../src/structures/partial/partialbase.ts",
@@ -1559,11 +1557,8 @@
         "../src/internal.ts",
         "../src/structures/client.ts"
       ],
-      "../node_modules/@augu/immutable/index.d.ts": [
-        "../node_modules/@types/node/events.d.ts"
-      ],
       "../src/structures/util/collection.ts": [
-        "../node_modules/@augu/immutable/index.d.ts"
+        "../node_modules/@augu/collections/index.d.ts"
       ],
       "../src/index.ts": [
         "../src/structures/partial/partialbase.ts",
@@ -1634,7 +1629,6 @@
       "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts",
       "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.esnext.bigint.d.ts",
-      "../src/constants.ts",
       "../node_modules/@types/node/globals.d.ts",
       "../node_modules/@types/node/async_hooks.d.ts",
       "../node_modules/@types/node/buffer.d.ts",
@@ -1704,33 +1698,34 @@
       "../node_modules/@sapphire/snowflake/dist/lib/twittersnowflake.d.ts",
       "../node_modules/@sapphire/snowflake/dist/index.d.ts",
       "../src/structures/voiceregion.ts",
+      "../node_modules/@augu/collections/index.d.ts",
+      "../src/constants.ts",
       "../src/internal.ts",
-      "../node_modules/@augu/immutable/index.d.ts",
-      "../src/structures/interfaces/textbasedchannel.ts",
-      "../src/structures/dmchannel.ts",
+      "../src/structures/partial/partialrole.ts",
+      "../src/structures/partial/partialbase.ts",
+      "../src/structures/partial/partialchannel.ts",
       "../src/structures/partial/partialuser.ts",
-      "../src/structures/guildmember.ts",
-      "../src/structures/user.ts",
-      "../src/structures/invite.ts",
+      "../src/structures/partial/partialguild.ts",
       "../src/structures/util/util.ts",
       "../src/structures/messageattachment.ts",
       "../src/structures/messageembed.ts",
       "../src/structures/util/snowflakeutil.ts",
+      "../src/structures/user.ts",
       "../src/structures/clientuser.ts",
-      "../src/structures/partial/partialguild.ts",
+      "../src/structures/guildmember.ts",
       "../src/structures/newschannel.ts",
       "../src/structures/textchannel.ts",
       "../src/structures/voicechannel.ts",
       "../src/structures/guild.ts",
-      "../src/structures/partial/partialchannel.ts",
+      "../src/structures/invite.ts",
       "../src/structures/client.ts",
       "../src/structures/channel.ts",
       "../src/structures/guildchannel.ts",
       "../src/structures/categorychannel.ts",
       "../src/structures/role.ts",
-      "../src/structures/partial/partialbase.ts",
       "../src/structures/message.ts",
-      "../src/structures/partial/partialrole.ts",
+      "../src/structures/interfaces/textbasedchannel.ts",
+      "../src/structures/dmchannel.ts",
       "../src/structures/voicestate.ts",
       "../src/types.ts",
       "../src/handle.ts",

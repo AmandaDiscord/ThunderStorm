@@ -1,37 +1,34 @@
 const EVENTS = {
-	CHANNEL_CREATE: "channelCreate",
-	CHANNEL_PINS_UPDATE: "channelPinsUpdate",
-	GUILD_CREATE: "guildCreate",
-	GUILD_DELETE: "guildDelete",
-	GUILD_EMOJIS_UPDATE: "guildEmojisUpdate",
-	GUILD_MEMBER_UPDATE: "guildMemberUpdate",
-	GUILD_ROLE_CREATE: "guildRoleCreate",
-	GUILD_ROLE_DELETE: "guildRoleDelete",
-	GUILD_ROLE_UPDATE: "guildRoleUpdate",
-	MESSAGE_CREATE: "message",
-	MESSAGE_DELETE: "messageDelete",
-	MESSAGE_UPDATE: "messageUpdate",
-	MESSAGE_REACTION_ADD: "messageReactionAdd",
-	MESSAGE_REACTION_REMOVE: "messageReactionRemove",
-	MESSAGE_REACTION_REMOVE_ALL: "messageReactionRemoveAll",
-	READY: "ready",
-	RESUMED: "ready",
-	VOICE_STATE_UPDATE: "voiceStateUpdate"
+	CHANNEL_CREATE: "channelCreate" as const,
+	CHANNEL_PINS_UPDATE: "channelPinsUpdate" as const,
+	GUILD_CREATE: "guildCreate" as const,
+	GUILD_DELETE: "guildDelete" as const,
+	GUILD_EMOJIS_UPDATE: "guildEmojisUpdate" as const,
+	GUILD_MEMBER_UPDATE: "guildMemberUpdate" as const,
+	GUILD_ROLE_CREATE: "guildRoleCreate" as const,
+	GUILD_ROLE_DELETE: "guildRoleDelete" as const,
+	GUILD_ROLE_UPDATE: "guildRoleUpdate" as const,
+	MESSAGE_CREATE: "message" as const,
+	MESSAGE_DELETE: "messageDelete" as const,
+	MESSAGE_UPDATE: "messageUpdate" as const,
+	MESSAGE_REACTION_ADD: "messageReactionAdd" as const,
+	MESSAGE_REACTION_REMOVE: "messageReactionRemove" as const,
+	MESSAGE_REACTION_REMOVE_ALL: "messageReactionRemoveAll" as const,
+	READY: "ready" as const,
+	SHARD_READY: "shardReady" as const,
+	RESUMED: "ready" as const,
+	VOICE_STATE_UPDATE: "voiceStateUpdate" as const
 };
 
 const CLIENT_ONLY_EVENTS = {
-	EVENT: "raw",
-	READY: "ready",
-	SHARD_DISCONNECT: "shardDisconnect",
-	SHARD_READY: "shardReady",
-	SHARD_RESUMED: "shardResume"
+	EVENT: "raw" as const,
+	SHARD_DISCONNECT: "shardDisconnect" as const,
+	SHARD_RESUMED: "shardResume" as const
 };
 
 const CLOUD_ONLY_EVENTS = {
-	DISCONNECTED: "disconnected",
-	EVENT: "event",
-	READY: "ready",
-	SHARD_READY: "shardReady"
+	DISCONNECTED: "disconnected" as const,
+	EVENT: "event" as const
 };
 
 const Colors = {
