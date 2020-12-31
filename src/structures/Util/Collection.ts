@@ -1,6 +1,8 @@
-import AC from "@augu/collections";
+const AC: typeof import("@augu/collections") = require("@augu/collections");
 
 import Util from "./Util";
+
+const BaseCollection = AC.Collection;
 
 interface CollectionConstructor {
 	new(): Collection<unknown, unknown>;
@@ -10,7 +12,7 @@ interface CollectionConstructor {
 }
 
 // @ts-ignore Realistically, keys *could* be anything and not just a string | number | symbol
-class Collection<K, V> extends AC.Collection<K, V> {
+class Collection<K, V> extends BaseCollection<K, V> {
 	// @ts-ignore
 	public ["constructor"]: typeof Collection;
 	public [Symbol.iterator]: () => IterableIterator<[K, V]>;

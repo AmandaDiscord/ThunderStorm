@@ -2,9 +2,10 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const collections_1 = __importDefault(require("@augu/collections"));
+const AC = require("@augu/collections");
 const Util_1 = __importDefault(require("./Util"));
-class Collection extends collections_1.default.Collection {
+const BaseCollection = AC.Collection;
+class Collection extends BaseCollection {
     constructor(from) {
         super(from);
     }

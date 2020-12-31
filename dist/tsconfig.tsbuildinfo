@@ -550,8 +550,8 @@
         "signature": "2f187645a374440bcb1ab4b9a1b18f2ce7122befd99c0f2776bd9ce30b68f573"
       },
       "../src/structures/util/collection.ts": {
-        "version": "c0fbaa5bd1e337daa93f15c8f619e237f288f8e262fbf79aae1f829bc412146c",
-        "signature": "48e49517cfed3a8eca689118b434aaff3554d5c8860dddcc60015d8f51b048b7"
+        "version": "51a0d94c5d28107ef4a772be8efafe4c291d91decf0e99266bcda3750147b29c",
+        "signature": "cc6ed2024e84dead435ba15107c296e61a49d20633eda1f32b796c0e0da0383a"
       },
       "../src/index.ts": {
         "version": "7cbdbf78b3a77dcd761352fe4e456734e669dca531db85af8348e1d0f2135eb5",
@@ -1079,8 +1079,8 @@
         "../src/structures/client.ts"
       ],
       "../src/structures/util/collection.ts": [
-        "../node_modules/@augu/collections/index.d.ts",
-        "../src/structures/util/util.ts"
+        "../src/structures/util/util.ts",
+        "../node_modules/@augu/collections/index.d.ts"
       ],
       "../src/index.ts": [
         "../src/structures/partial/partialbase.ts",
@@ -1629,6 +1629,7 @@
       "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts",
       "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.esnext.bigint.d.ts",
+      "../src/constants.ts",
       "../node_modules/@types/node/globals.d.ts",
       "../node_modules/@types/node/async_hooks.d.ts",
       "../node_modules/@types/node/buffer.d.ts",
@@ -1693,42 +1694,41 @@
       "../node_modules/snowtransfer/dist/src/methods/bots.d.ts",
       "../node_modules/snowtransfer/dist/src/methods/auditlog.d.ts",
       "../node_modules/snowtransfer/dist/src/snowtransfer.d.ts",
+      "../src/structures/util/util.ts",
+      "../src/structures/messageattachment.ts",
+      "../src/structures/messageembed.ts",
       "../node_modules/@sapphire/snowflake/dist/lib/snowflake.d.ts",
       "../node_modules/@sapphire/snowflake/dist/lib/discordsnowflake.d.ts",
       "../node_modules/@sapphire/snowflake/dist/lib/twittersnowflake.d.ts",
       "../node_modules/@sapphire/snowflake/dist/index.d.ts",
-      "../src/structures/voiceregion.ts",
-      "../node_modules/@augu/collections/index.d.ts",
-      "../src/constants.ts",
-      "../src/internal.ts",
-      "../src/structures/partial/partialrole.ts",
-      "../src/structures/partial/partialbase.ts",
-      "../src/structures/partial/partialchannel.ts",
-      "../src/structures/partial/partialuser.ts",
-      "../src/structures/partial/partialguild.ts",
-      "../src/structures/util/util.ts",
-      "../src/structures/messageattachment.ts",
-      "../src/structures/messageembed.ts",
       "../src/structures/util/snowflakeutil.ts",
+      "../src/structures/voiceregion.ts",
       "../src/structures/user.ts",
       "../src/structures/clientuser.ts",
+      "../src/internal.ts",
+      "../src/structures/partial/partialguild.ts",
       "../src/structures/guildmember.ts",
       "../src/structures/newschannel.ts",
       "../src/structures/textchannel.ts",
       "../src/structures/voicechannel.ts",
+      "../src/structures/partial/partialuser.ts",
       "../src/structures/guild.ts",
+      "../src/structures/partial/partialchannel.ts",
       "../src/structures/invite.ts",
       "../src/structures/client.ts",
       "../src/structures/channel.ts",
       "../src/structures/guildchannel.ts",
       "../src/structures/categorychannel.ts",
       "../src/structures/role.ts",
+      "../src/structures/partial/partialbase.ts",
       "../src/structures/message.ts",
       "../src/structures/interfaces/textbasedchannel.ts",
       "../src/structures/dmchannel.ts",
+      "../src/structures/partial/partialrole.ts",
       "../src/structures/voicestate.ts",
       "../src/types.ts",
       "../src/handle.ts",
+      "../node_modules/@augu/collections/index.d.ts",
       "../src/structures/util/collection.ts",
       "../src/index.ts"
     ]

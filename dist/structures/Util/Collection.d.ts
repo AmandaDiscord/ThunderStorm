@@ -1,11 +1,12 @@
-import AC from "@augu/collections";
+/// <reference types="@augu/collections" />
+declare const BaseCollection: typeof import("@augu/collections").Collection;
 interface CollectionConstructor {
     new (): Collection<unknown, unknown>;
     new <K, V>(entries?: ReadonlyArray<readonly [K, V]> | null): Collection<K, V>;
     readonly prototype: Collection<unknown, unknown>;
     readonly [Symbol.species]: CollectionConstructor;
 }
-declare class Collection<K, V> extends AC.Collection<K, V> {
+declare class Collection<K, V> extends BaseCollection<K, V> {
     ["constructor"]: typeof Collection;
     [Symbol.iterator]: () => IterableIterator<[K, V]>;
     static readonly default: typeof Collection;
