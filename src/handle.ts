@@ -14,21 +14,48 @@ import Role from "./structures/Role";
 
 import PartialRole from "./structures/Partial/PartialRole";
 
+let expectedGuildCount = 0;
+let emittedGuildCreates = 0;
+let guildInboundTimeout: NodeJS.Timeout | null = null;
+const guildInboundTimeoutDuration = 5000; // 5 seconds.
+
+const shards: Array<number> = [];
+
+function setReady(client: import("./structures/Client")) {
+	client.readyTimestamp = Date.now();
+	client.emit("ready", client.user as import("./structures/ClientUser"));
+	if (guildInboundTimeout) clearTimeout(guildInboundTimeout);
+	guildInboundTimeout = null;
+}
+
 function handle(data: import("./internal").InboundDataType<keyof import("./internal").CloudStormEventDataTable>, client: import("./structures/Client")) {
 
 	if (data.t === "READY") {
 		client.emit(Constants.CLIENT_ONLY_EVENTS.EVENT, data);
 		// @ts-ignore
 		const typed: import("./internal").InboundDataType<"READY"> = data;
-		client.user = new ClientUser(typed.d.user, client);
-		client.readyTimestamp = Date.now();
-		client.emit(Constants.EVENTS.READY, client.user);
+		if (!client.user) client.user = new ClientUser(typed.d.user, client);
+		if (client.readyAt === null && !guildInboundTimeout) guildInboundTimeout = setTimeout(() => setReady(client), guildInboundTimeoutDuration);
+		if (!shards.includes(data.shard_id)) {
+			shards.push(data.shard_id);
+			expectedGuildCount += typed.d.guilds.filter(g => !g.unavailable).length;
+		}
+		client.emit(Constants.EVENTS.SHARD_READY, data.shard_id);
 	}
 
 	if (!client.user) return;
 	if (data.t !== "READY") client.emit(Constants.CLIENT_ONLY_EVENTS.EVENT, data);
 
 	if (data.t === "GUILD_CREATE") {
+		emittedGuildCreates++;
+		if (client.readyAt === null && emittedGuildCreates >= expectedGuildCount) setReady(client);
+
+		if (guildInboundTimeout) {
+			clearTimeout(guildInboundTimeout);
+			guildInboundTimeout = null;
+		}
+
+		if (client.readyAt === null) guildInboundTimeout = setTimeout(() => setReady(client), guildInboundTimeoutDuration);
 		// @ts-ignore
 		const typed: import("./internal").InboundDataType<"GUILD_CREATE"> = data;
 		const guild = new Guild(typed.d, client);

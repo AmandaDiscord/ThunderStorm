@@ -15,19 +15,46 @@ const VoiceChannel_1 = __importDefault(require("./structures/VoiceChannel"));
 const VoiceState_1 = __importDefault(require("./structures/VoiceState"));
 const Role_1 = __importDefault(require("./structures/Role"));
 const PartialRole_1 = __importDefault(require("./structures/Partial/PartialRole"));
+let expectedGuildCount = 0;
+let emittedGuildCreates = 0;
+let guildInboundTimeout = null;
+const guildInboundTimeoutDuration = 5000;
+const shards = [];
+function setReady(client) {
+    client.readyTimestamp = Date.now();
+    client.emit("ready", client.user);
+    if (guildInboundTimeout)
+        clearTimeout(guildInboundTimeout);
+    guildInboundTimeout = null;
+}
 function handle(data, client) {
     if (data.t === "READY") {
         client.emit(Constants_1.default.CLIENT_ONLY_EVENTS.EVENT, data);
         const typed = data;
-        client.user = new ClientUser_1.default(typed.d.user, client);
-        client.readyTimestamp = Date.now();
-        client.emit(Constants_1.default.EVENTS.READY, client.user);
+        if (!client.user)
+            client.user = new ClientUser_1.default(typed.d.user, client);
+        if (client.readyAt === null && !guildInboundTimeout)
+            guildInboundTimeout = setTimeout(() => setReady(client), guildInboundTimeoutDuration);
+        if (!shards.includes(data.shard_id)) {
+            shards.push(data.shard_id);
+            expectedGuildCount += typed.d.guilds.filter(g => !g.unavailable).length;
+        }
+        client.emit(Constants_1.default.EVENTS.SHARD_READY, data.shard_id);
     }
     if (!client.user)
         return;
     if (data.t !== "READY")
         client.emit(Constants_1.default.CLIENT_ONLY_EVENTS.EVENT, data);
     if (data.t === "GUILD_CREATE") {
+        emittedGuildCreates++;
+        if (client.readyAt === null && emittedGuildCreates >= expectedGuildCount)
+            setReady(client);
+        if (guildInboundTimeout) {
+            clearTimeout(guildInboundTimeout);
+            guildInboundTimeout = null;
+        }
+        if (client.readyAt === null)
+            guildInboundTimeout = setTimeout(() => setReady(client), guildInboundTimeoutDuration);
         const typed = data;
         const guild = new Guild_1.default(typed.d, client);
         client.emit(Constants_1.default.EVENTS.GUILD_CREATE, guild);

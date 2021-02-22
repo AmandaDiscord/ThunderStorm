@@ -542,7 +542,7 @@
         "signature": "5dc59adf7dae9b4499c57c36cec4a367de74b507e54c4da923be7eeac9a8a63c"
       },
       "../src/handle.ts": {
-        "version": "8725b425a8e403b79fa5639683823ff751d143e9a607b94352cb04f0defed7f7",
+        "version": "80a41da046d46d2a58e9ec627757827351f0fff162cf4ef8a33f7e2326472884",
         "signature": "1c015e15d2408173f3c331d7c60943aa365e84b3fa5bb9d4967603871da4faa3"
       },
       "../node_modules/@augu/collections/index.d.ts": {
@@ -1075,8 +1075,8 @@
         "../src/structures/voicestate.ts",
         "../src/structures/role.ts",
         "../src/structures/partial/partialrole.ts",
-        "../src/internal.ts",
-        "../src/structures/client.ts"
+        "../src/structures/client.ts",
+        "../src/internal.ts"
       ],
       "../src/structures/util/collection.ts": [
         "../src/structures/util/util.ts",
@@ -1727,10 +1727,10 @@
       "../src/structures/partial/partialrole.ts",
       "../src/structures/voicestate.ts",
       "../src/types.ts",
-      "../src/handle.ts",
       "../node_modules/@augu/collections/index.d.ts",
       "../src/structures/util/collection.ts",
-      "../src/index.ts"
+      "../src/index.ts",
+      "../src/handle.ts"
     ]
   },
   "version": "3.7.4"
