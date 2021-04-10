@@ -93,5 +93,5 @@ export declare type EmbedFieldData = {
     value: StringResolvable;
     inline?: boolean;
 };
-export declare type BitFieldResolvable<T> = string | number | bigint | keyof T | Array<BitFieldResolvable<T>>;
+export declare type BitFieldResolvable<T> = number | bigint | keyof T | Array<BitFieldResolvable<T>>;
 export declare type PermissionResolvable = BitFieldResolvable<typeof Constants.PERMISSION_FLAGS>;

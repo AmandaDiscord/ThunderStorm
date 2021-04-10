@@ -24,7 +24,7 @@ class Guild {
         this.ownerID = data.owner_id || Constants_1.default.SYSTEM_USER_ID;
         this.owner = new PartialUser({ id: this.ownerID }, client);
         this.icon = data.icon || null;
-        this.permissions = new Permissions_1.default(data.permissions || 0);
+        this.permissions = new Permissions_1.default(BigInt(data.permissions || 0));
         this.members = data.members && Array.isArray(data.members) ? new Collection_1.default(data.members.map(member => [member.user.id, new GuildMember_1.default(member, client)])) : new Collection_1.default();
         this.channels = data.channels && Array.isArray(data.channels) ? new Collection_1.default(data.channels.map(channel => {
             let chan;

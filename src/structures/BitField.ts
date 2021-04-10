@@ -19,6 +19,10 @@ class BitField<T> {
 		return {};
 	}
 
+	public get FLAGS(): { [flag: string]: bigint } {
+		return {};
+	}
+
 	/**
 	 * Checks whether the bitfield has a bit, or any of multiple bits.
 	 * @param bit Bit(s) to check for
@@ -136,6 +140,7 @@ class BitField<T> {
 		if (bit instanceof BitField) return bit.bitfield;
 		if (Array.isArray(bit)) return bit.map(p => this.resolve(p)).reduce((prev, p) => prev | p, BigInt(0));
 		if (typeof bit === "string" && typeof this.FLAGS[bit] !== "undefined") return this.FLAGS[bit];
+		if (typeof bit === "string" && typeof this.prototype.FLAGS[bit] !== "undefined") return this.prototype.FLAGS[bit];
 		const error = new RangeError("BITFIELD_INVALID");
 		throw error;
 	}

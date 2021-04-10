@@ -12,6 +12,9 @@ declare class BitField<T> {
     static get FLAGS(): {
         [flag: string]: bigint;
     };
+    get FLAGS(): {
+        [flag: string]: bigint;
+    };
     any(bit: import("../Types").BitFieldResolvable<T>): boolean;
     equals(bit: import("../Types").BitFieldResolvable<T>): boolean;
     has(bit: import("../Types").BitFieldResolvable<T>): boolean;

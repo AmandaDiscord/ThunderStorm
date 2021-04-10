@@ -38,7 +38,7 @@ class Guild {
 		this.ownerID = data.owner_id || Constants.SYSTEM_USER_ID; // fallback to System User (yes, System really has an ID.)
 		this.owner = new PartialUser({ id: this.ownerID }, client);
 		this.icon = data.icon || null;
-		this.permissions = new Permissions(data.permissions || 0);
+		this.permissions = new Permissions(BigInt(data.permissions || 0));
 
 		this.members = data.members && Array.isArray(data.members) ? new Collection(data.members.map(member => [member.user.id, new GuildMember(member, client)])) : new Collection();
 

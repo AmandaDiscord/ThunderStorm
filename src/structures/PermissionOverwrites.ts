@@ -12,8 +12,8 @@ class PermissionOverwrites {
 
 		this.id = data.id;
 		this.type = data.type === 0 ? "role" : "member";
-		this.deny = new Permissions(data.deny).freeze();
-		this.allow = new Permissions(data.allow).freeze();
+		this.deny = new Permissions(BigInt(data.deny)).freeze();
+		this.allow = new Permissions(BigInt(data.allow)).freeze();
 	}
 
 	public toJSON(): import("@amanda/discordtypings").PermissionOverwriteData {

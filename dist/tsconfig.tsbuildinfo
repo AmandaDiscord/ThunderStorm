@@ -474,12 +474,12 @@
         "signature": "7d18217cb2e44fbd8ded4a6dcc1484e7cc2c3e01a51c7010830f615519608508"
       },
       "../src/structures/bitfield.ts": {
-        "version": "3e96599607477f67c686864986b6ed31f864da91c0959f3e2c9fde2d8800b1ba",
-        "signature": "5851d1f81b39b487496179b872541e9f9ccc770c5c53e8cf2bf1e72c8051b604"
+        "version": "c7aaabca1e2813764a6467271d00e54b8a3c0c39c4b7d73f85206161b717c8f1",
+        "signature": "17014ab0730b764ef82d06aedf970725386377965a4ceb39ccd7fd98ee102c06"
       },
       "../src/structures/permissions.ts": {
-        "version": "45b0632db57f3d61cfb10126214451f5a82bff64397111ed7c2ef5002272b474",
-        "signature": "7d91eb0585795b2b8cfba7d13fd4a15ef8dda82702734b41561cdd88881d4553"
+        "version": "4c4aa9fea1b5bad3e94353e3beeec283a8544d354a38d9ba40795f07dbba10db",
+        "signature": "9856cae208bb2b0d2ecf3800653b46794c748617c74b7a870140ec46644bda81"
       },
       "../src/structures/voicechannel.ts": {
         "version": "880170410a433bb83903dd440be6977c42169072fd5096bc397877d07c34c61a",
@@ -494,7 +494,7 @@
         "signature": "05a5733e5e9f6b346dbae4bbe0879a43eed7873053f18a34efab30254d15c872"
       },
       "../src/structures/guild.ts": {
-        "version": "18979e83fceac531ed6ad81f9666d582e12538cb0b5974e944ef36539704d450",
+        "version": "29791f24f6d515fd3932dce604d1354c90249cd835a08920ac9d5ee25e595f78",
         "signature": "cd1fa6ac4c349ea459a8b547b93605b8b2d86048944a3f31e699a13b465a7dca"
       },
       "../src/structures/partial/partialchannel.ts": {
@@ -514,7 +514,7 @@
         "signature": "26851e5cd698ff8459698264b501836f6f81c91e465e298276e13acbcf51ba00"
       },
       "../src/structures/permissionoverwrites.ts": {
-        "version": "22f5b1d6d68b90bd6cf889118c1eea54bc1c41de3214daf2a1af49566e64b550",
+        "version": "8182d794c6e2a8ef0f8a75f104eb84aaf2a873ec161ecc271efcd2f574570ab3",
         "signature": "c68818559b81a9b986fc42164542abe4c6531c40a2846e59d6ca2578f44b4004"
       },
       "../src/structures/guildchannel.ts": {
@@ -554,8 +554,8 @@
         "signature": "ecfe7c4308bc7ade1dcddc0cd09037899e7782e4b35ea142723da57e5bbefec8"
       },
       "../src/types.ts": {
-        "version": "633854ffae64f31d88ca37de366e3327c41a0712a77d40c242ead97555b0f19d",
-        "signature": "72039bc4c86af42bfe9f90b364336b98e952d631093615bb402abb938a7928f5"
+        "version": "74bf10daf3e3cd484712a25a73507f6008df39dd4a61272e1eebd9884b6cc8f1",
+        "signature": "e26bc7d16efbdb7c66dbdd63006cb89899ff5bffd61ed04fde6f6e551dcd867e"
       },
       "../src/handle.ts": {
         "version": "80a41da046d46d2a58e9ec627757827351f0fff162cf4ef8a33f7e2326472884",
@@ -1869,47 +1869,47 @@
       "../node_modules/snowtransfer/dist/src/methods/bots.d.ts",
       "../node_modules/snowtransfer/dist/src/methods/auditlog.d.ts",
       "../node_modules/snowtransfer/dist/src/snowtransfer.d.ts",
-      "../src/structures/util/util.ts",
-      "../src/structures/messageattachment.ts",
-      "../src/structures/messageembed.ts",
       "../node_modules/@sapphire/snowflake/dist/lib/snowflake.d.ts",
       "../node_modules/@sapphire/snowflake/dist/lib/discordsnowflake.d.ts",
       "../node_modules/@sapphire/snowflake/dist/lib/twittersnowflake.d.ts",
       "../node_modules/@sapphire/snowflake/dist/index.d.ts",
-      "../src/structures/util/snowflakeutil.ts",
       "../src/structures/voiceregion.ts",
-      "../src/structures/user.ts",
-      "../src/structures/clientuser.ts",
       "../node_modules/@augu/collections/index.d.ts",
-      "../src/structures/util/collection.ts",
       "../src/internal.ts",
-      "../src/structures/partial/partialguild.ts",
-      "../src/structures/guildmember.ts",
-      "../src/structures/textchannel.ts",
-      "../src/structures/newschannel.ts",
-      "../src/structures/bitfield.ts",
+      "../src/types.ts",
+      "../src/index.ts",
+      "../src/structures/dmchannel.ts",
+      "../src/structures/interfaces/textbasedchannel.ts",
+      "../src/structures/message.ts",
+      "../src/structures/client.ts",
+      "../src/structures/partial/partialchannel.ts",
+      "../src/structures/partial/partialuser.ts",
       "../src/structures/permissions.ts",
+      "../src/structures/bitfield.ts",
+      "../src/structures/textchannel.ts",
+      "../src/structures/guildmember.ts",
+      "../src/structures/partial/partialguild.ts",
+      "../src/structures/user.ts",
+      "../src/structures/messageembed.ts",
+      "../src/structures/messageattachment.ts",
+      "../src/structures/util/util.ts",
+      "../src/structures/util/snowflakeutil.ts",
+      "../src/structures/clientuser.ts",
+      "../src/structures/util/collection.ts",
+      "../src/structures/newschannel.ts",
       "../src/structures/voicechannel.ts",
       "../src/structures/stagechannel.ts",
-      "../src/structures/partial/partialuser.ts",
       "../src/structures/guild.ts",
-      "../src/structures/partial/partialchannel.ts",
       "../src/structures/invite.ts",
-      "../src/structures/client.ts",
       "../src/structures/channel.ts",
       "../src/structures/permissionoverwrites.ts",
+      "../src/structures/guildchannel.ts",
       "../src/structures/categorychannel.ts",
       "../src/structures/role.ts",
       "../src/structures/partial/partialbase.ts",
-      "../src/structures/message.ts",
-      "../src/structures/interfaces/textbasedchannel.ts",
-      "../src/structures/dmchannel.ts",
       "../src/structures/partial/partialrole.ts",
       "../src/structures/voicestate.ts",
-      "../src/types.ts",
-      "../src/handle.ts",
-      "../src/index.ts",
-      "../src/structures/guildchannel.ts"
+      "../src/handle.ts"
     ]
   },
   "version": "3.7.4"

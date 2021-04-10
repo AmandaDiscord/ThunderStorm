@@ -6,6 +6,9 @@ class BitField {
     static get FLAGS() {
         return {};
     }
+    get FLAGS() {
+        return {};
+    }
     any(bit) {
         return (this.bitfield & this.constructor.resolve(bit)) !== BigInt(0);
     }
@@ -77,6 +80,8 @@ class BitField {
             return bit.map(p => this.resolve(p)).reduce((prev, p) => prev | p, BigInt(0));
         if (typeof bit === "string" && typeof this.FLAGS[bit] !== "undefined")
             return this.FLAGS[bit];
+        if (typeof bit === "string" && typeof this.prototype.FLAGS[bit] !== "undefined")
+            return this.prototype.FLAGS[bit];
         const error = new RangeError("BITFIELD_INVALID");
         throw error;
     }

@@ -8,8 +8,8 @@ class PermissionOverwrites {
         this.channel = guildChannel;
         this.id = data.id;
         this.type = data.type === 0 ? "role" : "member";
-        this.deny = new Permissions_1.default(data.deny).freeze();
-        this.allow = new Permissions_1.default(data.allow).freeze();
+        this.deny = new Permissions_1.default(BigInt(data.deny)).freeze();
+        this.allow = new Permissions_1.default(BigInt(data.allow)).freeze();
     }
     toJSON() {
         return {
