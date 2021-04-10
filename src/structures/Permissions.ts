@@ -37,7 +37,7 @@ class Permissions extends BitField<typeof Constants.PERMISSION_FLAGS> {
 	 * @param checkAdmin Whether to allow the administrator permission to override
 	 */
 	public any(permission: import("../Types").PermissionResolvable, checkAdmin = true) {
-		return (checkAdmin && super.has(this.constructor.FLAGS.ADMINISTRATOR)) || super.any(permission);
+		return (checkAdmin && super.has.call(this, this.constructor.FLAGS.ADMINISTRATOR)) || super.any.call(this, permission);
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Permissions extends BitField<typeof Constants.PERMISSION_FLAGS> {
 	 * @param checkAdmin Whether to allow the administrator permission to override
 	 */
 	public has(permission: import("../Types").PermissionResolvable, checkAdmin = true) {
-		return (checkAdmin && super.has(this.constructor.FLAGS.ADMINISTRATOR)) || super.has(permission);
+		return (checkAdmin && super.has.call(this, this.constructor.FLAGS.ADMINISTRATOR)) || super.has.call(this, permission);
 	}
 }
 
