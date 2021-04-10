@@ -15,7 +15,7 @@ class GuildChannel extends Channel {
 
 		this.parentID = data.parent_id || null;
 		this.position = data.position;
-		this.permissionOverwrites = new Collection(data.permission_overwrites.map(i => [i.id, new PermissionOverwrites(this, i)]));
+		this.permissionOverwrites = new Collection((data.permission_overwrites || []).map(i => [i.id, new PermissionOverwrites(this, i)]));
 		this.guild = new PartialGuild({ id: data.guild_id }, client);
 	}
 

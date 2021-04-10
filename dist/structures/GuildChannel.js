@@ -11,7 +11,7 @@ class GuildChannel extends Channel_1.default {
         const PartialGuild = require("./Partial/PartialGuild");
         this.parentID = data.parent_id || null;
         this.position = data.position;
-        this.permissionOverwrites = new Collection_1.default(data.permission_overwrites.map(i => [i.id, new PermissionOverwrites_1.default(this, i)]));
+        this.permissionOverwrites = new Collection_1.default((data.permission_overwrites || []).map(i => [i.id, new PermissionOverwrites_1.default(this, i)]));
         this.guild = new PartialGuild({ id: data.guild_id }, client);
     }
     toJSON() {
