@@ -1,6 +1,9 @@
-import GuildMember from "./GuildMember";
 import CategoryChannel from "./CategoryChannel";
+import Collection from "./Util/Collection";
+import GuildMember from "./GuildMember";
 import NewsChannel from "./NewsChannel";
+import Permissions from "./Permissions";
+import StageChannel from "./StageChannel";
 import TextChannel from "./TextChannel";
 import VoiceChannel from "./VoiceChannel";
 
@@ -17,10 +20,10 @@ class Guild {
 	public memberCount: number;
 	public ownerID: string;
 	public owner: import("./Partial/PartialUser");
-	public region: string;
 	public icon: string | null;
-	public members: Map<string, import("./GuildMember")>;
-	public channels: Map<string, import("./GuildChannel")>;
+	public members: Collection<string, import("./GuildMember")>;
+	public channels: Collection<string, import("./GuildChannel")>;
+	public permissions: Permissions;
 
 	public constructor(data: import("@amanda/discordtypings").GuildData, client: import("./Client")) {
 		this.client = client;
@@ -34,19 +37,20 @@ class Guild {
 		this.memberCount = data.member_count || 0;
 		this.ownerID = data.owner_id || Constants.SYSTEM_USER_ID; // fallback to System User (yes, System really has an ID.)
 		this.owner = new PartialUser({ id: this.ownerID }, client);
-		this.region = data.region || "unknown";
 		this.icon = data.icon || null;
+		this.permissions = new Permissions(data.permissions || 0);
 
-		this.members = data.members && Array.isArray(data.members) ? new Map(data.members.map(member => [member.user.id, new GuildMember(member, client)])) : new Map();
+		this.members = data.members && Array.isArray(data.members) ? new Collection(data.members.map(member => [member.user.id, new GuildMember(member, client)])) : new Collection();
 
-		this.channels = data.channels && Array.isArray(data.channels) ? new Map(data.channels.map(channel => {
+		this.channels = data.channels && Array.isArray(data.channels) ? new Collection(data.channels.map(channel => {
 			let chan;
-			if (channel.type === 0) chan = new TextChannel(channel, client);
-			else if (channel.type === 2) chan = new VoiceChannel(channel, client);
+			if (channel.type === 2) chan = new VoiceChannel(channel, client);
 			else if (channel.type === 4) chan = new CategoryChannel(channel, client);
 			else if (channel.type === 5) chan = new NewsChannel(channel, client);
+			else if (channel.type === 13) chan = new StageChannel(channel, client);
+			else chan = new TextChannel(channel, client);
 			return [channel.id, chan];
-		})) : new Map();
+		})) : new Collection();
 	}
 
 	public get createdTimestamp() {
@@ -84,8 +88,8 @@ class Guild {
 			unavailable: !this.available,
 			member_count: this.memberCount,
 			owner_id: this.ownerID,
-			region: this.region,
 			icon: this.icon,
+			permissions: this.permissions.bitfield.toString(),
 			members: [...this.members.values()].map(mem => mem.toJSON()),
 			channels: [...this.channels.values()].map(chan => chan.toJSON())
 		};

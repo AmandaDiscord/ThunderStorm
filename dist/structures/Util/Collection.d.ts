@@ -18,8 +18,8 @@ declare class Collection<K, V> extends BaseCollection<K, V> {
     array(): Array<V>;
     randomKey(): K | undefined;
     randomKey(amount: number): Array<K>;
-    findKey(fn: (value: V, key: K, collection: this) => boolean): K | undefined;
-    findKey<T>(fn: (this: T, value: V, key: K, collection: this) => boolean, thisArg: T): K | undefined;
+    findKey(fn: (value: V, key: K, collection: this) => boolean): K | null;
+    findKey<T>(fn: (this: T, value: V, key: K, collection: this) => boolean, thisArg: T): K | null;
     sweep(fn: (value: V, key: K, collection: this) => boolean): number;
     sweep<T>(fn: (this: T, value: V, key: K, collection: this) => boolean, thisArg: T): number;
     flatMap<T>(fn: (value: V, key: K, collection: this) => Collection<K, T>): Collection<K, T>;

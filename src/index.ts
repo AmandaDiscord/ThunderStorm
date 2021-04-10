@@ -16,17 +16,21 @@ import Message from "./structures/Message";
 import MessageAttachment from "./structures/MessageAttachment";
 import MessageEmbed from "./structures/MessageEmbed";
 import NewsChannel from "./structures/NewsChannel";
+import StageChannel from "./structures/StageChannel";
 import TextChannel from "./structures/TextChannel";
 import User from "./structures/User";
 import VoiceChannel from "./structures/VoiceChannel";
 import VoiceRegion from "./structures/VoiceRegion";
 import VoiceState from "./structures/VoiceState";
 
-import handle from "./handle";
+import BitField from "./structures/BitField";
 import Collection from "./structures/Util/Collection";
 import Constants from "./Constants";
-import Util from "./structures/Util/Util";
+import handle from "./handle";
+import PermissionOverwrites from "./structures/PermissionOverwrites";
+import Permissions from "./structures/Permissions";
 import SnowflakeUtil from "./structures/Util/SnowflakeUtil";
+import Util from "./structures/Util/Util";
 
 export * from "./Types";
 
@@ -46,6 +50,7 @@ export {
 	MessageAttachment,
 	MessageEmbed,
 	NewsChannel,
+	StageChannel,
 	TextChannel,
 	User,
 	VoiceChannel,
@@ -57,10 +62,13 @@ export {
 	PartialGuild,
 	PartialUser,
 
-	handle,
+	BitField,
 	Collection,
 	Constants,
-	Util,
+	handle,
+	PermissionOverwrites,
+	Permissions,
 	SnowflakeUtil,
+	Util,
 	version
 };

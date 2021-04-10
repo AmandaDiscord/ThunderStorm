@@ -1,19 +1,7 @@
-import GuildChannel from "./GuildChannel";
-declare class NewsChannel extends GuildChannel {
+import TextChannel from "./TextChannel";
+declare class NewsChannel extends TextChannel {
     type: "news";
     constructor(data: import("@amanda/discordtypings").NewsChannelData, client: import("./Client"));
-    send(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<import("./Message")>;
-    toJSON(): {
-        id: string;
-        name: string;
-        guild_id: string;
-        parent_id: string | null;
-        position: number;
-        type: number;
-    };
-    sendTyping(): Promise<void>;
-    deleteMessage(messageID: string, timeout?: number): Promise<void>;
-    fetchMessage(messageID: string): Promise<import("./Message")>;
-    fetchMessages(options?: import("./Interfaces/TextBasedChannel").FetchMessageOptions): Promise<import("./Message")[]>;
+    toJSON(): import("@amanda/discordtypings").NewsChannelData;
 }
 export = NewsChannel;

@@ -22,13 +22,14 @@ class DMChannel extends Channel {
 	}
 
 	public toJSON() {
-		return {
+		const d: import("@amanda/discordtypings").DMChannelData = {
 			last_message_id: this.lastMessageID,
-			last_pin_timestamp: this.lastPinAt,
 			recipients: [...this.recipients.values()].map(u => u.toJSON()),
-			type: 1,
+			type: 1 as const,
 			...super.toJSON()
 		};
+		if (this.lastPinAt) d["last_pin_timestamp"] = this.lastPinAt.toISOString();
+		return d;
 	}
 
 	public send(content: import("../Types").StringResolvable, options: import("../Types").MessageOptions = {}) {

@@ -11,12 +11,8 @@ class CategoryChannel extends GuildChannel {
 		this.nsfw = data.nsfw || false;
 	}
 
-	public toJSON() {
-		return {
-			type: 4,
-			nsfw: this.nsfw,
-			...super.toJSON()
-		};
+	public toJSON(): import("@amanda/discordtypings").CategoryChannelData {
+		return Object.assign(super.toJSON(), { type: 4 as const, nsfw: this.nsfw });
 	}
 }
 

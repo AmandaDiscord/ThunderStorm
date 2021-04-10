@@ -2,9 +2,12 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const GuildMember_1 = __importDefault(require("./GuildMember"));
 const CategoryChannel_1 = __importDefault(require("./CategoryChannel"));
+const Collection_1 = __importDefault(require("./Util/Collection"));
+const GuildMember_1 = __importDefault(require("./GuildMember"));
 const NewsChannel_1 = __importDefault(require("./NewsChannel"));
+const Permissions_1 = __importDefault(require("./Permissions"));
+const StageChannel_1 = __importDefault(require("./StageChannel"));
 const TextChannel_1 = __importDefault(require("./TextChannel"));
 const VoiceChannel_1 = __importDefault(require("./VoiceChannel"));
 const Constants_1 = __importDefault(require("../Constants"));
@@ -20,21 +23,23 @@ class Guild {
         this.memberCount = data.member_count || 0;
         this.ownerID = data.owner_id || Constants_1.default.SYSTEM_USER_ID;
         this.owner = new PartialUser({ id: this.ownerID }, client);
-        this.region = data.region || "unknown";
         this.icon = data.icon || null;
-        this.members = data.members && Array.isArray(data.members) ? new Map(data.members.map(member => [member.user.id, new GuildMember_1.default(member, client)])) : new Map();
-        this.channels = data.channels && Array.isArray(data.channels) ? new Map(data.channels.map(channel => {
+        this.permissions = new Permissions_1.default(data.permissions || 0);
+        this.members = data.members && Array.isArray(data.members) ? new Collection_1.default(data.members.map(member => [member.user.id, new GuildMember_1.default(member, client)])) : new Collection_1.default();
+        this.channels = data.channels && Array.isArray(data.channels) ? new Collection_1.default(data.channels.map(channel => {
             let chan;
-            if (channel.type === 0)
-                chan = new TextChannel_1.default(channel, client);
-            else if (channel.type === 2)
+            if (channel.type === 2)
                 chan = new VoiceChannel_1.default(channel, client);
             else if (channel.type === 4)
                 chan = new CategoryChannel_1.default(channel, client);
             else if (channel.type === 5)
                 chan = new NewsChannel_1.default(channel, client);
+            else if (channel.type === 13)
+                chan = new StageChannel_1.default(channel, client);
+            else
+                chan = new TextChannel_1.default(channel, client);
             return [channel.id, chan];
-        })) : new Map();
+        })) : new Collection_1.default();
     }
     get createdTimestamp() {
         return SnowflakeUtil_1.default.deconstruct(this.id).timestamp;
@@ -64,8 +69,8 @@ class Guild {
             unavailable: !this.available,
             member_count: this.memberCount,
             owner_id: this.ownerID,
-            region: this.region,
             icon: this.icon,
+            permissions: this.permissions.bitfield.toString(),
             members: [...this.members.values()].map(mem => mem.toJSON()),
             channels: [...this.channels.values()].map(chan => chan.toJSON())
         };

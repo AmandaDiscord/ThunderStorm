@@ -16,15 +16,16 @@ class TextChannel extends GuildChannel_1.default {
         this.type = "text";
     }
     toJSON() {
-        return {
+        const d = Object.assign(super.toJSON(), {
             last_message_id: this.lastMessageID,
-            last_pin_timestamp: this.lastPinTimestamp,
             nsfw: this.nsfw,
             rate_limit_per_user: this.rateLimitPerUser,
             topic: this.topic,
-            type: 0,
-            ...super.toJSON()
-        };
+            type: 0
+        });
+        if (this.lastPinAt)
+            d["last_pin_timestamp"] = this.lastPinAt.toISOString();
+        return d;
     }
     send(content, options = {}) {
         return TextBasedChannel_1.default.send(this, content, options);

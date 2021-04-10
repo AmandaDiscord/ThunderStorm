@@ -13,7 +13,7 @@ class Message {
         const MessageEmbed = require("./MessageEmbed");
         const PartalGuild = require("./Partial/PartialGuild");
         const PartialChannel = require("./Partial/PartialChannel");
-        this.channel = new PartialChannel({ id: data.channel_id, guild_id: data.guild_id }, client);
+        this.channel = new PartialChannel({ id: data.channel_id, guild_id: data.guild_id, type: data.guild_id ? "text" : "dm" }, client);
         this.guild = data.guild_id ? new PartalGuild({ id: data.guild_id }, client) : null;
         this.author = data.author ? data.author.id === ((_a = this.client.user) === null || _a === void 0 ? void 0 : _a.id) ? this.client.user : new User_1.default(data.author, client) : new User_1.default({ username: "Discord", discriminator: "0000", id: Constants_1.default.SYSTEM_USER_ID, avatar: "d9fa72d57744dea056b12e2b34a87173" }, client);
         this.member = data.member && data.author ? new GuildMember_1.default({ user: data.author, ...data.member }, client) : null;

@@ -5,7 +5,7 @@ class Channel {
 	public partial: false;
 	public id: string;
 	public name: string;
-	public type: string;
+	public type!: "category" | "dm" | "news" | "text" | "voice" | "stage" | "unknown";
 
 	public constructor(data: import("@amanda/discordtypings").ChannelData, client: import("./Client")) {
 		this.client = client;
@@ -13,7 +13,6 @@ class Channel {
 
 		this.id = data.id;
 		this.name = data.name;
-		this.type = "unknown";
 	}
 
 	public get createdTimestamp() {

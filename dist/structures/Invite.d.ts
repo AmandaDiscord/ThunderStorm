@@ -27,8 +27,8 @@ declare class Invite {
             unavailable: boolean;
             member_count: number;
             owner_id: string;
-            region: string;
             icon: string | null;
+            permissions: string;
             members: {
                 id: string;
                 nick: string | null;
@@ -46,13 +46,7 @@ declare class Invite {
                 roles: string[];
                 guild_id: string | undefined;
             }[];
-            channels: {
-                id: string;
-                name: string;
-                guild_id: string;
-                parent_id: string | null;
-                position: number;
-            }[];
+            channels: import("@amanda/discordtypings").GuildChannelData[];
         };
         code: string;
         approximate_presence_count: number;
@@ -73,7 +67,7 @@ declare class Invite {
         channel: {
             id: string;
             guild_id: string | null;
-            type: string;
+            type: number;
         };
         created_at: string;
     };

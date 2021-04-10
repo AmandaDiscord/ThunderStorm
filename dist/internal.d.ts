@@ -44,4 +44,5 @@ export interface PartialData {
     id: Discord.Snowflake;
     guild_id?: Discord.Snowflake;
     number?: number;
+    type?: "text" | "dm" | "voice" | "unknown";
 }

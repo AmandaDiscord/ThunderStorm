@@ -24,15 +24,15 @@ class TextChannel extends GuildChannel {
 	}
 
 	public toJSON() {
-		return {
+		const d: import("@amanda/discordtypings").TextChannelData = Object.assign(super.toJSON(), {
 			last_message_id: this.lastMessageID,
-			last_pin_timestamp: this.lastPinTimestamp,
 			nsfw: this.nsfw,
 			rate_limit_per_user: this.rateLimitPerUser,
 			topic: this.topic,
-			type: 0,
-			...super.toJSON()
-		};
+			type: 0 as const
+		});
+		if (this.lastPinAt) d["last_pin_timestamp"] = this.lastPinAt.toISOString();
+		return d;
 	}
 
 	public send(content: import("../Types").StringResolvable, options: import("../Types").MessageOptions = {}) {

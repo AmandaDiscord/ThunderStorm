@@ -37,7 +37,7 @@ class Collection extends BaseCollection {
             if (fn(val, key, this))
                 return key;
         }
-        return undefined;
+        return null;
     }
     sweep(fn, thisArg) {
         if (typeof thisArg !== "undefined")

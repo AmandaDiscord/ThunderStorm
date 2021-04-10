@@ -4,7 +4,7 @@ import PartialBase from "./PartialBase";
 import PartialGuild from "./PartialGuild";
 
 class PartialChannel extends PartialBase<import("../Channel")> {
-	public type: string;
+	public type: "text" | "dm" | "voice" | "unknown";
 	public partialType: "Channel";
 	public guild: PartialGuild | null;
 
@@ -13,7 +13,7 @@ class PartialChannel extends PartialBase<import("../Channel")> {
 
 		this.partialType = "Channel";
 		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
-		this.type = "unknown";
+		this.type = data.type || "unknown";
 	}
 
 	public toString() {
@@ -23,7 +23,7 @@ class PartialChannel extends PartialBase<import("../Channel")> {
 	public toJSON() {
 		return {
 			guild_id: this.guild ? this.guild.id : null,
-			type: this.type,
+			type: this.type === "dm" ? 1 : (this.type === "voice" ? 2 : 0),
 			...super.toJSON()
 		};
 	}

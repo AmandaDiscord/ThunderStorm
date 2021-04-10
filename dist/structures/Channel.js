@@ -9,7 +9,6 @@ class Channel {
         this.partial = false;
         this.id = data.id;
         this.name = data.name;
-        this.type = "unknown";
     }
     get createdTimestamp() {
         return SnowflakeUtil_1.default.deconstruct(this.id).timestamp;

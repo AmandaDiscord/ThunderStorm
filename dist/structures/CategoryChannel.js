@@ -10,11 +10,7 @@ class CategoryChannel extends GuildChannel_1.default {
         this.nsfw = data.nsfw || false;
     }
     toJSON() {
-        return {
-            type: 4,
-            nsfw: this.nsfw,
-            ...super.toJSON()
-        };
+        return Object.assign(super.toJSON(), { type: 4, nsfw: this.nsfw });
     }
 }
 module.exports = CategoryChannel;

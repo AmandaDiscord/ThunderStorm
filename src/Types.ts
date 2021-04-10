@@ -250,3 +250,7 @@ export type EmbedFieldData = {
 	value: StringResolvable;
 	inline?: boolean
 }
+
+export type BitFieldResolvable<T> = string | number | bigint | keyof T | Array<BitFieldResolvable<T>>;
+
+export type PermissionResolvable = BitFieldResolvable<typeof Constants.PERMISSION_FLAGS>;

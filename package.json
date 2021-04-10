@@ -1,6 +1,6 @@
 {
   "name": "thunderstorm",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A layer between CloudStorm and Discord.js-like code",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -19,15 +19,15 @@
   "license": "MIT",
   "dependencies": {
     "@amanda/discordtypings": "github:AmandaDiscord/DiscordTypings",
-    "@augu/collections": "^1.0.1",
-    "@sapphire/snowflake": "^1.2.0",
-    "snowtransfer": "github:AmandaDiscord/SnowTransfer"
+    "@augu/collections": "^1.0.5",
+    "@sapphire/snowflake": "^1.2.7",
+    "snowtransfer": "github:AmandaDiscord/Snowtransfer"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.5.0",
-    "@types/node": "^14.14.3",
-    "@typescript-eslint/parser": "^4.5.0",
-    "eslint": "^7.12.0",
-    "typescript": "~4.0.3"
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@types/node": "^14.14.37",
+    "@typescript-eslint/parser": "^4.21.0",
+    "eslint": "^7.24.0",
+    "typescript": "~4.2.4"
   }
 }

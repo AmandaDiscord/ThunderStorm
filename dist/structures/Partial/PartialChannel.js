@@ -10,7 +10,7 @@ class PartialChannel extends PartialBase_1.default {
         super(data, client);
         this.partialType = "Channel";
         this.guild = data.guild_id ? new PartialGuild_1.default({ id: data.guild_id }, client) : null;
-        this.type = "unknown";
+        this.type = data.type || "unknown";
     }
     toString() {
         return `<#${this.id}>`;
@@ -18,7 +18,7 @@ class PartialChannel extends PartialBase_1.default {
     toJSON() {
         return {
             guild_id: this.guild ? this.guild.id : null,
-            type: this.type,
+            type: this.type === "dm" ? 1 : (this.type === "voice" ? 2 : 0),
             ...super.toJSON()
         };
     }

@@ -33,7 +33,7 @@ class Message {
 		const PartalGuild = require("./Partial/PartialGuild");
 		const PartialChannel = require("./Partial/PartialChannel"); // lazy load
 
-		this.channel = new PartialChannel({ id: data.channel_id, guild_id: data.guild_id }, client);
+		this.channel = new PartialChannel({ id: data.channel_id, guild_id: data.guild_id, type: data.guild_id ? "text" : "dm" }, client);
 		this.guild = data.guild_id ? new PartalGuild({ id: data.guild_id }, client) : null;
 		this.author = data.author ? data.author.id === this.client.user?.id ? this.client.user : new User(data.author, client) : new User({ username: "Discord", discriminator: "0000", id: Constants.SYSTEM_USER_ID, avatar: "d9fa72d57744dea056b12e2b34a87173" }, client);
 		this.member = data.member && data.author ? new GuildMember({ user: data.author, ...data.member }, client) : null;

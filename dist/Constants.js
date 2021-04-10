@@ -59,7 +59,40 @@ const Colors = {
     GREYPLE: 0x99aab5,
     DARK_BUT_NOT_BLACK: 0x2c2f33,
     NOT_QUITE_BLACK: 0x23272a,
-    RANDOM: "lol"
+    RANDOM: 0xD
+};
+const PERMISSION_FLAGS = {
+    CREATE_INSTANT_INVITE: BigInt(1) << BigInt(0),
+    KICK_MEMBERS: BigInt(1) << BigInt(1),
+    BAN_MEMBERS: BigInt(1) << BigInt(2),
+    ADMINISTRATOR: BigInt(1) << BigInt(3),
+    MANAGE_CHANNELS: BigInt(1) << BigInt(4),
+    MANAGE_GUILD: BigInt(1) << BigInt(5),
+    ADD_REACTIONS: BigInt(1) << BigInt(6),
+    VIEW_AUDIT_LOG: BigInt(1) << BigInt(7),
+    PRIORITY_SPEAKER: BigInt(1) << BigInt(8),
+    STREAM: BigInt(1) << BigInt(9),
+    VIEW_CHANNEL: BigInt(1) << BigInt(10),
+    SEND_MESSAGES: BigInt(1) << BigInt(11),
+    SEND_TTS_MESSAGES: BigInt(1) << BigInt(12),
+    MANAGE_MESSAGES: BigInt(1) << BigInt(13),
+    EMBED_LINKS: BigInt(1) << BigInt(14),
+    ATTACH_FILES: BigInt(1) << BigInt(15),
+    READ_MESSAGE_HISTORY: BigInt(1) << BigInt(16),
+    MENTION_EVERYONE: BigInt(1) << BigInt(17),
+    USE_EXTERNAL_EMOJIS: BigInt(1) << BigInt(18),
+    VIEW_GUILD_INSIGHTS: BigInt(1) << BigInt(19),
+    CONNECT: BigInt(1) << BigInt(20),
+    SPEAK: BigInt(1) << BigInt(21),
+    MUTE_MEMBERS: BigInt(1) << BigInt(22),
+    DEAFEN_MEMBERS: BigInt(1) << BigInt(23),
+    MOVE_MEMBERS: BigInt(1) << BigInt(24),
+    USE_VAD: BigInt(1) << BigInt(25),
+    CHANGE_NICKNAME: BigInt(1) << BigInt(26),
+    MANAGE_NICKNAMES: BigInt(1) << BigInt(27),
+    MANAGE_ROLES: BigInt(1) << BigInt(28),
+    MANAGE_WEBHOOKS: BigInt(1) << BigInt(29),
+    MANAGE_EMOJIS: BigInt(1) << BigInt(30)
 };
 const API_VERSION = 8;
 const Constants = {
@@ -71,6 +104,7 @@ const Constants = {
     CLIENT_ONLY_EVENTS,
     CLOUD_ONLY_EVENTS,
     Colors,
+    PERMISSION_FLAGS,
     EVENTS
 };
 module.exports = Constants;

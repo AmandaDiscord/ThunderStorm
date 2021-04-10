@@ -3,7 +3,7 @@ declare class Channel {
     partial: false;
     id: string;
     name: string;
-    type: string;
+    type: "category" | "dm" | "news" | "text" | "voice" | "stage" | "unknown";
     constructor(data: import("@amanda/discordtypings").ChannelData, client: import("./Client"));
     get createdTimestamp(): number;
     get createdAt(): Date;

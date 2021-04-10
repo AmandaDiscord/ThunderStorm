@@ -16,13 +16,15 @@ class DMChannel extends Channel_1.default {
         this.type = "dm";
     }
     toJSON() {
-        return {
+        const d = {
             last_message_id: this.lastMessageID,
-            last_pin_timestamp: this.lastPinAt,
             recipients: [...this.recipients.values()].map(u => u.toJSON()),
             type: 1,
             ...super.toJSON()
         };
+        if (this.lastPinAt)
+            d["last_pin_timestamp"] = this.lastPinAt.toISOString();
+        return d;
     }
     send(content, options = {}) {
         return TextBasedChannel_1.default.send(this, content, options);

@@ -1,3 +1,5 @@
+import Collection from "./Util/Collection";
+import Permissions from "./Permissions";
 declare class Guild {
     client: import("./Client");
     partial: false;
@@ -7,10 +9,10 @@ declare class Guild {
     memberCount: number;
     ownerID: string;
     owner: import("./Partial/PartialUser");
-    region: string;
     icon: string | null;
-    members: Map<string, import("./GuildMember")>;
-    channels: Map<string, import("./GuildChannel")>;
+    members: Collection<string, import("./GuildMember")>;
+    channels: Collection<string, import("./GuildChannel")>;
+    permissions: Permissions;
     constructor(data: import("@amanda/discordtypings").GuildData, client: import("./Client"));
     get createdTimestamp(): number;
     get createdAt(): Date;
@@ -27,8 +29,8 @@ declare class Guild {
         unavailable: boolean;
         member_count: number;
         owner_id: string;
-        region: string;
         icon: string | null;
+        permissions: string;
         members: {
             id: string;
             nick: string | null;
@@ -46,13 +48,7 @@ declare class Guild {
             roles: string[];
             guild_id: string | undefined;
         }[];
-        channels: {
-            id: string;
-            name: string;
-            guild_id: string;
-            parent_id: string | null;
-            position: number;
-        }[];
+        channels: import("@amanda/discordtypings").GuildChannelData[];
     };
     fetchMembers(options: string): Promise<import("./GuildMember") | null>;
     fetchMembers(options: import("../Types").FetchMemberOptions): Promise<Array<import("./GuildMember")> | null>;
