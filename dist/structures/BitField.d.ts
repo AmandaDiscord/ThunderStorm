@@ -23,7 +23,7 @@ declare class BitField<T> {
     add(...bits: Array<import("../Types").BitFieldResolvable<T>>): this;
     remove(...bits: Array<import("../Types").BitFieldResolvable<T>>): this;
     serialize(): {
-        [bit: string]: boolean;
+        [flag: string]: boolean;
     };
     toArray(): Array<keyof T>;
     toJSON(): {

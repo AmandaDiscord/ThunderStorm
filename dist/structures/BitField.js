@@ -1,7 +1,7 @@
 "use strict";
 class BitField {
     constructor(bits) {
-        this.bitfield = BitField.resolve(bits);
+        this.bitfield = BitField.resolve.call(this, bits);
     }
     static get FLAGS() {
         return {};
@@ -10,15 +10,15 @@ class BitField {
         return {};
     }
     any(bit) {
-        return (this.bitfield & this.constructor.resolve(bit)) !== BigInt(0);
+        return (this.bitfield & this.constructor.resolve.call(this, bit)) !== BigInt(0);
     }
     equals(bit) {
-        return this.bitfield === this.constructor.resolve(bit);
+        return this.bitfield === this.constructor.resolve.call(this, bit);
     }
     has(bit) {
         if (Array.isArray(bit))
             return bit.every(p => this.has(p));
-        bit = BitField.resolve(bit);
+        bit = this.constructor.resolve.call(this, bit);
         return (this.bitfield & bit) === bit;
     }
     missing(bits) {
@@ -32,7 +32,7 @@ class BitField {
     add(...bits) {
         let total = BigInt(0);
         for (const bit of bits) {
-            total |= this.constructor.resolve(bit);
+            total |= this.constructor.resolve.call(this, bit);
         }
         if (Object.isFrozen(this))
             return new this.constructor(this.bitfield | total);
@@ -42,7 +42,7 @@ class BitField {
     remove(...bits) {
         let total = BigInt(0);
         for (const bit of bits) {
-            total |= this.constructor.resolve(bit);
+            total |= this.constructor.resolve.call(this, bit);
         }
         if (Object.isFrozen(this))
             return new this.constructor(this.bitfield & ~total);
@@ -77,7 +77,7 @@ class BitField {
         if (bit instanceof BitField)
             return bit.bitfield;
         if (Array.isArray(bit))
-            return bit.map(p => this.resolve(p)).reduce((prev, p) => prev | p, BigInt(0));
+            return bit.map(p => this.resolve.call(this, p)).reduce((prev, p) => prev | p, BigInt(0));
         if (typeof bit === "string" && typeof this.FLAGS[bit] !== "undefined")
             return this.FLAGS[bit];
         if (typeof bit === "string" && typeof this.prototype.FLAGS[bit] !== "undefined")

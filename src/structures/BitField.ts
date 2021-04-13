@@ -12,7 +12,7 @@ class BitField<T> {
 	public bitfield: bigint;
 
 	public constructor(bits: import("../Types").BitFieldResolvable<T>) {
-		this.bitfield = BitField.resolve(bits);
+		this.bitfield = BitField.resolve.call(this, bits);
 	}
 
 	public static get FLAGS(): { [flag: string]: bigint } {
@@ -28,7 +28,7 @@ class BitField<T> {
 	 * @param bit Bit(s) to check for
 	 */
 	public any(bit: import("../Types").BitFieldResolvable<T>) {
-		return (this.bitfield & this.constructor.resolve(bit)) !== BigInt(0);
+		return (this.bitfield & this.constructor.resolve.call(this, bit)) !== BigInt(0);
 	}
 
 	/**
@@ -36,7 +36,7 @@ class BitField<T> {
 	 * @param bit Bit(s) to check for
 	 */
 	public equals(bit: import("../Types").BitFieldResolvable<T>) {
-		return this.bitfield === this.constructor.resolve(bit);
+		return this.bitfield === this.constructor.resolve.call(this, bit);
 	}
 
 	/**
@@ -45,7 +45,7 @@ class BitField<T> {
 	 */
 	public has(bit: import("../Types").BitFieldResolvable<T>): boolean {
 		if (Array.isArray(bit)) return bit.every(p => this.has(p));
-		bit = BitField.resolve(bit);
+		bit = this.constructor.resolve.call(this, bit);
 		return (this.bitfield & bit) === bit;
 	}
 
@@ -74,7 +74,7 @@ class BitField<T> {
 	public add(...bits: Array<import("../Types").BitFieldResolvable<T>>): this {
 		let total = BigInt(0);
 		for (const bit of bits) {
-			total |= this.constructor.resolve(bit);
+			total |= this.constructor.resolve.call(this, bit);
 		}
 		// @ts-ignore
 		if (Object.isFrozen(this)) return new this.constructor(this.bitfield | total);
@@ -90,7 +90,7 @@ class BitField<T> {
 	public remove(...bits: Array<import("../Types").BitFieldResolvable<T>>): this {
 		let total = BigInt(0);
 		for (const bit of bits) {
-			total |= this.constructor.resolve(bit);
+			total |= this.constructor.resolve.call(this, bit);
 		}
 		// @ts-ignore
 		if (Object.isFrozen(this)) return new this.constructor(this.bitfield & ~total);
@@ -104,7 +104,7 @@ class BitField<T> {
 	 * @param Additional parameters for the has method, if any
 	 */
 	public serialize() {
-		const serialized: { [bit: string]: boolean } = {};
+		const serialized: { [flag: string]: boolean } = {};
 		for (const [flag, bit] of Object.entries(this.constructor.FLAGS)) serialized[flag] = this.has(bit);
 		return serialized;
 	}
@@ -138,7 +138,7 @@ class BitField<T> {
 		if (typeof bit === "string" && bit.match(/^\d+$/)) return BigInt(bit);
 		if (typeof bit === "bigint") return bit;
 		if (bit instanceof BitField) return bit.bitfield;
-		if (Array.isArray(bit)) return bit.map(p => this.resolve(p)).reduce((prev, p) => prev | p, BigInt(0));
+		if (Array.isArray(bit)) return bit.map(p => this.resolve.call(this, p)).reduce((prev, p) => prev | p, BigInt(0));
 		if (typeof bit === "string" && typeof this.FLAGS[bit] !== "undefined") return this.FLAGS[bit];
 		if (typeof bit === "string" && typeof this.prototype.FLAGS[bit] !== "undefined") return this.prototype.FLAGS[bit];
 		const error = new RangeError("BITFIELD_INVALID");

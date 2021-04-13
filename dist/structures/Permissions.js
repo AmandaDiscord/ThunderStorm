@@ -15,7 +15,7 @@ class Permissions extends BitField_1.default {
         return Constants_1.default.PERMISSION_FLAGS;
     }
     any(permission, checkAdmin = true) {
-        return (checkAdmin && super.has.call(this, this.constructor.FLAGS.ADMINISTRATOR)) || super.any.call(this, permission);
+        return (checkAdmin && this.has(this.constructor.FLAGS.ADMINISTRATOR)) || super.any.call(this, permission);
     }
     has(permission, checkAdmin = true) {
         return (checkAdmin && super.has.call(this, this.constructor.FLAGS.ADMINISTRATOR)) || super.has.call(this, permission);

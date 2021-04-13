@@ -251,6 +251,6 @@ export type EmbedFieldData = {
 	inline?: boolean
 }
 
-export type BitFieldResolvable<T> = number | bigint | keyof T | Array<BitFieldResolvable<T>>;
+export type BitFieldResolvable<T> = number | bigint | keyof T | import("./structures/BitField")<T> | Array<BitFieldResolvable<T>>;
 
 export type PermissionResolvable = BitFieldResolvable<typeof Constants.PERMISSION_FLAGS>;
