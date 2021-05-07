@@ -3,6 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const events_1 = require("events");
+const Constants_1 = __importDefault(require("../Constants"));
+const Collection_1 = __importDefault(require("./Util/Collection"));
 const VoiceRegion_1 = __importDefault(require("./VoiceRegion"));
 class Client extends events_1.EventEmitter {
     constructor(options) {
@@ -16,15 +18,9 @@ class Client extends events_1.EventEmitter {
             this.token = options.snowtransfer.token;
         this.user = null;
         this._snow = options.snowtransfer;
-    }
-    emit(event, ...args) {
-        return super.emit(event, ...args);
-    }
-    once(event, listener) {
-        return super.once(event, listener);
-    }
-    on(event, listener) {
-        return super.on(event, listener);
+        this._snow.requestHandler.on("rateLimit", data => {
+            this.emit(Constants_1.default.CLIENT_ONLY_EVENTS.RATE_LIMIT, data);
+        });
     }
     get readyAt() {
         return this.readyTimestamp ? new Date(this.readyTimestamp) : null;
@@ -36,9 +32,12 @@ class Client extends events_1.EventEmitter {
         return this.user ? `<@${this.user.id}>` : "Client";
     }
     async fetchUser(userID) {
+        var _a, _b;
         const User = require("./User");
         const user = await this._snow.user.getUser(userID);
-        return new User(user, this);
+        if (user.id === ((_a = this.user) === null || _a === void 0 ? void 0 : _a.id))
+            this.user._patch(user);
+        return user.id === ((_b = this.user) === null || _b === void 0 ? void 0 : _b.id) ? this.user : new User(user, this);
     }
     async fetchInvite(id) {
         const Invite = require("./Invite");
@@ -53,7 +52,7 @@ class Client extends events_1.EventEmitter {
     }
     async fetchVoiceRegions() {
         const data = await this._snow.voice.getVoiceRegions();
-        return new Map(data.map(item => [item.id, new VoiceRegion_1.default(item)]));
+        return new Collection_1.default(data.map(item => [item.id, new VoiceRegion_1.default(item)]));
     }
 }
 module.exports = Client;

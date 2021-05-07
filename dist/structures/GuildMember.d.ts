@@ -7,11 +7,13 @@ declare class GuildMember {
     deaf: boolean;
     mute: boolean;
     joinedAt: Date;
+    joinedTimestamp: number;
     premiumSince: string | null;
     roles: Array<string>;
     guild: import("./Partial/PartialGuild") | null;
     constructor(data: import("@amanda/discordtypings").MemberData & {
         user: import("@amanda/discordtypings").UserData;
+        guild_id?: string;
     }, client: import("./Client"));
     get displayName(): string;
     get displayTag(): string;
@@ -20,7 +22,7 @@ declare class GuildMember {
         id: string;
         nick: string | null;
         mute: boolean;
-        joined_at: Date;
+        joined_at: string;
         premium_since: string | null;
         user: {
             username: string;
@@ -34,5 +36,9 @@ declare class GuildMember {
         guild_id: string | undefined;
     };
     send(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<import("./Message")>;
+    _patch(data: import("@amanda/discordtypings").MemberData & {
+        user: import("@amanda/discordtypings").UserData;
+        guild_id?: string;
+    }): void;
 }
 export = GuildMember;

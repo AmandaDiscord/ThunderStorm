@@ -7,13 +7,14 @@ const GuildChannel_1 = __importDefault(require("./GuildChannel"));
 class TextChannel extends GuildChannel_1.default {
     constructor(data, client) {
         super(data, client);
-        this.lastMessageID = data.last_message_id || null;
-        this.lastPinAt = data.last_pin_timestamp ? new Date(data.last_pin_timestamp) : null;
-        this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
-        this.nsfw = data.nsfw || false;
-        this.rateLimitPerUser = data.rate_limit_per_user || 0;
-        this.topic = data.topic || "";
+        this.lastMessageID = null;
+        this.lastPinAt = null;
+        this.lastPinTimestamp = null;
+        this.nsfw = false;
+        this.rateLimitPerUser = 0;
+        this.topic = "";
         this.type = "text";
+        this._patch(data);
     }
     toJSON() {
         const d = Object.assign(super.toJSON(), {
@@ -47,6 +48,21 @@ class TextChannel extends GuildChannel_1.default {
         if (this.guild)
             data.forEach(i => i.guild = this.guild);
         return data;
+    }
+    _patch(data) {
+        if (!this.lastMessageID || data.last_message_id !== undefined)
+            this.lastMessageID = data.last_message_id || null;
+        if (!this.lastPinAt || data.last_pin_timestamp !== undefined) {
+            this.lastPinAt = data.last_pin_timestamp ? new Date(data.last_pin_timestamp) : null;
+            this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
+        }
+        if (!this.nsfw || data.nsfw !== undefined)
+            this.nsfw = data.nsfw || false;
+        if (!this.rateLimitPerUser || data.rate_limit_per_user !== undefined)
+            this.rateLimitPerUser = data.rate_limit_per_user || 0;
+        if (!this.topic || data.topic !== undefined)
+            this.topic = data.topic || "";
+        super._patch(data);
     }
 }
 module.exports = TextChannel;

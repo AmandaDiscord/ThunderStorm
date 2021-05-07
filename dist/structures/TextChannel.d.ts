@@ -14,5 +14,6 @@ declare class TextChannel extends GuildChannel {
     deleteMessage(messageID: string, timeout?: number): Promise<void>;
     fetchMessage(messageID: string): Promise<import("./Message")>;
     fetchMessages(options?: import("./Interfaces/TextBasedChannel").FetchMessageOptions): Promise<import("./Message")[]>;
+    _patch(data: import("@amanda/discordtypings").TextChannelData): void;
 }
 export = TextChannel;

@@ -8,5 +8,6 @@ declare class GuildChannel extends Channel {
     permissionOverwrites: Collection<string, PermissionOverwrites>;
     constructor(data: import("@amanda/discordtypings").GuildChannelData, client: import("./Client"));
     toJSON(): import("@amanda/discordtypings").GuildChannelData;
+    _patch(data: import("@amanda/discordtypings").GuildChannelData): void;
 }
 export = GuildChannel;

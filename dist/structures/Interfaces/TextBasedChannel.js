@@ -1,11 +1,4 @@
 "use strict";
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const Util_1 = require("../Util/Util");
 async function send(instance, content, options = {}) {
@@ -17,9 +10,9 @@ async function send(instance, content, options = {}) {
     let mode;
     const payload = transform(content, options);
     if (instance instanceof PartialBase) {
-        if (instance.partialType == "Channel")
+        if (instance.partialType === "Channel" || instance.partialType === "Thread")
             mode = "channel";
-        if (instance.partialType == "User")
+        if (instance.partialType === "User")
             mode = "user";
     }
     else if (instance instanceof Channel)
@@ -30,7 +23,7 @@ async function send(instance, content, options = {}) {
         mode = "user";
     let ID;
     if (mode == "user")
-        ID = await instance.client._snow.user.createDirectMessageChannel(instance.id).then(chan => chan.id || chan.Id);
+        ID = await instance.client._snow.user.createDirectMessageChannel(instance.id).then(chan => chan.id);
     else
         ID = instance.id;
     const msg = await instance.client._snow.channel.createMessage(ID, payload, { disableEveryone: options.disableEveryone || instance.client._snow.options.disableEveryone || false });
@@ -55,39 +48,49 @@ function deleteMessage(client, channelID, messageID, timeout = 0) {
 }
 exports.deleteMessage = deleteMessage;
 async function fetchMessage(client, channelID, messageID) {
-    const Message = (await Promise.resolve().then(() => __importStar(require("../Message")))).default;
-    return client._snow.channel.getChannelMessage(channelID, messageID).then(data => new Message(data, client));
+    const Message = require("../Message");
+    const data = await client._snow.channel.getChannelMessage(channelID, messageID);
+    return new Message(data, client);
 }
 exports.fetchMessage = fetchMessage;
 async function fetchMessages(client, channelID, options) {
-    const Message = (await Promise.resolve().then(() => __importStar(require("../Message")))).default;
-    return client._snow.channel.getChannelMessages(channelID, options).then(data => data.map(i => new Message(i, client)));
+    const Message = require("../Message");
+    const data = await client._snow.channel.getChannelMessages(channelID, options);
+    return data.map(i => new Message(i, client));
 }
 exports.fetchMessages = fetchMessages;
-function transform(content, options = {}, isEdit = false) {
+function transform(content, options, isEdit) {
     const MessageEmbed = require("../MessageEmbed");
+    const MessageAttachment = require("../MessageAttachment");
     const payload = {};
-    if (Util_1.isObject(content) && !Array.isArray(content) && (content.content || content.embed || content.nonce || content.tts || content.file)) {
-        if (content.attachment)
-            options.file = content;
-        else
-            options = content;
+    const opts = options ? options : {};
+    if (content instanceof MessageEmbed) {
+        opts.embed = content;
         content = undefined;
     }
-    else if (content instanceof MessageEmbed) {
-        options.embed = content;
+    else if (content instanceof MessageAttachment) {
+        opts.file = content;
         content = undefined;
+    }
+    else if (Util_1.isObject(content) && !Array.isArray(content) && (content.content || content.embed || content.nonce || content.tts || content.file)) {
+        if (content.attachment)
+            opts.file = content;
+        else
+            Object.assign(opts, content);
+        content = undefined;
+        if (content.disableEveryone !== undefined)
+            opts.disableEveryone = content.disableEveryone;
     }
     else if (Array.isArray(content)) {
         content = content.join("\n");
     }
     else
         content = String(content);
-    payload["content"] = options.content || content || "";
-    payload["embed"] = options.embed ? options.embed.toJSON() : undefined;
-    payload["nonce"] = options.nonce;
-    payload["tts"] = options.tts || false;
-    payload["file"] = options.file ? { name: options.file.name || "file.png", file: options.file.attachment } : undefined;
+    payload["content"] = opts.content || content || "";
+    payload["embed"] = opts.embed ? opts.embed.toJSON() : undefined;
+    payload["nonce"] = opts.nonce;
+    payload["tts"] = opts.tts || false;
+    payload["file"] = opts.file ? { name: opts.file.name || "file.png", file: opts.file.attachment.toString() } : undefined;
     if (isEdit && !payload["content"])
         payload["content"] = null;
     if ((!payload["content"] && !isEdit) || (payload["content"] === ""))

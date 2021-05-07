@@ -2,19 +2,13 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const SnowflakeUtil_1 = __importDefault(require("./Util/SnowflakeUtil"));
-class Channel {
+const Base_1 = __importDefault(require("./Base"));
+class Channel extends Base_1.default {
     constructor(data, client) {
-        this.client = client;
+        super(data, client);
         this.partial = false;
-        this.id = data.id;
-        this.name = data.name;
-    }
-    get createdTimestamp() {
-        return SnowflakeUtil_1.default.deconstruct(this.id).timestamp;
-    }
-    get createdAt() {
-        return new Date(this.createdTimestamp);
+        this.type = "unknown";
+        this._patch(data);
     }
     fetch() {
         return Promise.resolve(this);
@@ -27,6 +21,11 @@ class Channel {
             id: this.id,
             name: this.id
         };
+    }
+    _patch(data) {
+        if (data.name)
+            this.name = data.name;
+        super._patch(data);
     }
 }
 module.exports = Channel;

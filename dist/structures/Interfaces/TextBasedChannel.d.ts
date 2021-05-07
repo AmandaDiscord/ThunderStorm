@@ -8,7 +8,7 @@ export declare function send(instance: import("../Partial/PartialBase")<any> | i
 export declare function deleteMessage(client: import("../Client"), channelID: string, messageID: string, timeout?: number | undefined): Promise<void>;
 export declare function fetchMessage(client: import("../Client"), channelID: string, messageID: string): Promise<import("../Message")>;
 export declare function fetchMessages(client: import("../Client"), channelID: string, options?: FetchMessageOptions): Promise<Array<import("../Message")>>;
-export declare function transform(content: import("../../Types").StringResolvable, options?: import("../../Types").MessageOptions, isEdit?: boolean | undefined): {
+export declare function transform(content: import("../../Types").StringResolvable | import("../../Types").MessageOptions, options?: import("../../Types").MessageOptions, isEdit?: boolean): {
     content?: string | null;
     embeds?: Array<any>;
     nonce?: string;

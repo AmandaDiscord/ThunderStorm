@@ -25,8 +25,6 @@ class SnowflakeUtil {
         };
         return returnValue;
     }
-    static get EPOCH() {
-        return EPOCH;
-    }
 }
+SnowflakeUtil.EPOCH = EPOCH;
 module.exports = SnowflakeUtil;

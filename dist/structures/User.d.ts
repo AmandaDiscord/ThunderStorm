@@ -1,18 +1,17 @@
-declare class User {
-    client: import("./Client");
+import Base from "./Base";
+import UserFlags from "./UserFlags";
+declare class User extends Base {
     partial: false;
     username: string;
     discriminator: string;
     bot: boolean;
     id: string;
     avatar: string | null;
-    flags: number;
+    flags: Readonly<UserFlags>;
     system: boolean;
     constructor(data: import("@amanda/discordtypings").UserData, client: import("./Client"));
     get tag(): string;
     get defaultAvatarURL(): string;
-    get createdTimestamp(): number;
-    get createdAt(): Date;
     toString(): string;
     toJSON(): {
         username: string;
@@ -34,5 +33,6 @@ declare class User {
     }): string | null;
     fetch(): Promise<this>;
     send(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<import("./Message")>;
+    _patch(data: import("@amanda/discordtypings").UserData): void;
 }
 export = User;

@@ -7,14 +7,14 @@ declare class BitField<T> {
     ["constructor"]: typeof BitField;
     static readonly default: typeof BitField;
     readonly [Symbol.species]: BitFieldConstructor;
+    static FLAGS: {
+        [flag: string]: bigint;
+    };
+    FLAGS: {
+        [flag: string]: bigint;
+    };
     bitfield: bigint;
     constructor(bits: import("../Types").BitFieldResolvable<T>);
-    static get FLAGS(): {
-        [flag: string]: bigint;
-    };
-    get FLAGS(): {
-        [flag: string]: bigint;
-    };
     any(bit: import("../Types").BitFieldResolvable<T>): boolean;
     equals(bit: import("../Types").BitFieldResolvable<T>): boolean;
     has(bit: import("../Types").BitFieldResolvable<T>): boolean;

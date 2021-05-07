@@ -6,10 +6,11 @@ const GuildChannel_1 = __importDefault(require("./GuildChannel"));
 class VoiceChannel extends GuildChannel_1.default {
     constructor(data, client) {
         super(data, client);
-        this.bitrate = data.bitrate || 8;
-        this.userLimit = data.user_limit || 0;
+        this.bitrate = 8;
+        this.userLimit = 0;
+        this.rtcRegion = null;
         this.type = "voice";
-        this.rtcRegion = data.rtc_region || null;
+        this._patch(data);
     }
     toJSON() {
         return Object.assign(super.toJSON(), {
@@ -18,6 +19,15 @@ class VoiceChannel extends GuildChannel_1.default {
             rtc_region: this.rtcRegion,
             type: 2
         });
+    }
+    _patch(data) {
+        if (data.bitrate !== undefined)
+            this.bitrate = data.bitrate;
+        if (data.user_limit !== undefined)
+            this.userLimit = data.user_limit;
+        if (data.rtc_region !== undefined)
+            this.rtcRegion = data.rtc_region;
+        super._patch(data);
     }
 }
 module.exports = VoiceChannel;

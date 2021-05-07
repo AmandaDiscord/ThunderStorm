@@ -31,6 +31,8 @@ export declare function parseEmoji(text: string): {
     name: string;
     id: string | null;
 } | null;
+export declare function cleanContent(str: string, message: import("../Message")): string;
+export declare function removeMentions(str: string): string;
 declare const _default: {
     isObject: typeof isObject;
     flatten: typeof flatten;
@@ -49,5 +51,7 @@ declare const _default: {
     escapeStrikethrough: typeof escapeStrikethrough;
     escapeSpoiler: typeof escapeSpoiler;
     parseEmoji: typeof parseEmoji;
+    cleanContent: typeof cleanContent;
+    removeMentions: typeof removeMentions;
 };
 export default _default;

@@ -5,13 +5,11 @@ declare const Constants: {
     BASE_HOST: string;
     SYSTEM_USER_ID: string;
     CLIENT_ONLY_EVENTS: {
-        EVENT: "raw";
+        GUILD_UNAVAILABLE: "guildUnavailable";
+        RATE_LIMIT: "rateLimit";
+        RAW: "raw";
         SHARD_DISCONNECT: "shardDisconnect";
-        SHARD_RESUMED: "shardResume";
-    };
-    CLOUD_ONLY_EVENTS: {
-        DISCONNECTED: "disconnected";
-        EVENT: "event";
+        SHARD_READY: "shardReady";
     };
     Colors: {
         DEFAULT: number;
@@ -78,25 +76,80 @@ declare const Constants: {
         MANAGE_WEBHOOKS: bigint;
         MANAGE_EMOJIS: bigint;
     };
+    USER_FLAGS: {
+        DISCORD_EMPLOYEE: bigint;
+        PARTNERED_SERVER_OWNER: bigint;
+        DISCORD_PARTNER: bigint;
+        HYPESQUAD_EVENTS: bigint;
+        BUGHUNTER_LEVEL_1: bigint;
+        HOUSE_BRAVERY: bigint;
+        HOUSE_BRILLIANCE: bigint;
+        HOUSE_BALANCE: bigint;
+        EARLY_SUPPORTER: bigint;
+        TEAM_USER: bigint;
+        SYSTEM: bigint;
+        BUGHUNTER_LEVEL_2: bigint;
+        VERIFIED_BOT: bigint;
+        EARLY_VERIFIED_DEVELOPER: bigint;
+        VERIFIED_DEVELOPER: bigint;
+    };
+    SYSTEM_CHANNEL_FLAGS: {
+        WELCOME_MESSAGE_DISABLED: bigint;
+        BOOST_MESSAGE_DISABLED: bigint;
+    };
+    MESSAGE_FLAGS: {
+        CROSSPOSTED: bigint;
+        IS_CROSSPOST: bigint;
+        SOURCE_MESSAGE_DELETED: bigint;
+        URGENT: bigint;
+    };
+    GUILD_VERIFICATION_LEVELS: {
+        0: "NONE";
+        1: "LOW";
+        2: "MEDIUM";
+        3: "HIGH";
+        4: "VERY_HIGH";
+    };
     EVENTS: {
         CHANNEL_CREATE: "channelCreate";
+        CHANNEL_DELETE: "channelDelete";
         CHANNEL_PINS_UPDATE: "channelPinsUpdate";
+        CHANNEL_UPDATE: "channelUpdate";
+        GUILD_BAN_ADD: "guildBanAdd";
+        GUILD_BAN_REMOVE: "guildBanRemove";
         GUILD_CREATE: "guildCreate";
         GUILD_DELETE: "guildDelete";
-        GUILD_EMOJIS_UPDATE: "guildEmojisUpdate";
+        GUILD_EMOJIS_UPDATE: "emojisUpdate";
+        GUILD_MEMBERS_CHUNK: "guildMembersChunk";
+        GUILD_MEMBER_ADD: "guildMemberAdd";
+        GUILD_MEMBER_REMOVE: "guildMemberRemove";
         GUILD_MEMBER_UPDATE: "guildMemberUpdate";
         GUILD_ROLE_CREATE: "guildRoleCreate";
         GUILD_ROLE_DELETE: "guildRoleDelete";
         GUILD_ROLE_UPDATE: "guildRoleUpdate";
+        GUILD_UPDATE: "guildUpdate";
+        INVALID_SESSION: "invalidated";
+        INVITE_CREATE: "inviteCreate";
+        INVITE_DELETE: "inviteDelete";
         MESSAGE_CREATE: "message";
         MESSAGE_DELETE: "messageDelete";
+        MESSAGE_DELETE_BULK: "messageDeleteBulk";
         MESSAGE_UPDATE: "messageUpdate";
         MESSAGE_REACTION_ADD: "messageReactionAdd";
         MESSAGE_REACTION_REMOVE: "messageReactionRemove";
         MESSAGE_REACTION_REMOVE_ALL: "messageReactionRemoveAll";
+        MESSAGE_REACTION_REMOVE_EMOJI: "messageReactionRemoveEmoji";
         READY: "ready";
+        RESUMED: "shardResume";
         SHARD_READY: "shardReady";
-        RESUMED: "ready";
+        THREAD_CREATE: "threadCreate";
+        THREAD_DELETE: "threadDelete";
+        THREAD_LIST_SYNC: "threadListSync";
+        THREAD_MEMBER_UPDATE: "threadMemberUpdate";
+        THREAD_MEMBERS_UPDATE: "threadMembersUpdate";
+        THREAD_UPDATE: "threadUpdate";
+        TYPING_START: "typingStart";
+        USER_UPDATE: "userUpdate";
         VOICE_STATE_UPDATE: "voiceStateUpdate";
     };
 };

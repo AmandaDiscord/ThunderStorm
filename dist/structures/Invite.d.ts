@@ -1,75 +1,59 @@
 declare class Invite {
     client: import("./Client");
-    guild: import("./Guild");
+    guild: import("./Partial/PartialGuild") | null;
     code: string;
     presenceCount: number;
     memberCount: number;
-    textChannelCount: number;
-    voiceChannelCount: number;
     temporary: boolean;
     maxAge: number;
     uses: number;
     maxUses: number;
-    inviter: import("./User");
+    inviter: import("./User") | null;
     channel: import("./Partial/PartialChannel");
     createdTimestamp: number;
-    constructor(data: any, client: import("./Client"));
-    get createdAt(): Date;
-    get expiresTimestamp(): number;
-    get expiresAt(): Date;
+    targetUserType: 1 | 2 | null;
+    targetUser: import("./User") | null;
+    constructor(data: import("@amanda/discordtypings").InviteData & {
+        guild_id?: string;
+        temporay?: boolean;
+    }, client: import("./Client"));
+    get createdAt(): Date | null;
+    get expiresTimestamp(): number | null;
+    get expiresAt(): Date | null;
     get url(): string;
     delete(): Promise<this>;
     toString(): string;
     toJSON(): {
-        guild: {
-            name: string;
+        guild?: {
             id: string;
-            unavailable: boolean;
-            member_count: number;
-            owner_id: string;
-            icon: string | null;
-            permissions: string;
-            members: {
-                id: string;
-                nick: string | null;
-                mute: boolean;
-                joined_at: Date;
-                premium_since: string | null;
-                user: {
-                    username: string;
-                    discriminator: string;
-                    bot: boolean;
-                    id: string;
-                    avatar: string | null;
-                    public_flags: number;
-                };
-                roles: string[];
-                guild_id: string | undefined;
-            }[];
-            channels: import("@amanda/discordtypings").GuildChannelData[];
-        };
+            name: string;
+        } | undefined;
+        guild_id?: string | undefined;
         code: string;
         approximate_presence_count: number;
         approximate_member_count: number;
-        text_channel_count: number;
-        voice_channel_count: number;
         temporary: boolean;
         max_age: number;
         max_uses: number;
-        inviter: {
-            username: string;
-            discriminator: string;
-            bot: boolean;
-            id: string;
-            avatar: string | null;
-            public_flags: number;
-        };
+        inviter?: import("@amanda/discordtypings").UserData | undefined;
         channel: {
             id: string;
-            guild_id: string | null;
+            name: string;
             type: number;
         };
-        created_at: string;
+        channel_id: string;
+        created_at?: string | undefined;
+        expires_at?: string | undefined;
     };
+    valueOf(): string;
+    _patch(data: import("@amanda/discordtypings").InviteData & {
+        channel_id?: string;
+        created_at?: string;
+        guild_id?: string;
+        temporary?: boolean;
+        max_age?: number;
+        max_uses?: number;
+        uses?: number;
+    }): void;
 }
 export = Invite;

@@ -1,33 +1,52 @@
 "use strict";
 const EVENTS = {
     CHANNEL_CREATE: "channelCreate",
+    CHANNEL_DELETE: "channelDelete",
     CHANNEL_PINS_UPDATE: "channelPinsUpdate",
+    CHANNEL_UPDATE: "channelUpdate",
+    GUILD_BAN_ADD: "guildBanAdd",
+    GUILD_BAN_REMOVE: "guildBanRemove",
     GUILD_CREATE: "guildCreate",
     GUILD_DELETE: "guildDelete",
-    GUILD_EMOJIS_UPDATE: "guildEmojisUpdate",
+    GUILD_EMOJIS_UPDATE: "emojisUpdate",
+    GUILD_MEMBERS_CHUNK: "guildMembersChunk",
+    GUILD_MEMBER_ADD: "guildMemberAdd",
+    GUILD_MEMBER_REMOVE: "guildMemberRemove",
     GUILD_MEMBER_UPDATE: "guildMemberUpdate",
     GUILD_ROLE_CREATE: "guildRoleCreate",
     GUILD_ROLE_DELETE: "guildRoleDelete",
     GUILD_ROLE_UPDATE: "guildRoleUpdate",
+    GUILD_UPDATE: "guildUpdate",
+    INVALID_SESSION: "invalidated",
+    INVITE_CREATE: "inviteCreate",
+    INVITE_DELETE: "inviteDelete",
     MESSAGE_CREATE: "message",
     MESSAGE_DELETE: "messageDelete",
+    MESSAGE_DELETE_BULK: "messageDeleteBulk",
     MESSAGE_UPDATE: "messageUpdate",
     MESSAGE_REACTION_ADD: "messageReactionAdd",
     MESSAGE_REACTION_REMOVE: "messageReactionRemove",
     MESSAGE_REACTION_REMOVE_ALL: "messageReactionRemoveAll",
+    MESSAGE_REACTION_REMOVE_EMOJI: "messageReactionRemoveEmoji",
     READY: "ready",
+    RESUMED: "shardResume",
     SHARD_READY: "shardReady",
-    RESUMED: "ready",
+    THREAD_CREATE: "threadCreate",
+    THREAD_DELETE: "threadDelete",
+    THREAD_LIST_SYNC: "threadListSync",
+    THREAD_MEMBER_UPDATE: "threadMemberUpdate",
+    THREAD_MEMBERS_UPDATE: "threadMembersUpdate",
+    THREAD_UPDATE: "threadUpdate",
+    TYPING_START: "typingStart",
+    USER_UPDATE: "userUpdate",
     VOICE_STATE_UPDATE: "voiceStateUpdate"
 };
 const CLIENT_ONLY_EVENTS = {
-    EVENT: "raw",
+    GUILD_UNAVAILABLE: "guildUnavailable",
+    RATE_LIMIT: "rateLimit",
+    RAW: "raw",
     SHARD_DISCONNECT: "shardDisconnect",
-    SHARD_RESUMED: "shardResume"
-};
-const CLOUD_ONLY_EVENTS = {
-    DISCONNECTED: "disconnected",
-    EVENT: "event"
+    SHARD_READY: "shardReady"
 };
 const Colors = {
     DEFAULT: 0x000000,
@@ -94,7 +113,41 @@ const PERMISSION_FLAGS = {
     MANAGE_WEBHOOKS: BigInt(1) << BigInt(29),
     MANAGE_EMOJIS: BigInt(1) << BigInt(30)
 };
-const API_VERSION = 8;
+const USER_FLAGS = {
+    DISCORD_EMPLOYEE: BigInt(1) << BigInt(0),
+    PARTNERED_SERVER_OWNER: BigInt(1) << BigInt(1),
+    DISCORD_PARTNER: BigInt(1) << BigInt(1),
+    HYPESQUAD_EVENTS: BigInt(1) << BigInt(2),
+    BUGHUNTER_LEVEL_1: BigInt(1) << BigInt(3),
+    HOUSE_BRAVERY: BigInt(1) << BigInt(6),
+    HOUSE_BRILLIANCE: BigInt(1) << BigInt(7),
+    HOUSE_BALANCE: BigInt(1) << BigInt(8),
+    EARLY_SUPPORTER: BigInt(1) << BigInt(9),
+    TEAM_USER: BigInt(1) << BigInt(10),
+    SYSTEM: BigInt(1) << BigInt(12),
+    BUGHUNTER_LEVEL_2: BigInt(1) << BigInt(14),
+    VERIFIED_BOT: BigInt(1) << BigInt(16),
+    EARLY_VERIFIED_DEVELOPER: BigInt(1) << BigInt(17),
+    VERIFIED_DEVELOPER: BigInt(1) << BigInt(17)
+};
+const SYSTEM_CHANNEL_FLAGS = {
+    WELCOME_MESSAGE_DISABLED: BigInt(1) << BigInt(0),
+    BOOST_MESSAGE_DISABLED: BigInt(1) << BigInt(1)
+};
+const MESSAGE_FLAGS = {
+    CROSSPOSTED: BigInt(1) << BigInt(0),
+    IS_CROSSPOST: BigInt(1) << BigInt(1),
+    SOURCE_MESSAGE_DELETED: BigInt(1) << BigInt(3),
+    URGENT: BigInt(1) << BigInt(4)
+};
+const GUILD_VERIFICATION_LEVELS = {
+    0: "NONE",
+    1: "LOW",
+    2: "MEDIUM",
+    3: "HIGH",
+    4: "VERY_HIGH"
+};
+const API_VERSION = 9;
 const Constants = {
     API_VERSION,
     BASE_API_ENDPOINT: `/api/v${API_VERSION}`,
@@ -102,9 +155,12 @@ const Constants = {
     BASE_HOST: "https://discord.com",
     SYSTEM_USER_ID: "643945264868098049",
     CLIENT_ONLY_EVENTS,
-    CLOUD_ONLY_EVENTS,
     Colors,
     PERMISSION_FLAGS,
+    USER_FLAGS,
+    SYSTEM_CHANNEL_FLAGS,
+    MESSAGE_FLAGS,
+    GUILD_VERIFICATION_LEVELS,
     EVENTS
 };
 module.exports = Constants;

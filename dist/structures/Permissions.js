@@ -6,13 +6,8 @@ const Constants_1 = __importDefault(require("../Constants"));
 const BitField_1 = __importDefault(require("./BitField"));
 class Permissions extends BitField_1.default {
     constructor(bits) {
-        super(bits);
-    }
-    static get FLAGS() {
-        return Constants_1.default.PERMISSION_FLAGS;
-    }
-    get FLAGS() {
-        return Constants_1.default.PERMISSION_FLAGS;
+        super(bits || 0);
+        this.FLAGS = Constants_1.default.PERMISSION_FLAGS;
     }
     any(permission, checkAdmin = true) {
         return (checkAdmin && this.has(this.constructor.FLAGS.ADMINISTRATOR)) || super.any.call(this, permission);
@@ -22,6 +17,7 @@ class Permissions extends BitField_1.default {
     }
 }
 Permissions.default = Permissions;
+Permissions.FLAGS = Constants_1.default.PERMISSION_FLAGS;
 Permissions.ALL = Object.values(Constants_1.default.PERMISSION_FLAGS).reduce((all, p) => all | p, BigInt(0));
 Permissions.DEFAULT = BigInt(10432467);
 module.exports = Permissions;

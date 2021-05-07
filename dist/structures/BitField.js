@@ -1,13 +1,8 @@
 "use strict";
 class BitField {
     constructor(bits) {
+        this.FLAGS = {};
         this.bitfield = BitField.resolve.call(this, bits);
-    }
-    static get FLAGS() {
-        return {};
-    }
-    get FLAGS() {
-        return {};
     }
     any(bit) {
         return (this.bitfield & this.constructor.resolve.call(this, bit)) !== BigInt(0);
@@ -87,4 +82,5 @@ class BitField {
     }
 }
 BitField.default = BitField;
+BitField.FLAGS = {};
 module.exports = BitField;

@@ -2,32 +2,21 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const TextBasedChannel_1 = __importDefault(require("./Interfaces/TextBasedChannel"));
 const Constants_1 = __importDefault(require("../Constants"));
-const SnowflakeUtil_1 = __importDefault(require("./Util/SnowflakeUtil"));
-class User {
+const TextBasedChannel_1 = __importDefault(require("./Interfaces/TextBasedChannel"));
+const Base_1 = __importDefault(require("./Base"));
+const UserFlags_1 = __importDefault(require("./UserFlags"));
+class User extends Base_1.default {
     constructor(data, client) {
-        this.client = client;
+        super(data, client);
         this.partial = false;
-        this.username = data.username;
-        this.discriminator = data.discriminator;
-        this.bot = data.bot || false;
-        this.id = data.id;
-        this.avatar = data.avatar || null;
-        this.flags = data.public_flags || 0;
-        this.system = data.system || false;
+        this._patch(data);
     }
     get tag() {
         return `${this.username}#${this.discriminator}`;
     }
     get defaultAvatarURL() {
         return `${Constants_1.default.BASE_CDN_URL}/embed/avatars/${Number(this.discriminator) % 5}.png`;
-    }
-    get createdTimestamp() {
-        return SnowflakeUtil_1.default.deconstruct(this.id).timestamp;
-    }
-    get createdAt() {
-        return new Date(this.createdTimestamp);
     }
     toString() {
         return `<@${this.id}>`;
@@ -39,7 +28,7 @@ class User {
             bot: this.bot,
             id: this.id,
             avatar: this.avatar,
-            public_flags: this.flags
+            public_flags: Number(this.flags.bitfield)
         };
     }
     avatarURL(options = { size: 128, format: "png", dynamic: true }) {
@@ -59,6 +48,22 @@ class User {
     }
     send(content, options = {}) {
         return TextBasedChannel_1.default.send(this, content, options);
+    }
+    _patch(data) {
+        if (data.username)
+            this.username = data.username;
+        if (data.discriminator)
+            this.discriminator = data.discriminator;
+        if (!this.bot || data.bot !== undefined)
+            this.bot = data.bot || false;
+        if (data.id)
+            this.id = data.id;
+        if (!this.avatar)
+            this.avatar = data.avatar || null;
+        if (!this.flags || data.public_flags)
+            this.flags = new UserFlags_1.default(data.public_flags || 0).freeze();
+        if (!this.system || data.system !== undefined)
+            this.system = data.system || false;
     }
 }
 module.exports = User;

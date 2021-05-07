@@ -2,6 +2,9 @@
 const Util_1 = require("./Util/Util");
 class MessageAttachment {
     constructor(attachment, name = null, data) {
+        this.proxyURL = "";
+        this.height = null;
+        this.width = null;
         this.attachment = attachment;
         this.name = name;
         if (data)
@@ -17,18 +20,33 @@ class MessageAttachment {
         return this;
     }
     _patch(data) {
-        this.id = data.id;
-        this.size = data.size;
-        this.url = data.url;
-        this.proxyURL = data.proxy_url;
-        this.height = typeof data.height !== "undefined" ? data.height : null;
-        this.width = typeof data.width !== "undefined" ? data.width : null;
+        if (data.id)
+            this.id = data.id;
+        if (data.size)
+            this.size = data.size;
+        if (data.url)
+            this.url = data.url;
+        if (data.proxy_url)
+            this.proxyURL = data.proxy_url;
+        if (data.height)
+            this.height = data.height;
+        if (data.width)
+            this.width = data.width;
     }
     get spoiler() {
         return Util_1.basename(this.url).startsWith("SPOILER_");
     }
     toJSON() {
-        return Util_1.flatten(this);
+        return {
+            id: this.id,
+            size: this.size,
+            url: this.url,
+            proxy_url: this.url,
+            height: this.height,
+            width: this.width,
+            name: this.name,
+            attachment: this.attachment
+        };
     }
 }
 module.exports = MessageAttachment;

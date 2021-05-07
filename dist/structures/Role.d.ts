@@ -9,6 +9,7 @@ declare class Role {
     position: number;
     mentionable: boolean;
     guild: import("./Partial//PartialGuild");
+    partial: false;
     constructor(data: import("@amanda/discordtypings").RoleData & {
         guild_id: string;
     }, client: import("./Client"));

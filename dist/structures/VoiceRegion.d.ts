@@ -6,7 +6,15 @@ declare class VoiceRegion {
     optimal: boolean;
     custom: boolean;
     sampleHostname: string;
-    constructor(data: any);
+    constructor(data: {
+        id: string;
+        name: string;
+        vip: boolean;
+        deprecated: boolean;
+        optimal: boolean;
+        custom: false;
+        sample_hostname?: string;
+    });
     toString(): string;
     toJSON(): {
         id: string;

@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const SnowflakeUtil_1 = __importDefault(require("./Util/SnowflakeUtil"));
 class Role {
     constructor(data, client) {
+        this.partial = false;
         const PartialGuild = require("./Partial/PartialGuild");
         this.client = client;
         this.name = data.name;
