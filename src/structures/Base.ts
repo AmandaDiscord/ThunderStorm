@@ -7,7 +7,7 @@ class Base {
 	public constructor(data: { id: string }, client: import("./Client")) {
 		this.client = client;
 
-		this._patch(data);
+		this.id = data.id;
 	}
 
 	public get createdTimestamp() {
