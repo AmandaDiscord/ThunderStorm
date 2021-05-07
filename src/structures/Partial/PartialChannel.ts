@@ -1,17 +1,17 @@
 import TextBasedChannel from "../Interfaces/TextBasedChannel";
 
 import PartialBase from "./PartialBase";
-import PartialGuild from "./PartialGuild";
 
 class PartialChannel extends PartialBase<import("../Channel")> {
 	public type: "text" | "dm" | "voice" | "unknown";
 	public partialType: "Channel" = "Channel";
-	public guild: PartialGuild | null;
+	public guild: import("./PartialGuild") | null;
 	public name: string;
 
 	public constructor(data: import("../../internal").PartialData, client: import("../Client")) {
 		super(data, client);
 
+		const PartialGuild: typeof import("./PartialGuild") = require("./Partial/PartialGuild");
 		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
 		this.type = data.type || "unknown";
 		this.name = data.name || "unknown";

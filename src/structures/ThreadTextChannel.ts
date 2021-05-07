@@ -1,8 +1,5 @@
 import Collection from "./Util/Collection";
 
-import PartialChannel from "./Partial/PartialChannel";
-import PartialGuild from "./Partial/PartialGuild";
-import PartialUser from "./Partial/PartialUser";
 import TextChannel from "./TextChannel";
 import ThreadMetaData from "./ThreadMetadata";
 import ThreadMember from "./ThreadMember";
@@ -12,13 +9,13 @@ class ThreadTextChannel extends TextChannel {
 	public type: "text-thread" = "text-thread";
 	public private = false;
 	public ownerID!: string;
-	public owner!: PartialUser;
+	public owner!: import("./Partial/PartialUser");
 	public memberCount = 0;
 	public messageCount = 0;
 	public meta!: import("./ThreadMetadata");
 	public members: Collection<string, ThreadMember> = new Collection();
-	public parent!: PartialChannel;
-	public guild!: PartialGuild;
+	public parent!: import("./Partial/PartialChannel");
+	public guild!: import("./Partial/PartialGuild");
 
 	public constructor(data: import("@amanda/discordtypings").ThreadChannelData, client: import("./Client")) {
 		// @ts-ignore
@@ -51,6 +48,9 @@ class ThreadTextChannel extends TextChannel {
 
 	// @ts-ignore
 	public _patch(data: import("@amanda/discordtypings").ThreadChannelData) {
+		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
+		const PartialGuild: typeof import("./Partial/PartialGuild") = require("./Partial/PartialGuild");
+		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
 		if (data.owner_id) {
 			this.ownerID = data.owner_id;
 			this.owner = new PartialUser({ id: this.ownerID }, this.client);

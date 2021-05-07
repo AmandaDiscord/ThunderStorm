@@ -1,16 +1,17 @@
 import PartialBase from "./PartialBase";
-import PartialChannel from "./PartialChannel";
-import PartialGuild from "./PartialGuild";
 
 import Message from "../Message";
 
 class PartialMessage extends PartialBase<import("../Message")> {
-	public channel: PartialChannel;
-	public guild: PartialGuild | null;
+	public channel: import("./PartialChannel");
+	public guild: import("./PartialGuild") | null;
 	public partialType: "Message" = "Message";
 
 	public constructor(data: import("../../internal").PartialData, client: import("../Client")) {
 		super(data, client);
+
+		const PartialGuild: typeof import("./PartialGuild") = require("./Partial/PartialGuild");
+		const PartialChannel: typeof import("./PartialChannel") = require("./PartialChannel");
 
 		this.channel = new PartialChannel({ id: data.channel_id as string, guild_id: data.guild_id }, client);
 		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;

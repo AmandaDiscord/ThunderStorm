@@ -1,5 +1,4 @@
 import Base from "./Base";
-import PartialUser from "./Partial/PartialUser";
 
 class ThreadMember extends Base {
 	public flags = 0;
@@ -7,7 +6,7 @@ class ThreadMember extends Base {
 	public thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel") | import("./Partial/PartialThreadChannel");
 	public joinedAt!: Date;
 	public joinedTimestamp!: number
-	public user!: PartialUser;
+	public user!: import("./Partial/PartialUser");
 
 	public constructor(thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel") | import("./Partial/PartialThreadChannel"), data: import("@amanda/discordtypings").ThreadMemberData) {
 		super({ id: data.user_id }, thread.client);
@@ -26,6 +25,7 @@ class ThreadMember extends Base {
 	}
 
 	public _patch(data: import("@amanda/discordtypings").ThreadMemberData) {
+		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
 		if (data.flags !== undefined) this.flags = data.flags;
 		if (!this.threadID || data.id) this.threadID = data.id || this.thread.id;
 		if (data.join_timestamp) {

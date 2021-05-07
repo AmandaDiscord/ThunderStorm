@@ -1,17 +1,18 @@
 import TextBasedChannel from "../Interfaces/TextBasedChannel";
 
 import PartialBase from "./PartialBase";
-import PartialChannel from "./PartialChannel";
-import PartialGuild from "./PartialGuild";
 
 class PartialThreadChannel extends PartialBase<import("../ThreadTextChannel") | import("../ThreadNewsChannel")> {
 	public partialType: "Thread" = "Thread";
-	public guild: PartialGuild | null;
-	public parent: PartialChannel;
+	public guild: import("./PartialGuild") | null;
+	public parent: import("./PartialChannel");
 	public memberCount = 0;
 
 	public constructor(data: import("../../internal").PartialData, client: import("../Client")) {
 		super(data, client);
+
+		const PartialGuild: typeof import("./PartialGuild") = require("./Partial/PartialGuild");
+		const PartialChannel: typeof import("./PartialChannel") = require("./PartialChannel");
 
 		this.guild = new PartialGuild({ id: data.guild_id as string }, client);
 		this.parent = new PartialChannel({ id: data.channel_id as string }, client);

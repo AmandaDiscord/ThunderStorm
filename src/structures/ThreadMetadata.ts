@@ -1,13 +1,11 @@
 import SnowflakeUtil from "./Util/SnowflakeUtil";
 
-import PartialUser from "./Partial/PartialUser";
-
 class ThreadMetaData {
 	public client: import("./Client");
 	public thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel");
 	public locked = false;
 	public autoArchiveDuration = 0;
-	public archiver: PartialUser | null = null;
+	public archiver: import("./Partial/PartialUser") | null = null;
 	public archiveStatusChangedAt!: Date;
 	public archiveStatusChangedTimestamp!: number;
 	private _archived = false;
@@ -41,6 +39,7 @@ class ThreadMetaData {
 	}
 
 	public _patch(data: import("@amanda/discordtypings").ThreadMetaData) {
+		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
 		if (data.locked !== undefined) this.locked = data.locked;
 		if (data.auto_archive_duration !== undefined) this.autoArchiveDuration = data.auto_archive_duration;
 		if (data.archived !== undefined) this._archived = data.archived;
