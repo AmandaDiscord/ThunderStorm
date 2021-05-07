@@ -7,7 +7,7 @@ class PartialRole extends PartialBase_1.default {
     constructor(data, client) {
         super(data, client);
         this.partialType = "Role";
-        const PartialGuild = require("./Partial/PartialGuild");
+        const PartialGuild = require("./PartialGuild");
         this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, this.client) : null;
     }
     toString() {

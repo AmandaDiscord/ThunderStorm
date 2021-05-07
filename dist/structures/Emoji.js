@@ -7,6 +7,7 @@ const SnowflakeUtil_1 = __importDefault(require("./Util/SnowflakeUtil"));
 const Collection_1 = __importDefault(require("./Util/Collection"));
 class Emoji {
     constructor(data, client) {
+        var _a, _b;
         this.id = null;
         this.animated = false;
         this.available = false;
@@ -15,7 +16,30 @@ class Emoji {
         this.user = null;
         this.roles = new Collection_1.default();
         this.client = client;
-        this._patch(data);
+        const PartialRole = require("./Partial/PartialRole");
+        const User = require("./User");
+        if (data.id || data.id === null)
+            this.id = data.id;
+        if (data.name)
+            this.name = data.name;
+        if (data.animated != undefined)
+            this.animated = data.animated;
+        if (data.managed != undefined)
+            this.managed = data.managed;
+        if (data.available != undefined)
+            this.available = data.available;
+        if (data.require_colons != undefined)
+            this.requiresColons = data.require_colons;
+        if (data.user) {
+            if (data.user.id === ((_a = this.client.user) === null || _a === void 0 ? void 0 : _a.id))
+                this.client.user._patch(data.user);
+            this.user = data.user.id === ((_b = this.client.user) === null || _b === void 0 ? void 0 : _b.id) ? this.client.user : new User(data.user, this.client);
+        }
+        if (data.roles && Array.isArray(data.roles)) {
+            this.roles.clear();
+            for (const role of data.roles)
+                this.roles.set(role, new PartialRole({ id: role }, this.client));
+        }
     }
     get identifier() {
         if (this.id)

@@ -10,7 +10,8 @@ class ClientUser extends User_1.default {
     constructor(data, client) {
         super(data, client);
         this.mfaEnabled = false;
-        this._patch(data);
+        if (data.mfa_enabled !== undefined)
+            this.mfaEnabled = data.mfa_enabled;
     }
     get verified() {
         return this.flags.has("VERIFIED_BOT");

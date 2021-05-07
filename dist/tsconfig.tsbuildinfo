@@ -454,7 +454,7 @@
         "signature": "2abfee5da97f282648df51f5231edf064ce19f332829ec4f16d3a1a93a38a7ca"
       },
       "../src/structures/channel.ts": {
-        "version": "0835ebe0c4b0895e90635f1607fffefdbb99497b302dbc089bfd05b7ecbd5c9d",
+        "version": "6f9d8504a347d73c3662f416f8cab32731568109972a164ada0294e10403cf5b",
         "signature": "d6403ad1122286ce4cf7fcc0af65c6fffc7b26c060f1c621e569aad0a2b90b06"
       },
       "../src/structures/bitfield.ts": {
@@ -478,19 +478,19 @@
         "signature": "380a91268a9e64ba3b169705d0b5d6eb20ceb60a67f492a52cf5095c76075e9b"
       },
       "../src/structures/partial/partialrole.ts": {
-        "version": "f478eb2a07b68075146bd91b2d9ea44caf55c8a4b012929df145c2f16d38731d",
+        "version": "dc94f2deb1372342f2bf1e56e488a8f612ecb3322e314c7fe9d4a599b0057d36",
         "signature": "b900330d66a00d2bbb13832d728dff2a2279df5ec28d979fae63a3d5a89c11ec"
       },
       "../src/structures/emoji.ts": {
-        "version": "3bbf809771ca9dca5fcea895158bff695fccc6de31aee88b15c5674324acd3e5",
+        "version": "9307300416092d7e191f42cb8a78b36169eea84fd73ad34eb4433f722a9c29ea",
         "signature": "2fc67548641f9b0d6a102dfd6f4934ade5b0c438bacc7a825d5fb7f88bba217a"
       },
       "../src/structures/guildmember.ts": {
-        "version": "9426150c5761a9d335fd5678669a965e2803e8913a2ae0f714fe45301f46eb9b",
+        "version": "2ba26024d64c797f144b605ce0255020a45441da004c2d3a4050d4cb974ff5b1",
         "signature": "e94f4199c96904668967dd2bccef2a9a7122045f7e298470db740bddb0745572"
       },
       "../src/structures/textchannel.ts": {
-        "version": "691ab6837cdaab37f36ef1321e1ac239e672bc4cefffe8a851d39ff500ee5812",
+        "version": "2fa164fe7c9ccb08ea4cab9425470f2c042f4bc606c1cfd6ff820c27f1429dbc",
         "signature": "3f45791bdf0a5466434079737384e5d434481faafafd65ae28bf66c2dce4a8f0"
       },
       "../src/structures/newschannel.ts": {
@@ -498,7 +498,7 @@
         "signature": "7d18217cb2e44fbd8ded4a6dcc1484e7cc2c3e01a51c7010830f615519608508"
       },
       "../src/structures/voicechannel.ts": {
-        "version": "d269cdb03435db7913f14b0f32f378db29c57eee2c0aa1e98201bbfe6b933134",
+        "version": "b7d1d86ac5f0737aa7af1cdb5be652b60d5e22c4c29c26a26035fd6574870c9b",
         "signature": "1f596863aad41454e53d0128346d0cb02b6760c0d4867a31b7f690aef3ea279c"
       },
       "../src/structures/stagechannel.ts": {
@@ -510,7 +510,7 @@
         "signature": "88f86368f9c2003cb3c29690ae9d8cb0425d990e685ae5a6a54a01153bb2d78a"
       },
       "../src/structures/voicestate.ts": {
-        "version": "e4a20387ef15f6e57592b27f35a4729011314afefc0fa1d357dc598f644da924",
+        "version": "8e6cea7a22c328f11d68e235d4678db9d98437803c1a9c5417ac8bf7a11cba1a",
         "signature": "eb82c246d469da4a7a8ac6bbde711e86d80bda137bc01bc1390a005899e86fc1"
       },
       "../src/structures/partial/partialuser.ts": {
@@ -518,39 +518,39 @@
         "signature": "05a5733e5e9f6b346dbae4bbe0879a43eed7873053f18a34efab30254d15c872"
       },
       "../src/structures/partial/partialchannel.ts": {
-        "version": "e12c1665de5c06805be5f92875864d6895d341c80a0a51cb766ccd3e8c52a400",
+        "version": "adacc47f8ed10ac0a399d83ced512e39e9af838d68e73e7dbe02a8e07eaa620d",
         "signature": "dbc573be961dadb2f063e37623acdc2aca8ffd75b70d12160c6da1bc090f681c"
       },
       "../src/structures/partial/partialthreadchannel.ts": {
-        "version": "da33dc21d308391ecf375ddf94b71c525c8876a930b08079f7f5aa0de7339234",
+        "version": "fbf59a66486e9c85a2fda3d8097f168a00f72769e2bd54abf1f037f118417005",
         "signature": "cedc953d0dc9cb264e8d8deaec64b0b369abb26dca07b736585119036c878459"
       },
       "../src/structures/threadmember.ts": {
-        "version": "8f187306de780670ee634cc4ee0fdd5357f1d23ce7619067ad05109c5e9e7e16",
+        "version": "9dd837d7d7f7d9588fd65d90a8cb22d15a157b46911df8c2fcd5e5e01b663a10",
         "signature": "d55646477aa169e7cabcbbb5a2b82b050d579403d7dee2bcd24fd26093e1ca44"
       },
       "../src/structures/threadtextchannel.ts": {
-        "version": "a3fd32e4c3479eed901fa45b3a0f678331ef58cbd11cfa1a9399616d3bfb4051",
+        "version": "d483d5876269cf70f37417381ba7409700b4cff237bb2a0863e523891aeec246",
         "signature": "90acc0d4811fc8ebeaae7b1eb205d5dc6f9dea9fa9e34e41ee6ba5d7f00a3d46"
       },
       "../src/structures/threadmetadata.ts": {
-        "version": "ae426a0388bffd9e938699ee0eaf306d9f58c0b62832bf9340117c300c4ecb0d",
+        "version": "0bf0b99e1a1c3d61ce1f4c0da0787c52b3e20f35fb5b59b4f2159733d29e0db4",
         "signature": "c2f203860140bf8dd688b0706722085dcfd7f6c401302c85beeae67725ff448d"
       },
       "../src/structures/threadnewschannel.ts": {
-        "version": "10f6e8336794fe8c833bd833619894338f23ff01878dda2ca5c052656fd56686",
+        "version": "8375fcd56333da8120bf3343c858e42075e3f9491f9e1f678a4baa1c77464fce",
         "signature": "e9e4c9ab6a1d7214bb2080c9317e21884d9a5df4a296886ae83609905857935f"
       },
       "../src/structures/guild.ts": {
-        "version": "fdbc6a9f54bdd797473fb21aa0d642f4664e8962c6dd83bdc90f81bbc67632f5",
-        "signature": "d11f9f9e47b763ea1dc63bf7b99382e1ac5a3eafaa33a5f2f63dc3d8b79a0759"
+        "version": "59160ee5721df467e8802f690f96d6ea84db44f000ebba223acf394dcdad9b68",
+        "signature": "69112d47d92e9e79f120a58e001e7e3457d19445645976d5c972707dbd3a4840"
       },
       "../src/structures/partial/partialguild.ts": {
         "version": "c04a3c1b38cccc0178f5a9ab2eeae8c04fd140ea5839d3240145d8e837871ded",
         "signature": "9938cad1b34853493e5476da43e154d7f2758d047c3d9bdc1dc8dc981d377376"
       },
       "../src/structures/guildchannel.ts": {
-        "version": "e30ecab70c19cbcf65d967ac039ba254f70372a16f3cb90d8b55d3bb85793e4a",
+        "version": "3bd860e1b0cd619f1751505de4031b22a88719dee26c68d48b14d36130e0f94f",
         "signature": "8a72cb094250493729a8a6a98a9c6bb9f0f1f90e65fa6de29ae72a0de2b25b7f"
       },
       "../src/structures/categorychannel.ts": {
@@ -558,7 +558,7 @@
         "signature": "8041efa349df8c372f9fdd1d014745279e1dd805620fd434efc3ab6081eca8a4"
       },
       "../src/structures/dmchannel.ts": {
-        "version": "f4a718083d745f1e0ecfcf39276a3a837d6ae080df620d4485081317ba81ecdb",
+        "version": "1e36b913e8dfe560f36237f5fe1c06e91830f45eb4780be1173ca832f2d76b48",
         "signature": "3e03933c98ff923481eca7fca04d67589a138ce5452fcac2400bd51d45589b28"
       },
       "../src/structures/partial/partialbase.ts": {
@@ -566,7 +566,7 @@
         "signature": "ee709c36b304377353332e41208e49d48a37ab5f4ef8929de2869bcd8ffe9cf8"
       },
       "../src/structures/messageattachment.ts": {
-        "version": "d5611b6aa5cdfaafd54285d4046464634a024030406645970c80b47dd926e3e5",
+        "version": "c06e5932c31878b09259636b9f8df13107d8da8c77e615ea56ffc1dc57ad7fb8",
         "signature": "dcc97a5f66f43bd60bd53097ee3253e4eb8734b152bd720294801fb69cf8ca5a"
       },
       "../src/structures/interfaces/textbasedchannel.ts": {
@@ -578,16 +578,16 @@
         "signature": "c3f6a833a3c0ec53cb6feea58b2c08326389470fb56b00981f2df4fbeb7a839e"
       },
       "../src/structures/user.ts": {
-        "version": "e19b8ecf6310638b548cffe9491979c4962045dbf6191f7b5d7910e2af0297c6",
+        "version": "cb56285df4da8b1cff30917742dce768ad38dea9f8b7111a63ca6eaf01e1d3ba",
         "signature": "1319d1ae2f93eb7371c05b2229c79f49822766eb3c3939c2f81952b7e07b2f72"
       },
       "../src/structures/clientuser.ts": {
-        "version": "732a19b02e7fef5b7ef854cf3bbf3797088ae6833db865e2fbc0159eceab6296",
+        "version": "779bbb65c900d6201d24bc6037f32f985dca3ac14366d4673abfb72c688ae1e1",
         "signature": "5db3f5e96a712efc5b59cbd7d41507e77e0d527dc606a7bcec4dad5a76678157"
       },
       "../src/structures/invite.ts": {
-        "version": "d781fd528e7b9ff97571fabb92f1720aff30ae39574363183bfd7f3a5ccc7ffb",
-        "signature": "37c70d87c243eae0972b426a9c4c28197a99c6ce5239bb01becbf538e5635181"
+        "version": "f764d89cd05d7cecb0d35df6410e79bc76d9b64b2c2bb839b61bc2e4b52b21e1",
+        "signature": "2eb5eab712ca36d8b35a7def2e52c1882fc605f9bea9584f4ee8418d6feff7c5"
       },
       "../src/structures/client.ts": {
         "version": "bd2a78e7634433592726a099400a66be6887f6a184c3fa504345f6634a3c993f",
@@ -598,19 +598,19 @@
         "signature": "f94ebef2b637fa643669b026eba41c4fb772d39b1f63c4b7ce948ebda66b01fa"
       },
       "../src/structures/application.ts": {
-        "version": "02e2be765dfed4189a476956185c1f79e66eabae71102b9d96bcfc385c3db675",
+        "version": "a8414a4d1c4ce1959ac75fb008c7d7eadbbeb544b84e635e295225d714ae1c85",
         "signature": "24d409d568bb80c53983995ce34a18b86fc82bb3824c8ae8600f6dfa45d41fc8"
       },
       "../src/structures/teammember.ts": {
-        "version": "757d62b1150bb65c2ae9c46935823551c25e1ccfbdab4f5db6cc3c5f6b9fc097",
+        "version": "51f8400ac318d31aae96da0a6b402096bdb1b8c724ce1eb5d1808478eebf1621",
         "signature": "b8b6b9284c8eed9d38e834a91e3ea46ee40b02117abec9e22ebda1cfdcb95660"
       },
       "../src/structures/team.ts": {
-        "version": "b36776a78aaf3b3f774e9a400db4b9766c65650a6ec3cb41367c078dca5c0c43",
+        "version": "e54ed8d2d29611faf95d76e3332cdab0c5fb91817c15f226d251cc44d805fd78",
         "signature": "643f54320411b62353ef2e52589f91c63bed37ed612349852593b7a5ea957000"
       },
       "../src/structures/clientapplication.ts": {
-        "version": "a7439624730906680d7c753f5f0227053076cb763745501d7e2a21c8db181bef",
+        "version": "533d6c184a22be6e18f3e808b9628cb878d1e27bab7f4adc27b8d38bc0129f28",
         "signature": "66331d94e7a09cdeabafdb3c58966f7702db08ca8e04ed4089ae730fb7ee869c"
       },
       "../src/structures/messageflags.ts": {
@@ -626,7 +626,7 @@
         "signature": "3107528d885afc471f20bc2538e1a4f1ccfcafc81245e14b9402808872e87e32"
       },
       "../src/structures/partial/partialmessage.ts": {
-        "version": "ebacf8a2017a8b5fb4ab313d4fbd6f01b60cc9689b16fc61c882f49c76c7042e",
+        "version": "8c68bbb957e908724c2f1dc7d43f103fd11e7d682ec076af3587bd7757b262f7",
         "signature": "f177b06356caf253b4b2310f22fb2b947f9f0187cba2d8f699144ba54dfd9a78"
       },
       "../src/structures/messagereaction.ts": {
@@ -634,7 +634,7 @@
         "signature": "78c80a8e0e8943631e100c68e2cf4346095d464da195b2e5aa670b659e4d7b50"
       },
       "../src/structures/message.ts": {
-        "version": "c8e0612fa1431f7b21661454964298f6ee732ffcd83ecc31690c9bb3ad9568c5",
+        "version": "067fbd091e02a7104a46b37bd2a5ca3eab7df9048c4a0b7f32fc14e0457a784c",
         "signature": "44b3d0a49fb17b00a2ddc7e26b840ebea10c85aab1012622621b01a7555f855d"
       },
       "../src/structures/util/util.ts": {
@@ -1487,453 +1487,132 @@
       ]
     },
     "exportedModulesMap": {
-      "../src/index.ts": [
-        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts",
-        "../src/structures/partial/partialbase.ts",
-        "../src/structures/partial/partialchannel.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../src/structures/partial/partialmessage.ts",
-        "../src/structures/partial/partialrole.ts",
-        "../src/structures/partial/partialthreadchannel.ts",
-        "../src/structures/partial/partialuser.ts",
-        "../src/structures/application.ts",
-        "../src/structures/base.ts",
-        "../src/structures/categorychannel.ts",
-        "../src/structures/channel.ts",
-        "../src/structures/client.ts",
-        "../src/structures/clientapplication.ts",
-        "../src/structures/clientuser.ts",
-        "../src/structures/dmchannel.ts",
-        "../src/structures/emoji.ts",
-        "../src/structures/guild.ts",
-        "../src/structures/guildchannel.ts",
-        "../src/structures/guildmember.ts",
-        "../src/structures/invite.ts",
-        "../src/structures/message.ts",
-        "../src/structures/messageattachment.ts",
-        "../src/structures/messageembed.ts",
-        "../src/structures/messageflags.ts",
-        "../src/structures/messagementions.ts",
-        "../src/structures/messagereaction.ts",
-        "../src/structures/newschannel.ts",
-        "../src/structures/reactionemoji.ts",
-        "../src/structures/role.ts",
-        "../src/structures/stagechannel.ts",
-        "../src/structures/systemchannelflags.ts",
-        "../src/structures/team.ts",
-        "../src/structures/teammember.ts",
-        "../src/structures/textchannel.ts",
-        "../src/structures/threadmember.ts",
-        "../src/structures/threadmetadata.ts",
-        "../src/structures/threadnewschannel.ts",
-        "../src/structures/threadtextchannel.ts",
-        "../src/structures/user.ts",
-        "../src/structures/userflags.ts",
-        "../src/structures/voicechannel.ts",
-        "../src/structures/voiceregion.ts",
-        "../src/structures/voicestate.ts",
-        "../src/structures/bitfield.ts",
-        "../src/structures/util/collection.ts",
-        "../src/constants.ts",
-        "../src/handle.ts",
-        "../src/structures/permissionoverwrites.ts",
-        "../src/structures/permissions.ts",
-        "../src/structures/util/snowflakeutil.ts",
-        "../src/structures/util/util.ts",
-        "../src/types.ts"
-      ],
-      "../src/handle.ts": [
-        "../src/internal.ts",
-        "../src/structures/client.ts"
-      ],
-      "../src/types.ts": [
-        "../src/structures/partial/partialchannel.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../src/structures/user.ts",
-        "../src/structures/guild.ts",
-        "../src/structures/util/collection.ts",
-        "../src/structures/emoji.ts",
-        "../src/structures/guildmember.ts",
-        "../src/structures/role.ts",
-        "../src/structures/partial/partialrole.ts",
-        "../src/structures/invite.ts",
-        "../src/structures/message.ts",
-        "../src/structures/partial/partialmessage.ts",
-        "../src/structures/messagereaction.ts",
-        "../src/structures/partial/partialuser.ts",
-        "../src/internal.ts",
-        "../src/structures/clientuser.ts",
-        "../src/structures/threadtextchannel.ts",
-        "../src/structures/threadnewschannel.ts",
-        "../src/structures/threadmember.ts",
-        "../src/structures/partial/partialthreadchannel.ts",
-        "../src/structures/voicestate.ts",
-        "../src/structures/bitfield.ts",
-        "../src/structures/dmchannel.ts",
-        "../src/structures/textchannel.ts",
-        "../src/structures/voicechannel.ts",
-        "../src/structures/categorychannel.ts",
-        "../src/structures/newschannel.ts",
-        "../src/structures/stagechannel.ts",
-        "../src/constants.ts",
-        "../src/structures/messageembed.ts",
-        "../src/structures/messageattachment.ts",
-        "../node_modules/snowtransfer/dist/src/snowtransfer.d.ts"
-      ],
-      "../src/structures/messageembed.ts": [
-        "../src/types.ts",
-        "../src/structures/messageattachment.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts"
-      ],
-      "../src/structures/message.ts": [
-        "../src/structures/partial/partialchannel.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../src/structures/user.ts",
-        "../src/structures/messageattachment.ts",
-        "../src/structures/messageembed.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/types.ts",
-        "../src/structures/guildmember.ts",
-        "../src/structures/util/collection.ts",
-        "../src/structures/clientapplication.ts",
-        "../src/structures/messageflags.ts",
-        "../src/structures/messagementions.ts",
-        "../src/structures/messagereaction.ts",
-        "../src/structures/threadtextchannel.ts",
-        "../src/structures/base.ts"
-      ],
-      "../src/structures/util/util.ts": [
-        "../src/types.ts",
-        "../src/structures/message.ts"
-      ],
-      "../src/structures/interfaces/textbasedchannel.ts": [
-        "../src/structures/partial/partialbase.ts",
-        "../src/structures/channel.ts",
-        "../src/structures/user.ts",
-        "../src/structures/guildmember.ts",
-        "../src/types.ts",
-        "../src/structures/message.ts",
-        "../src/structures/client.ts"
-      ],
-      "../src/structures/partial/partialmessage.ts": [
-        "../src/structures/partial/partialchannel.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../src/internal.ts",
-        "../src/structures/client.ts",
-        "../src/types.ts",
-        "../src/structures/message.ts",
-        "../src/structures/partial/partialbase.ts"
-      ],
-      "../src/structures/messagereaction.ts": [
-        "../src/structures/message.ts",
-        "../src/structures/partial/partialmessage.ts",
-        "../src/structures/user.ts",
-        "../src/structures/reactionemoji.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/types.ts",
-        "../src/structures/util/collection.ts"
-      ],
-      "../src/structures/reactionemoji.ts": [
-        "../src/structures/client.ts",
-        "../src/structures/messagereaction.ts"
-      ],
-      "../src/structures/user.ts": [
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/types.ts",
-        "../src/structures/message.ts",
-        "../src/structures/userflags.ts",
-        "../src/structures/base.ts"
-      ],
-      "../src/structures/messagementions.ts": [
-        "../src/structures/client.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../src/structures/user.ts",
-        "../src/structures/guildmember.ts",
-        "../src/structures/partial/partialchannel.ts",
-        "../src/structures/partial/partialrole.ts",
-        "../src/structures/guildchannel.ts",
-        "../src/structures/message.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/util/collection.ts"
-      ],
-      "../src/structures/clientapplication.ts": [
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/structures/team.ts",
-        "../src/structures/user.ts",
-        "../src/structures/application.ts"
-      ],
-      "../src/structures/teammember.ts": [
-        "../src/structures/team.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/user.ts",
-        "../src/structures/base.ts"
-      ],
-      "../src/structures/team.ts": [
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/structures/util/collection.ts",
-        "../src/structures/teammember.ts",
-        "../src/structures/base.ts"
-      ],
-      "../src/structures/client.ts": [
-        "../src/types.ts",
-        "../src/structures/clientuser.ts",
-        "../node_modules/snowtransfer/dist/src/snowtransfer.d.ts",
-        "../src/structures/user.ts",
-        "../src/structures/invite.ts",
-        "../src/structures/util/collection.ts",
-        "../src/structures/voiceregion.ts",
-        "../node_modules/@types/node/events.d.ts"
-      ],
-      "../src/structures/application.ts": [
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/structures/base.ts"
-      ],
-      "../src/structures/base.ts": [
-        "../src/structures/client.ts"
-      ],
-      "../src/structures/guild.ts": [
-        "../src/structures/partial/partialuser.ts",
-        "../src/types.ts",
-        "../src/structures/guildchannel.ts",
-        "../src/structures/threadnewschannel.ts",
-        "../src/structures/threadtextchannel.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/structures/guildmember.ts",
-        "../src/structures/systemchannelflags.ts",
-        "../src/structures/util/collection.ts",
-        "../src/structures/role.ts",
-        "../src/structures/voicestate.ts",
-        "../src/structures/emoji.ts",
-        "../src/structures/base.ts"
-      ],
-      "../src/structures/partial/partialbase.ts": [
-        "../src/structures/client.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../src/structures/partial/partialchannel.ts",
-        "../src/internal.ts",
-        "../src/structures/channel.ts",
-        "../src/structures/guild.ts",
-        "../src/structures/message.ts",
-        "../src/structures/role.ts",
-        "../src/structures/threadtextchannel.ts",
-        "../src/structures/threadnewschannel.ts",
-        "../src/structures/user.ts"
-      ],
-      "../src/structures/partial/partialguild.ts": [
-        "../src/internal.ts",
-        "../src/structures/client.ts",
-        "../src/structures/guildmember.ts",
-        "../src/types.ts",
-        "../src/structures/guild.ts",
-        "../src/structures/partial/partialbase.ts"
-      ],
-      "../src/structures/invite.ts": [
-        "../src/structures/client.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../src/structures/user.ts",
-        "../src/structures/partial/partialchannel.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts"
-      ],
-      "../src/structures/guildchannel.ts": [
-        "../src/structures/partial/partialguild.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/structures/util/collection.ts",
-        "../src/structures/permissionoverwrites.ts",
-        "../src/structures/channel.ts"
-      ],
-      "../src/structures/categorychannel.ts": [
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/structures/guildchannel.ts"
-      ],
-      "../src/structures/voicechannel.ts": [
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/structures/guildchannel.ts"
-      ],
-      "../src/structures/stagechannel.ts": [
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/structures/voicechannel.ts"
-      ],
-      "../src/structures/textchannel.ts": [
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/types.ts",
-        "../src/structures/message.ts",
-        "../src/structures/interfaces/textbasedchannel.ts",
-        "../src/structures/guildchannel.ts"
-      ],
-      "../src/structures/threadtextchannel.ts": [
-        "../src/structures/partial/partialuser.ts",
-        "../src/structures/threadmetadata.ts",
-        "../src/structures/partial/partialchannel.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/structures/util/collection.ts",
-        "../src/structures/threadmember.ts",
-        "../src/structures/textchannel.ts"
-      ],
-      "../src/structures/threadmetadata.ts": [
-        "../src/structures/client.ts",
-        "../src/structures/threadtextchannel.ts",
-        "../src/structures/threadnewschannel.ts",
-        "../src/structures/partial/partialuser.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts"
-      ],
-      "../src/structures/threadnewschannel.ts": [
-        "../src/structures/partial/partialuser.ts",
-        "../src/structures/threadmetadata.ts",
-        "../src/structures/partial/partialchannel.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/structures/util/collection.ts",
-        "../src/structures/threadmember.ts",
-        "../src/structures/newschannel.ts"
-      ],
-      "../src/structures/threadmember.ts": [
-        "../src/structures/threadtextchannel.ts",
-        "../src/structures/threadnewschannel.ts",
-        "../src/structures/partial/partialthreadchannel.ts",
-        "../src/structures/partial/partialuser.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/base.ts"
-      ],
-      "../src/structures/partial/partialthreadchannel.ts": [
-        "../src/structures/partial/partialguild.ts",
-        "../src/structures/partial/partialchannel.ts",
-        "../src/internal.ts",
-        "../src/structures/client.ts",
-        "../src/types.ts",
-        "../src/structures/message.ts",
-        "../src/structures/interfaces/textbasedchannel.ts",
-        "../src/structures/threadtextchannel.ts",
-        "../src/structures/threadnewschannel.ts",
-        "../src/structures/partial/partialbase.ts"
-      ],
-      "../src/structures/newschannel.ts": [
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/structures/textchannel.ts"
-      ],
-      "../src/structures/permissionoverwrites.ts": [
-        "../src/structures/guildchannel.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/permissions.ts"
-      ],
-      "../src/structures/partial/partialchannel.ts": [
-        "../src/structures/partial/partialguild.ts",
-        "../src/internal.ts",
-        "../src/structures/client.ts",
-        "../src/types.ts",
-        "../src/structures/message.ts",
-        "../src/structures/interfaces/textbasedchannel.ts",
-        "../src/structures/channel.ts",
-        "../src/structures/partial/partialbase.ts"
-      ],
-      "../src/structures/guildmember.ts": [
-        "../src/structures/client.ts",
-        "../src/structures/user.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/types.ts",
-        "../src/structures/message.ts"
-      ],
-      "../src/structures/voicestate.ts": [
-        "../src/structures/client.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/guildmember.ts"
-      ],
-      "../src/structures/partial/partialrole.ts": [
-        "../src/structures/partial/partialguild.ts",
-        "../src/internal.ts",
-        "../src/structures/client.ts",
-        "../src/structures/role.ts",
-        "../src/structures/partial/partialbase.ts"
-      ],
-      "../src/structures/emoji.ts": [
-        "../src/structures/client.ts",
-        "../src/structures/user.ts",
-        "../src/structures/partial/partialrole.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/util/collection.ts"
-      ],
-      "../src/structures/role.ts": [
-        "../src/structures/client.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts"
-      ],
-      "../src/structures/partial/partialuser.ts": [
-        "../src/internal.ts",
-        "../src/structures/client.ts",
-        "../src/types.ts",
-        "../src/structures/message.ts",
-        "../src/structures/user.ts",
-        "../src/structures/partial/partialbase.ts"
-      ],
-      "../src/structures/channel.ts": [
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/structures/base.ts"
-      ],
-      "../src/structures/dmchannel.ts": [
-        "../src/structures/user.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/types.ts",
-        "../src/structures/message.ts",
-        "../src/structures/util/collection.ts",
-        "../src/structures/channel.ts"
-      ],
-      "../src/structures/clientuser.ts": [
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/types.ts",
-        "../src/structures/user.ts"
-      ],
-      "../src/structures/messageattachment.ts": [
-        "../node_modules/@types/node/stream.d.ts",
-        "../src/types.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts"
-      ],
-      "../src/structures/util/collection.ts": [
-        "../node_modules/@augu/collections/index.d.ts"
-      ],
-      "../src/structures/messageflags.ts": [
-        "../src/types.ts",
-        "../src/constants.ts",
-        "../src/structures/bitfield.ts"
-      ],
-      "../src/structures/userflags.ts": [
-        "../src/types.ts",
-        "../src/constants.ts",
-        "../src/structures/bitfield.ts"
-      ],
-      "../src/structures/systemchannelflags.ts": [
-        "../src/types.ts",
-        "../src/constants.ts",
-        "../src/structures/bitfield.ts"
-      ],
-      "../src/structures/permissions.ts": [
-        "../src/types.ts",
-        "../src/structures/bitfield.ts",
-        "../src/constants.ts"
-      ],
-      "../src/structures/bitfield.ts": [
-        "../src/types.ts"
-      ],
       "../node_modules/@types/node/assert/strict.d.ts": [
         "../node_modules/@types/node/assert.d.ts"
+      ],
+      "../node_modules/@types/node/child_process.d.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/stream.d.ts"
+      ],
+      "../node_modules/@types/node/cluster.d.ts": [
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/net.d.ts"
+      ],
+      "../node_modules/@types/node/console.d.ts": [
+        "../node_modules/@types/node/util.d.ts"
+      ],
+      "../node_modules/@types/node/constants.d.ts": [
+        "../node_modules/@types/node/os.d.ts",
+        "../node_modules/@types/node/crypto.d.ts",
+        "../node_modules/@types/node/fs.d.ts"
+      ],
+      "../node_modules/@types/node/crypto.d.ts": [
+        "../node_modules/@types/node/stream.d.ts"
+      ],
+      "../node_modules/@types/node/dgram.d.ts": [
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/dns.d.ts",
+        "../node_modules/@types/node/events.d.ts"
+      ],
+      "../node_modules/@types/node/dns.d.ts": [
+        "../node_modules/@types/node/dns/promises.d.ts"
+      ],
+      "../node_modules/@types/node/dns/promises.d.ts": [
+        "../node_modules/@types/node/dns.d.ts"
+      ],
+      "../node_modules/@types/node/domain.d.ts": [
+        "../node_modules/@types/node/events.d.ts"
+      ],
+      "../node_modules/@types/node/events.d.ts": [
+        "../node_modules/@types/node/events.d.ts"
+      ],
+      "../node_modules/@types/node/fs.d.ts": [
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/url.d.ts",
+        "../node_modules/@types/node/fs/promises.d.ts"
+      ],
+      "../node_modules/@types/node/fs/promises.d.ts": [
+        "../node_modules/@types/node/fs.d.ts"
+      ],
+      "../node_modules/@types/node/http.d.ts": [
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/url.d.ts",
+        "../node_modules/@types/node/net.d.ts"
+      ],
+      "../node_modules/@types/node/http2.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/tls.d.ts",
+        "../node_modules/@types/node/url.d.ts",
+        "../node_modules/@types/node/http.d.ts"
+      ],
+      "../node_modules/@types/node/https.d.ts": [
+        "../node_modules/@types/node/tls.d.ts",
+        "../node_modules/@types/node/http.d.ts",
+        "../node_modules/@types/node/url.d.ts"
+      ],
+      "../node_modules/@types/node/inspector.d.ts": [
+        "../node_modules/@types/node/events.d.ts"
+      ],
+      "../node_modules/@types/node/module.d.ts": [
+        "../node_modules/@types/node/url.d.ts"
+      ],
+      "../node_modules/@types/node/net.d.ts": [
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/dns.d.ts"
+      ],
+      "../node_modules/@types/node/perf_hooks.d.ts": [
+        "../node_modules/@types/node/async_hooks.d.ts"
+      ],
+      "../node_modules/@types/node/process.d.ts": [
+        "../node_modules/@types/node/tty.d.ts"
+      ],
+      "../node_modules/@types/node/readline.d.ts": [
+        "../node_modules/@types/node/events.d.ts"
+      ],
+      "../node_modules/@types/node/repl.d.ts": [
+        "../node_modules/@types/node/readline.d.ts",
+        "../node_modules/@types/node/vm.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
+      "../node_modules/@types/node/stream.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/stream/promises.d.ts"
+      ],
+      "../node_modules/@types/node/stream/promises.d.ts": [
+        "../node_modules/@types/node/stream.d.ts"
+      ],
+      "../node_modules/@types/node/timers/promises.d.ts": [
+        "../node_modules/@types/node/timers.d.ts"
+      ],
+      "../node_modules/@types/node/tls.d.ts": [
+        "../node_modules/@types/node/net.d.ts"
+      ],
+      "../node_modules/@types/node/tty.d.ts": [
+        "../node_modules/@types/node/net.d.ts"
+      ],
+      "../node_modules/@types/node/url.d.ts": [
+        "../node_modules/@types/node/querystring.d.ts"
+      ],
+      "../node_modules/@types/node/v8.d.ts": [
+        "../node_modules/@types/node/stream.d.ts"
+      ],
+      "../node_modules/@types/node/worker_threads.d.ts": [
+        "../node_modules/@types/node/vm.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/url.d.ts",
+        "../node_modules/@types/node/fs/promises.d.ts"
+      ],
+      "../node_modules/@types/node/zlib.d.ts": [
+        "../node_modules/@types/node/stream.d.ts"
       ],
       "../node_modules/@types/node/ts3.6/base.d.ts": [
         "../node_modules/@types/node/assert/strict.d.ts",
@@ -1990,10 +1669,64 @@
       "../node_modules/@types/node/index.d.ts": [
         "../node_modules/@types/node/base.d.ts"
       ],
+      "../node_modules/snowtransfer/dist/src/ratelimitbuckets/localbucket.d.ts": [
+        "../node_modules/snowtransfer/dist/src/ratelimiter.d.ts",
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/snowtransfer/dist/src/ratelimiter.d.ts": [
+        "../node_modules/snowtransfer/dist/src/ratelimitbuckets/localbucket.d.ts"
+      ],
+      "../node_modules/@types/centra/index.d.ts": [
+        "../node_modules/@types/node/http.d.ts",
+        "../node_modules/@types/node/url.d.ts",
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/snowtransfer/dist/src/requesthandler.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/centra/index.d.ts",
+        "../node_modules/snowtransfer/dist/src/ratelimiter.d.ts",
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/snowtransfer/dist/src/methods/channels.d.ts": [
+        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/snowtransfer/dist/src/cache/usercache.d.ts": [
+        "../node_modules/snowtransfer/dist/src/cache/dewcache.d.ts",
+        "../node_modules/snowtransfer/dist/src/methods/users.d.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts"
+      ],
+      "../node_modules/snowtransfer/dist/src/methods/users.d.ts": [
+        "../node_modules/snowtransfer/dist/src/cache/usercache.d.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts"
+      ],
+      "../node_modules/snowtransfer/dist/src/methods/emojis.d.ts": [
+        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts"
+      ],
       "../node_modules/snowtransfer/dist/src/methods/webhooks.d.ts": [
         "../node_modules/snowtransfer/dist/src/requesthandler.d.ts",
         "../node_modules/@amanda/discordtypings/index.d.ts",
         "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/snowtransfer/dist/src/methods/guilds.d.ts": [
+        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts"
+      ],
+      "../node_modules/snowtransfer/dist/src/methods/invites.d.ts": [
+        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts"
+      ],
+      "../node_modules/snowtransfer/dist/src/methods/voices.d.ts": [
+        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts"
+      ],
+      "../node_modules/snowtransfer/dist/src/methods/bots.d.ts": [
+        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts"
+      ],
+      "../node_modules/snowtransfer/dist/src/methods/auditlog.d.ts": [
+        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts"
       ],
       "../node_modules/snowtransfer/dist/src/snowtransfer.d.ts": [
         "../node_modules/snowtransfer/dist/src/ratelimiter.d.ts",
@@ -2008,200 +1741,504 @@
         "../node_modules/snowtransfer/dist/src/methods/bots.d.ts",
         "../node_modules/snowtransfer/dist/src/methods/auditlog.d.ts"
       ],
-      "../node_modules/snowtransfer/dist/src/methods/channels.d.ts": [
-        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../node_modules/@types/node/index.d.ts"
+      "../src/structures/util/collection.ts": [
+        "../node_modules/@augu/collections/index.d.ts"
       ],
-      "../node_modules/snowtransfer/dist/src/requesthandler.d.ts": [
-        "../node_modules/@types/node/events.d.ts",
-        "../node_modules/@types/centra/index.d.ts",
-        "../node_modules/snowtransfer/dist/src/ratelimiter.d.ts",
-        "../node_modules/@types/node/index.d.ts"
+      "../node_modules/@sapphire/snowflake/dist/lib/discordsnowflake.d.ts": [
+        "../node_modules/@sapphire/snowflake/dist/lib/snowflake.d.ts"
       ],
-      "../node_modules/snowtransfer/dist/src/methods/auditlog.d.ts": [
-        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts"
-      ],
-      "../node_modules/snowtransfer/dist/src/methods/bots.d.ts": [
-        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts"
-      ],
-      "../node_modules/snowtransfer/dist/src/methods/voices.d.ts": [
-        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts"
-      ],
-      "../node_modules/snowtransfer/dist/src/methods/invites.d.ts": [
-        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts"
-      ],
-      "../node_modules/snowtransfer/dist/src/methods/guilds.d.ts": [
-        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts"
-      ],
-      "../node_modules/snowtransfer/dist/src/methods/emojis.d.ts": [
-        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts"
-      ],
-      "../node_modules/snowtransfer/dist/src/methods/users.d.ts": [
-        "../node_modules/snowtransfer/dist/src/cache/usercache.d.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts"
-      ],
-      "../node_modules/snowtransfer/dist/src/cache/usercache.d.ts": [
-        "../node_modules/snowtransfer/dist/src/cache/dewcache.d.ts",
-        "../node_modules/snowtransfer/dist/src/methods/users.d.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts"
-      ],
-      "../node_modules/@types/centra/index.d.ts": [
-        "../node_modules/@types/node/http.d.ts",
-        "../node_modules/@types/node/url.d.ts",
-        "../node_modules/@types/node/index.d.ts"
-      ],
-      "../node_modules/snowtransfer/dist/src/ratelimitbuckets/localbucket.d.ts": [
-        "../node_modules/snowtransfer/dist/src/ratelimiter.d.ts",
-        "../node_modules/@types/node/index.d.ts"
-      ],
-      "../node_modules/snowtransfer/dist/src/ratelimiter.d.ts": [
-        "../node_modules/snowtransfer/dist/src/ratelimitbuckets/localbucket.d.ts"
-      ],
-      "../node_modules/@types/node/perf_hooks.d.ts": [
-        "../node_modules/@types/node/async_hooks.d.ts"
-      ],
-      "../node_modules/@types/node/child_process.d.ts": [
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/events.d.ts",
-        "../node_modules/@types/node/net.d.ts",
-        "../node_modules/@types/node/stream.d.ts"
-      ],
-      "../node_modules/@types/node/cluster.d.ts": [
-        "../node_modules/@types/node/child_process.d.ts",
-        "../node_modules/@types/node/events.d.ts",
-        "../node_modules/@types/node/net.d.ts"
-      ],
-      "../node_modules/@types/node/console.d.ts": [
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@types/node/constants.d.ts": [
-        "../node_modules/@types/node/os.d.ts",
-        "../node_modules/@types/node/crypto.d.ts",
-        "../node_modules/@types/node/fs.d.ts"
-      ],
-      "../node_modules/@types/node/crypto.d.ts": [
-        "../node_modules/@types/node/stream.d.ts"
-      ],
-      "../node_modules/@types/node/dgram.d.ts": [
-        "../node_modules/@types/node/net.d.ts",
-        "../node_modules/@types/node/dns.d.ts",
-        "../node_modules/@types/node/events.d.ts"
-      ],
-      "../node_modules/@types/node/dns.d.ts": [
-        "../node_modules/@types/node/dns/promises.d.ts"
-      ],
-      "../node_modules/@types/node/net.d.ts": [
-        "../node_modules/@types/node/stream.d.ts",
-        "../node_modules/@types/node/events.d.ts",
-        "../node_modules/@types/node/dns.d.ts"
-      ],
-      "../node_modules/@types/node/tty.d.ts": [
-        "../node_modules/@types/node/net.d.ts"
-      ],
-      "../node_modules/@types/node/process.d.ts": [
-        "../node_modules/@types/node/tty.d.ts"
-      ],
-      "../node_modules/@types/node/tls.d.ts": [
-        "../node_modules/@types/node/net.d.ts"
-      ],
-      "../node_modules/@types/node/https.d.ts": [
-        "../node_modules/@types/node/tls.d.ts",
-        "../node_modules/@types/node/http.d.ts",
-        "../node_modules/@types/node/url.d.ts"
-      ],
-      "../node_modules/@types/node/http2.d.ts": [
-        "../node_modules/@types/node/events.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/net.d.ts",
-        "../node_modules/@types/node/stream.d.ts",
-        "../node_modules/@types/node/tls.d.ts",
-        "../node_modules/@types/node/url.d.ts",
-        "../node_modules/@types/node/http.d.ts"
-      ],
-      "../node_modules/@types/node/http.d.ts": [
-        "../node_modules/@types/node/stream.d.ts",
-        "../node_modules/@types/node/url.d.ts",
-        "../node_modules/@types/node/net.d.ts"
-      ],
-      "../node_modules/@types/node/dns/promises.d.ts": [
-        "../node_modules/@types/node/dns.d.ts"
-      ],
-      "../node_modules/@types/node/domain.d.ts": [
-        "../node_modules/@types/node/events.d.ts"
-      ],
-      "../node_modules/@types/node/events.d.ts": [
-        "../node_modules/@types/node/events.d.ts"
-      ],
-      "../node_modules/@types/node/fs.d.ts": [
-        "../node_modules/@types/node/stream.d.ts",
-        "../node_modules/@types/node/events.d.ts",
-        "../node_modules/@types/node/url.d.ts",
-        "../node_modules/@types/node/fs/promises.d.ts"
-      ],
-      "../node_modules/@types/node/fs/promises.d.ts": [
-        "../node_modules/@types/node/fs.d.ts"
-      ],
-      "../node_modules/@types/node/worker_threads.d.ts": [
-        "../node_modules/@types/node/vm.d.ts",
-        "../node_modules/@types/node/events.d.ts",
-        "../node_modules/@types/node/stream.d.ts",
-        "../node_modules/@types/node/url.d.ts",
-        "../node_modules/@types/node/fs/promises.d.ts"
-      ],
-      "../node_modules/@types/node/inspector.d.ts": [
-        "../node_modules/@types/node/events.d.ts"
-      ],
-      "../node_modules/@types/node/module.d.ts": [
-        "../node_modules/@types/node/url.d.ts"
-      ],
-      "../node_modules/@types/node/url.d.ts": [
-        "../node_modules/@types/node/querystring.d.ts"
-      ],
-      "../node_modules/@types/node/readline.d.ts": [
-        "../node_modules/@types/node/events.d.ts"
-      ],
-      "../node_modules/@types/node/repl.d.ts": [
-        "../node_modules/@types/node/readline.d.ts",
-        "../node_modules/@types/node/vm.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../node_modules/@types/node/stream.d.ts": [
-        "../node_modules/@types/node/events.d.ts",
-        "../node_modules/@types/node/stream/promises.d.ts"
-      ],
-      "../node_modules/@types/node/zlib.d.ts": [
-        "../node_modules/@types/node/stream.d.ts"
-      ],
-      "../node_modules/@types/node/v8.d.ts": [
-        "../node_modules/@types/node/stream.d.ts"
-      ],
-      "../node_modules/@types/node/stream/promises.d.ts": [
-        "../node_modules/@types/node/stream.d.ts"
-      ],
-      "../node_modules/@types/node/timers/promises.d.ts": [
-        "../node_modules/@types/node/timers.d.ts"
-      ],
-      "../src/internal.ts": [
-        "../node_modules/@amanda/discordtypings/index.d.ts"
+      "../node_modules/@sapphire/snowflake/dist/lib/twittersnowflake.d.ts": [
+        "../node_modules/@sapphire/snowflake/dist/lib/snowflake.d.ts"
       ],
       "../node_modules/@sapphire/snowflake/dist/index.d.ts": [
         "../node_modules/@sapphire/snowflake/dist/lib/discordsnowflake.d.ts",
         "../node_modules/@sapphire/snowflake/dist/lib/snowflake.d.ts",
         "../node_modules/@sapphire/snowflake/dist/lib/twittersnowflake.d.ts"
       ],
-      "../node_modules/@sapphire/snowflake/dist/lib/twittersnowflake.d.ts": [
-        "../node_modules/@sapphire/snowflake/dist/lib/snowflake.d.ts"
+      "../src/structures/channel.ts": [
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/base.ts"
       ],
-      "../node_modules/@sapphire/snowflake/dist/lib/discordsnowflake.d.ts": [
-        "../node_modules/@sapphire/snowflake/dist/lib/snowflake.d.ts"
+      "../src/structures/bitfield.ts": [
+        "../src/types.ts"
+      ],
+      "../src/structures/permissions.ts": [
+        "../src/types.ts",
+        "../src/structures/bitfield.ts",
+        "../src/constants.ts"
+      ],
+      "../src/structures/permissionoverwrites.ts": [
+        "../src/structures/guildchannel.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/permissions.ts"
+      ],
+      "../src/structures/role.ts": [
+        "../src/structures/client.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts"
+      ],
+      "../src/internal.ts": [
+        "../node_modules/@amanda/discordtypings/index.d.ts"
+      ],
+      "../src/structures/partial/partialrole.ts": [
+        "../src/structures/partial/partialguild.ts",
+        "../src/internal.ts",
+        "../src/structures/client.ts",
+        "../src/structures/role.ts",
+        "../src/structures/partial/partialbase.ts"
+      ],
+      "../src/structures/emoji.ts": [
+        "../src/structures/client.ts",
+        "../src/structures/user.ts",
+        "../src/structures/partial/partialrole.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/util/collection.ts"
+      ],
+      "../src/structures/guildmember.ts": [
+        "../src/structures/client.ts",
+        "../src/structures/user.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/types.ts",
+        "../src/structures/message.ts"
+      ],
+      "../src/structures/textchannel.ts": [
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/types.ts",
+        "../src/structures/message.ts",
+        "../src/structures/interfaces/textbasedchannel.ts",
+        "../src/structures/guildchannel.ts"
+      ],
+      "../src/structures/newschannel.ts": [
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/textchannel.ts"
+      ],
+      "../src/structures/voicechannel.ts": [
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/guildchannel.ts"
+      ],
+      "../src/structures/stagechannel.ts": [
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/voicechannel.ts"
+      ],
+      "../src/structures/systemchannelflags.ts": [
+        "../src/types.ts",
+        "../src/constants.ts",
+        "../src/structures/bitfield.ts"
+      ],
+      "../src/structures/voicestate.ts": [
+        "../src/structures/client.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/guildmember.ts"
+      ],
+      "../src/structures/partial/partialuser.ts": [
+        "../src/internal.ts",
+        "../src/structures/client.ts",
+        "../src/types.ts",
+        "../src/structures/message.ts",
+        "../src/structures/user.ts",
+        "../src/structures/partial/partialbase.ts"
+      ],
+      "../src/structures/partial/partialchannel.ts": [
+        "../src/structures/partial/partialguild.ts",
+        "../src/internal.ts",
+        "../src/structures/client.ts",
+        "../src/types.ts",
+        "../src/structures/message.ts",
+        "../src/structures/interfaces/textbasedchannel.ts",
+        "../src/structures/channel.ts",
+        "../src/structures/partial/partialbase.ts"
+      ],
+      "../src/structures/partial/partialthreadchannel.ts": [
+        "../src/structures/partial/partialguild.ts",
+        "../src/structures/partial/partialchannel.ts",
+        "../src/internal.ts",
+        "../src/structures/client.ts",
+        "../src/types.ts",
+        "../src/structures/message.ts",
+        "../src/structures/interfaces/textbasedchannel.ts",
+        "../src/structures/threadtextchannel.ts",
+        "../src/structures/threadnewschannel.ts",
+        "../src/structures/partial/partialbase.ts"
+      ],
+      "../src/structures/threadmember.ts": [
+        "../src/structures/threadtextchannel.ts",
+        "../src/structures/threadnewschannel.ts",
+        "../src/structures/partial/partialthreadchannel.ts",
+        "../src/structures/partial/partialuser.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/base.ts"
+      ],
+      "../src/structures/threadtextchannel.ts": [
+        "../src/structures/partial/partialuser.ts",
+        "../src/structures/threadmetadata.ts",
+        "../src/structures/partial/partialchannel.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/util/collection.ts",
+        "../src/structures/threadmember.ts",
+        "../src/structures/textchannel.ts"
+      ],
+      "../src/structures/threadmetadata.ts": [
+        "../src/structures/client.ts",
+        "../src/structures/threadtextchannel.ts",
+        "../src/structures/threadnewschannel.ts",
+        "../src/structures/partial/partialuser.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts"
+      ],
+      "../src/structures/threadnewschannel.ts": [
+        "../src/structures/partial/partialuser.ts",
+        "../src/structures/threadmetadata.ts",
+        "../src/structures/partial/partialchannel.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/util/collection.ts",
+        "../src/structures/threadmember.ts",
+        "../src/structures/newschannel.ts"
+      ],
+      "../src/structures/guild.ts": [
+        "../src/structures/partial/partialuser.ts",
+        "../src/types.ts",
+        "../src/structures/guildchannel.ts",
+        "../src/structures/threadnewschannel.ts",
+        "../src/structures/threadtextchannel.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/guildmember.ts",
+        "../src/structures/systemchannelflags.ts",
+        "../src/structures/util/collection.ts",
+        "../src/structures/role.ts",
+        "../src/structures/voicestate.ts",
+        "../src/structures/emoji.ts",
+        "../src/structures/base.ts"
+      ],
+      "../src/structures/partial/partialguild.ts": [
+        "../src/internal.ts",
+        "../src/structures/client.ts",
+        "../src/structures/guildmember.ts",
+        "../src/types.ts",
+        "../src/structures/guild.ts",
+        "../src/structures/partial/partialbase.ts"
+      ],
+      "../src/structures/guildchannel.ts": [
+        "../src/structures/partial/partialguild.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/util/collection.ts",
+        "../src/structures/permissionoverwrites.ts",
+        "../src/structures/channel.ts"
+      ],
+      "../src/structures/categorychannel.ts": [
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/guildchannel.ts"
+      ],
+      "../src/structures/dmchannel.ts": [
+        "../src/structures/user.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/types.ts",
+        "../src/structures/message.ts",
+        "../src/structures/util/collection.ts",
+        "../src/structures/channel.ts"
+      ],
+      "../src/structures/partial/partialbase.ts": [
+        "../src/structures/client.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../src/structures/partial/partialchannel.ts",
+        "../src/internal.ts",
+        "../src/structures/channel.ts",
+        "../src/structures/guild.ts",
+        "../src/structures/message.ts",
+        "../src/structures/role.ts",
+        "../src/structures/threadtextchannel.ts",
+        "../src/structures/threadnewschannel.ts",
+        "../src/structures/user.ts"
+      ],
+      "../src/structures/messageattachment.ts": [
+        "../node_modules/@types/node/stream.d.ts",
+        "../src/types.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts"
+      ],
+      "../src/structures/interfaces/textbasedchannel.ts": [
+        "../src/structures/partial/partialbase.ts",
+        "../src/structures/channel.ts",
+        "../src/structures/user.ts",
+        "../src/structures/guildmember.ts",
+        "../src/types.ts",
+        "../src/structures/message.ts",
+        "../src/structures/client.ts"
+      ],
+      "../src/structures/userflags.ts": [
+        "../src/types.ts",
+        "../src/constants.ts",
+        "../src/structures/bitfield.ts"
+      ],
+      "../src/structures/user.ts": [
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/types.ts",
+        "../src/structures/message.ts",
+        "../src/structures/userflags.ts",
+        "../src/structures/base.ts"
+      ],
+      "../src/structures/clientuser.ts": [
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/types.ts",
+        "../src/structures/user.ts"
+      ],
+      "../src/structures/invite.ts": [
+        "../src/structures/client.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../src/structures/user.ts",
+        "../src/structures/partial/partialchannel.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts"
+      ],
+      "../src/structures/client.ts": [
+        "../src/types.ts",
+        "../src/structures/clientuser.ts",
+        "../node_modules/snowtransfer/dist/src/snowtransfer.d.ts",
+        "../src/structures/user.ts",
+        "../src/structures/invite.ts",
+        "../src/structures/util/collection.ts",
+        "../src/structures/voiceregion.ts",
+        "../node_modules/@types/node/events.d.ts"
+      ],
+      "../src/structures/base.ts": [
+        "../src/structures/client.ts"
+      ],
+      "../src/structures/application.ts": [
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/base.ts"
+      ],
+      "../src/structures/teammember.ts": [
+        "../src/structures/team.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/user.ts",
+        "../src/structures/base.ts"
+      ],
+      "../src/structures/team.ts": [
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/util/collection.ts",
+        "../src/structures/teammember.ts",
+        "../src/structures/base.ts"
+      ],
+      "../src/structures/clientapplication.ts": [
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/team.ts",
+        "../src/structures/user.ts",
+        "../src/structures/application.ts"
+      ],
+      "../src/structures/messageflags.ts": [
+        "../src/types.ts",
+        "../src/constants.ts",
+        "../src/structures/bitfield.ts"
+      ],
+      "../src/structures/messagementions.ts": [
+        "../src/structures/client.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../src/structures/user.ts",
+        "../src/structures/guildmember.ts",
+        "../src/structures/partial/partialchannel.ts",
+        "../src/structures/partial/partialrole.ts",
+        "../src/structures/guildchannel.ts",
+        "../src/structures/message.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/util/collection.ts"
+      ],
+      "../src/structures/reactionemoji.ts": [
+        "../src/structures/client.ts",
+        "../src/structures/messagereaction.ts"
+      ],
+      "../src/structures/partial/partialmessage.ts": [
+        "../src/structures/partial/partialchannel.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../src/internal.ts",
+        "../src/structures/client.ts",
+        "../src/types.ts",
+        "../src/structures/message.ts",
+        "../src/structures/partial/partialbase.ts"
+      ],
+      "../src/structures/messagereaction.ts": [
+        "../src/structures/message.ts",
+        "../src/structures/partial/partialmessage.ts",
+        "../src/structures/user.ts",
+        "../src/structures/reactionemoji.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/types.ts",
+        "../src/structures/util/collection.ts"
+      ],
+      "../src/structures/message.ts": [
+        "../src/structures/partial/partialchannel.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../src/structures/user.ts",
+        "../src/structures/messageattachment.ts",
+        "../src/structures/messageembed.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/types.ts",
+        "../src/structures/guildmember.ts",
+        "../src/structures/util/collection.ts",
+        "../src/structures/clientapplication.ts",
+        "../src/structures/messageflags.ts",
+        "../src/structures/messagementions.ts",
+        "../src/structures/messagereaction.ts",
+        "../src/structures/threadtextchannel.ts",
+        "../src/structures/base.ts"
+      ],
+      "../src/structures/util/util.ts": [
+        "../src/types.ts",
+        "../src/structures/message.ts"
+      ],
+      "../src/structures/messageembed.ts": [
+        "../src/types.ts",
+        "../src/structures/messageattachment.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts"
+      ],
+      "../src/types.ts": [
+        "../src/structures/partial/partialchannel.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../src/structures/user.ts",
+        "../src/structures/guild.ts",
+        "../src/structures/util/collection.ts",
+        "../src/structures/emoji.ts",
+        "../src/structures/guildmember.ts",
+        "../src/structures/role.ts",
+        "../src/structures/partial/partialrole.ts",
+        "../src/structures/invite.ts",
+        "../src/structures/message.ts",
+        "../src/structures/partial/partialmessage.ts",
+        "../src/structures/messagereaction.ts",
+        "../src/structures/partial/partialuser.ts",
+        "../src/internal.ts",
+        "../src/structures/clientuser.ts",
+        "../src/structures/threadtextchannel.ts",
+        "../src/structures/threadnewschannel.ts",
+        "../src/structures/threadmember.ts",
+        "../src/structures/partial/partialthreadchannel.ts",
+        "../src/structures/voicestate.ts",
+        "../src/structures/bitfield.ts",
+        "../src/structures/dmchannel.ts",
+        "../src/structures/textchannel.ts",
+        "../src/structures/voicechannel.ts",
+        "../src/structures/categorychannel.ts",
+        "../src/structures/newschannel.ts",
+        "../src/structures/stagechannel.ts",
+        "../src/constants.ts",
+        "../src/structures/messageembed.ts",
+        "../src/structures/messageattachment.ts",
+        "../node_modules/snowtransfer/dist/src/snowtransfer.d.ts"
+      ],
+      "../src/handle.ts": [
+        "../src/internal.ts",
+        "../src/structures/client.ts"
+      ],
+      "../src/index.ts": [
+        "../node_modules/snowtransfer/dist/src/requesthandler.d.ts",
+        "../src/structures/partial/partialbase.ts",
+        "../src/structures/partial/partialchannel.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../src/structures/partial/partialmessage.ts",
+        "../src/structures/partial/partialrole.ts",
+        "../src/structures/partial/partialthreadchannel.ts",
+        "../src/structures/partial/partialuser.ts",
+        "../src/structures/application.ts",
+        "../src/structures/base.ts",
+        "../src/structures/categorychannel.ts",
+        "../src/structures/channel.ts",
+        "../src/structures/client.ts",
+        "../src/structures/clientapplication.ts",
+        "../src/structures/clientuser.ts",
+        "../src/structures/dmchannel.ts",
+        "../src/structures/emoji.ts",
+        "../src/structures/guild.ts",
+        "../src/structures/guildchannel.ts",
+        "../src/structures/guildmember.ts",
+        "../src/structures/invite.ts",
+        "../src/structures/message.ts",
+        "../src/structures/messageattachment.ts",
+        "../src/structures/messageembed.ts",
+        "../src/structures/messageflags.ts",
+        "../src/structures/messagementions.ts",
+        "../src/structures/messagereaction.ts",
+        "../src/structures/newschannel.ts",
+        "../src/structures/reactionemoji.ts",
+        "../src/structures/role.ts",
+        "../src/structures/stagechannel.ts",
+        "../src/structures/systemchannelflags.ts",
+        "../src/structures/team.ts",
+        "../src/structures/teammember.ts",
+        "../src/structures/textchannel.ts",
+        "../src/structures/threadmember.ts",
+        "../src/structures/threadmetadata.ts",
+        "../src/structures/threadnewschannel.ts",
+        "../src/structures/threadtextchannel.ts",
+        "../src/structures/user.ts",
+        "../src/structures/userflags.ts",
+        "../src/structures/voicechannel.ts",
+        "../src/structures/voiceregion.ts",
+        "../src/structures/voicestate.ts",
+        "../src/structures/bitfield.ts",
+        "../src/structures/util/collection.ts",
+        "../src/constants.ts",
+        "../src/handle.ts",
+        "../src/structures/permissionoverwrites.ts",
+        "../src/structures/permissions.ts",
+        "../src/structures/util/snowflakeutil.ts",
+        "../src/structures/util/util.ts",
+        "../src/types.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es5.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2016.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2018.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2019.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2020.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.esnext.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.dom.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.core.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.collection.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.generator.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.iterable.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.promise.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.proxy.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.reflect.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.symbol.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2016.array.include.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.object.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.string.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.intl.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.typedarrays.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2018.asyncgenerator.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2018.asynciterable.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2018.intl.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2018.promise.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2018.regexp.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2019.array.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2019.object.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2019.string.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2019.symbol.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2020.string.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.esnext.intl.d.ts",
+      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.esnext.bigint.d.ts",
       "../src/constants.ts",
       "../node_modules/@types/node/assert/strict.d.ts",
       "../node_modules/@types/node/globals.d.ts",
@@ -2271,19 +2308,27 @@
       "../node_modules/snowtransfer/dist/src/methods/auditlog.d.ts",
       "../node_modules/snowtransfer/dist/src/snowtransfer.d.ts",
       "../node_modules/@augu/collections/index.d.ts",
-      "../src/structures/util/collection.ts",
       "../node_modules/@sapphire/snowflake/dist/lib/snowflake.d.ts",
       "../node_modules/@sapphire/snowflake/dist/lib/discordsnowflake.d.ts",
       "../node_modules/@sapphire/snowflake/dist/lib/twittersnowflake.d.ts",
       "../node_modules/@sapphire/snowflake/dist/index.d.ts",
-      "../src/structures/util/snowflakeutil.ts",
       "../src/structures/voiceregion.ts",
+      "../src/internal.ts",
+      "../src/structures/invite.ts",
+      "../src/structures/client.ts",
+      "../src/structures/base.ts",
+      "../src/structures/application.ts",
+      "../src/structures/teammember.ts",
+      "../src/structures/team.ts",
+      "../src/structures/clientapplication.ts",
+      "../src/structures/message.ts",
+      "../src/structures/util/collection.ts",
+      "../src/structures/util/snowflakeutil.ts",
       "../src/structures/channel.ts",
       "../src/structures/bitfield.ts",
       "../src/structures/permissions.ts",
       "../src/structures/permissionoverwrites.ts",
       "../src/structures/role.ts",
-      "../src/internal.ts",
       "../src/structures/partial/partialrole.ts",
       "../src/structures/emoji.ts",
       "../src/structures/guildmember.ts",
@@ -2311,61 +2356,16 @@
       "../src/structures/userflags.ts",
       "../src/structures/user.ts",
       "../src/structures/clientuser.ts",
-      "../src/structures/invite.ts",
-      "../src/structures/client.ts",
-      "../src/structures/base.ts",
-      "../src/structures/application.ts",
-      "../src/structures/teammember.ts",
-      "../src/structures/team.ts",
-      "../src/structures/clientapplication.ts",
       "../src/structures/messageflags.ts",
       "../src/structures/messagementions.ts",
       "../src/structures/reactionemoji.ts",
       "../src/structures/partial/partialmessage.ts",
       "../src/structures/messagereaction.ts",
-      "../src/structures/message.ts",
       "../src/structures/util/util.ts",
       "../src/structures/messageembed.ts",
       "../src/types.ts",
       "../src/handle.ts",
-      "../src/index.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2016.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2018.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2019.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2020.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.esnext.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es5.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.dom.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.core.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.collection.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.generator.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.iterable.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.promise.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.proxy.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.reflect.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.symbol.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2016.array.include.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.object.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.string.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.intl.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.typedarrays.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2018.asyncgenerator.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2018.asynciterable.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2018.intl.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2018.promise.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2018.regexp.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2019.array.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2019.object.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2019.string.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2019.symbol.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2020.string.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.esnext.intl.d.ts",
-      "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.esnext.bigint.d.ts"
+      "../src/index.ts"
     ]
   },
   "version": "3.7.4"

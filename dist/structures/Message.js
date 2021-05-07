@@ -16,6 +16,7 @@ const MessageReaction_1 = __importDefault(require("./MessageReaction"));
 const ThreadTextChannel_1 = __importDefault(require("./ThreadTextChannel"));
 class Message extends Base_1.default {
     constructor(data, client) {
+        var _a;
         super(data, client);
         this.guild = null;
         this.member = null;
@@ -33,7 +34,54 @@ class Message extends Base_1.default {
         this.tts = false;
         this.type = 0;
         this.webhookID = null;
-        this._patch(data);
+        const MessageEmbed = require("./MessageEmbed");
+        const PartalGuild = require("./Partial/PartialGuild");
+        const PartialChannel = require("./Partial/PartialChannel");
+        if (data.id)
+            this.id = data.id;
+        if (data.channel_id)
+            this.channel = new PartialChannel({ id: data.channel_id, guild_id: data.guild_id, type: data.guild_id ? "text" : "dm" }, this.client);
+        if (data.guild_id)
+            this.guild = new PartalGuild({ id: data.guild_id }, this.client);
+        if (data.author)
+            this.author = data.author ? data.author.id === ((_a = this.client.user) === null || _a === void 0 ? void 0 : _a.id) ? this.client.user : new User_1.default(data.author, this.client) : new User_1.default({ username: "Discord", discriminator: "0000", id: Constants_1.default.SYSTEM_USER_ID, avatar: "d9fa72d57744dea056b12e2b34a87173" }, this.client);
+        if (data.member && data.author)
+            this.member = new GuildMember_1.default({ user: data.author, ...data.member }, this.client);
+        if (data.attachments && Array.isArray(data.attachments))
+            for (const attachment of data.attachments)
+                this.attachments.set(attachment.id, new MessageAttachment_1.default(attachment.url, attachment.filename, attachment));
+        if (!this.application || data.application)
+            this.application = data.application ? new ClientApplication_1.default(data.application, this.client) : null;
+        if (!this.activity || data.activity)
+            this.activity = data.activity ? { partyID: data.activity.party_id, type: data.activity.type } : null;
+        if (data.content !== undefined)
+            this.content = data.content || "";
+        if (data.edited_timestamp) {
+            this.editedAt = new Date(data.edited_timestamp);
+            this.editedTimestamp = this.editedAt ? this.editedAt.getTime() : null;
+        }
+        if (data.embeds)
+            this.embeds = data.embeds && Array.isArray(data.embeds) ? data.embeds.map(embed => new MessageEmbed(embed, true)) : [];
+        if (!this.flags || data.flags !== undefined)
+            this.flags = new MessageFlags_1.default(data.flags || 0).freeze();
+        if (!this.mentions || data.mentions || data.mention_channels || data.mention_everyone !== undefined || data.mention_roles)
+            this.mentions = new MessageMentions_1.default(this, data.mentions, data.mention_roles, data.mention_everyone, data.mention_channels);
+        if (data.reactions && Array.isArray(data.reactions))
+            for (const reaction of data.reactions)
+                this.reactions.set(reaction.emoji.id || reaction.emoji.name, new MessageReaction_1.default(this, reaction.emoji, reaction.count, reaction.me));
+        if (data.nonce !== undefined)
+            this.nonce = data.nonce;
+        if (data.pinned !== undefined)
+            this.pinned = data.pinned;
+        if (data.tts !== undefined)
+            this.tts = data.tts;
+        if (data.type !== undefined)
+            this.type = data.type;
+        this.system = this.author && this.author.system ? true : false;
+        if (data.webhook_id !== undefined)
+            this.webhookID = data.webhook_id;
+        if (data.thread !== undefined)
+            this.thread = data.thread ? new ThreadTextChannel_1.default(data.thread, this.client) : null;
     }
     get cleanContent() {
         return Util_1.default.cleanContent(this.content, this);

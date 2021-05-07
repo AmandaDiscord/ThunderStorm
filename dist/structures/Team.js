@@ -12,7 +12,17 @@ class Team extends Base_1.default {
         this.name = null;
         this.icon = null;
         this.members = new Collection_1.default();
-        this._patch(data);
+        if (!this.name || data.name !== undefined)
+            this.name = data.name || null;
+        if (!this.icon || data.icon !== undefined)
+            this.icon = data.icon || null;
+        if (data.owner_user_id !== undefined)
+            this.ownerID = data.owner_user_id;
+        if (data.members && Array.isArray(data.members)) {
+            this.members.clear();
+            for (const member of data.members)
+                this.members.set(member.user.id, new TeamMember_1.default(this, member));
+        }
     }
     get owner() {
         return this.ownerID ? this.members.get(this.ownerID) : null;

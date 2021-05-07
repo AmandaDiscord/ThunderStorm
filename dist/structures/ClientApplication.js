@@ -9,7 +9,16 @@ class ClientApplication extends Application_1.default {
     constructor(data, client) {
         super(data, client);
         this.owner = null;
-        this._patch(data);
+        if (data.cover_image !== undefined)
+            this.cover = data.cover_image;
+        if (!this.rpcOrigins || data.rpc_origins !== undefined)
+            this.rpcOrigins = data.rpc_origins || [];
+        if (!this.botRequiredCodeGrant || data.bot_require_code_grant !== undefined)
+            this.botRequiredCodeGrant = data.bot_require_code_grant || false;
+        if (!this.botPublic || data.bot_public !== undefined)
+            this.botPublic = data.bot_public === false ? false : true;
+        if (!this.owner || data.team || data.owner)
+            this.owner = data.team ? new Team_1.default(data.team, this.client) : data.owner ? new User_1.default(data.owner, this.client) : null;
     }
     toJSON() {
         const value = Object.assign(super.toJSON(), {

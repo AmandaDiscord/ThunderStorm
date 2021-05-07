@@ -153,6 +153,6 @@ declare class Guild extends Base {
     };
     fetchMembers(options: string): Promise<import("./GuildMember") | null>;
     fetchMembers(options: import("../Types").FetchMemberOptions): Promise<Array<import("./GuildMember")> | null>;
-    _patch(data: import("@amanda/discordtypings").GuildData): Collection<string, import("./GuildChannel")> | undefined;
+    _patch(data: import("@amanda/discordtypings").GuildData): void;
 }
 export = Guild;

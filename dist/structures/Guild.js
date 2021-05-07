@@ -52,7 +52,105 @@ class Guild extends Base_1.default {
         this.maximumPresences = 25000;
         this.shardID = 0;
         this.threads = new Collection_1.default();
-        this._patch(data);
+        const PartialUser = require("./Partial/PartialUser");
+        if (data.name)
+            this.name = data.name;
+        if (data.id)
+            this.id = data.id;
+        this.available = data.unavailable !== undefined ? !data.unavailable : (this.available ? true : false);
+        if (data.member_count)
+            this.memberCount = data.member_count;
+        if (data.approximate_member_count !== undefined)
+            this.approximateMemberCount = data.approximate_member_count;
+        if (data.approximate_presence_count !== undefined)
+            this.approximatePresenceCount = data.approximate_presence_count;
+        if (data.max_members !== undefined)
+            this.maximumMembers = data.max_members;
+        if (data.max_presences !== undefined)
+            this.maximumPresences = data.max_presences;
+        if (data.owner_id)
+            this.ownerID = data.owner_id;
+        if (data.banner !== undefined)
+            this.banner = data.banner;
+        if (data.description !== undefined)
+            this.description = data.description;
+        if (data.discovery_splash !== undefined)
+            this.discoverySplash = data.discovery_splash;
+        if (data.features)
+            this.features = data.features;
+        if (data.large !== undefined)
+            this.large = data.large;
+        if (data.splash !== undefined)
+            this.splash = data.splash;
+        if (data.application_id !== undefined)
+            this.applicationID = data.application_id;
+        if (data.afk_timeout !== undefined)
+            this.afkTimeout = data.afk_timeout;
+        if (data.afk_channel_id !== undefined)
+            this.afkChannelID = data.afk_channel_id;
+        if (data.system_channel_id !== undefined)
+            this.systemChannelID = data.system_channel_id;
+        if (data.premium_tier !== undefined)
+            this.premiumTier = data.premium_tier;
+        if (data.premium_subscription_count !== undefined)
+            this.premiumSubscriptionCount = data.premium_subscription_count;
+        if (!this.systemChannelFlags || data.system_channel_flags)
+            this.systemChannelFlags = new SystemChannelFlags_1.default(data.system_channel_flags).freeze();
+        if (data.vanity_url_code !== undefined)
+            this.vanityURLCode = data.vanity_url_code;
+        if (data.rules_channel_id !== undefined)
+            this.rulesChannelID = data.rules_channel_id;
+        if (data.preferred_locale)
+            this.preferredLocale = data.preferred_locale;
+        if (data.mfa_level !== undefined)
+            this.mfaLevel = data.mfa_level;
+        this.owner = this.owner && data.owner_id === this.owner.id ? this.owner : new PartialUser({ id: this.ownerID }, this.client);
+        this.icon = data.icon || (this.icon ? this.icon : null);
+        if (!this.verificationLevel || data.verification_level !== undefined)
+            this.verificationLevel = Constants_1.default.GUILD_VERIFICATION_LEVELS[data.verification_level] || "NONE";
+        if (data.members && Array.isArray(data.members)) {
+            this.members.clear();
+            data.members.forEach(member => this.members.set(member.user.id, new GuildMember_1.default(member, this.client)));
+        }
+        if (data.channels && Array.isArray(data.channels)) {
+            this.channels.clear();
+            for (const channel of data.channels) {
+                let chan;
+                if (channel.type === 2)
+                    chan = new VoiceChannel_1.default(channel, this.client);
+                else if (channel.type === 4)
+                    chan = new CategoryChannel_1.default(channel, this.client);
+                else if (channel.type === 5)
+                    chan = new NewsChannel_1.default(channel, this.client);
+                else if (channel.type === 13)
+                    chan = new StageChannel_1.default(channel, this.client);
+                else
+                    chan = new TextChannel_1.default(channel, this.client);
+                this.channels.set(chan.id, chan);
+            }
+        }
+        if (data.roles && Array.isArray(data.roles)) {
+            this.roles.clear();
+            for (const role of data.roles)
+                this.roles.set(role.id, new Role_1.default(Object.assign({}, role, { guild_id: this.id }), this.client));
+        }
+        if (data.voice_states && Array.isArray(data.voice_states)) {
+            this.voiceStates.clear();
+            for (const state of data.voice_states)
+                this.voiceStates.set(state.user_id, new VoiceState_1.default(state, this.client));
+        }
+        if (data.emojis && Array.isArray(data.emojis)) {
+            this.emojis.clear();
+            for (const emoji of data.emojis)
+                this.emojis.set(emoji.id || emoji.name, new Emoji_1.default(emoji, this.client));
+        }
+        if (data.threads && Array.isArray(data.threads)) {
+            const ThreadNewsChannel = require("./ThreadNewsChannel");
+            const ThreadTextChannel = require("./ThreadTextChannel");
+            this.threads.clear();
+            for (const thread of data.threads)
+                this.threads.set(thread.id, [11, 12].includes(thread.type) ? new ThreadTextChannel(thread, this.client) : new ThreadNewsChannel(thread, this.client));
+        }
     }
     get nameAcronym() {
         return this.name
@@ -208,7 +306,7 @@ class Guild extends Base_1.default {
                     chan = new StageChannel_1.default(channel, this.client);
                 else
                     chan = new TextChannel_1.default(channel, this.client);
-                return this.channels.set(chan.id, chan);
+                this.channels.set(chan.id, chan);
             }
         }
         if (data.roles && Array.isArray(data.roles)) {

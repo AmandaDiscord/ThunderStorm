@@ -9,7 +9,7 @@ class PartialThreadChannel extends PartialBase_1.default {
         super(data, client);
         this.partialType = "Thread";
         this.memberCount = 0;
-        const PartialGuild = require("./Partial/PartialGuild");
+        const PartialGuild = require("./PartialGuild");
         const PartialChannel = require("./PartialChannel");
         this.guild = new PartialGuild({ id: data.guild_id }, client);
         this.parent = new PartialChannel({ id: data.channel_id }, client);

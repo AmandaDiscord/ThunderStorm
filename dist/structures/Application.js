@@ -9,7 +9,12 @@ class Application extends Base_1.default {
         super(data, client);
         this.icon = null;
         this.cover = null;
-        this._patch(data);
+        if (data.description)
+            this.description = data.description;
+        if (data.icon !== undefined)
+            this.icon = data.icon;
+        if (data.name)
+            this.name = data.name;
     }
     iconURL(options = { size: 128, format: "png", dynamic: true }) {
         if (!this.icon)

@@ -8,7 +8,8 @@ class Channel extends Base_1.default {
         super(data, client);
         this.partial = false;
         this.type = "unknown";
-        this._patch(data);
+        if (data.name)
+            this.name = data.name;
     }
     fetch() {
         return Promise.resolve(this);

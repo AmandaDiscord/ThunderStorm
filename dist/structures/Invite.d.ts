@@ -14,8 +14,13 @@ declare class Invite {
     targetUserType: 1 | 2 | null;
     targetUser: import("./User") | null;
     constructor(data: import("@amanda/discordtypings").InviteData & {
+        channel_id?: string;
+        created_at?: string;
         guild_id?: string;
-        temporay?: boolean;
+        temporary?: boolean;
+        max_age?: number;
+        max_uses?: number;
+        uses?: number;
     }, client: import("./Client"));
     get createdAt(): Date | null;
     get expiresTimestamp(): number | null;

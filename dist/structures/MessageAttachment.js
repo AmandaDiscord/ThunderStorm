@@ -7,8 +7,20 @@ class MessageAttachment {
         this.width = null;
         this.attachment = attachment;
         this.name = name;
-        if (data)
-            this._patch(data);
+        if (data) {
+            if (data.id)
+                this.id = data.id;
+            if (data.size)
+                this.size = data.size;
+            if (data.url)
+                this.url = data.url;
+            if (data.proxy_url)
+                this.proxyURL = data.proxy_url;
+            if (data.height)
+                this.height = data.height;
+            if (data.width)
+                this.width = data.width;
+        }
     }
     setFile(attachment, name = null) {
         this.attachment = attachment;

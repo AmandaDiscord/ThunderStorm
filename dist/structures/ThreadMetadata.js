@@ -11,7 +11,19 @@ class ThreadMetaData {
         this._archived = false;
         this.client = thread.client;
         this.thread = thread;
-        this._patch(data);
+        const PartialUser = require("./Partial/PartialUser");
+        if (data.locked !== undefined)
+            this.locked = data.locked;
+        if (data.auto_archive_duration !== undefined)
+            this.autoArchiveDuration = data.auto_archive_duration;
+        if (data.archived !== undefined)
+            this._archived = data.archived;
+        if (data.archiver_id !== undefined)
+            this.archiver = data.archiver_id !== null ? new PartialUser({ id: data.archiver_id }, this.client) : null;
+        if (data.archive_timestamp !== undefined) {
+            this.archiveStatusChangedAt = new Date(data.archive_timestamp);
+            this.archiveStatusChangedTimestamp = this.archiveStatusChangedAt.getTime();
+        }
     }
     get archived() {
         if (this._archived || this.archiver)

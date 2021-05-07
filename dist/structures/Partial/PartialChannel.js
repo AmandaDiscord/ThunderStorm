@@ -8,7 +8,7 @@ class PartialChannel extends PartialBase_1.default {
     constructor(data, client) {
         super(data, client);
         this.partialType = "Channel";
-        const PartialGuild = require("./Partial/PartialGuild");
+        const PartialGuild = require("./PartialGuild");
         this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
         this.type = data.type || "unknown";
         this.name = data.name || "unknown";

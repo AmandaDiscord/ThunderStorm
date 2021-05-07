@@ -10,7 +10,12 @@ class VoiceChannel extends GuildChannel_1.default {
         this.userLimit = 0;
         this.rtcRegion = null;
         this.type = "voice";
-        this._patch(data);
+        if (data.bitrate !== undefined)
+            this.bitrate = data.bitrate;
+        if (data.user_limit !== undefined)
+            this.userLimit = data.user_limit;
+        if (data.rtc_region !== undefined)
+            this.rtcRegion = data.rtc_region;
     }
     toJSON() {
         return Object.assign(super.toJSON(), {
