@@ -478,8 +478,8 @@
         "signature": "380a91268a9e64ba3b169705d0b5d6eb20ceb60a67f492a52cf5095c76075e9b"
       },
       "../src/structures/partial/partialrole.ts": {
-        "version": "0d1fe1dce0bd2ba0518a9eeb53ef32a184d1fc19eff783be21d9b05a8fcc4c48",
-        "signature": "28aa110923fe979a2ddb97b56f1998c067b4dc295ba67263c0d6143f57760130"
+        "version": "f478eb2a07b68075146bd91b2d9ea44caf55c8a4b012929df145c2f16d38731d",
+        "signature": "b900330d66a00d2bbb13832d728dff2a2279df5ec28d979fae63a3d5a89c11ec"
       },
       "../src/structures/emoji.ts": {
         "version": "3bbf809771ca9dca5fcea895158bff695fccc6de31aee88b15c5674324acd3e5",
@@ -518,28 +518,28 @@
         "signature": "05a5733e5e9f6b346dbae4bbe0879a43eed7873053f18a34efab30254d15c872"
       },
       "../src/structures/partial/partialchannel.ts": {
-        "version": "484315f1db866136cf70ca0174f5837ddf330fdd0434348411c32c4cccae6f23",
-        "signature": "be7a7380bb2674ac1c77b93aaae141573aa27a197e6f864137e44e62a491e518"
+        "version": "e12c1665de5c06805be5f92875864d6895d341c80a0a51cb766ccd3e8c52a400",
+        "signature": "dbc573be961dadb2f063e37623acdc2aca8ffd75b70d12160c6da1bc090f681c"
       },
       "../src/structures/partial/partialthreadchannel.ts": {
-        "version": "200235fa765cc149228427076d4353a6de920f67f467fe94afd1777aa6f172c8",
-        "signature": "31bb202eacbaf96c10645421386d2e9178b2e9bc644b1d35255cbb1412c18e1d"
+        "version": "da33dc21d308391ecf375ddf94b71c525c8876a930b08079f7f5aa0de7339234",
+        "signature": "cedc953d0dc9cb264e8d8deaec64b0b369abb26dca07b736585119036c878459"
       },
       "../src/structures/threadmember.ts": {
-        "version": "2d94022cc767ab6828cf54afe76098ff01f93ec1a30bddfbd38c9d8cbae41727",
-        "signature": "4fb130c9dcfe3cf27d04809b1f2cf1ffd3e8a5793280c9f48724ec0295990d6b"
+        "version": "8f187306de780670ee634cc4ee0fdd5357f1d23ce7619067ad05109c5e9e7e16",
+        "signature": "d55646477aa169e7cabcbbb5a2b82b050d579403d7dee2bcd24fd26093e1ca44"
       },
       "../src/structures/threadtextchannel.ts": {
-        "version": "8766094c150c598ed38cecb6f2499b7ce9c04a9d9607ed7c1d20cc28614d4c3e",
-        "signature": "613a8208f5595d093d0390e8a9fffee36eed2425b0107b7eae9666ea26144f8f"
+        "version": "a3fd32e4c3479eed901fa45b3a0f678331ef58cbd11cfa1a9399616d3bfb4051",
+        "signature": "90acc0d4811fc8ebeaae7b1eb205d5dc6f9dea9fa9e34e41ee6ba5d7f00a3d46"
       },
       "../src/structures/threadmetadata.ts": {
-        "version": "42cabb1332f268a461519ff9fd01e64035d06eff0e251809840671f2322367cb",
-        "signature": "57c527a563f272c210f44fc7ebd59c86152f07df5eb97a65426ee5b2bd9e0ec9"
+        "version": "ae426a0388bffd9e938699ee0eaf306d9f58c0b62832bf9340117c300c4ecb0d",
+        "signature": "c2f203860140bf8dd688b0706722085dcfd7f6c401302c85beeae67725ff448d"
       },
       "../src/structures/threadnewschannel.ts": {
-        "version": "04a2118bce5fb01bc4b40a74f82c0e3d5aa2d9f7268a390fac95bca33445ef1c",
-        "signature": "0cbcface5c28653e54dff11a4f1566562c30723117c018c74a3702bec3cb4f66"
+        "version": "10f6e8336794fe8c833bd833619894338f23ff01878dda2ca5c052656fd56686",
+        "signature": "e9e4c9ab6a1d7214bb2080c9317e21884d9a5df4a296886ae83609905857935f"
       },
       "../src/structures/guild.ts": {
         "version": "fdbc6a9f54bdd797473fb21aa0d642f4664e8962c6dd83bdc90f81bbc67632f5",
@@ -626,8 +626,8 @@
         "signature": "3107528d885afc471f20bc2538e1a4f1ccfcafc81245e14b9402808872e87e32"
       },
       "../src/structures/partial/partialmessage.ts": {
-        "version": "73eb1fb8bce25f6369ee7935fafb92450c8f2f7911d28727af493ea6457717d9",
-        "signature": "83085fde4c51d66a9ac14068a1319b1b56aa1addd790bd736e2d87c45570631e"
+        "version": "ebacf8a2017a8b5fb4ab313d4fbd6f01b60cc9689b16fc61c882f49c76c7042e",
+        "signature": "f177b06356caf253b4b2310f22fb2b947f9f0187cba2d8f699144ba54dfd9a78"
       },
       "../src/structures/messagereaction.ts": {
         "version": "b0095a7d7a3680a80e59527480299e1e05b93a798719ca12f14d66b12f1c8afe",
@@ -998,8 +998,8 @@
       ],
       "../src/structures/partial/partialrole.ts": [
         "../src/structures/partial/partialbase.ts",
-        "../src/structures/partial/partialguild.ts",
         "../src/structures/role.ts",
+        "../src/structures/partial/partialguild.ts",
         "../src/internal.ts",
         "../src/structures/client.ts"
       ],
@@ -1063,8 +1063,8 @@
       "../src/structures/partial/partialchannel.ts": [
         "../src/structures/interfaces/textbasedchannel.ts",
         "../src/structures/partial/partialbase.ts",
-        "../src/structures/partial/partialguild.ts",
         "../src/structures/channel.ts",
+        "../src/structures/partial/partialguild.ts",
         "../src/internal.ts",
         "../src/structures/client.ts",
         "../src/types.ts"
@@ -1072,49 +1072,49 @@
       "../src/structures/partial/partialthreadchannel.ts": [
         "../src/structures/interfaces/textbasedchannel.ts",
         "../src/structures/partial/partialbase.ts",
-        "../src/structures/partial/partialchannel.ts",
-        "../src/structures/partial/partialguild.ts",
         "../src/structures/threadtextchannel.ts",
         "../src/structures/threadnewschannel.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../src/structures/partial/partialchannel.ts",
         "../src/internal.ts",
         "../src/structures/client.ts",
         "../src/types.ts"
       ],
       "../src/structures/threadmember.ts": [
         "../src/structures/base.ts",
-        "../src/structures/partial/partialuser.ts",
         "../src/structures/threadtextchannel.ts",
         "../src/structures/threadnewschannel.ts",
         "../src/structures/partial/partialthreadchannel.ts",
+        "../src/structures/partial/partialuser.ts",
         "../node_modules/@amanda/discordtypings/index.d.ts"
       ],
       "../src/structures/threadtextchannel.ts": [
         "../src/structures/util/collection.ts",
-        "../src/structures/partial/partialchannel.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../src/structures/partial/partialuser.ts",
         "../src/structures/textchannel.ts",
         "../src/structures/threadmetadata.ts",
         "../src/structures/threadmember.ts",
+        "../src/structures/partial/partialuser.ts",
+        "../src/structures/partial/partialchannel.ts",
+        "../src/structures/partial/partialguild.ts",
         "../node_modules/@amanda/discordtypings/index.d.ts",
         "../src/structures/client.ts"
       ],
       "../src/structures/threadmetadata.ts": [
         "../src/structures/util/snowflakeutil.ts",
-        "../src/structures/partial/partialuser.ts",
         "../src/structures/client.ts",
         "../src/structures/threadtextchannel.ts",
         "../src/structures/threadnewschannel.ts",
+        "../src/structures/partial/partialuser.ts",
         "../node_modules/@amanda/discordtypings/index.d.ts"
       ],
       "../src/structures/threadnewschannel.ts": [
         "../src/structures/util/collection.ts",
-        "../src/structures/partial/partialchannel.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../src/structures/partial/partialuser.ts",
         "../src/structures/newschannel.ts",
         "../src/structures/threadmetadata.ts",
         "../src/structures/threadmember.ts",
+        "../src/structures/partial/partialuser.ts",
+        "../src/structures/partial/partialchannel.ts",
+        "../src/structures/partial/partialguild.ts",
         "../node_modules/@amanda/discordtypings/index.d.ts",
         "../src/structures/client.ts"
       ],
@@ -1311,9 +1311,9 @@
       ],
       "../src/structures/partial/partialmessage.ts": [
         "../src/structures/partial/partialbase.ts",
+        "../src/structures/message.ts",
         "../src/structures/partial/partialchannel.ts",
         "../src/structures/partial/partialguild.ts",
-        "../src/structures/message.ts",
         "../src/internal.ts",
         "../src/structures/client.ts",
         "../src/types.ts",
@@ -1782,11 +1782,11 @@
         "../node_modules/@amanda/discordtypings/index.d.ts"
       ],
       "../src/structures/partial/partialrole.ts": [
-        "../src/structures/partial/partialbase.ts",
         "../src/structures/partial/partialguild.ts",
         "../src/internal.ts",
         "../src/structures/client.ts",
-        "../src/structures/role.ts"
+        "../src/structures/role.ts",
+        "../src/structures/partial/partialbase.ts"
       ],
       "../src/structures/emoji.ts": [
         "../src/structures/client.ts",
@@ -1837,24 +1837,26 @@
         "../src/structures/guildmember.ts"
       ],
       "../src/structures/partial/partialuser.ts": [
-        "../src/structures/partial/partialbase.ts",
         "../src/internal.ts",
         "../src/structures/client.ts",
         "../src/types.ts",
         "../src/structures/message.ts",
-        "../src/structures/user.ts"
+        "../src/structures/user.ts",
+        "../src/structures/partial/partialbase.ts"
       ],
       "../src/structures/partial/partialchannel.ts": [
+        "../src/structures/partial/partialguild.ts",
         "../src/internal.ts",
         "../src/structures/client.ts",
         "../src/types.ts",
         "../src/structures/message.ts",
         "../src/structures/interfaces/textbasedchannel.ts",
         "../src/structures/channel.ts",
-        "../src/structures/partial/partialguild.ts",
         "../src/structures/partial/partialbase.ts"
       ],
       "../src/structures/partial/partialthreadchannel.ts": [
+        "../src/structures/partial/partialguild.ts",
+        "../src/structures/partial/partialchannel.ts",
         "../src/internal.ts",
         "../src/structures/client.ts",
         "../src/types.ts",
@@ -1862,45 +1864,43 @@
         "../src/structures/interfaces/textbasedchannel.ts",
         "../src/structures/threadtextchannel.ts",
         "../src/structures/threadnewschannel.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../src/structures/partial/partialchannel.ts",
         "../src/structures/partial/partialbase.ts"
       ],
       "../src/structures/threadmember.ts": [
         "../src/structures/threadtextchannel.ts",
         "../src/structures/threadnewschannel.ts",
         "../src/structures/partial/partialthreadchannel.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
         "../src/structures/partial/partialuser.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
         "../src/structures/base.ts"
       ],
       "../src/structures/threadtextchannel.ts": [
-        "../src/structures/threadmetadata.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
         "../src/structures/partial/partialuser.ts",
-        "../src/structures/util/collection.ts",
-        "../src/structures/threadmember.ts",
+        "../src/structures/threadmetadata.ts",
         "../src/structures/partial/partialchannel.ts",
         "../src/structures/partial/partialguild.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/util/collection.ts",
+        "../src/structures/threadmember.ts",
         "../src/structures/textchannel.ts"
       ],
       "../src/structures/threadmetadata.ts": [
         "../src/structures/client.ts",
         "../src/structures/threadtextchannel.ts",
         "../src/structures/threadnewschannel.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/partial/partialuser.ts"
+        "../src/structures/partial/partialuser.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts"
       ],
       "../src/structures/threadnewschannel.ts": [
-        "../src/structures/threadmetadata.ts",
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
         "../src/structures/partial/partialuser.ts",
-        "../src/structures/util/collection.ts",
-        "../src/structures/threadmember.ts",
+        "../src/structures/threadmetadata.ts",
         "../src/structures/partial/partialchannel.ts",
         "../src/structures/partial/partialguild.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/util/collection.ts",
+        "../src/structures/threadmember.ts",
         "../src/structures/newschannel.ts"
       ],
       "../src/structures/guild.ts": [
@@ -2062,12 +2062,12 @@
         "../src/structures/messagereaction.ts"
       ],
       "../src/structures/partial/partialmessage.ts": [
+        "../src/structures/partial/partialchannel.ts",
+        "../src/structures/partial/partialguild.ts",
         "../src/internal.ts",
         "../src/structures/client.ts",
         "../src/types.ts",
         "../src/structures/message.ts",
-        "../src/structures/partial/partialchannel.ts",
-        "../src/structures/partial/partialguild.ts",
         "../src/structures/partial/partialbase.ts"
       ],
       "../src/structures/messagereaction.ts": [
@@ -2202,10 +2202,6 @@
       ]
     },
     "semanticDiagnosticsPerFile": [
-      "../node_modules/@sapphire/snowflake/dist/lib/snowflake.d.ts",
-      "../node_modules/@sapphire/snowflake/dist/index.d.ts",
-      "../node_modules/@sapphire/snowflake/dist/lib/twittersnowflake.d.ts",
-      "../node_modules/@sapphire/snowflake/dist/lib/discordsnowflake.d.ts",
       "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es5.d.ts",
       "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2015.d.ts",
       "../../../../appdata/roaming/npm/node_modules/typescript/lib/lib.es2016.d.ts",
@@ -2312,15 +2308,21 @@
       "../node_modules/snowtransfer/dist/src/methods/auditlog.d.ts",
       "../node_modules/snowtransfer/dist/src/snowtransfer.d.ts",
       "../node_modules/@augu/collections/index.d.ts",
+      "../node_modules/@sapphire/snowflake/dist/lib/snowflake.d.ts",
+      "../node_modules/@sapphire/snowflake/dist/lib/discordsnowflake.d.ts",
+      "../node_modules/@sapphire/snowflake/dist/lib/twittersnowflake.d.ts",
+      "../node_modules/@sapphire/snowflake/dist/index.d.ts",
+      "../src/structures/voiceregion.ts",
+      "../src/internal.ts",
+      "../src/structures/partial/partialmessage.ts",
+      "../src/structures/messagereaction.ts",
       "../src/structures/util/collection.ts",
       "../src/structures/util/snowflakeutil.ts",
-      "../src/structures/voiceregion.ts",
       "../src/structures/channel.ts",
       "../src/structures/bitfield.ts",
       "../src/structures/permissions.ts",
       "../src/structures/permissionoverwrites.ts",
       "../src/structures/role.ts",
-      "../src/internal.ts",
       "../src/structures/partial/partialrole.ts",
       "../src/structures/emoji.ts",
       "../src/structures/guildmember.ts",
@@ -2358,8 +2360,6 @@
       "../src/structures/messageflags.ts",
       "../src/structures/messagementions.ts",
       "../src/structures/reactionemoji.ts",
-      "../src/structures/partial/partialmessage.ts",
-      "../src/structures/messagereaction.ts",
       "../src/structures/message.ts",
       "../src/structures/util/util.ts",
       "../src/structures/messageembed.ts",

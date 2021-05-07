@@ -1,10 +1,9 @@
-import PartialUser from "./Partial/PartialUser";
 declare class ThreadMetaData {
     client: import("./Client");
     thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel");
     locked: boolean;
     autoArchiveDuration: number;
-    archiver: PartialUser | null;
+    archiver: import("./Partial/PartialUser") | null;
     archiveStatusChangedAt: Date;
     archiveStatusChangedTimestamp: number;
     private _archived;

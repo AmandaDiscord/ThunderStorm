@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const Base_1 = __importDefault(require("./Base"));
-const PartialUser_1 = __importDefault(require("./Partial/PartialUser"));
 class ThreadMember extends Base_1.default {
     constructor(thread, data) {
         super({ id: data.user_id }, thread.client);
@@ -20,6 +19,7 @@ class ThreadMember extends Base_1.default {
         };
     }
     _patch(data) {
+        const PartialUser = require("./Partial/PartialUser");
         if (data.flags !== undefined)
             this.flags = data.flags;
         if (!this.threadID || data.id)
@@ -29,7 +29,7 @@ class ThreadMember extends Base_1.default {
             this.joinedTimestamp = this.joinedAt.getTime();
         }
         if (data.user_id)
-            this.user = new PartialUser_1.default({ id: data.user_id }, this.client);
+            this.user = new PartialUser({ id: data.user_id }, this.client);
     }
 }
 module.exports = ThreadMember;

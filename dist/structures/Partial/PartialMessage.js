@@ -3,15 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const PartialBase_1 = __importDefault(require("./PartialBase"));
-const PartialChannel_1 = __importDefault(require("./PartialChannel"));
-const PartialGuild_1 = __importDefault(require("./PartialGuild"));
 const Message_1 = __importDefault(require("../Message"));
 class PartialMessage extends PartialBase_1.default {
     constructor(data, client) {
         super(data, client);
         this.partialType = "Message";
-        this.channel = new PartialChannel_1.default({ id: data.channel_id, guild_id: data.guild_id }, client);
-        this.guild = data.guild_id ? new PartialGuild_1.default({ id: data.guild_id }, client) : null;
+        const PartialGuild = require("./Partial/PartialGuild");
+        const PartialChannel = require("./PartialChannel");
+        this.channel = new PartialChannel({ id: data.channel_id, guild_id: data.guild_id }, client);
+        this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
     }
     async edit(content, options = {}) {
         const TextBasedChannel = require("../Interfaces/TextBasedChannel");

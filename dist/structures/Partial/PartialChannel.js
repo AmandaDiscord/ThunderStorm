@@ -4,12 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const TextBasedChannel_1 = __importDefault(require("../Interfaces/TextBasedChannel"));
 const PartialBase_1 = __importDefault(require("./PartialBase"));
-const PartialGuild_1 = __importDefault(require("./PartialGuild"));
 class PartialChannel extends PartialBase_1.default {
     constructor(data, client) {
         super(data, client);
         this.partialType = "Channel";
-        this.guild = data.guild_id ? new PartialGuild_1.default({ id: data.guild_id }, client) : null;
+        const PartialGuild = require("./Partial/PartialGuild");
+        this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
         this.type = data.type || "unknown";
         this.name = data.name || "unknown";
     }

@@ -3,9 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const Collection_1 = __importDefault(require("./Util/Collection"));
-const PartialChannel_1 = __importDefault(require("./Partial/PartialChannel"));
-const PartialGuild_1 = __importDefault(require("./Partial/PartialGuild"));
-const PartialUser_1 = __importDefault(require("./Partial/PartialUser"));
 const NewsChannel_1 = __importDefault(require("./NewsChannel"));
 const ThreadMetadata_1 = __importDefault(require("./ThreadMetadata"));
 const ThreadMember_1 = __importDefault(require("./ThreadMember"));
@@ -40,9 +37,12 @@ class ThreadNewsChannel extends NewsChannel_1.default {
         });
     }
     _patch(data) {
+        const PartialChannel = require("./Partial/PartialChannel");
+        const PartialGuild = require("./Partial/PartialGuild");
+        const PartialUser = require("./Partial/PartialUser");
         if (data.owner_id) {
             this.ownerID = data.owner_id;
-            this.owner = new PartialUser_1.default({ id: this.ownerID }, this.client);
+            this.owner = new PartialUser({ id: this.ownerID }, this.client);
         }
         if (data.member_count !== undefined)
             this.memberCount = data.member_count;
@@ -51,9 +51,9 @@ class ThreadNewsChannel extends NewsChannel_1.default {
         if (!this.meta || data.thread_metadata)
             this.meta = new ThreadMetadata_1.default(this, data.thread_metadata);
         if (data.parent_id)
-            this.parent = new PartialChannel_1.default({ id: data.parent_id, guild_id: data.guild_id }, this.client);
+            this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id }, this.client);
         if (data.guild_id)
-            this.guild = new PartialGuild_1.default({ id: data.guild_id }, this.client);
+            this.guild = new PartialGuild({ id: data.guild_id }, this.client);
         super._patch(data);
     }
 }

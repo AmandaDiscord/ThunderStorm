@@ -1,9 +1,8 @@
 import PartialBase from "./PartialBase";
-import PartialGuild from "./PartialGuild";
 declare class PartialChannel extends PartialBase<import("../Channel")> {
     type: "text" | "dm" | "voice" | "unknown";
     partialType: "Channel";
-    guild: PartialGuild | null;
+    guild: import("./PartialGuild") | null;
     name: string;
     constructor(data: import("../../internal").PartialData, client: import("../Client"));
     toString(): string;

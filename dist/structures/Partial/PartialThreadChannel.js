@@ -4,15 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const TextBasedChannel_1 = __importDefault(require("../Interfaces/TextBasedChannel"));
 const PartialBase_1 = __importDefault(require("./PartialBase"));
-const PartialChannel_1 = __importDefault(require("./PartialChannel"));
-const PartialGuild_1 = __importDefault(require("./PartialGuild"));
 class PartialThreadChannel extends PartialBase_1.default {
     constructor(data, client) {
         super(data, client);
         this.partialType = "Thread";
         this.memberCount = 0;
-        this.guild = new PartialGuild_1.default({ id: data.guild_id }, client);
-        this.parent = new PartialChannel_1.default({ id: data.channel_id }, client);
+        const PartialGuild = require("./Partial/PartialGuild");
+        const PartialChannel = require("./PartialChannel");
+        this.guild = new PartialGuild({ id: data.guild_id }, client);
+        this.parent = new PartialChannel({ id: data.channel_id }, client);
         if (data.number)
             this.memberCount = data.number || 0;
     }

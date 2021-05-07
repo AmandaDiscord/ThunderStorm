@@ -1,10 +1,8 @@
 import PartialBase from "./PartialBase";
-import PartialChannel from "./PartialChannel";
-import PartialGuild from "./PartialGuild";
 declare class PartialThreadChannel extends PartialBase<import("../ThreadTextChannel") | import("../ThreadNewsChannel")> {
     partialType: "Thread";
-    guild: PartialGuild | null;
-    parent: PartialChannel;
+    guild: import("./PartialGuild") | null;
+    parent: import("./PartialChannel");
     memberCount: number;
     constructor(data: import("../../internal").PartialData, client: import("../Client"));
     toString(): string;
