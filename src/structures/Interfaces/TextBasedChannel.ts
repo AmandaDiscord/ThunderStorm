@@ -20,15 +20,14 @@ export async function send(instance: import("../Partial/PartialBase")<any> | imp
 	const payload = transform(content, options);
 
 	if (instance instanceof PartialBase) {
-		if (instance.partialType == "Channel") mode = "channel";
-		if (instance.partialType == "User") mode = "user";
+		if (instance.partialType === "Channel" || instance.partialType === "Thread") mode = "channel";
+		if (instance.partialType === "User") mode = "user";
 	} else if (instance instanceof Channel) mode = "channel";
 	else if (instance instanceof User) mode = "user";
 	else if (instance instanceof GuildMember) mode = "user";
 
 	let ID;
-	// @ts-ignore
-	if (mode == "user") ID = await instance.client._snow.user.createDirectMessageChannel(instance.id).then(chan => chan.id || chan.Id);
+	if (mode == "user") ID = await instance.client._snow.user.createDirectMessageChannel(instance.id).then(chan => chan.id);
 	else ID = instance.id;
 
 	const msg = await instance.client._snow.channel.createMessage(ID, payload, { disableEveryone: options.disableEveryone || instance.client._snow.options.disableEveryone || false });
@@ -52,38 +51,46 @@ export function deleteMessage(client: import("../Client"), channelID: string, me
 }
 
 export async function fetchMessage(client: import("../Client"), channelID: string, messageID: string): Promise<import("../Message")> {
-	const Message = (await import("../Message")).default; // lazy load
+	const Message: typeof import("../Message") = require("../Message"); // lazy load
 
-	return client._snow.channel.getChannelMessage(channelID, messageID).then(data => new Message(data, client));
+	const data = await client._snow.channel.getChannelMessage(channelID, messageID);
+	return new Message(data, client);
 }
 
 export async function fetchMessages(client: import("../Client"), channelID: string, options?: FetchMessageOptions): Promise<Array<import("../Message")>> {
-	const Message = (await import("../Message")).default; // lazy load
+	const Message: typeof import("../Message") = require("../Message"); // lazy load
 
-	return client._snow.channel.getChannelMessages(channelID, options).then(data => data.map(i => new Message(i, client)));
+	const data = await client._snow.channel.getChannelMessages(channelID, options);
+	return data.map(i => new Message(i, client));
 }
 
-export function transform(content: import("../../Types").StringResolvable, options: import("../../Types").MessageOptions = {}, isEdit: boolean | undefined = false): { content?: string | null; embeds?: Array<any>; nonce?: string; tts?: boolean; file?: any; } {
+export function transform(content: import("../../Types").StringResolvable | import("../../Types").MessageOptions, options?: import("../../Types").MessageOptions, isEdit?: boolean): { content?: string | null; embeds?: Array<any>; nonce?: string; tts?: boolean; file?: any; } {
 	const MessageEmbed: typeof import("../MessageEmbed") = require("../MessageEmbed");
+	const MessageAttachment: typeof import("../MessageAttachment") = require("../MessageAttachment");
 
 	const payload: { content?: string | null; embed?: any; nonce?: string; tts?: boolean; file?: { name?: string, file: string } } = {};
+	const opts = options ? options : {};
 
-	if (isObject(content) && !Array.isArray(content) && (content.content || content.embed || content.nonce || content.tts || content.file)) {
-		if (content.attachment) options.file = content;
-		else options = content;
+	if (content instanceof MessageEmbed) {
+		opts.embed = content;
 		content = undefined;
-	} else if (content instanceof MessageEmbed) {
-		options.embed = content;
+	} else if (content instanceof MessageAttachment) {
+		opts.file = content;
 		content = undefined;
+	} else if (isObject(content) && !Array.isArray(content) && (content.content || content.embed || content.nonce || content.tts || content.file)) {
+		if (content.attachment) opts.file = content;
+		else Object.assign(opts, content);
+		content = undefined;
+		if (content.disableEveryone !== undefined) opts.disableEveryone = content.disableEveryone;
 	} else if (Array.isArray(content)) {
 		content = content.join("\n");
 	} else content = String(content);
 
-	payload["content"] = options.content || content || "";
-	payload["embed"] = options.embed ? options.embed.toJSON() : undefined;
-	payload["nonce"] = options.nonce;
-	payload["tts"] = options.tts || false;
-	payload["file"] = options.file ? { name: options.file.name || "file.png", file: options.file.attachment as string } : undefined;
+	payload["content"] = opts.content || content || "";
+	payload["embed"] = opts.embed ? opts.embed.toJSON() : undefined;
+	payload["nonce"] = opts.nonce;
+	payload["tts"] = opts.tts || false;
+	payload["file"] = opts.file ? { name: opts.file.name || "file.png", file: opts.file.attachment.toString() } : undefined;
 
 	if (isEdit && !payload["content"]) payload["content"] = null;
 

@@ -1,34 +1,52 @@
 const EVENTS = {
 	CHANNEL_CREATE: "channelCreate" as const,
+	CHANNEL_DELETE: "channelDelete" as const,
 	CHANNEL_PINS_UPDATE: "channelPinsUpdate" as const,
+	CHANNEL_UPDATE: "channelUpdate" as const,
+	GUILD_BAN_ADD: "guildBanAdd" as const,
+	GUILD_BAN_REMOVE: "guildBanRemove" as const,
 	GUILD_CREATE: "guildCreate" as const,
 	GUILD_DELETE: "guildDelete" as const,
-	GUILD_EMOJIS_UPDATE: "guildEmojisUpdate" as const,
+	GUILD_EMOJIS_UPDATE: "emojisUpdate" as const,
+	GUILD_MEMBERS_CHUNK: "guildMembersChunk" as const,
+	GUILD_MEMBER_ADD: "guildMemberAdd" as const,
+	GUILD_MEMBER_REMOVE: "guildMemberRemove" as const,
 	GUILD_MEMBER_UPDATE: "guildMemberUpdate" as const,
 	GUILD_ROLE_CREATE: "guildRoleCreate" as const,
 	GUILD_ROLE_DELETE: "guildRoleDelete" as const,
 	GUILD_ROLE_UPDATE: "guildRoleUpdate" as const,
+	GUILD_UPDATE: "guildUpdate" as const,
+	INVALID_SESSION: "invalidated" as const,
+	INVITE_CREATE: "inviteCreate" as const,
+	INVITE_DELETE: "inviteDelete" as const,
 	MESSAGE_CREATE: "message" as const,
 	MESSAGE_DELETE: "messageDelete" as const,
+	MESSAGE_DELETE_BULK: "messageDeleteBulk" as const,
 	MESSAGE_UPDATE: "messageUpdate" as const,
 	MESSAGE_REACTION_ADD: "messageReactionAdd" as const,
 	MESSAGE_REACTION_REMOVE: "messageReactionRemove" as const,
 	MESSAGE_REACTION_REMOVE_ALL: "messageReactionRemoveAll" as const,
+	MESSAGE_REACTION_REMOVE_EMOJI: "messageReactionRemoveEmoji" as const,
 	READY: "ready" as const,
+	RESUMED: "shardResume" as const,
 	SHARD_READY: "shardReady" as const,
-	RESUMED: "ready" as const,
+	THREAD_CREATE: "threadCreate" as const,
+	THREAD_DELETE: "threadDelete" as const,
+	THREAD_LIST_SYNC: "threadListSync" as const,
+	THREAD_MEMBER_UPDATE: "threadMemberUpdate" as const,
+	THREAD_MEMBERS_UPDATE: "threadMembersUpdate" as const,
+	THREAD_UPDATE: "threadUpdate" as const,
+	TYPING_START: "typingStart" as const,
+	USER_UPDATE: "userUpdate" as const,
 	VOICE_STATE_UPDATE: "voiceStateUpdate" as const
 };
 
 const CLIENT_ONLY_EVENTS = {
-	EVENT: "raw" as const,
+	GUILD_UNAVAILABLE: "guildUnavailable" as const,
+	RATE_LIMIT: "rateLimit" as const,
+	RAW: "raw" as const,
 	SHARD_DISCONNECT: "shardDisconnect" as const,
-	SHARD_RESUMED: "shardResume" as const
-};
-
-const CLOUD_ONLY_EVENTS = {
-	DISCONNECTED: "disconnected" as const,
-	EVENT: "event" as const
+	SHARD_READY: "shardReady" as const
 };
 
 const Colors = {
@@ -98,7 +116,45 @@ const PERMISSION_FLAGS = {
 	MANAGE_EMOJIS: BigInt(1) << BigInt(30)
 };
 
-const API_VERSION = 8;
+const USER_FLAGS = {
+	DISCORD_EMPLOYEE: BigInt(1) << BigInt(0),
+	PARTNERED_SERVER_OWNER: BigInt(1) << BigInt(1),
+	DISCORD_PARTNER: BigInt(1) << BigInt(1),
+	HYPESQUAD_EVENTS: BigInt(1) << BigInt(2),
+	BUGHUNTER_LEVEL_1: BigInt(1) << BigInt(3),
+	HOUSE_BRAVERY: BigInt(1) << BigInt(6),
+	HOUSE_BRILLIANCE: BigInt(1) << BigInt(7),
+	HOUSE_BALANCE: BigInt(1) << BigInt(8),
+	EARLY_SUPPORTER: BigInt(1) << BigInt(9),
+	TEAM_USER: BigInt(1) << BigInt(10),
+	SYSTEM: BigInt(1) << BigInt(12),
+	BUGHUNTER_LEVEL_2: BigInt(1) << BigInt(14),
+	VERIFIED_BOT: BigInt(1) << BigInt(16),
+	EARLY_VERIFIED_DEVELOPER: BigInt(1) << BigInt(17),
+	VERIFIED_DEVELOPER: BigInt(1) << BigInt(17)
+};
+
+const SYSTEM_CHANNEL_FLAGS = {
+	WELCOME_MESSAGE_DISABLED: BigInt(1) << BigInt(0),
+	BOOST_MESSAGE_DISABLED: BigInt(1) << BigInt(1)
+};
+
+const MESSAGE_FLAGS = {
+	CROSSPOSTED: BigInt(1) << BigInt(0),
+	IS_CROSSPOST: BigInt(1) << BigInt(1), // 1 << 2 has been removed in API v9 (suppress embeds) and was only intended in official client embed serialization anyways.
+	SOURCE_MESSAGE_DELETED: BigInt(1) << BigInt(3),
+	URGENT: BigInt(1) << BigInt(4)
+};
+
+const GUILD_VERIFICATION_LEVELS = {
+	0: "NONE" as const,
+	1: "LOW" as const,
+	2: "MEDIUM" as const,
+	3: "HIGH" as const,
+	4: "VERY_HIGH" as const
+};
+
+const API_VERSION = 9;
 
 const Constants = {
 	API_VERSION,
@@ -107,9 +163,12 @@ const Constants = {
 	BASE_HOST: "https://discord.com",
 	SYSTEM_USER_ID: "643945264868098049",
 	CLIENT_ONLY_EVENTS,
-	CLOUD_ONLY_EVENTS,
 	Colors,
 	PERMISSION_FLAGS,
+	USER_FLAGS,
+	SYSTEM_CHANNEL_FLAGS,
+	MESSAGE_FLAGS,
+	GUILD_VERIFICATION_LEVELS,
 	EVENTS
 };
 

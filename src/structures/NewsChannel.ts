@@ -2,13 +2,11 @@ import TextChannel from "./TextChannel";
 
 class NewsChannel extends TextChannel {
 	// @ts-ignore
-	public type: "news"
+	public type: "news" = "news";
 
 	public constructor(data: import("@amanda/discordtypings").NewsChannelData, client: import("./Client")) {
 		// @ts-ignore
 		super(data, client);
-
-		this.type = "news";
 	}
 
 	// @ts-ignore

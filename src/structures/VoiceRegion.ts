@@ -7,7 +7,7 @@ class VoiceRegion {
 	public custom: boolean;
 	public sampleHostname: string;
 
-	public constructor(data: any) {
+	public constructor(data: { id: string; name: string; vip: boolean; deprecated: boolean; optimal: boolean; custom: false; sample_hostname?: string }) {
 		this.id = data.id;
 		this.name = data.name;
 		this.vip = data.vip;

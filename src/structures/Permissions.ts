@@ -3,7 +3,7 @@ import Constants from "../Constants";
 import BitField from "./BitField";
 
 interface PermissionsConstructor {
-	new(bits: import("../Types").PermissionResolvable): Permissions;
+	new(bits?: import("../Types").PermissionResolvable): Permissions;
 	readonly prototype: Permissions;
 	readonly [Symbol.species]: PermissionsConstructor;
 }
@@ -15,20 +15,13 @@ class Permissions extends BitField<typeof Constants.PERMISSION_FLAGS> {
 	// @ts-ignore
 	readonly [Symbol.species]: PermissionsConstructor;
 
+	public static FLAGS = Constants.PERMISSION_FLAGS;
+	public FLAGS = Constants.PERMISSION_FLAGS;
 	public static ALL = Object.values(Constants.PERMISSION_FLAGS).reduce((all, p) => all | p, BigInt(0));
 	public static DEFAULT = BigInt(10432467);
 
-	public constructor(bits: import("../Types").PermissionResolvable) {
-		// @ts-ignore
-		super(bits);
-	}
-
-	public static get FLAGS() {
-		return Constants.PERMISSION_FLAGS;
-	}
-
-	public get FLAGS() {
-		return Constants.PERMISSION_FLAGS;
+	public constructor(bits?: import("../Types").PermissionResolvable) {
+		super(bits || 0);
 	}
 
 	/**

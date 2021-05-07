@@ -1,4 +1,4 @@
-import { flatten, basename } from "./Util/Util";
+import { basename } from "./Util/Util";
 
 /**
  * Represents an attachment in a message.
@@ -24,22 +24,22 @@ class MessageAttachment {
 	/**
 	 * The Proxy URL to this attachment
 	 */
-	public proxyURL!: string;
+	public proxyURL = "";
 	/**
 	 * The height of this attachment (if an image or video)
 	 */
-	public height!: number | null;
+	public height: number | null = null;
 	/**
 	 * The width of this attachment (if an image or video)
 	 */
-	public width!: number | null;
+	public width: number | null = null;
 
 	/**
 	 * @param attachment The file
 	 * @param name The name of the file, if any
 	 * @param data Extra data
 	 */
-	public constructor(attachment: import("../Types").BufferResolvable | import("stream").Stream, name: string | null = null, data?: any) {
+	public constructor(attachment: import("../Types").BufferResolvable | import("stream").Stream, name: string | null = null, data?: import("@amanda/discordtypings").AttachmentData) {
 		this.attachment = attachment;
 		this.name = name;
 		if (data) this._patch(data);
@@ -67,13 +67,13 @@ class MessageAttachment {
 		return this;
 	}
 
-	public _patch(data: any) {
-		this.id = data.id;
-		this.size = data.size;
-		this.url = data.url;
-		this.proxyURL = data.proxy_url;
-		this.height = typeof data.height !== "undefined" ? data.height : null;
-		this.width = typeof data.width !== "undefined" ? data.width : null;
+	public _patch(data: import("@amanda/discordtypings").AttachmentData) {
+		if (data.id) this.id = data.id;
+		if (data.size) this.size = data.size;
+		if (data.url) this.url = data.url;
+		if (data.proxy_url) this.proxyURL = data.proxy_url;
+		if (data.height) this.height = data.height;
+		if (data.width) this.width = data.width;
 	}
 
 	/**
@@ -84,7 +84,16 @@ class MessageAttachment {
 	}
 
 	public toJSON() {
-		return flatten(this);
+		return {
+			id: this.id,
+			size: this.size,
+			url: this.url,
+			proxy_url: this.url,
+			height: this.height,
+			width: this.width,
+			name: this.name,
+			attachment: this.attachment
+		};
 	}
 }
 

@@ -5,33 +5,22 @@ import User from "./User";
 class GuildMember {
 	public client: import("./Client");
 	public partial: false;
-	public user: import("./User");
-	public id: string;
-	public nickname: string | null;
-	public deaf: boolean;
-	public mute: boolean;
-	public joinedAt: Date;
-	public premiumSince: string | null;
-	public roles: Array<string>;
-	public guild: import("./Partial/PartialGuild") | null;
+	public user!: import("./User");
+	public id!: string;
+	public nickname: string | null = null;
+	public deaf = false;
+	public mute = false;
+	public joinedAt!: Date;
+	public joinedTimestamp!: number;
+	public premiumSince: string | null = null;
+	public roles: Array<string> = [];
+	public guild: import("./Partial/PartialGuild") | null = null;
 
-	public constructor(data: import("@amanda/discordtypings").MemberData & { user: import("@amanda/discordtypings").UserData; }, client: import("./Client")) {
-		const PartialGuild = require("./Partial/PartialGuild");
-
+	public constructor(data: import("@amanda/discordtypings").MemberData & { user: import("@amanda/discordtypings").UserData; guild_id?: string }, client: import("./Client")) {
 		this.client = client;
 		this.partial = false;
 
-		this.user = data.user.id === client.user?.id ? client.user : new User(data.user, client);
-		this.id = data.user.id;
-		this.nickname = data.nick || null;
-		this.deaf = data.deaf || false;
-		this.mute = data.mute || false;
-		this.joinedAt = new Date(data.joined_at);
-		this.premiumSince = data.premium_since || null;
-		this.roles = data.roles || [];
-
-		// @ts-ignore
-		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
+		this._patch(data);
 	}
 
 	public get displayName() {
@@ -56,7 +45,7 @@ class GuildMember {
 			id: this.id,
 			nick: this.nickname,
 			mute: this.mute,
-			joined_at: this.joinedAt,
+			joined_at: this.joinedAt.toISOString(),
 			premium_since: this.premiumSince,
 			user: this.user.toJSON(),
 			roles: this.roles,
@@ -66,6 +55,25 @@ class GuildMember {
 
 	public send(content: import("../Types").StringResolvable, options: import("../Types").MessageOptions = {}) {
 		return TextBasedChannel.send(this, content, options);
+	}
+
+	public _patch(data: import("@amanda/discordtypings").MemberData & { user: import("@amanda/discordtypings").UserData; guild_id?: string }) {
+		const PartialGuild = require("./Partial/PartialGuild");
+		if (data.user) {
+			if (data.user.id === this.client.user?.id) this.client.user._patch(data.user);
+			this.user = data.user.id === this.client.user?.id ? this.client.user : new User(data.user, this.client);
+			this.id = data.user.id;
+		}
+		if (data.nick !== undefined) this.nickname = data.nick;
+		if (data.deaf !== undefined) this.deaf = data.deaf;
+		if (data.mute !== undefined) this.mute = data.mute;
+		if (data.joined_at) {
+			this.joinedAt = new Date(data.joined_at);
+			this.joinedTimestamp = this.joinedAt.getTime();
+		}
+		if (data.premium_since !== undefined) this.premiumSince = data.premium_since;
+		if (data.roles && Array.isArray(data.roles)) this.roles = data.roles;
+		if (!this.guild || data.guild_id) this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, this.client) : null;
 	}
 }
 

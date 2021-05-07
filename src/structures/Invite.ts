@@ -1,64 +1,46 @@
-import Constants from "../Constants";
-
 class Invite {
 	public client: import("./Client");
-	public guild: import("./Guild");
-	public code: string;
-	public presenceCount: number;
-	public memberCount: number;
-	public textChannelCount: number;
-	public voiceChannelCount: number;
-	public temporary: boolean;
-	public maxAge: number;
-	public uses: number;
-	public maxUses: number;
-	public inviter: import("./User");
-	public channel: import("./Partial/PartialChannel");
-	public createdTimestamp: number;
+	public guild: import("./Partial/PartialGuild") | null = null;
+	public code!: string;
+	public presenceCount = 0;
+	public memberCount = 0;
+	public temporary = true;
+	public maxAge = 0;
+	public uses = 0;
+	public maxUses = 0;
+	public inviter: import("./User") | null = null;
+	public channel!: import("./Partial/PartialChannel");
+	public createdTimestamp!: number;
+	public targetUserType: 1 | 2 | null = null;
+	public targetUser: import("./User") | null = null;
 
-	public constructor(data: any, client: import("./Client")) {
-		const Guild = require("./Guild");
-		const User = require("./User");
-		const PartialChannel = require("./Partial/PartialChannel");
-		const PartialUser = require("./Partial/PartialUser");
-
+	public constructor(data: import("@amanda/discordtypings").InviteData & { guild_id?: string; temporay?: boolean }, client: import("./Client")) {
 		this.client = client;
 
 		if (data.approximate_member_count && data.guild) Object.assign(data.guild, { member_count: data.approximate_member_count });
 
-		this.guild = new Guild(data.guild, client);
-		this.code = data.code;
-		this.presenceCount = data.approximate_presence_count || 0;
-		this.memberCount = data.approximate_member_count || 0;
-		this.textChannelCount = data.text_channel_count || 0;
-		this.voiceChannelCount = data.voice_channel_count || 0;
-		this.temporary = data.temporary || false;
-		this.maxAge = data.max_age || 0;
-		this.uses = data.uses || 0;
-		this.maxUses = data.max_uses || 0;
-		this.inviter = data.inviter ? (data.invite.id === client.user?.id ? client.user : new User(data.inviter, client)) : new PartialUser({ id: Constants.SYSTEM_USER_ID }, client);
-		this.channel = new PartialChannel({ id: data.channel.id, guild_id: data.guild.id }, client);
-		this.createdTimestamp = data.created_at ? new Date(data.created_at).getTime() : new Date().getTime();
+		this._patch(data);
 	}
 
 	public get createdAt() {
-		return new Date(this.createdTimestamp);
+		return this.createdTimestamp ? new Date(this.createdTimestamp) : null;
 	}
 
 	public get expiresTimestamp() {
-		return this.createdTimestamp + (this.maxAge * 1000);
+		return this.createdTimestamp && this.maxAge ? this.createdTimestamp + (this.maxAge * 1000) : null;
 	}
 
 	public get expiresAt() {
-		return new Date(this.expiresTimestamp);
+		return this.expiresTimestamp ? new Date(this.expiresTimestamp) : null;
 	}
 
 	public get url() {
 		return `https://discord.gg/${this.code}`;
 	}
 
-	public delete() {
-		return this.client._snow.invite.deleteInvite(this.code).then(() => this);
+	public async delete() {
+		await this.client._snow.invite.deleteInvite(this.code);
+		return this;
 	}
 
 	public toString() {
@@ -66,20 +48,51 @@ class Invite {
 	}
 
 	public toJSON() {
-		return {
-			guild: this.guild.toJSON(),
+		const value: { guild?: { id: string; name: string; }; guild_id?: string; code: string; approximate_presence_count: number; approximate_member_count: number; temporary: boolean; max_age: number; max_uses: number; inviter?: import("@amanda/discordtypings").UserData; channel: { id: string; name: string; type: number; }; channel_id: string; created_at?: string; expires_at?: string; } = {
 			code: this.code,
 			approximate_presence_count: this.presenceCount,
 			approximate_member_count: this.memberCount,
-			text_channel_count: this.textChannelCount,
-			voice_channel_count: this.voiceChannelCount,
 			temporary: this.temporary,
 			max_age: this.maxAge,
 			max_uses: this.maxUses,
-			inviter: this.inviter.toJSON(),
 			channel: this.channel.toJSON(),
-			created_at: this.createdAt.toUTCString()
+			channel_id: this.channel.id
 		};
+		if (this.inviter) value["inviter"] = this.inviter.toJSON();
+		if (this.createdAt) value["created_at"] = this.createdAt.toISOString();
+		if (this.guild) {
+			value["guild"] = this.guild.toJSON();
+			value["guild_id"] = this.guild.id;
+		}
+		if (this.expiresAt) value["expires_at"] = this.expiresAt.toISOString();
+		return value;
+	}
+
+	public valueOf() {
+		return this.code;
+	}
+
+	public _patch(data: import("@amanda/discordtypings").InviteData & { channel_id?: string; created_at?: string; guild_id?: string; temporary?: boolean; max_age?: number; max_uses?: number; uses?: number }) {
+		const PartialGuild: typeof import("./Partial/PartialGuild") = require("./Partial/PartialGuild");
+		const User: typeof import("./User") = require("./User");
+		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
+
+		if (data.guild || data.guild_id) this.guild = new PartialGuild({ id: data.guild ? data.guild.id as string : data.guild_id as string, name: data.guild ? data.guild.name : undefined }, this.client);
+		if (data.code) this.code = data.code;
+		if (data.approximate_presence_count !== undefined) this.presenceCount = data.approximate_presence_count;
+		if (data.approximate_member_count !== undefined) this.memberCount = data.approximate_member_count;
+		if (data.temporary !== undefined) this.temporary = data.temporary;
+		if (data.max_age !== undefined) this.maxAge = data.max_age;
+		if (data.uses !== undefined) this.uses = data.uses;
+		if (data.max_uses !== undefined) this.maxUses = data.max_uses;
+		if (data.channel || data.channel_id) this.channel = new PartialChannel({ id: data.channel ? data.channel.id : data.channel_id as string, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? (data.channel.type === 2 ? "voice" : data.channel.type === 1 ? "dm" : "text") : undefined }, this.client);
+		if (data.created_at) this.createdTimestamp = new Date(data.created_at).getTime();
+		if (data.inviter) {
+			if (data.inviter.id === this.client.user?.id) this.client.user._patch(data.inviter);
+			this.inviter = data.inviter.id === this.client.user?.id ? this.client.user : new User(data.inviter, this.client);
+		}
+		if (data.target_type !== undefined) this.targetUserType = data.target_type;
+		if (data.target_user !== undefined) this.targetUser = new User(data.target_user, this.client);
 	}
 }
 

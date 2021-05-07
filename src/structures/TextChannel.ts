@@ -3,24 +3,18 @@ import TextBasedChannel from "./Interfaces/TextBasedChannel";
 import GuildChannel from "./GuildChannel";
 
 class TextChannel extends GuildChannel {
-	public lastMessageID: string | null;
-	public lastPinAt: Date | null;
-	public lastPinTimestamp: number | null;
-	public nsfw: boolean;
-	public rateLimitPerUser: number;
-	public topic: string;
-	public type: "text";
+	public lastMessageID: string | null = null;
+	public lastPinAt: Date | null = null;
+	public lastPinTimestamp: number | null = null;
+	public nsfw = false;
+	public rateLimitPerUser = 0;
+	public topic = "";
+	public type: "text" = "text";
 
 	public constructor(data: import("@amanda/discordtypings").TextChannelData, client: import("./Client")) {
 		super(data, client);
 
-		this.lastMessageID = data.last_message_id || null;
-		this.lastPinAt = data.last_pin_timestamp ? new Date(data.last_pin_timestamp) : null;
-		this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
-		this.nsfw = data.nsfw || false;
-		this.rateLimitPerUser = data.rate_limit_per_user || 0;
-		this.topic = data.topic || "";
-		this.type = "text";
+		this._patch(data);
 	}
 
 	public toJSON() {
@@ -57,6 +51,19 @@ class TextChannel extends GuildChannel {
 		const data = await TextBasedChannel.fetchMessages(this.client, this.id, options);
 		if (this.guild) data.forEach(i => i.guild = this.guild);
 		return data;
+	}
+
+	public _patch(data: import("@amanda/discordtypings").TextChannelData) {
+		if (!this.lastMessageID || data.last_message_id !== undefined) this.lastMessageID = data.last_message_id || null;
+		if (!this.lastPinAt || data.last_pin_timestamp !== undefined) {
+			this.lastPinAt = data.last_pin_timestamp ? new Date(data.last_pin_timestamp) : null;
+			this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
+		}
+		if (!this.nsfw || data.nsfw !== undefined) this.nsfw = data.nsfw || false;
+		if (!this.rateLimitPerUser || data.rate_limit_per_user !== undefined) this.rateLimitPerUser = data.rate_limit_per_user || 0;
+		if (!this.topic || data.topic !== undefined) this.topic = data.topic || "";
+
+		super._patch(data);
 	}
 }
 

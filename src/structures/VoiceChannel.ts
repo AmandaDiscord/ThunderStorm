@@ -1,18 +1,15 @@
 import GuildChannel from "./GuildChannel";
 
 class VoiceChannel extends GuildChannel {
-	public bitrate: number;
-	public userLimit: number;
-	public rtcRegion: string | null;
-	public type: "voice";
+	public bitrate = 8;
+	public userLimit = 0;
+	public rtcRegion: string | null = null;
+	public type: "voice" = "voice";
 
 	public constructor(data: import("@amanda/discordtypings").VoiceChannelData, client: import("./Client")) {
 		super(data, client);
 
-		this.bitrate = data.bitrate || 8;
-		this.userLimit = data.user_limit || 0;
-		this.type = "voice";
-		this.rtcRegion = data.rtc_region || null;
+		this._patch(data);
 	}
 
 	public toJSON(): import("@amanda/discordtypings").VoiceChannelData {
@@ -22,6 +19,14 @@ class VoiceChannel extends GuildChannel {
 			rtc_region: this.rtcRegion,
 			type: 2 as const
 		});
+	}
+
+	public _patch(data: import("@amanda/discordtypings").VoiceChannelData) {
+		if (data.bitrate !== undefined) this.bitrate = data.bitrate;
+		if (data.user_limit !== undefined) this.userLimit = data.user_limit;
+		if (data.rtc_region !== undefined) this.rtcRegion = data.rtc_region;
+
+		super._patch(data);
 	}
 }
 

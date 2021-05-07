@@ -19,7 +19,13 @@ const EPOCH = Number(DiscordSnowflake.Epoch);
  * A container for useful snowflake-related methods.
  */
 class SnowflakeUtil {
-	constructor() {
+	/**
+	 * Discord's epoch value (2015-01-01T00:00:00.000Z).
+	 * @readonly
+	 */
+	public static EPOCH = EPOCH;
+
+	public constructor() {
 		throw new Error(`The ${this.constructor.name} class may not be instantiated.`);
 	}
 
@@ -50,14 +56,6 @@ class SnowflakeUtil {
 			binary: Util.idToBinary(snowflake)
 		};
 		return returnValue;
-	}
-
-	/**
-	 * Discord's epoch value (2015-01-01T00:00:00.000Z).
-	 * @readonly
-	 */
-	static get EPOCH() {
-		return EPOCH;
 	}
 }
 

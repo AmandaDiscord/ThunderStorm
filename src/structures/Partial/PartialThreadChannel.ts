@@ -1,20 +1,21 @@
 import TextBasedChannel from "../Interfaces/TextBasedChannel";
 
 import PartialBase from "./PartialBase";
+import PartialChannel from "./PartialChannel";
 import PartialGuild from "./PartialGuild";
 
-class PartialChannel extends PartialBase<import("../Channel")> {
-	public type: "text" | "dm" | "voice" | "unknown";
-	public partialType: "Channel" = "Channel";
+class PartialThreadChannel extends PartialBase<import("../ThreadTextChannel") | import("../ThreadNewsChannel")> {
+	public partialType: "Thread" = "Thread";
 	public guild: PartialGuild | null;
-	public name: string;
+	public parent: PartialChannel;
+	public memberCount = 0;
 
 	public constructor(data: import("../../internal").PartialData, client: import("../Client")) {
 		super(data, client);
 
-		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
-		this.type = data.type || "unknown";
-		this.name = data.name || "unknown";
+		this.guild = new PartialGuild({ id: data.guild_id as string }, client);
+		this.parent = new PartialChannel({ id: data.channel_id as string }, client);
+		if (data.number) this.memberCount = data.number || 0;
 	}
 
 	public toString() {
@@ -23,9 +24,9 @@ class PartialChannel extends PartialBase<import("../Channel")> {
 
 	public toJSON() {
 		return {
-			guild_id: this.guild ? this.guild.id : null,
-			type: this.type === "dm" ? 1 : (this.type === "voice" ? 2 : 0),
-			name: this.name,
+			guild_id: this.guild?.id || null,
+			parent_id: this.parent.id,
+			member_count: this.memberCount,
 			...super.toJSON()
 		};
 	}
@@ -55,4 +56,4 @@ class PartialChannel extends PartialBase<import("../Channel")> {
 	}
 }
 
-export = PartialChannel;
+export = PartialThreadChannel;

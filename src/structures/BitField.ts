@@ -9,18 +9,13 @@ class BitField<T> {
 	public static readonly default: typeof BitField = BitField;
 	readonly [Symbol.species]: BitFieldConstructor;
 
+	public static FLAGS: { [flag: string]: bigint } = {};
+	public FLAGS: { [flag: string]: bigint } = {};
+
 	public bitfield: bigint;
 
 	public constructor(bits: import("../Types").BitFieldResolvable<T>) {
 		this.bitfield = BitField.resolve.call(this, bits);
-	}
-
-	public static get FLAGS(): { [flag: string]: bigint } {
-		return {};
-	}
-
-	public get FLAGS(): { [flag: string]: bigint } {
-		return {};
 	}
 
 	/**

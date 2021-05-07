@@ -299,6 +299,40 @@ export function parseEmoji(text: string) {
 	return { animated: Boolean(m[1]), name: m[2], id: m[3] || null };
 }
 
+export function cleanContent(str: string, message: import("../Message")) {
+	let string = str
+		.replace(/<@!?\d+>/g, input => {
+			const id = input.replace(/<|!|>|@/g, "");
+			const member = message.mentions.members.get(id);
+			if (member) {
+				return removeMentions(`@${member.displayName}`);
+			} else {
+				const user = message.mentions.users.get(id);
+				return user ? removeMentions(`@${user.username}`) : input;
+			}
+		})
+		.replace(/<#\d+>/g, () => {
+			return "#deleted-channel";
+		})
+		.replace(/<@&\d+>/g, () => {
+			return "@deleted-role";
+		});
+	if (message.client.options.disableEveryone) {
+		string = string.replace(/@([^<>@ ]*)/gmsu, (match, target) => {
+			if (target.match(/^[&!]?\d+$/)) {
+				return `@${target}`;
+			} else {
+				return `@\u200b${target}`;
+			}
+		});
+	}
+	return string;
+}
+
+export function removeMentions(str: string) {
+	return str.replace(/@/g, "@\u200b");
+}
+
 export default {
 	isObject,
 	flatten,
@@ -316,5 +350,7 @@ export default {
 	escapeUnderline,
 	escapeStrikethrough,
 	escapeSpoiler,
-	parseEmoji
+	parseEmoji,
+	cleanContent,
+	removeMentions
 };

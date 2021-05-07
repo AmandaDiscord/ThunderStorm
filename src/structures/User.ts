@@ -1,31 +1,23 @@
-import TextBasedChannel from "./Interfaces/TextBasedChannel";
-
 import Constants from "../Constants";
 
-import SnowflakeUtil from "./Util/SnowflakeUtil";
+import TextBasedChannel from "./Interfaces/TextBasedChannel";
 
-class User {
-	public client: import("./Client");
-	public partial: false;
-	public username: string;
-	public discriminator: string;
-	public bot: boolean;
-	public id: string;
-	public avatar: string | null;
-	public flags: number;
-	public system: boolean;
+import Base from "./Base";
+import UserFlags from "./UserFlags";
+class User extends Base {
+	public partial: false = false;
+	public username!: string;
+	public discriminator!: string;
+	public bot!: boolean;
+	public id!: string;
+	public avatar!: string | null;
+	public flags!: Readonly<UserFlags>;
+	public system!: boolean;
 
 	public constructor(data: import("@amanda/discordtypings").UserData, client: import("./Client")) {
-		this.client = client;
-		this.partial = false;
+		super(data, client);
 
-		this.username = data.username;
-		this.discriminator = data.discriminator;
-		this.bot = data.bot || false;
-		this.id = data.id;
-		this.avatar = data.avatar || null;
-		this.flags = data.public_flags || 0;
-		this.system = data.system || false;
+		this._patch(data);
 	}
 
 	public get tag() {
@@ -34,14 +26,6 @@ class User {
 
 	public get defaultAvatarURL() {
 		return `${Constants.BASE_CDN_URL}/embed/avatars/${Number(this.discriminator) % 5}.png`;
-	}
-
-	public get createdTimestamp() {
-		return SnowflakeUtil.deconstruct(this.id).timestamp;
-	}
-
-	public get createdAt() {
-		return new Date(this.createdTimestamp);
 	}
 
 	public toString() {
@@ -55,7 +39,7 @@ class User {
 			bot: this.bot,
 			id: this.id,
 			avatar: this.avatar,
-			public_flags: this.flags
+			public_flags: Number(this.flags.bitfield)
 		};
 	}
 
@@ -76,6 +60,16 @@ class User {
 
 	public send(content: import("../Types").StringResolvable, options: import("../Types").MessageOptions = {}) {
 		return TextBasedChannel.send(this, content, options);
+	}
+
+	public _patch(data: import("@amanda/discordtypings").UserData) {
+		if (data.username) this.username = data.username;
+		if (data.discriminator) this.discriminator = data.discriminator;
+		if (!this.bot || data.bot !== undefined) this.bot = data.bot || false;
+		if (data.id) this.id = data.id;
+		if (!this.avatar) this.avatar = data.avatar || null;
+		if (!this.flags || data.public_flags) this.flags = new UserFlags(data.public_flags || 0).freeze();
+		if (!this.system || data.system !== undefined) this.system = data.system || false;
 	}
 }
 

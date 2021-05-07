@@ -3,12 +3,10 @@ import TextBasedChannel from "../Interfaces/TextBasedChannel";
 import PartialBase from "./PartialBase";
 
 class PartialUser extends PartialBase<import("../User")> {
-	public partialType: "User";
+	public partialType: "User" = "User";
 
 	public constructor(data: import("../../internal").PartialData, client: import("../Client")) {
 		super(data, client);
-
-		this.partialType = "User";
 	}
 
 	public toString() {

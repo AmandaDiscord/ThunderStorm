@@ -11,6 +11,7 @@ class Role {
 	public position: number;
 	public mentionable: boolean;
 	public guild: import("./Partial//PartialGuild");
+	public partial: false = false;
 
 	public constructor(data: import("@amanda/discordtypings").RoleData & { guild_id: string; }, client: import("./Client")) {
 		const PartialGuild = require("./Partial/PartialGuild"); // lazy load
