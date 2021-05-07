@@ -574,7 +574,7 @@
         "signature": "dcc97a5f66f43bd60bd53097ee3253e4eb8734b152bd720294801fb69cf8ca5a"
       },
       "../src/structures/interfaces/textbasedchannel.ts": {
-        "version": "e70ea8d85e5ae28695b129c5d4252edc339f5cf5f7d0da1910696300b644a158",
+        "version": "93080e8a61893c44f3f7836adca4e8f07cab7d1c39675a80ec9dffa223112c74",
         "signature": "25cff09509ac74f1e4217d62b8e69b4a17d31e09e6237086f211a3a17334d228"
       },
       "../src/structures/userflags.ts": {

@@ -15,7 +15,6 @@ async function send(instance, content, options = {}) {
     const GuildMember = require("../GuildMember");
     const Message = require("../Message");
     let mode;
-    const payload = await transform(content, options);
     if (instance instanceof PartialBase) {
         if (instance.partialType === "Channel" || instance.partialType === "Thread")
             mode = "channel";
@@ -32,6 +31,7 @@ async function send(instance, content, options = {}) {
         mode = "user";
     else if (instance instanceof Message)
         mode = "message";
+    const payload = await transform(content, options, mode === "message");
     let ID;
     if (mode == "user")
         ID = await instance.client._snow.user.createDirectMessageChannel(instance.id).then(chan => chan.id);
