@@ -2,7 +2,7 @@ import VoiceChannel from "./VoiceChannel";
 
 class StageChannel extends VoiceChannel {
 	// @ts-ignore
-	public type: "stage";
+	public type: "stage" = "stage";
 
 	public constructor(data: import("@amanda/discordtypings").StageChannelData, client: import("./Client")) {
 		// @ts-ignore lol type 13 isn't assignable to type 3

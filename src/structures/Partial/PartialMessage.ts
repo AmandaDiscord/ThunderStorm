@@ -19,8 +19,7 @@ class PartialMessage extends PartialBase<import("../Message")> {
 
 	public async edit(content: import("../../Types").StringResolvable, options: import("../../Types").MessageOptions = {}) {
 		const TextBasedChannel: typeof import("../Interfaces/TextBasedChannel") = require("../Interfaces/TextBasedChannel");
-		const data = TextBasedChannel.transform(content, options, true);
-		const msg = await this.client._snow.channel.editMessage(this.channel.id, this.id, data, { disableEveryone: options.disableEveryone || this.client._snow.options.disableEveryone || false });
+		const msg = await TextBasedChannel.send(this, content, options);
 		if (this.guild) msg.guild_id = this.guild.id;
 		return new Message(msg, this.client);
 	}

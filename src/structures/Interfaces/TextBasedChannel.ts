@@ -1,3 +1,8 @@
+import centra from "centra";
+import stream from "stream";
+import path from "path";
+import fs from "fs";
+
 import { isObject } from "../Util/Util";
 
 export interface FetchMessageOptions {
@@ -7,30 +12,39 @@ export interface FetchMessageOptions {
 	around?: string;
 }
 
-export async function send(instance: import("../Partial/PartialBase")<any> | import("../Channel") | import("../User") | import("../GuildMember"), content: import("../../Types").StringResolvable, options: import("../../Types").MessageOptions | undefined = {}) {
+type PartialMessagable = import("../Partial/PartialBase")<import("../Channel") | import("../User") | (import("../ThreadTextChannel") | import("../ThreadNewsChannel"))>
+
+export async function send(instance: PartialMessagable | import("../Channel") | import("../User") | import("../GuildMember"), content: import("../../Types").StringResolvable, options?: import("../../Types").MessageOptions): Promise<import("../Message")>;
+export async function send(instance: import("../Message") | import("../Partial/PartialMessage"), content: import("../../Types").StringResolvable, options?: import("../../Types").MessageOptions): Promise<import("@amanda/discordtypings").MessageData>
+export async function send(instance: PartialMessagable | import("../Channel") | import("../User") | import("../GuildMember") | import("../Message") | import("../Partial/PartialMessage"), content: import("../../Types").StringResolvable, options: import("../../Types").MessageOptions | undefined = {}): Promise<import("../Message") | import("@amanda/discordtypings").MessageData> {
 	const PartialBase: typeof import("../Partial/PartialBase") = require("../Partial/PartialBase");
 
 	const User: typeof import("../User") = require("../User");
 	const Channel: typeof import("../Channel") = require("../Channel");
 	const GuildMember: typeof import("../GuildMember") = require("../GuildMember");
-
 	const Message: typeof import("../Message") = require("../Message"); // lazy load
 
 	let mode;
-	const payload = transform(content, options);
+	const payload = await transform(content, options);
 
 	if (instance instanceof PartialBase) {
 		if (instance.partialType === "Channel" || instance.partialType === "Thread") mode = "channel";
 		if (instance.partialType === "User") mode = "user";
+		if (instance.partialType === "Message") mode = "message";
 	} else if (instance instanceof Channel) mode = "channel";
 	else if (instance instanceof User) mode = "user";
 	else if (instance instanceof GuildMember) mode = "user";
+	else if (instance instanceof Message) mode = "message";
 
 	let ID;
 	if (mode == "user") ID = await instance.client._snow.user.createDirectMessageChannel(instance.id).then(chan => chan.id);
+	else if (mode === "message") ID = (instance as typeof Message.prototype).channel.id;
 	else ID = instance.id;
 
-	const msg = await instance.client._snow.channel.createMessage(ID, payload, { disableEveryone: options.disableEveryone || instance.client._snow.options.disableEveryone || false });
+	let msg;
+	if (mode !== "message") msg = await instance.client._snow.channel.createMessage(ID, payload, { disableEveryone: options.disableEveryone || instance.client._snow.options.disableEveryone || false });
+	else msg = await instance.client._snow.channel.editMessage(ID, instance.id, payload, { disableEveryone: options.disableEveryone || instance.client._snow.options.disableEveryone || false });
+	if (mode === "message") return msg;
 	return new Message(msg, instance.client);
 }
 
@@ -64,7 +78,7 @@ export async function fetchMessages(client: import("../Client"), channelID: stri
 	return data.map(i => new Message(i, client));
 }
 
-export function transform(content: import("../../Types").StringResolvable | import("../../Types").MessageOptions, options?: import("../../Types").MessageOptions, isEdit?: boolean): { content?: string | null; embeds?: Array<any>; nonce?: string; tts?: boolean; file?: any; } {
+export async function transform(content: import("../../Types").StringResolvable | import("../../Types").MessageOptions, options?: import("../../Types").MessageOptions, isEdit?: boolean): Promise<{ content?: string | null; embeds?: Array<any>; nonce?: string; tts?: boolean; file?: any; }> {
 	const MessageEmbed: typeof import("../MessageEmbed") = require("../MessageEmbed");
 	const MessageAttachment: typeof import("../MessageAttachment") = require("../MessageAttachment");
 
@@ -86,11 +100,50 @@ export function transform(content: import("../../Types").StringResolvable | impo
 		content = content.join("\n");
 	} else content = String(content);
 
+	let file: { name?: string; file: Buffer } | undefined = undefined;
+	if (opts.file) {
+		file = {} as { file: Buffer };
+		Object.assign(file, { name: opts.file.name || "file.png" });
+		if (Buffer.isBuffer(opts.file.attachment)) Object.assign(file, { file: opts.file.attachment });
+		else if (opts.file.attachment instanceof stream.Readable) {
+			const buf = await getStream(opts.file.attachment);
+			Object.assign(file, { file: buf });
+		} else if (typeof opts.file.attachment === "string" && opts.file.attachment.startsWith("http")) {
+			const res = await centra(opts.file.attachment, "get").header("User-Agent", "ThunderStorm (https://github.com/AmandaDiscord/ThunderStorm, 0.1.0)").header("Accept", "*/*").send();
+			if (res.statusCode !== 200) throw new Error("Non OK status code on get Attachment");
+			if (!res.body) throw new Error("No body on get Attachment");
+
+			const decoded = new URL(opts.file.attachment);
+			const contentType = res.headers["content-type"];
+
+			if (decoded.pathname.match(/\.\w+$/)) Object.assign(file, { name: (decoded.pathname.match(/\/(\w+%-\.\w+$)/) as RegExpMatchArray)[1] });
+			else if (contentType) {
+				let type = "png";
+				const split = contentType.split("/");
+
+				if (contentType === "text/plain") type = "txt";
+				else if (contentType === "image/jpeg") type = "jpg";
+				else if (contentType === "audio/mpeg") type = "mp3";
+				else if (contentType === "audio/vorbis") type = "ogg";
+				else type = split[1];
+
+				Object.assign(file, { name: `file.${type}` });
+			}
+
+			Object.assign(file, { file: res.body });
+		} else if (typeof opts.file.attachment === "string" && (path.isAbsolute(opts.file.attachment) || opts.file.attachment.startsWith("."))) {
+			const dir = path.isAbsolute(opts.file.attachment) ? opts.file.attachment : path.join(process.cwd(), opts.file.attachment);
+			const buf = await fs.promises.readFile(dir);
+
+			Object.assign(file, { name: path.basename(opts.file.attachment), file: buf });
+		} else Object.assign(file, { name: opts.file.name || "file.png", file: Buffer.from(opts.file.attachment as string) });
+	}
+
 	payload["content"] = opts.content || content || "";
 	payload["embed"] = opts.embed ? opts.embed.toJSON() : undefined;
 	payload["nonce"] = opts.nonce;
 	payload["tts"] = opts.tts || false;
-	payload["file"] = opts.file ? { name: opts.file.name || "file.png", file: opts.file.attachment.toString() } : undefined;
+	if (!isEdit) payload["file"] = file ? file as unknown as { name?: string; file: string } : undefined;
 
 	if (isEdit && !payload["content"]) payload["content"] = null;
 
@@ -110,6 +163,22 @@ export function transform(content: import("../../Types").StringResolvable | impo
 	}
 
 	return payload;
+}
+
+function getStream(readable: stream.Readable): Promise<Buffer> {
+	return new Promise(res => {
+		const chunks: Array<Buffer> = [];
+		const fn = (chunk: Buffer) => {
+			chunks.push(chunk);
+		};
+
+		readable.on("data", fn);
+
+		readable.once("end", () => {
+			readable.removeListener("data", fn);
+			res(Buffer.concat(chunks));
+		});
+	});
 }
 
 export function sendTyping(client: import("../Client"), channelID: string) {
