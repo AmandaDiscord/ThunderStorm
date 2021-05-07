@@ -20,7 +20,22 @@ class GuildMember {
 		this.client = client;
 		this.partial = false;
 
-		this._patch(data);
+		const PartialGuild = require("./Partial/PartialGuild");
+		if (data.user) {
+			if (data.user.id === this.client.user?.id) this.client.user._patch(data.user);
+			this.user = data.user.id === this.client.user?.id ? this.client.user : new User(data.user, this.client);
+			this.id = data.user.id;
+		}
+		if (data.nick !== undefined) this.nickname = data.nick;
+		if (data.deaf !== undefined) this.deaf = data.deaf;
+		if (data.mute !== undefined) this.mute = data.mute;
+		if (data.joined_at) {
+			this.joinedAt = new Date(data.joined_at);
+			this.joinedTimestamp = this.joinedAt.getTime();
+		}
+		if (data.premium_since !== undefined) this.premiumSince = data.premium_since;
+		if (data.roles && Array.isArray(data.roles)) this.roles = data.roles;
+		if (!this.guild || data.guild_id) this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, this.client) : null;
 	}
 
 	public get displayName() {

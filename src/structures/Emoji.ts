@@ -18,7 +18,23 @@ class Emoji {
 	public constructor(data: import("@amanda/discordtypings").EmojiData, client: import("./Client")) {
 		this.client = client;
 
-		this._patch(data);
+		const PartialRole: typeof import("./Partial/PartialRole") = require("./Partial/PartialRole");
+		const User: typeof import("./User") = require("./User");
+
+		if (data.id || data.id === null) this.id = data.id;
+		if (data.name) this.name = data.name;
+		if (data.animated != undefined) this.animated = data.animated;
+		if (data.managed != undefined) this.managed = data.managed;
+		if (data.available != undefined) this.available = data.available;
+		if (data.require_colons != undefined) this.requiresColons = data.require_colons;
+		if (data.user) {
+			if (data.user.id === this.client.user?.id) this.client.user._patch(data.user);
+			this.user = data.user.id === this.client.user?.id ? this.client.user : new User(data.user, this.client);
+		}
+		if (data.roles && Array.isArray(data.roles)) {
+			this.roles.clear();
+			for (const role of data.roles) this.roles.set(role, new PartialRole({ id: role }, this.client));
+		}
 	}
 
 	public get identifier() {

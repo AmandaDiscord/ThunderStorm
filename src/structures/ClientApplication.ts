@@ -11,7 +11,11 @@ class ClientApplication extends Application {
 	public constructor(data: import("@amanda/discordtypings").ApplicationData, client: import("./Client")) {
 		super(data, client);
 
-		this._patch(data);
+		if (data.cover_image !== undefined) this.cover = data.cover_image;
+		if (!this.rpcOrigins || data.rpc_origins !== undefined) this.rpcOrigins = data.rpc_origins || [];
+		if (!this.botRequiredCodeGrant || data.bot_require_code_grant !== undefined) this.botRequiredCodeGrant = data.bot_require_code_grant || false;
+		if (!this.botPublic || data.bot_public !== undefined) this.botPublic = data.bot_public === false ? false : true;
+		if (!this.owner || data.team || data.owner) this.owner = data.team ? new Team(data.team, this.client) : data.owner ? new User(data.owner, this.client) : null;
 	}
 
 	public toJSON() {

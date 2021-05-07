@@ -39,7 +39,35 @@ class Message extends Base {
 
 	public constructor(data: import("@amanda/discordtypings").MessageData, client: import("./Client")) {
 		super(data, client);
-		this._patch(data);
+
+		const MessageEmbed: typeof import("./MessageEmbed") = require("./MessageEmbed");
+		const PartalGuild: typeof import("./Partial/PartialGuild") = require("./Partial/PartialGuild");
+		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel"); // lazy load
+
+		if (data.id) this.id = data.id;
+		if (data.channel_id) this.channel = new PartialChannel({ id: data.channel_id, guild_id: data.guild_id, type: data.guild_id ? "text" : "dm" }, this.client);
+		if (data.guild_id) this.guild = new PartalGuild({ id: data.guild_id }, this.client);
+		if (data.author) this.author = data.author ? data.author.id === this.client.user?.id ? this.client.user : new User(data.author, this.client) : new User({ username: "Discord", discriminator: "0000", id: Constants.SYSTEM_USER_ID, avatar: "d9fa72d57744dea056b12e2b34a87173" }, this.client);
+		if (data.member && data.author) this.member = new GuildMember({ user: data.author, ...data.member }, this.client);
+		if (data.attachments && Array.isArray(data.attachments)) for (const attachment of data.attachments) this.attachments.set(attachment.id, new MessageAttachment(attachment.url, attachment.filename, attachment));
+		if (!this.application || data.application) this.application = data.application ? new ClientApplication(data.application, this.client) : null;
+		if (!this.activity || data.activity) this.activity = data.activity ? { partyID: data.activity.party_id, type: data.activity.type } : null;
+		if (data.content !== undefined) this.content = data.content || "";
+		if (data.edited_timestamp) {
+			this.editedAt = new Date(data.edited_timestamp);
+			this.editedTimestamp = this.editedAt ? this.editedAt.getTime() : null;
+		}
+		if (data.embeds) this.embeds = data.embeds && Array.isArray(data.embeds) ? data.embeds.map(embed => new MessageEmbed(embed, true)) : [];
+		if (!this.flags || data.flags !== undefined) this.flags = new MessageFlags(data.flags || 0).freeze();
+		if (!this.mentions || data.mentions || data.mention_channels || data.mention_everyone !== undefined || data.mention_roles) this.mentions = new MessageMentions(this, data.mentions, data.mention_roles, data.mention_everyone, data.mention_channels);
+		if (data.reactions && Array.isArray(data.reactions)) for (const reaction of data.reactions) this.reactions.set(reaction.emoji.id || reaction.emoji.name, new MessageReaction(this, reaction.emoji, reaction.count, reaction.me));
+		if (data.nonce !== undefined) this.nonce = data.nonce;
+		if (data.pinned !== undefined) this.pinned = data.pinned;
+		if (data.tts !== undefined) this.tts = data.tts;
+		if (data.type !== undefined) this.type = data.type;
+		this.system = this.author && this.author.system ? true : false;
+		if (data.webhook_id !== undefined) this.webhookID = data.webhook_id;
+		if (data.thread !== undefined) this.thread = data.thread ? new ThreadTextChannel(data.thread, this.client) : null;
 	}
 
 	public get cleanContent() {

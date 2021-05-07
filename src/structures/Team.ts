@@ -14,7 +14,14 @@ class Team extends Base {
 	public constructor(data: import("@amanda/discordtypings").TeamData, client: import("./Client")) {
 		super(data, client);
 
-		this._patch(data);
+		// @ts-ignore Discord.js docs name even though the typings doesn't declare a name???
+		if (!this.name || data.name !== undefined) this.name = data.name || null;
+		if (!this.icon || data.icon !== undefined) this.icon = data.icon || null;
+		if (data.owner_user_id !== undefined) this.ownerID = data.owner_user_id;
+		if (data.members && Array.isArray(data.members)) {
+			this.members.clear();
+			for (const member of data.members) this.members.set(member.user.id, new TeamMember(this, member));
+		}
 	}
 
 	public get owner() {

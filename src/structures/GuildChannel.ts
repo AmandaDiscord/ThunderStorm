@@ -11,7 +11,12 @@ class GuildChannel extends Channel {
 	public constructor(data: import("@amanda/discordtypings").GuildChannelData, client: import("./Client")) {
 		super(data, client);
 
-		this._patch(data);
+		const PartialGuild = require("./Partial/PartialGuild");
+
+		if (!this.parentID || data.parent_id !== undefined) this.parentID = data.parent_id || null;
+		if (data.position !== undefined) this.position = data.position;
+		if (data.permission_overwrites && Array.isArray(data.permission_overwrites)) for (const i of data.permission_overwrites) this.permissionOverwrites.set(i.id, new PermissionOverwrites(this, i));
+		if (data.guild_id) this.guild = new PartialGuild({ id: data.guild_id }, this.client);
 	}
 
 	public toJSON(): import("@amanda/discordtypings").GuildChannelData {

@@ -9,7 +9,9 @@ class VoiceChannel extends GuildChannel {
 	public constructor(data: import("@amanda/discordtypings").VoiceChannelData, client: import("./Client")) {
 		super(data, client);
 
-		this._patch(data);
+		if (data.bitrate !== undefined) this.bitrate = data.bitrate;
+		if (data.user_limit !== undefined) this.userLimit = data.user_limit;
+		if (data.rtc_region !== undefined) this.rtcRegion = data.rtc_region;
 	}
 
 	public toJSON(): import("@amanda/discordtypings").VoiceChannelData {

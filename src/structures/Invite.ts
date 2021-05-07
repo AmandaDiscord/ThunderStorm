@@ -14,12 +14,31 @@ class Invite {
 	public targetUserType: 1 | 2 | null = null;
 	public targetUser: import("./User") | null = null;
 
-	public constructor(data: import("@amanda/discordtypings").InviteData & { guild_id?: string; temporay?: boolean }, client: import("./Client")) {
+	public constructor(data: import("@amanda/discordtypings").InviteData & { channel_id?: string; created_at?: string; guild_id?: string; temporary?: boolean; max_age?: number; max_uses?: number; uses?: number }, client: import("./Client")) {
 		this.client = client;
 
 		if (data.approximate_member_count && data.guild) Object.assign(data.guild, { member_count: data.approximate_member_count });
 
-		this._patch(data);
+		const PartialGuild: typeof import("./Partial/PartialGuild") = require("./Partial/PartialGuild");
+		const User: typeof import("./User") = require("./User");
+		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
+
+		if (data.guild || data.guild_id) this.guild = new PartialGuild({ id: data.guild ? data.guild.id as string : data.guild_id as string, name: data.guild ? data.guild.name : undefined }, this.client);
+		if (data.code) this.code = data.code;
+		if (data.approximate_presence_count !== undefined) this.presenceCount = data.approximate_presence_count;
+		if (data.approximate_member_count !== undefined) this.memberCount = data.approximate_member_count;
+		if (data.temporary !== undefined) this.temporary = data.temporary;
+		if (data.max_age !== undefined) this.maxAge = data.max_age;
+		if (data.uses !== undefined) this.uses = data.uses;
+		if (data.max_uses !== undefined) this.maxUses = data.max_uses;
+		if (data.channel || data.channel_id) this.channel = new PartialChannel({ id: data.channel ? data.channel.id : data.channel_id as string, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? (data.channel.type === 2 ? "voice" : data.channel.type === 1 ? "dm" : "text") : undefined }, this.client);
+		if (data.created_at) this.createdTimestamp = new Date(data.created_at).getTime();
+		if (data.inviter) {
+			if (data.inviter.id === this.client.user?.id) this.client.user._patch(data.inviter);
+			this.inviter = data.inviter.id === this.client.user?.id ? this.client.user : new User(data.inviter, this.client);
+		}
+		if (data.target_type !== undefined) this.targetUserType = data.target_type;
+		if (data.target_user !== undefined) this.targetUser = new User(data.target_user, this.client);
 	}
 
 	public get createdAt() {

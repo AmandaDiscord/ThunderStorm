@@ -7,7 +7,7 @@ class PartialRole extends PartialBase<import("../Role")> {
 	public constructor(data: import("../../internal").PartialData, client: import("../Client")) {
 		super(data, client);
 
-		const PartialGuild: typeof import("./PartialGuild") = require("./Partial/PartialGuild");
+		const PartialGuild: typeof import("./PartialGuild") = require("./PartialGuild");
 
 		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, this.client) : null;
 	}

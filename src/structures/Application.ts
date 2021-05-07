@@ -14,7 +14,9 @@ class Application extends Base {
 	public constructor(data: import("@amanda/discordtypings").ApplicationData, client: import("./Client")) {
 		super(data, client);
 
-		this._patch(data);
+		if (data.description) this.description = data.description;
+		if (data.icon !== undefined) this.icon = data.icon;
+		if (data.name) this.name = data.name;
 	}
 
 	public iconURL(options = { size: 128, format: "png", dynamic: true }) {

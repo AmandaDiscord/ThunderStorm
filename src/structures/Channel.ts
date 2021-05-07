@@ -9,7 +9,7 @@ class Channel extends Base {
 	public constructor(data: import("@amanda/discordtypings").ChannelData, client: import("./Client")) {
 		super(data, client);
 
-		this._patch(data);
+		if (data.name) this.name = data.name;
 	}
 
 	public fetch() {

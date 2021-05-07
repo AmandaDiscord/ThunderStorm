@@ -9,7 +9,7 @@ class ClientUser extends User {
 	public constructor(data: import("@amanda/discordtypings").UserData, client: import("./Client")) {
 		super(data, client);
 
-		this._patch(data);
+		if (data.mfa_enabled !== undefined) this.mfaEnabled = data.mfa_enabled;
 	}
 
 	public get verified() {

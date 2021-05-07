@@ -16,6 +16,7 @@ class VoiceState {
 
 	public constructor(data: import("@amanda/discordtypings").VoiceStateData, client: import("./Client")) {
 		this.client = client;
+
 		this._patch(data);
 	}
 

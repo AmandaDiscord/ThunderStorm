@@ -11,7 +11,7 @@ class PartialChannel extends PartialBase<import("../Channel")> {
 	public constructor(data: import("../../internal").PartialData, client: import("../Client")) {
 		super(data, client);
 
-		const PartialGuild: typeof import("./PartialGuild") = require("./Partial/PartialGuild");
+		const PartialGuild: typeof import("./PartialGuild") = require("./PartialGuild");
 		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
 		this.type = data.type || "unknown";
 		this.name = data.name || "unknown";

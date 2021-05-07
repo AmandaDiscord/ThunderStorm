@@ -13,7 +13,12 @@ class TeamMember extends Base {
 
 		this.team = team;
 
-		this._patch(Object.assign({}, data, { id: data.user.id }));
+		if (data.permissions) this.permissions = data.permissions;
+		if (!this.membershipState || data.membership_state) this.membershipState = data.membership_state === 1 ? "INVITED" : "ACCEPTED";
+		if (data.user) {
+			if (data.user.id === this.client.user?.id) this.client.user._patch(data.user);
+			this.user = data.user.id === this.client.user?.id ? this.client.user : new User(data.user, this.client);
+		}
 	}
 
 	public toString() {

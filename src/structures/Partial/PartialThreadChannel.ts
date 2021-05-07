@@ -11,7 +11,7 @@ class PartialThreadChannel extends PartialBase<import("../ThreadTextChannel") | 
 	public constructor(data: import("../../internal").PartialData, client: import("../Client")) {
 		super(data, client);
 
-		const PartialGuild: typeof import("./PartialGuild") = require("./Partial/PartialGuild");
+		const PartialGuild: typeof import("./PartialGuild") = require("./PartialGuild");
 		const PartialChannel: typeof import("./PartialChannel") = require("./PartialChannel");
 
 		this.guild = new PartialGuild({ id: data.guild_id as string }, client);

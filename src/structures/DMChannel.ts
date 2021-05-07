@@ -14,7 +14,18 @@ class DMChannel extends Channel {
 	public constructor(data: import("@amanda/discordtypings").DMChannelData, client: import("./Client")) {
 		super(Object.assign({}, data, { name: client.user?.username || data.recipients && data.recipients[0] ? data.recipients[0].id : "deleted-channel" }), client);
 
-		this._patch(Object.assign({}, data, { name: client.user?.username || data.recipients && data.recipients[0] ? data.recipients[0].id : "deleted-channel" }));
+		if (data.last_message_id !== undefined) this.lastMessageID = data.last_message_id || null;
+		if (data.last_pin_timestamp !== undefined) {
+			this.lastPinAt = data.last_pin_timestamp ? new Date(data.last_pin_timestamp) : null;
+			this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
+		}
+		if (data.recipients) {
+			this.recipients.clear();
+			for (const recipient of data.recipients) {
+				if (recipient.id === this.client.user?.id) this.client.user?._patch(recipient);
+				this.recipients.set(recipient.id, recipient.id === this.client.user?.id ? this.client.user : new User(recipient, this.client));
+			}
+		}
 	}
 
 	public toJSON() {
