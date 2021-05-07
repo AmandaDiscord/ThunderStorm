@@ -6,7 +6,7 @@ const SnowflakeUtil_1 = __importDefault(require("./Util/SnowflakeUtil"));
 class Base {
     constructor(data, client) {
         this.client = client;
-        this._patch(data);
+        this.id = data.id;
     }
     get createdTimestamp() {
         return SnowflakeUtil_1.default.deconstruct(this.id).timestamp;
