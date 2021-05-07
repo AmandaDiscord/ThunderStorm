@@ -88,8 +88,7 @@ class Message extends Base_1.default {
     }
     async edit(content, options = {}) {
         const TextBasedChannel = require("./Interfaces/TextBasedChannel");
-        const data = TextBasedChannel.transform(content, options, true);
-        const msg = await this.client._snow.channel.editMessage(this.channel.id, this.id, data, { disableEveryone: options.disableEveryone || this.client._snow.options.disableEveryone || false });
+        const msg = await TextBasedChannel.send(this, content, options);
         if (this.guild)
             msg.guild_id = this.guild.id;
         return this._patch(msg);

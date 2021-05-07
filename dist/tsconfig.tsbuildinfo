@@ -502,7 +502,7 @@
         "signature": "1f596863aad41454e53d0128346d0cb02b6760c0d4867a31b7f690aef3ea279c"
       },
       "../src/structures/stagechannel.ts": {
-        "version": "7d47cd6a7723ecb46fad579c2a2638d817ea8db0a2ff7516b9295464e1129f85",
+        "version": "32c36de995baed90a996a70d60fa9167e21d542b7269e57a9f713f34d999dc18",
         "signature": "bbbc51ca63f11bf86a7104ca3222efffa2e5f4eb1436c973d72fc867f359f808"
       },
       "../src/structures/systemchannelflags.ts": {
@@ -565,13 +565,17 @@
         "version": "67eb480970b6be1c7291c4047f52b3d83bce8f98475a48ddb155d76ea5807350",
         "signature": "ee709c36b304377353332e41208e49d48a37ab5f4ef8929de2869bcd8ffe9cf8"
       },
+      "../src/structures/partial/partialmessage.ts": {
+        "version": "6d5e0ef3102d7ab39441d22ccd4980c3657aea2f58f39f2719c614824639c69e",
+        "signature": "f177b06356caf253b4b2310f22fb2b947f9f0187cba2d8f699144ba54dfd9a78"
+      },
       "../src/structures/messageattachment.ts": {
         "version": "c06e5932c31878b09259636b9f8df13107d8da8c77e615ea56ffc1dc57ad7fb8",
         "signature": "dcc97a5f66f43bd60bd53097ee3253e4eb8734b152bd720294801fb69cf8ca5a"
       },
       "../src/structures/interfaces/textbasedchannel.ts": {
-        "version": "d5bdbf1bf5abff29e56afd0ea2ffa16fe5f2b062dccf9d4da45eab199608b304",
-        "signature": "62127e7202454e6a055024fcd33149745c47b0df9487cfb5c82ea789a7ba4cf1"
+        "version": "e70ea8d85e5ae28695b129c5d4252edc339f5cf5f7d0da1910696300b644a158",
+        "signature": "25cff09509ac74f1e4217d62b8e69b4a17d31e09e6237086f211a3a17334d228"
       },
       "../src/structures/userflags.ts": {
         "version": "af0625a8e68c00f2e7be8dfcf7213d6f7d4f8db1b6f6ec103954f17ca0f920d9",
@@ -625,16 +629,12 @@
         "version": "8bc775e752da91cf5389bd2db69e0aa8ba324025a7fc9ca4d201b4443189cb77",
         "signature": "3107528d885afc471f20bc2538e1a4f1ccfcafc81245e14b9402808872e87e32"
       },
-      "../src/structures/partial/partialmessage.ts": {
-        "version": "8c68bbb957e908724c2f1dc7d43f103fd11e7d682ec076af3587bd7757b262f7",
-        "signature": "f177b06356caf253b4b2310f22fb2b947f9f0187cba2d8f699144ba54dfd9a78"
-      },
       "../src/structures/messagereaction.ts": {
         "version": "b0095a7d7a3680a80e59527480299e1e05b93a798719ca12f14d66b12f1c8afe",
         "signature": "78c80a8e0e8943631e100c68e2cf4346095d464da195b2e5aa670b659e4d7b50"
       },
       "../src/structures/message.ts": {
-        "version": "067fbd091e02a7104a46b37bd2a5ca3eab7df9048c4a0b7f32fc14e0457a784c",
+        "version": "19772cc54ef6d6275e04a538f6611c3472bc9da682ac755ea8323e385c63243a",
         "signature": "44b3d0a49fb17b00a2ddc7e26b840ebea10c85aab1012622621b01a7555f855d"
       },
       "../src/structures/util/util.ts": {
@@ -1191,6 +1191,16 @@
         "../src/structures/partial/partialchannel.ts",
         "../src/internal.ts"
       ],
+      "../src/structures/partial/partialmessage.ts": [
+        "../src/structures/partial/partialbase.ts",
+        "../src/structures/message.ts",
+        "../src/structures/partial/partialchannel.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../src/internal.ts",
+        "../src/structures/client.ts",
+        "../src/types.ts",
+        "../src/structures/interfaces/textbasedchannel.ts"
+      ],
       "../src/structures/messageattachment.ts": [
         "../src/structures/util/util.ts",
         "../node_modules/@types/node/stream.d.ts",
@@ -1198,13 +1208,21 @@
         "../node_modules/@amanda/discordtypings/index.d.ts"
       ],
       "../src/structures/interfaces/textbasedchannel.ts": [
+        "../node_modules/@types/centra/index.d.ts",
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/path.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
         "../src/structures/util/util.ts",
         "../src/structures/partial/partialbase.ts",
         "../src/structures/channel.ts",
         "../src/structures/user.ts",
+        "../src/structures/threadtextchannel.ts",
+        "../src/structures/threadnewschannel.ts",
         "../src/structures/guildmember.ts",
         "../src/types.ts",
         "../src/structures/message.ts",
+        "../src/structures/partial/partialmessage.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
         "../src/structures/client.ts",
         "../src/structures/messageembed.ts",
         "../src/structures/messageattachment.ts"
@@ -1308,16 +1326,6 @@
         "../src/structures/util/snowflakeutil.ts",
         "../src/structures/client.ts",
         "../src/structures/messagereaction.ts"
-      ],
-      "../src/structures/partial/partialmessage.ts": [
-        "../src/structures/partial/partialbase.ts",
-        "../src/structures/message.ts",
-        "../src/structures/partial/partialchannel.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../src/internal.ts",
-        "../src/structures/client.ts",
-        "../src/types.ts",
-        "../src/structures/interfaces/textbasedchannel.ts"
       ],
       "../src/structures/messagereaction.ts": [
         "../src/structures/util/collection.ts",
@@ -1609,22 +1617,25 @@
         "../src/structures/message.ts"
       ],
       "../src/structures/interfaces/textbasedchannel.ts": [
-        "../src/structures/partial/partialbase.ts",
         "../src/structures/channel.ts",
         "../src/structures/user.ts",
         "../src/structures/guildmember.ts",
         "../src/types.ts",
         "../src/structures/message.ts",
-        "../src/structures/client.ts"
+        "../src/structures/partial/partialmessage.ts",
+        "../node_modules/@amanda/discordtypings/index.d.ts",
+        "../src/structures/client.ts",
+        "../src/structures/partial/partialbase.ts",
+        "../src/structures/threadtextchannel.ts",
+        "../src/structures/threadnewschannel.ts"
       ],
-      "../src/structures/partial/partialmessage.ts": [
-        "../src/structures/partial/partialchannel.ts",
-        "../src/structures/partial/partialguild.ts",
-        "../src/internal.ts",
+      "../src/structures/user.ts": [
+        "../node_modules/@amanda/discordtypings/index.d.ts",
         "../src/structures/client.ts",
         "../src/types.ts",
         "../src/structures/message.ts",
-        "../src/structures/partial/partialbase.ts"
+        "../src/structures/userflags.ts",
+        "../src/structures/base.ts"
       ],
       "../src/structures/messagereaction.ts": [
         "../src/structures/message.ts",
@@ -1638,14 +1649,6 @@
       "../src/structures/reactionemoji.ts": [
         "../src/structures/client.ts",
         "../src/structures/messagereaction.ts"
-      ],
-      "../src/structures/user.ts": [
-        "../node_modules/@amanda/discordtypings/index.d.ts",
-        "../src/structures/client.ts",
-        "../src/types.ts",
-        "../src/structures/message.ts",
-        "../src/structures/userflags.ts",
-        "../src/structures/base.ts"
       ],
       "../src/structures/messagementions.ts": [
         "../src/structures/client.ts",
@@ -1725,6 +1728,15 @@
         "../src/structures/threadtextchannel.ts",
         "../src/structures/threadnewschannel.ts",
         "../src/structures/user.ts"
+      ],
+      "../src/structures/partial/partialmessage.ts": [
+        "../src/structures/partial/partialchannel.ts",
+        "../src/structures/partial/partialguild.ts",
+        "../src/internal.ts",
+        "../src/structures/client.ts",
+        "../src/types.ts",
+        "../src/structures/message.ts",
+        "../src/structures/partial/partialbase.ts"
       ],
       "../src/structures/partial/partialguild.ts": [
         "../src/internal.ts",
@@ -2306,6 +2318,7 @@
       "../src/structures/categorychannel.ts",
       "../src/structures/dmchannel.ts",
       "../src/structures/partial/partialbase.ts",
+      "../src/structures/partial/partialmessage.ts",
       "../src/structures/messageattachment.ts",
       "../src/structures/interfaces/textbasedchannel.ts",
       "../src/structures/userflags.ts",
@@ -2321,7 +2334,6 @@
       "../src/structures/messageflags.ts",
       "../src/structures/messagementions.ts",
       "../src/structures/reactionemoji.ts",
-      "../src/structures/partial/partialmessage.ts",
       "../src/structures/messagereaction.ts",
       "../src/structures/message.ts",
       "../src/structures/util/util.ts",

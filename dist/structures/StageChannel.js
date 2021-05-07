@@ -6,6 +6,7 @@ const VoiceChannel_1 = __importDefault(require("./VoiceChannel"));
 class StageChannel extends VoiceChannel_1.default {
     constructor(data, client) {
         super(data, client);
+        this.type = "stage";
     }
     toJSON() {
         return Object.assign(super.toJSON(), { type: 13 });
