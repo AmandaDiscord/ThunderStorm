@@ -77,9 +77,9 @@ function transform(content, options, isEdit) {
             opts.file = content;
         else
             Object.assign(opts, content);
-        content = undefined;
         if (content.disableEveryone !== undefined)
             opts.disableEveryone = content.disableEveryone;
+        content = undefined;
     }
     else if (Array.isArray(content)) {
         content = content.join("\n");
