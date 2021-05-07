@@ -80,8 +80,8 @@ export function transform(content: import("../../Types").StringResolvable | impo
 	} else if (isObject(content) && !Array.isArray(content) && (content.content || content.embed || content.nonce || content.tts || content.file)) {
 		if (content.attachment) opts.file = content;
 		else Object.assign(opts, content);
-		content = undefined;
 		if (content.disableEveryone !== undefined) opts.disableEveryone = content.disableEveryone;
+		content = undefined;
 	} else if (Array.isArray(content)) {
 		content = content.join("\n");
 	} else content = String(content);
