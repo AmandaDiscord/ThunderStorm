@@ -6,6 +6,9 @@ declare class PartialMessage extends PartialBase<import("../Message")> {
     partialType: "Message";
     constructor(data: import("../../internal").PartialData, client: import("../Client"));
     edit(content: import("../../Types").StringResolvable, options?: import("../../Types").MessageOptions): Promise<Message>;
+    /**
+     * @param timeout timeout in ms to delete the Message.
+     */
     delete(timeout?: number): Promise<this>;
     react(emoji: string): Promise<this>;
     clearReactions(): Promise<this>;

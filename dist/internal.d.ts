@@ -58,10 +58,10 @@ export interface CloudStormEventDataTable {
     VOICE_SERVER_UPDATE: Discord.VoiceServerUpdateData;
 }
 export interface InboundDataType<E extends keyof CloudStormEventDataTable> {
-    d: CloudStormEventDataTable[E];
+    d?: CloudStormEventDataTable[E];
     op: number;
-    s: number;
-    t: E;
+    s?: number;
+    t?: E;
     shard_id: number;
 }
 export interface PartialData {

@@ -16,6 +16,11 @@ declare class GuildMember {
         guild_id?: string;
     }, client: import("./Client"));
     get displayName(): string;
+    /**
+     * A combination of the member's tag and nickname
+     * - Nickname set:   PapiOphidian#0110 (Async)
+     * - Nickname unset: PapiOphidian#0110
+     */
     get displayTag(): string;
     toString(): string;
     toJSON(): {

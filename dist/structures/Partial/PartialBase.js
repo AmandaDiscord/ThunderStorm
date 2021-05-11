@@ -98,6 +98,7 @@ class PartialBase {
                 messagedata.guild_id = this.guild.id;
             data = new Message_1.default(messagedata, this.client);
         }
+        // @ts-ignore
         return data;
     }
 }

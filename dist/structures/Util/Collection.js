@@ -5,10 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const AC = require("@augu/collections");
 const Util_1 = __importDefault(require("./Util"));
 const BaseCollection = AC.Collection;
+// @ts-ignore Realistically, keys *could* be anything and not just a string | number | symbol
 class Collection extends BaseCollection {
     constructor(from) {
         super(from);
     }
+    // Added to support Discord.js Collections.
     get _array() {
         return this.array();
     }
@@ -96,6 +98,7 @@ class Collection extends BaseCollection {
             }
             accumulator = fn(accumulator, val, key, this);
         }
+        // No items iterated.
         if (first) {
             throw new TypeError("Reduce of empty collection with no initial value");
         }
@@ -161,8 +164,10 @@ class Collection extends BaseCollection {
         return results;
     }
     toJSON() {
+        // @ts-ignore
         return this.map(e => { var _a; return (typeof ((_a = e) === null || _a === void 0 ? void 0 : _a.toJSON) === "function" ? e.toJSON() : Util_1.default.flatten(e)); });
     }
+    // @ts-ignore
     find(fn, thisArg) {
         if (typeof thisArg !== "undefined")
             fn = fn.bind(thisArg);
@@ -172,6 +177,7 @@ class Collection extends BaseCollection {
         }
         return undefined;
     }
+    // @ts-ignore
     filter(fn, thisArg) {
         if (typeof thisArg !== "undefined")
             fn = fn.bind(thisArg);
@@ -182,6 +188,7 @@ class Collection extends BaseCollection {
         }
         return results;
     }
+    // @ts-ignore
     map(fn, thisArg) {
         if (typeof thisArg !== "undefined")
             fn = fn.bind(thisArg);
@@ -191,18 +198,22 @@ class Collection extends BaseCollection {
             return fn(value, key, this);
         });
     }
+    // @ts-ignore
     sort(compareFunction = (x, y) => Number(x > y) || Number(x === y) - 1) {
         const entries = [...this.entries()];
         entries.sort((a, b) => compareFunction(a[1], b[1], a[0], b[0]));
         super.clear();
+        // Set the new entries
         for (const [k, v] of entries) {
             this.set(k, v);
         }
         return this;
     }
     forEach(callbackfn, thisArg) {
+        // @ts-ignore
         return super.forEach(callbackfn, thisArg);
     }
+    // @ts-ignore
     static from(values) {
         const collection = new Collection();
         if (Array.isArray(values) && values.every(item => Array.isArray(item) && item.length === 2)) {
@@ -211,10 +222,12 @@ class Collection extends BaseCollection {
             }
         }
         else if (Array.isArray(values)) {
+            // @ts-ignore
             for (let i = 0; i < values.length; i++)
                 collection.set(i, values[i]);
         }
         else if (Util_1.default.isObject(values)) {
+            // @ts-ignore
             for (const [key, value] of Object.entries(values))
                 collection.set(key, value);
         }

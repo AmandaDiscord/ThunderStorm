@@ -1,4 +1,7 @@
 import Base from "./Base";
+/**
+ * @abstract
+ */
 declare class Application extends Base {
     description: string;
     icon: string | null;

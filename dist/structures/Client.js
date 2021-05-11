@@ -11,7 +11,8 @@ class Client extends events_1.EventEmitter {
         super();
         this.options = options;
         this.readyTimestamp = null;
-        const match = options.snowtransfer.token.match(/B?o?t? ?([\w\d\._]+)/);
+        // eslint-disable-next-line no-useless-escape
+        const match = options.snowtransfer.token.match(/B?o?t? ?([\w\d\._]+)/); // ok bro
         if (match)
             this.token = match[1];
         else

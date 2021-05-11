@@ -78,7 +78,17 @@ declare class Permissions extends BitField<typeof Constants.PERMISSION_FLAGS> {
     static ALL: bigint;
     static DEFAULT: bigint;
     constructor(bits?: import("../Types").PermissionResolvable);
+    /**
+     * Checks whether the bitfield has a permission, or any of multiple permissions.
+     * @param permission Permission(s) to check for
+     * @param checkAdmin Whether to allow the administrator permission to override
+     */
     any(permission: import("../Types").PermissionResolvable, checkAdmin?: boolean): boolean;
+    /**
+     * Checks whether the bitfield has a permission, or multiple permissions.
+     * @param permission Permission(s) to check for
+     * @param checkAdmin Whether to allow the administrator permission to override
+     */
     has(permission: import("../Types").PermissionResolvable, checkAdmin?: boolean): boolean;
 }
 export = Permissions;

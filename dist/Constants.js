@@ -78,7 +78,7 @@ const Colors = {
     GREYPLE: 0x99aab5,
     DARK_BUT_NOT_BLACK: 0x2c2f33,
     NOT_QUITE_BLACK: 0x23272a,
-    RANDOM: 0xD
+    RANDOM: 0xD // XD. Replaced at runtime when used natively
 };
 const PERMISSION_FLAGS = {
     CREATE_INSTANT_INVITE: BigInt(1) << BigInt(0),

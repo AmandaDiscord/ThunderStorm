@@ -21,6 +21,7 @@ class ClientApplication extends Application_1.default {
             this.owner = data.team ? new Team_1.default(data.team, this.client) : data.owner ? new User_1.default(data.owner, this.client) : null;
     }
     toJSON() {
+        // @ts-ignore
         const value = Object.assign(super.toJSON(), {
             rpc_origins: this.rpcOrigins,
             bot_require_code_grant: this.botRequiredCodeGrant,

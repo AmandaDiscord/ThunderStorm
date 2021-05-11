@@ -36,7 +36,7 @@ class Message extends Base_1.default {
         this.webhookID = null;
         const MessageEmbed = require("./MessageEmbed");
         const PartalGuild = require("./Partial/PartialGuild");
-        const PartialChannel = require("./Partial/PartialChannel");
+        const PartialChannel = require("./Partial/PartialChannel"); // lazy load
         if (data.id)
             this.id = data.id;
         if (data.channel_id)
@@ -93,6 +93,9 @@ class Message extends Base_1.default {
             msg.guild_id = this.guild.id;
         return this._patch(msg);
     }
+    /**
+     * @param timeout timeout in ms to delete the Message.
+     */
     async delete(timeout = 0) {
         const TextBasedChannel = require("./Interfaces/TextBasedChannel");
         await TextBasedChannel.deleteMessage(this.client, this.channel.id, this.id, timeout);
@@ -160,7 +163,7 @@ class Message extends Base_1.default {
         var _a;
         const MessageEmbed = require("./MessageEmbed");
         const PartalGuild = require("./Partial/PartialGuild");
-        const PartialChannel = require("./Partial/PartialChannel");
+        const PartialChannel = require("./Partial/PartialChannel"); // lazy load
         if (data.id)
             this.id = data.id;
         if (data.channel_id)

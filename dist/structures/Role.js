@@ -6,7 +6,7 @@ const SnowflakeUtil_1 = __importDefault(require("./Util/SnowflakeUtil"));
 class Role {
     constructor(data, client) {
         this.partial = false;
-        const PartialGuild = require("./Partial/PartialGuild");
+        const PartialGuild = require("./Partial/PartialGuild"); // lazy load
         this.client = client;
         this.name = data.name;
         this.id = data.id;

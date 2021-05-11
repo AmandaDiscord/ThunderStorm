@@ -36,6 +36,9 @@ declare class Message extends Base {
     constructor(data: import("@amanda/discordtypings").MessageData, client: import("./Client"));
     get cleanContent(): string;
     edit(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<void>;
+    /**
+     * @param timeout timeout in ms to delete the Message.
+     */
     delete(timeout?: number): Promise<this>;
     react(emoji: string): Promise<this>;
     clearReactions(): Promise<this>;

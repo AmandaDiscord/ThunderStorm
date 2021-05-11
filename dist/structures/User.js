@@ -71,7 +71,7 @@ class User extends Base_1.default {
             this.bot = data.bot || false;
         if (data.id)
             this.id = data.id;
-        if (!this.avatar)
+        if (!this.avatar || data.avatar !== undefined)
             this.avatar = data.avatar || null;
         if (!this.flags || data.public_flags)
             this.flags = new UserFlags_1.default(data.public_flags || 0).freeze();

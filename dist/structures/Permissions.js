@@ -9,9 +9,19 @@ class Permissions extends BitField_1.default {
         super(bits || 0);
         this.FLAGS = Constants_1.default.PERMISSION_FLAGS;
     }
+    /**
+     * Checks whether the bitfield has a permission, or any of multiple permissions.
+     * @param permission Permission(s) to check for
+     * @param checkAdmin Whether to allow the administrator permission to override
+     */
     any(permission, checkAdmin = true) {
         return (checkAdmin && this.has(this.constructor.FLAGS.ADMINISTRATOR)) || super.any.call(this, permission);
     }
+    /**
+     * Checks whether the bitfield has a permission, or multiple permissions.
+     * @param permission Permission(s) to check for
+     * @param checkAdmin Whether to allow the administrator permission to override
+     */
     has(permission, checkAdmin = true) {
         return (checkAdmin && super.has.call(this, this.constructor.FLAGS.ADMINISTRATOR)) || super.has.call(this, permission);
     }

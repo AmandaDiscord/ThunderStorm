@@ -23,6 +23,7 @@ class GuildChannel extends Channel_1.default {
             this.guild = new PartialGuild({ id: data.guild_id }, this.client);
     }
     toJSON() {
+        // @ts-ignore
         return {
             guild_id: this.guild.id,
             parent_id: this.parentID,

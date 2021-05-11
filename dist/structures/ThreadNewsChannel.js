@@ -8,7 +8,9 @@ const ThreadMetadata_1 = __importDefault(require("./ThreadMetadata"));
 const ThreadMember_1 = __importDefault(require("./ThreadMember"));
 class ThreadNewsChannel extends NewsChannel_1.default {
     constructor(data, client) {
+        // @ts-ignore
         super(data, client);
+        // @ts-ignore
         this.type = "news-thread";
         this.memberCount = 0;
         this.messageCount = 0;
@@ -41,7 +43,9 @@ class ThreadNewsChannel extends NewsChannel_1.default {
             this.members.set(member.id, member);
         return members;
     }
+    // @ts-ignore
     toJSON() {
+        // @ts-ignore
         return Object.assign(super.toJSON(), {
             type: 10,
             owner_id: this.ownerID,
@@ -52,6 +56,7 @@ class ThreadNewsChannel extends NewsChannel_1.default {
             guild_id: this.guild.id
         });
     }
+    // @ts-ignore
     _patch(data) {
         const PartialChannel = require("./Partial/PartialChannel");
         const PartialGuild = require("./Partial/PartialGuild");
@@ -70,6 +75,7 @@ class ThreadNewsChannel extends NewsChannel_1.default {
             this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id }, this.client);
         if (data.guild_id)
             this.guild = new PartialGuild({ id: data.guild_id }, this.client);
+        // @ts-ignore
         super._patch(data);
     }
 }

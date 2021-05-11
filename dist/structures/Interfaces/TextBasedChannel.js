@@ -13,7 +13,7 @@ async function send(instance, content, options = {}) {
     const User = require("../User");
     const Channel = require("../Channel");
     const GuildMember = require("../GuildMember");
-    const Message = require("../Message");
+    const Message = require("../Message"); // lazy load
     let mode;
     if (instance instanceof PartialBase) {
         if (instance.partialType === "Channel" || instance.partialType === "Thread")
@@ -67,13 +67,13 @@ function deleteMessage(client, channelID, messageID, timeout = 0) {
 }
 exports.deleteMessage = deleteMessage;
 async function fetchMessage(client, channelID, messageID) {
-    const Message = require("../Message");
+    const Message = require("../Message"); // lazy load
     const data = await client._snow.channel.getChannelMessage(channelID, messageID);
     return new Message(data, client);
 }
 exports.fetchMessage = fetchMessage;
 async function fetchMessages(client, channelID, options) {
-    const Message = require("../Message");
+    const Message = require("../Message"); // lazy load
     const data = await client._snow.channel.getChannelMessages(channelID, options);
     return data.map(i => new Message(i, client));
 }

@@ -42,6 +42,11 @@ class GuildMember {
     get displayName() {
         return this.nickname || this.user.username;
     }
+    /**
+     * A combination of the member's tag and nickname
+     * - Nickname set:   PapiOphidian#0110 (Async)
+     * - Nickname unset: PapiOphidian#0110
+     */
     get displayTag() {
         return this.nickname ? `${this.user.tag} (${this.nickname})` : this.user.tag;
     }

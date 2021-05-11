@@ -6,36 +6,61 @@ function isObject(d) {
     return typeof d === "object" && d !== null;
 }
 exports.isObject = isObject;
+/**
+ * Flatten an object. Any properties that are collections will get converted to an array of keys.
+ * @param obj The object to flatten.
+ * @param props Specific properties to include/exclude.
+ */
 function flatten(obj, ...props) {
     if (!isObject(obj))
         return obj;
     const objProps = Object.keys(obj)
         .filter(k => !k.startsWith("_"))
         .map(k => ({ [k]: true }));
+    // @ts-ignore
     props = objProps.length ? Object.assign(...objProps, ...props) : Object.assign({}, ...props);
     const out = {};
+    // eslint-disable-next-line prefer-const
     for (let [prop, newProp] of Object.entries(props)) {
         if (!newProp)
             continue;
+        // @ts-ignore
         newProp = newProp === true ? prop : newProp;
         const element = obj[prop];
         const elemIsObj = isObject(element);
         const valueOf = elemIsObj && typeof element.valueOf === "function" ? element.valueOf() : null;
+        // If it's an array, flatten each element
+        // @ts-ignore
         if (Array.isArray(element))
             out[newProp] = element.map(e => flatten(e));
+        // If it's an object with a primitive `valueOf`, use that value
+        // @ts-ignore
         else if (typeof valueOf !== "object")
             out[newProp] = valueOf;
+        // If it's a primitive
+        // @ts-ignore
         else if (!elemIsObj)
             out[newProp] = element;
     }
     return out;
 }
 exports.flatten = flatten;
+/**
+ * Alternative to Node's `path.basename`, removing query string after the extension if it exists.
+ * @param path Path to get the basename of
+ * @param ext File extension to remove
+ * @returns Basename of the path
+ */
 function basename(path, ext) {
     const res = path_1.parse(path);
     return ext && res.ext.startsWith(ext) ? res.name : res.base.split("?")[0];
 }
 exports.basename = basename;
+/**
+ * Resolves a ColorResolvable into a color number.
+ * @param color Color to resolve
+ * @returns A color
+ */
 function resolveColor(color) {
     if (typeof color === "string") {
         if (color === "RANDOM")
@@ -54,6 +79,10 @@ function resolveColor(color) {
     return color || 0;
 }
 exports.resolveColor = resolveColor;
+/**
+ * Resolves a StringResolvable to a string.
+ * @param data The string resolvable to resolve
+ */
 function resolveString(data) {
     if (typeof data === "string")
         return data;
@@ -62,10 +91,19 @@ function resolveString(data) {
     return String(data);
 }
 exports.resolveString = resolveString;
+/**
+ * Shallow-copies an object with its class/prototype intact.
+ * @param obj Object to clone
+ */
 function cloneObject(obj) {
+    // @ts-ignore
     return Object.assign(Object.create(obj), obj);
 }
 exports.cloneObject = cloneObject;
+/**
+ * Transforms a snowflake from a bit string to a decimal string.
+ * @param num Bit string to be transformed
+ */
 function binaryToID(num) {
     let dec = "";
     while (num.length > 50) {
@@ -78,14 +116,22 @@ function binaryToID(num) {
                     .toString(2)
                     .padStart(32, "0");
     }
+    // @ts-ignore
     num = parseInt(num, 2);
+    // @ts-ignore
     while (num > 0) {
+        // @ts-ignore
         dec = (num % 10).toString() + dec;
+        // @ts-ignore
         num = Math.floor(num / 10);
     }
     return dec;
 }
 exports.binaryToID = binaryToID;
+/**
+ * Transforms a snowflake from a decimal string to a bit string.
+ * @param num Snowflake to be transformed
+ */
 function idToBinary(num) {
     let bin = "";
     let high = parseInt(num.slice(0, -10)) || 0;
@@ -101,6 +147,11 @@ function idToBinary(num) {
     return bin;
 }
 exports.idToBinary = idToBinary;
+/**
+ * Escapes any Discord-flavour markdown in a string.
+ * @param text Content to escape
+ * @param options What types of markdown to escape
+ */
 function escapeMarkdown(text, { codeBlock = true, inlineCode = true, bold = true, italic = true, underline = true, strikethrough = true, spoiler = true, codeBlockContent = true, inlineCodeContent = true } = {}) {
     if (!codeBlockContent) {
         return text
@@ -154,14 +205,26 @@ function escapeMarkdown(text, { codeBlock = true, inlineCode = true, bold = true
     return text;
 }
 exports.escapeMarkdown = escapeMarkdown;
+/**
+ * Escapes code block markdown in a string.
+ * @param text Content to escape
+ */
 function escapeCodeBlock(text) {
     return text.replace(/```/g, "\\`\\`\\`");
 }
 exports.escapeCodeBlock = escapeCodeBlock;
+/**
+ * Escapes inline code markdown in a string.
+ * @param text Content to escape
+ */
 function escapeInlineCode(text) {
     return text.replace(/(?<=^|[^`])`(?=[^`]|$)/g, "\\`");
 }
 exports.escapeInlineCode = escapeInlineCode;
+/**
+ * Escapes italic markdown in a string.
+ * @param text Content to escape
+ */
 function escapeItalic(text) {
     let i = 0;
     text = text.replace(/(?<=^|[^*])\*([^*]|\*\*|$)/g, (_, match) => {
@@ -177,6 +240,10 @@ function escapeItalic(text) {
     });
 }
 exports.escapeItalic = escapeItalic;
+/**
+ * Escapes bold markdown in a string.
+ * @param text Content to escape
+ */
 function escapeBold(text) {
     let i = 0;
     return text.replace(/\*\*(\*)?/g, (_, match) => {
@@ -186,6 +253,10 @@ function escapeBold(text) {
     });
 }
 exports.escapeBold = escapeBold;
+/**
+ * Escapes underline markdown in a string.
+ * @param text Content to escape
+ */
 function escapeUnderline(text) {
     let i = 0;
     return text.replace(/__(_)?/g, (_, match) => {
@@ -195,14 +266,30 @@ function escapeUnderline(text) {
     });
 }
 exports.escapeUnderline = escapeUnderline;
+/**
+ * Escapes strikethrough markdown in a string.
+ * @param text Content to escape
+ */
 function escapeStrikethrough(text) {
     return text.replace(/~~/g, "\\~\\~");
 }
 exports.escapeStrikethrough = escapeStrikethrough;
+/**
+ * Escapes spoiler markdown in a string.
+ * @param text Content to escape
+ */
 function escapeSpoiler(text) {
     return text.replace(/\|\|/g, "\\|\\|");
 }
 exports.escapeSpoiler = escapeSpoiler;
+/**
+ * Parses emoji info out of a string. The string must be one of:
+ * * A UTF-8 emoji (no ID)
+ * * A URL-encoded UTF-8 emoji (no ID)
+ * * A Discord custom emoji (`<:name:id>` or `<a:name:id>`)
+ * @param text Emoji string to parse
+ * @returns Object with `animated`, `name`, and `id` properties
+ */
 function parseEmoji(text) {
     if (text.includes("%"))
         text = decodeURIComponent(text);

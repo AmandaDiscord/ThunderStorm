@@ -33,6 +33,7 @@ class VoiceState {
             user_id: this.id
         };
     }
+    // @ts-ignore Weird Discord structures be like
     _patch(data) {
         if (data.channel_id)
             this.channelID = data.channel_id;

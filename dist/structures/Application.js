@@ -4,6 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const Constants_1 = __importDefault(require("../Constants"));
 const Base_1 = __importDefault(require("./Base"));
+/**
+ * @abstract
+ */
 class Application extends Base_1.default {
     constructor(data, client) {
         super(data, client);

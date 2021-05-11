@@ -20,6 +20,9 @@ class PartialMessage extends PartialBase_1.default {
             msg.guild_id = this.guild.id;
         return new Message_1.default(msg, this.client);
     }
+    /**
+     * @param timeout timeout in ms to delete the Message.
+     */
     async delete(timeout = 0) {
         const TextBasedChannel = require("../Interfaces/TextBasedChannel");
         await TextBasedChannel.deleteMessage(this.client, this.channel.id, this.id, timeout);

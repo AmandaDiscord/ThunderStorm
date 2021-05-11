@@ -71,6 +71,7 @@ class MessageMentions {
                 const value = u.toJSON();
                 if (member) {
                     const mj = member.toJSON();
+                    // @ts-ignore I know what I'm doing
                     delete mj.user;
                     Object.assign(value, { member: mj });
                 }
@@ -83,7 +84,7 @@ class MessageMentions {
     }
 }
 MessageMentions.EVERYONE_PATTERN = /@(everyone|here)/g;
-MessageMentions.USERS_PATTERN = /<@!?(\d+)>/g;
-MessageMentions.ROLES_PATTERN = /<@&(\d+)>/g;
-MessageMentions.CHANNELS_PATTERN = /<#(\d+)>/g;
+MessageMentions.USERS_PATTERN = /<@!?(\d+)>/g; // context: https://github.com/discordjs/discord.js/blob/51551f544b80d7d27ab0b315da01dfc560b2c115/src/structures/MessageMentions.js#L211 (latest commit as of writing)
+MessageMentions.ROLES_PATTERN = /<@&(\d+)>/g; // never EVER define an ID length because the length is not guaranteed forever and will only cause a hassle once it does change.
+MessageMentions.CHANNELS_PATTERN = /<#(\d+)>/g; // The pErFoRmAnCe GaInS by specifying a length are non-existent here.
 module.exports = MessageMentions;
