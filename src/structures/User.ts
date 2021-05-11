@@ -73,7 +73,7 @@ class User extends Base {
 		if (data.discriminator) this.discriminator = data.discriminator;
 		if (!this.bot || data.bot !== undefined) this.bot = data.bot || false;
 		if (data.id) this.id = data.id;
-		if (!this.avatar) this.avatar = data.avatar || null;
+		if (!this.avatar || data.avatar !== undefined) this.avatar = data.avatar || null;
 		if (!this.flags || data.public_flags) this.flags = new UserFlags(data.public_flags || 0).freeze();
 		if (!this.system || data.system !== undefined) this.system = data.system || false;
 	}
