@@ -1,4 +1,5 @@
 import Discord = require("@amanda/discordtypings");
+import Constants from "./Constants";
 
 type ChannelDatas = Discord.DMChannelData | Discord.TextChannelData | Discord.CategoryChannelData | Discord.NewsChannelData | Discord.VoiceChannelData | Discord.StageChannelData;
 export interface CloudStormEventDataTable {
@@ -19,6 +20,7 @@ export interface CloudStormEventDataTable {
 	GUILD_ROLE_DELETE: { guild_id: string; role_id: string; };
 	GUILD_ROLE_UPDATE: { guild_id: string; role: Discord.RoleData; };
 	GUILD_UPDATE: Discord.GuildData;
+	INTERACTION_CREATE: Discord.InteractionData;
 	INVITE_CREATE: Discord.InviteCreateData;
 	INVITE_DELETE: Discord.InviteDeleteData;
 	MESSAGE_CREATE: Discord.MessageData;
@@ -58,6 +60,7 @@ export interface PartialData {
 	guild_id?: Discord.Snowflake;
 	channel_id?: Discord.Snowflake;
 	number?: number;
-	type?: "text" | "dm" | "voice" | "unknown";
+	type?: typeof Constants.CHANNEL_TYPES[keyof typeof Constants.CHANNEL_TYPES] | "unknown";
 	name?: string;
+	permissions?: string;
 }

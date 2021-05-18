@@ -10,7 +10,7 @@ type AnyChannel = import("./structures/DMChannel") | import("./structures/TextCh
 export interface ClientEvents {
 	channelCreate: [AnyChannel];
 	channelDelete: [import("./structures/Partial/PartialChannel")];
-	channelPinsUpdate: [import("@amanda/discordtypings").ChannelPinData];
+	channelPinsUpdate: [import("./structures/Partial/PartialChannel"), Date];
 	channelUpdate: [AnyChannel];
 	guildBanAdd: [import("./structures/Partial/PartialGuild"), import("./structures/User")];
 	guildBanRemove: [import("./structures/Partial/PartialGuild"), import("./structures/User")];
@@ -26,6 +26,7 @@ export interface ClientEvents {
 	guildRoleUpdate: [import("./structures/Role")];
 	guildUnavailable: [import("./structures/Partial/PartialGuild")];
 	guildUpdate: [import("./structures/Guild")];
+	interactionCreate: [import("./structures/InteractionMessage")];
 	invalidated: [];
 	inviteCreate: [import("./structures/Invite")];
 	inviteDelete: [import("./structures/Invite")];
@@ -113,6 +114,15 @@ export type MessageOptions = {
 	embed?: MessageEmbed;
 	disableEveryone?: boolean;
 	file?: MessageAttachment;
+	allowedMentions?: Exclude<Partial<import("@amanda/discordtypings").AllowedMentionsData>, "replied_user">;
+}
+export type InteractionMessageOptions = {
+	tts?: boolean;
+	content?: string;
+	embeds?: Array<MessageEmbed>;
+	allowedMentions?: Exclude<Partial<import("@amanda/discordtypings").AllowedMentionsData>, "replied_user">;
+	ephemeral?: boolean;
+	disableEveryone?: boolean;
 }
 
 export interface ClientOptions {

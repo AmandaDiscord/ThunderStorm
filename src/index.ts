@@ -15,11 +15,14 @@ import Channel from "./structures/Channel";
 import Client from "./structures/Client";
 import ClientApplication from "./structures/ClientApplication";
 import ClientUser from "./structures/ClientUser";
+import CommandOption from "./structures/CommandOption";
 import DMChannel from "./structures/DMChannel";
 import Emoji from "./structures/Emoji";
 import Guild from "./structures/Guild";
 import GuildChannel from "./structures/GuildChannel";
 import GuildMember from "./structures/GuildMember";
+import InteractionCommand from "./structures/InteractionCommand";
+import InteractionMessage from "./structures/InteractionMessage";
 import Invite from "./structures/Invite";
 import Message from "./structures/Message";
 import MessageAttachment from "./structures/MessageAttachment";
@@ -66,11 +69,14 @@ export {
 	Client,
 	ClientApplication,
 	ClientUser,
+	CommandOption,
 	DMChannel,
 	Emoji,
 	Guild,
 	GuildChannel,
 	GuildMember,
+	InteractionCommand,
+	InteractionMessage,
 	Invite,
 	Message,
 	MessageAttachment,

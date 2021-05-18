@@ -15,7 +15,7 @@ class PartialThreadChannel extends PartialBase<import("../ThreadTextChannel") | 
 		const PartialChannel: typeof import("./PartialChannel") = require("./PartialChannel");
 
 		this.guild = new PartialGuild({ id: data.guild_id as string }, client);
-		this.parent = new PartialChannel({ id: data.channel_id as string }, client);
+		this.parent = new PartialChannel({ id: data.channel_id as string, guild_id: data.guild_id }, client);
 		if (data.number) this.memberCount = data.number || 0;
 	}
 

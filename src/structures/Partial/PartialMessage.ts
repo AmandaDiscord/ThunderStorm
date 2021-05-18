@@ -13,7 +13,7 @@ class PartialMessage extends PartialBase<import("../Message")> {
 		const PartialGuild: typeof import("./PartialGuild") = require("./PartialGuild");
 		const PartialChannel: typeof import("./PartialChannel") = require("./PartialChannel");
 
-		this.channel = new PartialChannel({ id: data.channel_id as string, guild_id: data.guild_id }, client);
+		this.channel = new PartialChannel({ id: data.channel_id as string, guild_id: data.guild_id, type: data.guild_id ? "text" : "dm" }, client);
 		this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
 	}
 

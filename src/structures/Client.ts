@@ -70,7 +70,7 @@ class Client extends EventEmitter {
 		let code;
 		if (match && match[1]) code = match[1];
 		if (!code) return null;
-		const data = await this._snow.invite.getInvite(code, true);
+		const data = await this._snow.invite.getInvite(code, { with_counts: true, with_expiration: true });
 		return new Invite(data, this);
 	}
 

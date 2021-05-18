@@ -30,7 +30,7 @@ class ThreadNewsChannel extends NewsChannel {
 		if (data.member_count !== undefined) this.memberCount = data.member_count;
 		if (data.message_count !== undefined) this.messageCount = data.message_count;
 		if (!this.meta || data.thread_metadata) this.meta = new ThreadMetaData(this, data.thread_metadata);
-		if (data.parent_id) this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id }, this.client);
+		if (data.parent_id) this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id, type: "news" }, this.client);
 		if (data.guild_id) this.guild = new PartialGuild({ id: data.guild_id }, this.client);
 	}
 
@@ -69,7 +69,7 @@ class ThreadNewsChannel extends NewsChannel {
 		if (data.member_count !== undefined) this.memberCount = data.member_count;
 		if (data.message_count !== undefined) this.messageCount = data.message_count;
 		if (!this.meta || data.thread_metadata) this.meta = new ThreadMetaData(this, data.thread_metadata);
-		if (data.parent_id) this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id }, this.client);
+		if (data.parent_id) this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id, type: "news" }, this.client);
 		if (data.guild_id) this.guild = new PartialGuild({ id: data.guild_id }, this.client);
 		// @ts-ignore
 		super._patch(data);

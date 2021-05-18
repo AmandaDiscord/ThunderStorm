@@ -42,7 +42,7 @@ class MessageMentions {
 
 		const matches = this._content.match(MessageMentions.CHANNELS_PATTERN);
 		if (matches) {
-			for (const channel of matches.slice(1)) this.channels.set(channel, new PartialChannel({ id: channel }, this.client));
+			for (const channel of matches.slice(1)) this.channels.set(channel, new PartialChannel({ id: channel, guild_id: this.guild?.id }, this.client));
 		}
 
 		if (roles && this.guild) {

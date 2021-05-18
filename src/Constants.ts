@@ -16,6 +16,7 @@ const EVENTS = {
 	GUILD_ROLE_DELETE: "guildRoleDelete" as const,
 	GUILD_ROLE_UPDATE: "guildRoleUpdate" as const,
 	GUILD_UPDATE: "guildUpdate" as const,
+	INTERACTION_CREATE: "interactionCreate" as const,
 	INVALID_SESSION: "invalidated" as const,
 	INVITE_CREATE: "inviteCreate" as const,
 	INVITE_DELETE: "inviteDelete" as const,
@@ -154,6 +155,31 @@ const GUILD_VERIFICATION_LEVELS = {
 	4: "VERY_HIGH" as const
 };
 
+const CHANNEL_TYPES = {
+	0: "text" as const,
+	1: "dm" as const,
+	2: "voice" as const,
+	4: "category" as const,
+	5: "news" as const,
+	6: "store" as const,
+	10: "news-thread" as const,
+	11: "text-thread" as const,
+	12: "text-thread" as const,
+	13: "stage" as const
+};
+
+const COMMAND_TYPES = {
+	1: "command" as const,
+	2: "group" as const,
+	3: "string" as const,
+	4: "number" as const,
+	5: "boolean" as const,
+	6: "user" as const,
+	7: "channel" as const,
+	8: "role" as const,
+	9: "mentionable" as const
+};
+
 const API_VERSION = 9;
 
 const Constants = {
@@ -169,6 +195,8 @@ const Constants = {
 	SYSTEM_CHANNEL_FLAGS,
 	MESSAGE_FLAGS,
 	GUILD_VERIFICATION_LEVELS,
+	CHANNEL_TYPES,
+	COMMAND_TYPES,
 	EVENTS
 };
 

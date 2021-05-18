@@ -32,7 +32,7 @@ class ThreadTextChannel extends TextChannel {
 		if (data.message_count !== undefined) this.messageCount = data.message_count;
 		if (!this.meta || data.thread_metadata) this.meta = new ThreadMetaData(this, data.thread_metadata);
 		if (data.type) this.private = data.type === 12 ? true : false;
-		if (data.parent_id) this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id }, this.client);
+		if (data.parent_id) this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id, type: "text" }, this.client);
 		if (data.guild_id) this.guild = new PartialGuild({ id: data.guild_id }, this.client);
 	}
 
@@ -71,7 +71,7 @@ class ThreadTextChannel extends TextChannel {
 		if (data.message_count !== undefined) this.messageCount = data.message_count;
 		if (!this.meta || data.thread_metadata) this.meta = new ThreadMetaData(this, data.thread_metadata);
 		if (data.type) this.private = data.type === 12 ? true : false;
-		if (data.parent_id) this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id }, this.client);
+		if (data.parent_id) this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id, type: "text" }, this.client);
 		if (data.guild_id) this.guild = new PartialGuild({ id: data.guild_id }, this.client);
 		// @ts-ignore
 		super._patch(data);

@@ -1,3 +1,5 @@
+import Constants from "../Constants";
+
 class Invite {
 	public client: import("./Client");
 	public guild: import("./Partial/PartialGuild") | null = null;
@@ -31,7 +33,7 @@ class Invite {
 		if (data.max_age !== undefined) this.maxAge = data.max_age;
 		if (data.uses !== undefined) this.uses = data.uses;
 		if (data.max_uses !== undefined) this.maxUses = data.max_uses;
-		if (data.channel || data.channel_id) this.channel = new PartialChannel({ id: data.channel ? data.channel.id : data.channel_id as string, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? (data.channel.type === 2 ? "voice" : data.channel.type === 1 ? "dm" : "text") : undefined }, this.client);
+		if (data.channel || data.channel_id) this.channel = new PartialChannel({ id: data.channel ? data.channel.id : data.channel_id as string, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? Constants.CHANNEL_TYPES[data.channel.type] : undefined }, this.client);
 		if (data.created_at) this.createdTimestamp = new Date(data.created_at).getTime();
 		if (data.inviter) {
 			if (data.inviter.id === this.client.user?.id) this.client.user._patch(data.inviter);
@@ -104,7 +106,7 @@ class Invite {
 		if (data.max_age !== undefined) this.maxAge = data.max_age;
 		if (data.uses !== undefined) this.uses = data.uses;
 		if (data.max_uses !== undefined) this.maxUses = data.max_uses;
-		if (data.channel || data.channel_id) this.channel = new PartialChannel({ id: data.channel ? data.channel.id : data.channel_id as string, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? (data.channel.type === 2 ? "voice" : data.channel.type === 1 ? "dm" : "text") : undefined }, this.client);
+		if (data.channel || data.channel_id) this.channel = new PartialChannel({ id: data.channel ? data.channel.id : data.channel_id as string, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? Constants.CHANNEL_TYPES[data.channel.type] : undefined }, this.client);
 		if (data.created_at) this.createdTimestamp = new Date(data.created_at).getTime();
 		if (data.inviter) {
 			if (data.inviter.id === this.client.user?.id) this.client.user._patch(data.inviter);
