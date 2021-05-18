@@ -10,12 +10,15 @@ export declare function send(instance: import("../Message") | import("../Partial
 export declare function deleteMessage(client: import("../Client"), channelID: string, messageID: string, timeout?: number | undefined): Promise<void>;
 export declare function fetchMessage(client: import("../Client"), channelID: string, messageID: string): Promise<import("../Message")>;
 export declare function fetchMessages(client: import("../Client"), channelID: string, options?: FetchMessageOptions): Promise<Array<import("../Message")>>;
-export declare function transform(content: import("../../Types").StringResolvable | import("../../Types").MessageOptions, options?: import("../../Types").MessageOptions, isEdit?: boolean): Promise<{
+export declare function transform(content: import("../../Types").StringResolvable | import("../../Types").MessageOptions, options?: import("../../Types").MessageOptions | import("../../Types").InteractionMessageOptions, isEdit?: boolean, isWebhook?: boolean): Promise<{
     content?: string | null;
-    embeds?: Array<any>;
+    embed?: import("@amanda/discordtypings").EmbedData;
+    embeds?: Array<import("@amanda/discordtypings").EmbedData>;
     nonce?: string;
     tts?: boolean;
     file?: any;
+    flags?: number;
+    allowed_mentions?: Partial<import("@amanda/discordtypings").AllowedMentionsData>;
 }>;
 export declare function sendTyping(client: import("../Client"), channelID: string): Promise<void>;
 declare const _default: {

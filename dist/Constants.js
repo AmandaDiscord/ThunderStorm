@@ -17,6 +17,7 @@ const EVENTS = {
     GUILD_ROLE_DELETE: "guildRoleDelete",
     GUILD_ROLE_UPDATE: "guildRoleUpdate",
     GUILD_UPDATE: "guildUpdate",
+    INTERACTION_CREATE: "interactionCreate",
     INVALID_SESSION: "invalidated",
     INVITE_CREATE: "inviteCreate",
     INVITE_DELETE: "inviteDelete",
@@ -147,6 +148,29 @@ const GUILD_VERIFICATION_LEVELS = {
     3: "HIGH",
     4: "VERY_HIGH"
 };
+const CHANNEL_TYPES = {
+    0: "text",
+    1: "dm",
+    2: "voice",
+    4: "category",
+    5: "news",
+    6: "store",
+    10: "news-thread",
+    11: "text-thread",
+    12: "text-thread",
+    13: "stage"
+};
+const COMMAND_TYPES = {
+    1: "command",
+    2: "group",
+    3: "string",
+    4: "number",
+    5: "boolean",
+    6: "user",
+    7: "channel",
+    8: "role",
+    9: "mentionable"
+};
 const API_VERSION = 9;
 const Constants = {
     API_VERSION,
@@ -161,6 +185,8 @@ const Constants = {
     SYSTEM_CHANNEL_FLAGS,
     MESSAGE_FLAGS,
     GUILD_VERIFICATION_LEVELS,
+    CHANNEL_TYPES,
+    COMMAND_TYPES,
     EVENTS
 };
 module.exports = Constants;

@@ -35,7 +35,8 @@ declare class Message extends Base {
     webhookID: string | null;
     constructor(data: import("@amanda/discordtypings").MessageData, client: import("./Client"));
     get cleanContent(): string;
-    edit(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<void>;
+    reply(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<Message>;
+    edit(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<this>;
     /**
      * @param timeout timeout in ms to delete the Message.
      */

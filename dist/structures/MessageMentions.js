@@ -7,7 +7,7 @@ const GuildMember_1 = __importDefault(require("./GuildMember"));
 const User_1 = __importDefault(require("./User"));
 class MessageMentions {
     constructor(message, users, roles, everyone, crosspostedChannels) {
-        var _a, _b;
+        var _a, _b, _c;
         this.users = new Collection_1.default();
         this.members = new Collection_1.default();
         this.channels = new Collection_1.default();
@@ -33,7 +33,7 @@ class MessageMentions {
         const matches = this._content.match(MessageMentions.CHANNELS_PATTERN);
         if (matches) {
             for (const channel of matches.slice(1))
-                this.channels.set(channel, new PartialChannel({ id: channel }, this.client));
+                this.channels.set(channel, new PartialChannel({ id: channel, guild_id: (_c = this.guild) === null || _c === void 0 ? void 0 : _c.id }, this.client));
         }
         if (roles && this.guild) {
             for (const role of roles)

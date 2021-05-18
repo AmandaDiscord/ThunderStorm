@@ -86,12 +86,25 @@ class Message extends Base_1.default {
     get cleanContent() {
         return Util_1.default.cleanContent(this.content, this);
     }
+    async reply(content, options = {}) {
+        const TextBasedChannel = require("./Interfaces/TextBasedChannel");
+        const payload = await TextBasedChannel.transform(content, options);
+        const reference = {
+            message_id: this.id,
+            channel_id: this.channel.id
+        };
+        if (this.guild)
+            reference["guild_id"] = this.guild.id;
+        const msg = await this.client._snow.channel.createMessage(this.channel.id, Object.assign(payload, { message_reference: reference }), { disableEveryone: options.disableEveryone || this.client._snow.options.disableEveryone || false });
+        return new Message(msg, this.client);
+    }
     async edit(content, options = {}) {
         const TextBasedChannel = require("./Interfaces/TextBasedChannel");
         const msg = await TextBasedChannel.send(this, content, options);
         if (this.guild)
             msg.guild_id = this.guild.id;
-        return this._patch(msg);
+        this._patch(msg);
+        return this;
     }
     /**
      * @param timeout timeout in ms to delete the Message.

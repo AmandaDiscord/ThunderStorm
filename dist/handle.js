@@ -11,6 +11,7 @@ const DMChannel_1 = __importDefault(require("./structures/DMChannel"));
 const Emoji_1 = __importDefault(require("./structures/Emoji"));
 const Guild_1 = __importDefault(require("./structures/Guild"));
 const GuildMember_1 = __importDefault(require("./structures/GuildMember"));
+const InteractionMessage_1 = __importDefault(require("./structures/InteractionMessage"));
 const Invite_1 = __importDefault(require("./structures/Invite"));
 const Message_1 = __importDefault(require("./structures/Message"));
 const MessageReaction_1 = __importDefault(require("./structures/MessageReaction"));
@@ -82,12 +83,12 @@ function handle(data, client) {
     else if (data.t === "CHANNEL_DELETE") {
         // @ts-ignore
         const typed = data;
-        client.emit(Constants_1.default.EVENTS.CHANNEL_DELETE, new PartialChannel_1.default({ id: typed.d.id, name: typed.d.name, type: (typed.d.type === 2 || typed.d.type === 13) ? "voice" : typed.d.type === 1 ? "dm" : "text" }, client));
+        client.emit(Constants_1.default.EVENTS.CHANNEL_DELETE, new PartialChannel_1.default({ id: typed.d.id, name: typed.d.name, type: Constants_1.default.CHANNEL_TYPES[typed.d.type] }, client));
     }
     else if (data.t === "CHANNEL_PINS_UPDATE") {
         // @ts-ignore
         const typed = data;
-        client.emit(Constants_1.default.EVENTS.CHANNEL_PINS_UPDATE, typed.d);
+        client.emit(Constants_1.default.EVENTS.CHANNEL_PINS_UPDATE, new PartialChannel_1.default({ id: typed.d.channel_id, guild_id: typed.d.guild_id, type: typed.d.guild_id ? "text" : "dm" }, client), new Date(typed.d.last_pin_timestamp));
     }
     else if (data.t === "CHANNEL_UPDATE") {
         // @ts-ignore
@@ -169,6 +170,11 @@ function handle(data, client) {
         // @ts-ignore
         const typed = data;
         client.emit(Constants_1.default.EVENTS.GUILD_UPDATE, new Guild_1.default(typed.d, client));
+    }
+    else if (data.t === "INTERACTION_CREATE") {
+        // @ts-ignore
+        const typed = data;
+        client.emit(Constants_1.default.EVENTS.INTERACTION_CREATE, new InteractionMessage_1.default(typed.d, client));
     }
     else if (data.op === 9) {
         client.emit(Constants_1.default.EVENTS.INVALID_SESSION);
@@ -271,7 +277,7 @@ function handle(data, client) {
     else if (data.t === "TYPING_START") {
         // @ts-ignore
         const typed = data;
-        client.emit(Constants_1.default.EVENTS.TYPING_START, new PartialChannel_1.default({ id: typed.d.channel_id, guild_id: typed.d.guild_id }, client), new PartialUser_1.default({ id: typed.d.user_id }, client));
+        client.emit(Constants_1.default.EVENTS.TYPING_START, new PartialChannel_1.default({ id: typed.d.channel_id, guild_id: typed.d.guild_id, type: typed.d.guild_id ? "text" : "dm" }, client), new PartialUser_1.default({ id: typed.d.user_id }, client));
     }
     else if (data.t === "USER_UPDATE") {
         // @ts-ignore

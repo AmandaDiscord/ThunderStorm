@@ -29,7 +29,7 @@ class ThreadNewsChannel extends NewsChannel_1.default {
         if (!this.meta || data.thread_metadata)
             this.meta = new ThreadMetadata_1.default(this, data.thread_metadata);
         if (data.parent_id)
-            this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id }, this.client);
+            this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id, type: "news" }, this.client);
         if (data.guild_id)
             this.guild = new PartialGuild({ id: data.guild_id }, this.client);
     }
@@ -72,7 +72,7 @@ class ThreadNewsChannel extends NewsChannel_1.default {
         if (!this.meta || data.thread_metadata)
             this.meta = new ThreadMetadata_1.default(this, data.thread_metadata);
         if (data.parent_id)
-            this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id }, this.client);
+            this.parent = new PartialChannel({ id: data.parent_id, guild_id: data.guild_id, type: "news" }, this.client);
         if (data.guild_id)
             this.guild = new PartialGuild({ id: data.guild_id }, this.client);
         // @ts-ignore

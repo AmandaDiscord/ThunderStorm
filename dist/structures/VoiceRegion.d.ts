@@ -12,7 +12,7 @@ declare class VoiceRegion {
         vip: boolean;
         deprecated: boolean;
         optimal: boolean;
-        custom: false;
+        custom: boolean;
         sample_hostname?: string;
     });
     toString(): string;

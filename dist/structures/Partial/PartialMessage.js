@@ -10,7 +10,7 @@ class PartialMessage extends PartialBase_1.default {
         this.partialType = "Message";
         const PartialGuild = require("./PartialGuild");
         const PartialChannel = require("./PartialChannel");
-        this.channel = new PartialChannel({ id: data.channel_id, guild_id: data.guild_id }, client);
+        this.channel = new PartialChannel({ id: data.channel_id, guild_id: data.guild_id, type: data.guild_id ? "text" : "dm" }, client);
         this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
     }
     async edit(content, options = {}) {

@@ -1,4 +1,8 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+const Constants_1 = __importDefault(require("../Constants"));
 class Invite {
     constructor(data, client) {
         var _a, _b;
@@ -35,7 +39,7 @@ class Invite {
         if (data.max_uses !== undefined)
             this.maxUses = data.max_uses;
         if (data.channel || data.channel_id)
-            this.channel = new PartialChannel({ id: data.channel ? data.channel.id : data.channel_id, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? (data.channel.type === 2 ? "voice" : data.channel.type === 1 ? "dm" : "text") : undefined }, this.client);
+            this.channel = new PartialChannel({ id: data.channel ? data.channel.id : data.channel_id, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? Constants_1.default.CHANNEL_TYPES[data.channel.type] : undefined }, this.client);
         if (data.created_at)
             this.createdTimestamp = new Date(data.created_at).getTime();
         if (data.inviter) {
@@ -115,7 +119,7 @@ class Invite {
         if (data.max_uses !== undefined)
             this.maxUses = data.max_uses;
         if (data.channel || data.channel_id)
-            this.channel = new PartialChannel({ id: data.channel ? data.channel.id : data.channel_id, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? (data.channel.type === 2 ? "voice" : data.channel.type === 1 ? "dm" : "text") : undefined }, this.client);
+            this.channel = new PartialChannel({ id: data.channel ? data.channel.id : data.channel_id, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? Constants_1.default.CHANNEL_TYPES[data.channel.type] : undefined }, this.client);
         if (data.created_at)
             this.createdTimestamp = new Date(data.created_at).getTime();
         if (data.inviter) {

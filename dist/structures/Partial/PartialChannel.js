@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+const Constants_1 = __importDefault(require("../../Constants"));
 const TextBasedChannel_1 = __importDefault(require("../Interfaces/TextBasedChannel"));
 const PartialBase_1 = __importDefault(require("./PartialBase"));
 class PartialChannel extends PartialBase_1.default {
@@ -9,9 +10,11 @@ class PartialChannel extends PartialBase_1.default {
         super(data, client);
         this.partialType = "Channel";
         const PartialGuild = require("./PartialGuild");
+        const Permissions = require("../Permissions");
         this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
         this.type = data.type || "unknown";
         this.name = data.name || "unknown";
+        this.permissions = new Permissions(BigInt(data.permissions || 0));
     }
     toString() {
         return `<#${this.id}>`;
@@ -19,8 +22,10 @@ class PartialChannel extends PartialBase_1.default {
     toJSON() {
         return {
             guild_id: this.guild ? this.guild.id : null,
-            type: this.type === "dm" ? 1 : (this.type === "voice" ? 2 : 0),
+            // @ts-ignore
+            type: Number(Object.keys(Constants_1.default.CHANNEL_TYPES).find(k => Constants_1.default.CHANNEL_TYPES[k] === this.type) || 0),
             name: this.name,
+            permissions: this.permissions.bitfield.toString(),
             ...super.toJSON()
         };
     }

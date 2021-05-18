@@ -51,17 +51,16 @@ async function send(instance, content, options = {}) {
 exports.send = send;
 function deleteMessage(client, channelID, messageID, timeout = 0) {
     return new Promise((res, rej) => {
-        const action = async () => {
-            await client._snow.channel.deleteMessage(channelID, messageID).catch(rej);
-            return;
+        const action = () => {
+            return client._snow.channel.deleteMessage(channelID, messageID).then(res).catch(rej);
         };
         if (timeout) {
             setTimeout(() => {
-                return res(action());
+                return action();
             }, timeout);
         }
         else {
-            res(action());
+            action();
         }
     });
 }
@@ -78,20 +77,23 @@ async function fetchMessages(client, channelID, options) {
     return data.map(i => new Message(i, client));
 }
 exports.fetchMessages = fetchMessages;
-async function transform(content, options, isEdit) {
+async function transform(content, options, isEdit, isWebhook) {
     const MessageEmbed = require("../MessageEmbed");
     const MessageAttachment = require("../MessageAttachment");
     const payload = {};
     const opts = options ? options : {};
     if (content instanceof MessageEmbed) {
+        // @ts-ignore
         opts.embed = content;
         content = undefined;
     }
     else if (content instanceof MessageAttachment) {
+        // @ts-ignore
         opts.file = content;
         content = undefined;
     }
-    else if (Util_1.isObject(content) && !Array.isArray(content) && (content.content || content.embed || content.nonce || content.tts || content.file)) {
+    else if (Util_1.isObject(content) && !Array.isArray(content) && (content.content || content.embed || content.embeds || content.nonce || content.tts || content.file)) {
+        // @ts-ignore
         if (content.attachment)
             opts.file = content;
         else
@@ -106,21 +108,29 @@ async function transform(content, options, isEdit) {
     else
         content = String(content);
     let file = undefined;
+    // @ts-ignore Well. Yes. Of course opts.file does not exist on one of the options types. That's why I'm checking if it exists, typescript. Stop being so fn annoying
     if (opts.file) {
         file = {};
+        // @ts-ignore
         Object.assign(file, { name: opts.file.name || "file.png" });
+        // @ts-ignore
         if (Buffer.isBuffer(opts.file.attachment))
             Object.assign(file, { file: opts.file.attachment });
+        // @ts-ignore
         else if (opts.file.attachment instanceof stream_1.default.Readable) {
+            // @ts-ignore
             const buf = await getStream(opts.file.attachment);
             Object.assign(file, { file: buf });
+            // @ts-ignore
         }
         else if (typeof opts.file.attachment === "string" && opts.file.attachment.startsWith("http")) {
+            // @ts-ignore
             const res = await centra_1.default(opts.file.attachment, "get").header("User-Agent", "ThunderStorm (https://github.com/AmandaDiscord/ThunderStorm, 0.1.0)").header("Accept", "*/*").send();
             if (res.statusCode !== 200)
                 throw new Error("Non OK status code on get Attachment");
             if (!res.body)
                 throw new Error("No body on get Attachment");
+            // @ts-ignore
             const decoded = new URL(opts.file.attachment);
             const contentType = res.headers["content-type"];
             if (decoded.pathname.match(/\.\w+$/))
@@ -141,19 +151,34 @@ async function transform(content, options, isEdit) {
                 Object.assign(file, { name: `file.${type}` });
             }
             Object.assign(file, { file: res.body });
+            // @ts-ignore
         }
         else if (typeof opts.file.attachment === "string" && (path_1.default.isAbsolute(opts.file.attachment) || opts.file.attachment.startsWith("."))) {
+            // @ts-ignore
             const dir = path_1.default.isAbsolute(opts.file.attachment) ? opts.file.attachment : path_1.default.join(process.cwd(), opts.file.attachment);
             const buf = await fs_1.default.promises.readFile(dir);
+            // @ts-ignore
             Object.assign(file, { name: path_1.default.basename(opts.file.attachment), file: buf });
+            // @ts-ignore
         }
         else
             Object.assign(file, { name: opts.file.name || "file.png", file: Buffer.from(opts.file.attachment) });
     }
     payload["content"] = opts.content || content || "";
-    payload["embed"] = opts.embed ? opts.embed.toJSON() : undefined;
+    // @ts-ignore
+    if (isWebhook)
+        payload["embeds"] = opts.embeds ? opts.embeds.map(e => e.toJSON()) : (opts.embed ? opts.embed.toJSON() : undefined);
+    // @ts-ignore
+    else
+        payload["embed"] = opts.embed ? opts.embed.toJSON() : undefined;
+    // @ts-ignore
     payload["nonce"] = opts.nonce;
     payload["tts"] = opts.tts || false;
+    if (opts.allowedMentions)
+        payload["allowed_mentions"] = opts.allowedMentions;
+    // @ts-ignore
+    if (opts.ephemeral)
+        payload["flags"] = 64;
     if (!isEdit)
         payload["file"] = file ? file : undefined;
     if (isEdit && !payload["content"])
@@ -168,11 +193,13 @@ async function transform(content, options, isEdit) {
         delete payload["tts"];
     if (!payload["file"])
         delete payload["file"];
-    if (payload["embed"]) {
-        delete payload["embed"]["type"];
-        for (const prop in payload["embed"]) {
-            if (payload["embed"][prop] === null || payload["embed"][prop] === undefined || (Array.isArray(payload["embed"][prop]) && payload["embed"][prop].length === 0)) {
-                delete payload["embed"][prop];
+    if (payload["embeds"] || payload["embed"]) {
+        for (const embed of payload["embeds"] || [payload["embed"]]) {
+            delete embed["type"];
+            for (const prop in embed) {
+                if (embed[prop] === null || embed[prop] === undefined || (Array.isArray(embed[prop]) && embed[prop].length === 0)) {
+                    delete embed[prop];
+                }
             }
         }
     }

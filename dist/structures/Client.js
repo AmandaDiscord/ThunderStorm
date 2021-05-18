@@ -48,7 +48,7 @@ class Client extends events_1.EventEmitter {
             code = match[1];
         if (!code)
             return null;
-        const data = await this._snow.invite.getInvite(code, true);
+        const data = await this._snow.invite.getInvite(code, { with_counts: true, with_expiration: true });
         return new Invite(data, this);
     }
     async fetchVoiceRegions() {
