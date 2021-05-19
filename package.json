@@ -1,6 +1,6 @@
 {
   "name": "thunderstorm",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A layer between CloudStorm and Discord.js-like code",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -31,5 +31,7 @@
     "eslint": "^7.25.0",
     "typescript": "~4.2.4"
   },
-  "files": ["dist"]
+  "files": [
+    "dist"
+  ]
 }

@@ -21,6 +21,7 @@ class Message extends Base {
 	public member: GuildMember | null = null;
 	public attachments: Collection<string, import("./MessageAttachment")> = new Collection();
 	public application: ClientApplication | null = null;
+	public applicationID: string | null = null;
 	public activity: { partyID?: string; type?: number } | null = null;
 	public content = "";
 	public editedAt: Date | null = null;
@@ -68,13 +69,14 @@ class Message extends Base {
 		this.system = this.author && this.author.system ? true : false;
 		if (data.webhook_id !== undefined) this.webhookID = data.webhook_id;
 		if (data.thread !== undefined) this.thread = data.thread ? new ThreadTextChannel(data.thread, this.client) : null;
+		if (data.application_id) this.applicationID = data.application_id;
 	}
 
 	public get cleanContent() {
 		return Util.cleanContent(this.content, this);
 	}
 
-	public async reply(content: import("../Types").StringResolvable, options: import("../Types").MessageOptions = {}) {
+	public async reply(content: import("../Types").StringResolvable, options: Exclude<import("../Types").MessageOptions, "suppress"> = {}) {
 		const TextBasedChannel: typeof import("./Interfaces/TextBasedChannel") = require("./Interfaces/TextBasedChannel");
 		const payload = await TextBasedChannel.transform(content, options);
 		const reference: { message_id: string; channel_id: string; guild_id?: string } = {
@@ -86,7 +88,13 @@ class Message extends Base {
 		return new Message(msg, this.client);
 	}
 
-	public async edit(content: import("../Types").StringResolvable, options: import("../Types").MessageOptions = {}) {
+	public async crosspost() {
+		const data = await this.client._snow.channel.crosspostMessage(this.channel.id, this.id);
+		this._patch(data);
+		return this;
+	}
+
+	public async edit(content: import("../Types").StringResolvable, options: Exclude<import("../Types").MessageOptions, "nonce"> = {}) {
 		const TextBasedChannel: typeof import("./Interfaces/TextBasedChannel") = require("./Interfaces/TextBasedChannel");
 		const msg = await TextBasedChannel.send(this, content, options);
 		if (this.guild) msg.guild_id = this.guild.id;
@@ -188,6 +196,7 @@ class Message extends Base {
 		this.system = this.author && this.author.system ? true : false;
 		if (data.webhook_id !== undefined) this.webhookID = data.webhook_id;
 		if (data.thread !== undefined) this.thread = data.thread ? new ThreadTextChannel(data.thread, this.client) : null;
+		if (data.application_id) this.applicationID = data.application_id;
 	}
 }
 

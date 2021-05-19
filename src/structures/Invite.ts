@@ -15,6 +15,7 @@ class Invite {
 	public createdTimestamp!: number;
 	public targetUserType: 1 | 2 | null = null;
 	public targetUser: import("./User") | null = null;
+	private _expiresAt: string | null = null;
 
 	public constructor(data: import("@amanda/discordtypings").InviteData & { channel_id?: string; created_at?: string; guild_id?: string; temporary?: boolean; max_age?: number; max_uses?: number; uses?: number }, client: import("./Client")) {
 		this.client = client;
@@ -41,6 +42,7 @@ class Invite {
 		}
 		if (data.target_type !== undefined) this.targetUserType = data.target_type;
 		if (data.target_user !== undefined) this.targetUser = new User(data.target_user, this.client);
+		if (data.expires_at) this._expiresAt = data.expires_at;
 	}
 
 	public get createdAt() {
@@ -48,11 +50,11 @@ class Invite {
 	}
 
 	public get expiresTimestamp() {
-		return this.createdTimestamp && this.maxAge ? this.createdTimestamp + (this.maxAge * 1000) : null;
+		return this._expiresAt ? new Date(this._expiresAt).getTime() : (this.createdTimestamp && this.maxAge ? this.createdTimestamp + (this.maxAge * 1000) : null);
 	}
 
 	public get expiresAt() {
-		return this.expiresTimestamp ? new Date(this.expiresTimestamp) : null;
+		return this._expiresAt ? new Date(this._expiresAt) : (this.expiresTimestamp ? new Date(this.expiresTimestamp) : null);
 	}
 
 	public get url() {
@@ -114,6 +116,7 @@ class Invite {
 		}
 		if (data.target_type !== undefined) this.targetUserType = data.target_type;
 		if (data.target_user !== undefined) this.targetUser = new User(data.target_user, this.client);
+		if (data.expires_at) this._expiresAt = data.expires_at;
 	}
 }
 

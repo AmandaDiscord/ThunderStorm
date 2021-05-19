@@ -10,6 +10,7 @@ class PartialChannel extends PartialBase<import("../Channel")> {
 	public guild: import("./PartialGuild") | null;
 	public name: string;
 	public permissions: import("../Permissions");
+	public topic: string | null;
 
 	public constructor(data: import("../../internal").PartialData, client: import("../Client")) {
 		super(data, client);
@@ -20,6 +21,7 @@ class PartialChannel extends PartialBase<import("../Channel")> {
 		this.type = data.type || "unknown";
 		this.name = data.name || "unknown";
 		this.permissions = new Permissions(BigInt(data.permissions || 0));
+		this.topic = data.topic || null;
 	}
 
 	public toString() {
@@ -37,7 +39,7 @@ class PartialChannel extends PartialBase<import("../Channel")> {
 		};
 	}
 
-	public send(content: import("../../Types").StringResolvable, options: import("../../Types").MessageOptions = {}) {
+	public send(content: import("../../Types").StringResolvable, options: Exclude<import("../../Types").MessageOptions, "suppress"> = {}) {
 		return TextBasedChannel.send(this, content, options);
 	}
 

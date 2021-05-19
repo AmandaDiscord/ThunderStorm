@@ -53,11 +53,13 @@ class Guild extends Base {
 	public shardID = 0;
 	public verificationLevel!: "NONE" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH"
 	public threads: Collection<string, import("./ThreadNewsChannel") | import("./ThreadTextChannel")> = new Collection();
+	public stageInstances: Collection<string, import("./Partial/PartialChannel")> = new Collection();
 
 	public constructor(data: import("@amanda/discordtypings").GuildData, client: import("./Client")) {
 		super(data, client);
 
-		const PartialUser = require("./Partial/PartialUser");
+		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
+		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
 
 		if (data.name) this.name = data.name;
 		if (data.id) this.id = data.id;
@@ -128,6 +130,11 @@ class Guild extends Base {
 
 			this.threads.clear();
 			for (const thread of data.threads) this.threads.set(thread.id, [11, 12].includes(thread.type) ? new ThreadTextChannel(thread, this.client) : new ThreadNewsChannel(thread, this.client));
+		}
+
+		if (data.stage_instances && Array.isArray(data.stage_instances)) {
+			this.stageInstances.clear();
+			for (const instance of data.stage_instances) this.stageInstances.set(instance.id, new PartialChannel(instance, this.client));
 		}
 	}
 
@@ -212,7 +219,8 @@ class Guild extends Base {
 	}
 
 	public _patch(data: import("@amanda/discordtypings").GuildData) {
-		const PartialUser = require("./Partial/PartialUser");
+		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
+		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
 
 		if (data.name) this.name = data.name;
 		if (data.id) this.id = data.id;
@@ -283,6 +291,11 @@ class Guild extends Base {
 
 			this.threads.clear();
 			for (const thread of data.threads) this.threads.set(thread.id, [11, 12].includes(thread.type) ? new ThreadTextChannel(thread, this.client) : new ThreadNewsChannel(thread, this.client));
+		}
+
+		if (data.stage_instances && Array.isArray(data.stage_instances)) {
+			this.stageInstances.clear();
+			for (const instance of data.stage_instances) this.stageInstances.set(instance.id, new PartialChannel(instance, this.client));
 		}
 
 		super._patch(data);

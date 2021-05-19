@@ -5,7 +5,7 @@ class ThreadMember extends Base {
 	public threadID!: string;
 	public thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel") | import("./Partial/PartialThreadChannel");
 	public joinedAt!: Date;
-	public joinedTimestamp!: number
+	public joinedTimestamp!: number;
 	public user!: import("./Partial/PartialUser");
 
 	public constructor(thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel") | import("./Partial/PartialThreadChannel"), data: import("@amanda/discordtypings").ThreadMemberData) {

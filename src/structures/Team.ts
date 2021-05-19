@@ -48,7 +48,6 @@ class Team extends Base {
 	}
 
 	public _patch(data: import("@amanda/discordtypings").TeamData) {
-		// @ts-ignore Discord.js docs name even though the typings doesn't declare a name???
 		if (!this.name || data.name !== undefined) this.name = data.name || null;
 		if (!this.icon || data.icon !== undefined) this.icon = data.icon || null;
 		if (data.owner_user_id !== undefined) this.ownerID = data.owner_user_id;

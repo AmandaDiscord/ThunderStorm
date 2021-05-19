@@ -10,7 +10,7 @@ class GuildMember {
 	public nickname: string | null = null;
 	public deaf = false;
 	public mute = false;
-	public joinedAt!: Date;
+	public joinedAt: Date = new Date();
 	public joinedTimestamp!: number;
 	public premiumSince: string | null = null;
 	public roles: Array<string> = [];
@@ -68,7 +68,7 @@ class GuildMember {
 		};
 	}
 
-	public send(content: import("../Types").StringResolvable, options: import("../Types").MessageOptions = {}) {
+	public send(content: import("../Types").StringResolvable, options: Exclude<import("../Types").MessageOptions, "suppress"> = {}) {
 		return TextBasedChannel.send(this, content, options);
 	}
 

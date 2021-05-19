@@ -13,7 +13,7 @@ class PartialUser extends PartialBase<import("../User")> {
 		return `<@${this.id}>`;
 	}
 
-	public send(content: import("../../Types").StringResolvable, options: import("../../Types").MessageOptions = {}) {
+	public send(content: import("../../Types").StringResolvable, options: Exclude<import("../../Types").MessageOptions, "suppress"> = {}) {
 		return TextBasedChannel.send(this, content, options);
 	}
 }

@@ -4,7 +4,7 @@ class ThreadMetaData {
 	public client: import("./Client");
 	public thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel");
 	public locked = false;
-	public autoArchiveDuration = 0;
+	public autoArchiveDuration = 60;
 	public archiver: import("./Partial/PartialUser") | null = null;
 	public archiveStatusChangedAt!: Date;
 	public archiveStatusChangedTimestamp!: number;
@@ -15,13 +15,15 @@ class ThreadMetaData {
 		this.thread = thread;
 
 		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
-		if (data.locked !== undefined) this.locked = data.locked;
-		if (data.auto_archive_duration !== undefined) this.autoArchiveDuration = data.auto_archive_duration;
-		if (data.archived !== undefined) this._archived = data.archived;
-		if (data.archiver_id !== undefined) this.archiver = data.archiver_id !== null ? new PartialUser({ id: data.archiver_id }, this.client) : null;
-		if (data.archive_timestamp !== undefined) {
-			this.archiveStatusChangedAt = new Date(data.archive_timestamp);
-			this.archiveStatusChangedTimestamp = this.archiveStatusChangedAt.getTime();
+		if (data) {
+			if (data.locked !== undefined) this.locked = data.locked;
+			if (data.auto_archive_duration !== undefined) this.autoArchiveDuration = data.auto_archive_duration;
+			if (data.archived !== undefined) this._archived = data.archived;
+			if (data.archiver_id !== undefined) this.archiver = data.archiver_id !== null ? new PartialUser({ id: data.archiver_id }, this.client) : null;
+			if (data.archive_timestamp !== undefined) {
+				this.archiveStatusChangedAt = new Date(data.archive_timestamp);
+				this.archiveStatusChangedTimestamp = this.archiveStatusChangedAt.getTime();
+			}
 		}
 	}
 
@@ -48,13 +50,15 @@ class ThreadMetaData {
 
 	public _patch(data: import("@amanda/discordtypings").ThreadMetaData) {
 		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
-		if (data.locked !== undefined) this.locked = data.locked;
-		if (data.auto_archive_duration !== undefined) this.autoArchiveDuration = data.auto_archive_duration;
-		if (data.archived !== undefined) this._archived = data.archived;
-		if (data.archiver_id !== undefined) this.archiver = data.archiver_id !== null ? new PartialUser({ id: data.archiver_id }, this.client) : null;
-		if (data.archive_timestamp !== undefined) {
-			this.archiveStatusChangedAt = new Date(data.archive_timestamp);
-			this.archiveStatusChangedTimestamp = this.archiveStatusChangedAt.getTime();
+		if (data) {
+			if (data.locked !== undefined) this.locked = data.locked;
+			if (data.auto_archive_duration !== undefined) this.autoArchiveDuration = data.auto_archive_duration;
+			if (data.archived !== undefined) this._archived = data.archived;
+			if (data.archiver_id !== undefined) this.archiver = data.archiver_id !== null ? new PartialUser({ id: data.archiver_id }, this.client) : null;
+			if (data.archive_timestamp !== undefined) {
+				this.archiveStatusChangedAt = new Date(data.archive_timestamp);
+				this.archiveStatusChangedTimestamp = this.archiveStatusChangedAt.getTime();
+			}
 		}
 	}
 }

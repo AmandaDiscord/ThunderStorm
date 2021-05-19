@@ -163,8 +163,10 @@ export async function transform(content: import("../../Types").StringResolvable 
 	payload["tts"] = opts.tts || false;
 	if (opts.allowedMentions) payload["allowed_mentions"] = opts.allowedMentions;
 	// @ts-ignore
+	if (isEdit && opts.suppress) payload["flags"] = 4;
+	// @ts-ignore
 	if (opts.ephemeral) payload["flags"] = 64;
-	if (!isEdit) payload["file"] = file ? file as unknown as { name?: string; file: string } : undefined;
+	payload["file"] = file ? file as unknown as { name?: string; file: string } : undefined;
 
 	if (isEdit && !payload["content"]) payload["content"] = null;
 
