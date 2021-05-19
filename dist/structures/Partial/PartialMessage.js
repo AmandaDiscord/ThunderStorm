@@ -13,6 +13,18 @@ class PartialMessage extends PartialBase_1.default {
         this.channel = new PartialChannel({ id: data.channel_id, guild_id: data.guild_id, type: data.guild_id ? "text" : "dm" }, client);
         this.guild = data.guild_id ? new PartialGuild({ id: data.guild_id }, client) : null;
     }
+    async reply(content, options = {}) {
+        const TextBasedChannel = require("../Interfaces/TextBasedChannel");
+        const payload = await TextBasedChannel.transform(content, options);
+        const reference = {
+            message_id: this.id,
+            channel_id: this.channel.id
+        };
+        if (this.guild)
+            reference["guild_id"] = this.guild.id;
+        const msg = await this.client._snow.channel.createMessage(this.channel.id, Object.assign(payload, { message_reference: reference }), { disableEveryone: options.disableEveryone || this.client._snow.options.disableEveryone || false });
+        return new Message_1.default(msg, this.client);
+    }
     async edit(content, options = {}) {
         const TextBasedChannel = require("../Interfaces/TextBasedChannel");
         const msg = await TextBasedChannel.send(this, content, options);

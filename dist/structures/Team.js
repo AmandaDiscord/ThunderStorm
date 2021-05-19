@@ -9,7 +9,6 @@ const TeamMember_1 = __importDefault(require("./TeamMember"));
 class Team extends Base_1.default {
     constructor(data, client) {
         super(data, client);
-        this.name = null;
         this.icon = null;
         this.members = new Collection_1.default();
         // @ts-ignore Discord.js docs name even though the typings doesn't declare a name???
@@ -46,9 +45,8 @@ class Team extends Base_1.default {
         };
     }
     _patch(data) {
-        // @ts-ignore Discord.js docs name even though the typings doesn't declare a name???
         if (!this.name || data.name !== undefined)
-            this.name = data.name || null;
+            this.name = data.name || "";
         if (!this.icon || data.icon !== undefined)
             this.icon = data.icon || null;
         if (data.owner_user_id !== undefined)

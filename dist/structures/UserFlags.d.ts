@@ -25,6 +25,7 @@ declare class UserFlags extends BitField<typeof Constants.USER_FLAGS> {
         VERIFIED_BOT: bigint;
         EARLY_VERIFIED_DEVELOPER: bigint;
         VERIFIED_DEVELOPER: bigint;
+        CERTIFIED_MODERATOR: bigint;
     };
     FLAGS: {
         DISCORD_EMPLOYEE: bigint;
@@ -42,6 +43,7 @@ declare class UserFlags extends BitField<typeof Constants.USER_FLAGS> {
         VERIFIED_BOT: bigint;
         EARLY_VERIFIED_DEVELOPER: bigint;
         VERIFIED_DEVELOPER: bigint;
+        CERTIFIED_MODERATOR: bigint;
     };
     constructor(bits?: import("../Types").BitFieldResolvable<typeof Constants.USER_FLAGS>);
 }

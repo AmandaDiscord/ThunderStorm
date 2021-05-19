@@ -74,5 +74,6 @@ export interface PartialData {
     type?: typeof Constants.CHANNEL_TYPES[keyof typeof Constants.CHANNEL_TYPES] | "unknown";
     name?: string;
     permissions?: string;
+    topic?: string;
 }
 export {};

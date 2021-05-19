@@ -2,7 +2,7 @@ import Collection from "./Util/Collection";
 import Base from "./Base";
 import TeamMember from "./TeamMember";
 declare class Team extends Base {
-    name: string | null;
+    name: string;
     icon: string | null;
     ownerID: string;
     members: Collection<string, TeamMember>;
@@ -17,7 +17,7 @@ declare class Team extends Base {
     toJSON(): {
         id: string;
         icon: string | null;
-        name: string | null;
+        name: string;
         owner_user_id: string;
         members: {
             id: string;

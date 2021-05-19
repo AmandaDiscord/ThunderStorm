@@ -128,6 +128,7 @@ export declare type MessageOptions = {
     disableEveryone?: boolean;
     file?: MessageAttachment;
     allowedMentions?: Exclude<Partial<import("@amanda/discordtypings").AllowedMentionsData>, "replied_user">;
+    suppress?: boolean;
 };
 export declare type InteractionMessageOptions = {
     tts?: boolean;

@@ -52,6 +52,8 @@ class Guild extends Base_1.default {
         this.maximumPresences = 25000;
         this.shardID = 0;
         this.threads = new Collection_1.default();
+        this.stageInstances = new Collection_1.default();
+        const PartialChannel = require("./Partial/PartialChannel");
         const PartialUser = require("./Partial/PartialUser");
         if (data.name)
             this.name = data.name;
@@ -150,6 +152,11 @@ class Guild extends Base_1.default {
             this.threads.clear();
             for (const thread of data.threads)
                 this.threads.set(thread.id, [11, 12].includes(thread.type) ? new ThreadTextChannel(thread, this.client) : new ThreadNewsChannel(thread, this.client));
+        }
+        if (data.stage_instances && Array.isArray(data.stage_instances)) {
+            this.stageInstances.clear();
+            for (const instance of data.stage_instances)
+                this.stageInstances.set(instance.id, new PartialChannel(instance, this.client));
         }
     }
     get nameAcronym() {
@@ -232,6 +239,7 @@ class Guild extends Base_1.default {
         }
     }
     _patch(data) {
+        const PartialChannel = require("./Partial/PartialChannel");
         const PartialUser = require("./Partial/PartialUser");
         if (data.name)
             this.name = data.name;
@@ -330,6 +338,11 @@ class Guild extends Base_1.default {
             this.threads.clear();
             for (const thread of data.threads)
                 this.threads.set(thread.id, [11, 12].includes(thread.type) ? new ThreadTextChannel(thread, this.client) : new ThreadNewsChannel(thread, this.client));
+        }
+        if (data.stage_instances && Array.isArray(data.stage_instances)) {
+            this.stageInstances.clear();
+            for (const instance of data.stage_instances)
+                this.stageInstances.set(instance.id, new PartialChannel(instance, this.client));
         }
         super._patch(data);
     }

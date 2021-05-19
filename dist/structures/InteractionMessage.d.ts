@@ -111,9 +111,7 @@ declare class InteractionMessage {
                     id: string;
                     guild_id: string | null;
                     type: number;
-                    name: string; /**
-                     * Reply to an interaction. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
-                     */
+                    name: string;
                     permissions: string;
                 }[];
             };

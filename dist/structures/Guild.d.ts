@@ -45,6 +45,7 @@ declare class Guild extends Base {
     shardID: number;
     verificationLevel: "NONE" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH";
     threads: Collection<string, import("./ThreadNewsChannel") | import("./ThreadTextChannel")>;
+    stageInstances: Collection<string, import("./Partial/PartialChannel")>;
     constructor(data: import("@amanda/discordtypings").GuildData, client: import("./Client"));
     get nameAcronym(): string;
     get partnered(): boolean;

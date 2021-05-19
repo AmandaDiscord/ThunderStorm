@@ -15,6 +15,7 @@ class PartialChannel extends PartialBase_1.default {
         this.type = data.type || "unknown";
         this.name = data.name || "unknown";
         this.permissions = new Permissions(BigInt(data.permissions || 0));
+        this.topic = data.topic || null;
     }
     toString() {
         return `<#${this.id}>`;

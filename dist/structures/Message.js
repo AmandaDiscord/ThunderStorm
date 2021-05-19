@@ -22,6 +22,7 @@ class Message extends Base_1.default {
         this.member = null;
         this.attachments = new Collection_1.default();
         this.application = null;
+        this.applicationID = null;
         this.activity = null;
         this.content = "";
         this.editedAt = null;
@@ -82,6 +83,8 @@ class Message extends Base_1.default {
             this.webhookID = data.webhook_id;
         if (data.thread !== undefined)
             this.thread = data.thread ? new ThreadTextChannel_1.default(data.thread, this.client) : null;
+        if (data.application_id)
+            this.applicationID = data.application_id;
     }
     get cleanContent() {
         return Util_1.default.cleanContent(this.content, this);
@@ -97,6 +100,11 @@ class Message extends Base_1.default {
             reference["guild_id"] = this.guild.id;
         const msg = await this.client._snow.channel.createMessage(this.channel.id, Object.assign(payload, { message_reference: reference }), { disableEveryone: options.disableEveryone || this.client._snow.options.disableEveryone || false });
         return new Message(msg, this.client);
+    }
+    async crosspost() {
+        const data = await this.client._snow.channel.crosspostMessage(this.channel.id, this.id);
+        this._patch(data);
+        return this;
     }
     async edit(content, options = {}) {
         const TextBasedChannel = require("./Interfaces/TextBasedChannel");
@@ -222,6 +230,8 @@ class Message extends Base_1.default {
             this.webhookID = data.webhook_id;
         if (data.thread !== undefined)
             this.thread = data.thread ? new ThreadTextChannel_1.default(data.thread, this.client) : null;
+        if (data.application_id)
+            this.applicationID = data.application_id;
     }
 }
 module.exports = Message;

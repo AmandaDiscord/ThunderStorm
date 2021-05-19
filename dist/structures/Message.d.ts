@@ -15,6 +15,7 @@ declare class Message extends Base {
     member: GuildMember | null;
     attachments: Collection<string, import("./MessageAttachment")>;
     application: ClientApplication | null;
+    applicationID: string | null;
     activity: {
         partyID?: string;
         type?: number;
@@ -35,8 +36,9 @@ declare class Message extends Base {
     webhookID: string | null;
     constructor(data: import("@amanda/discordtypings").MessageData, client: import("./Client"));
     get cleanContent(): string;
-    reply(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<Message>;
-    edit(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<this>;
+    reply(content: import("../Types").StringResolvable, options?: Exclude<import("../Types").MessageOptions, "suppress">): Promise<Message>;
+    crosspost(): Promise<this>;
+    edit(content: import("../Types").StringResolvable, options?: Exclude<import("../Types").MessageOptions, "nonce">): Promise<this>;
     /**
      * @param timeout timeout in ms to delete the Message.
      */

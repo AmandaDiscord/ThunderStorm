@@ -10,6 +10,7 @@ class GuildMember {
         this.nickname = null;
         this.deaf = false;
         this.mute = false;
+        this.joinedAt = new Date();
         this.premiumSince = null;
         this.roles = [];
         this.guild = null;

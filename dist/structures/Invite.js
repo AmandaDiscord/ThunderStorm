@@ -16,6 +16,7 @@ class Invite {
         this.inviter = null;
         this.targetUserType = null;
         this.targetUser = null;
+        this._expiresAt = null;
         this.client = client;
         if (data.approximate_member_count && data.guild)
             Object.assign(data.guild, { member_count: data.approximate_member_count });
@@ -51,15 +52,17 @@ class Invite {
             this.targetUserType = data.target_type;
         if (data.target_user !== undefined)
             this.targetUser = new User(data.target_user, this.client);
+        if (data.expires_at)
+            this._expiresAt = data.expires_at;
     }
     get createdAt() {
         return this.createdTimestamp ? new Date(this.createdTimestamp) : null;
     }
     get expiresTimestamp() {
-        return this.createdTimestamp && this.maxAge ? this.createdTimestamp + (this.maxAge * 1000) : null;
+        return this._expiresAt ? new Date(this._expiresAt).getTime() : (this.createdTimestamp && this.maxAge ? this.createdTimestamp + (this.maxAge * 1000) : null);
     }
     get expiresAt() {
-        return this.expiresTimestamp ? new Date(this.expiresTimestamp) : null;
+        return this._expiresAt ? new Date(this._expiresAt) : (this.expiresTimestamp ? new Date(this.expiresTimestamp) : null);
     }
     get url() {
         return `https://discord.gg/${this.code}`;
@@ -131,6 +134,8 @@ class Invite {
             this.targetUserType = data.target_type;
         if (data.target_user !== undefined)
             this.targetUser = new User(data.target_user, this.client);
+        if (data.expires_at)
+            this._expiresAt = data.expires_at;
     }
 }
 module.exports = Invite;

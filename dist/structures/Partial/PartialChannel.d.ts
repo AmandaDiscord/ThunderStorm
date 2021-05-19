@@ -6,6 +6,7 @@ declare class PartialChannel extends PartialBase<import("../Channel")> {
     guild: import("./PartialGuild") | null;
     name: string;
     permissions: import("../Permissions");
+    topic: string | null;
     constructor(data: import("../../internal").PartialData, client: import("../Client"));
     toString(): string;
     toJSON(): {
@@ -15,7 +16,7 @@ declare class PartialChannel extends PartialBase<import("../Channel")> {
         name: string;
         permissions: string;
     };
-    send(content: import("../../Types").StringResolvable, options?: import("../../Types").MessageOptions): Promise<import("../Message")>;
+    send(content: import("../../Types").StringResolvable, options?: Exclude<import("../../Types").MessageOptions, "suppress">): Promise<import("../Message")>;
     deleteMessage(messageID: string, timeout?: number): Promise<void>;
     fetchMessage(messageID: string): Promise<import("../Message")>;
     fetchMessages(options?: import("../Interfaces/TextBasedChannel").FetchMessageOptions): Promise<import("../Message")[]>;

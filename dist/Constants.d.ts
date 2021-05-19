@@ -92,6 +92,7 @@ declare const Constants: {
         VERIFIED_BOT: bigint;
         EARLY_VERIFIED_DEVELOPER: bigint;
         VERIFIED_DEVELOPER: bigint;
+        CERTIFIED_MODERATOR: bigint;
     };
     SYSTEM_CHANNEL_FLAGS: {
         WELCOME_MESSAGE_DISABLED: bigint;
@@ -100,8 +101,12 @@ declare const Constants: {
     MESSAGE_FLAGS: {
         CROSSPOSTED: bigint;
         IS_CROSSPOST: bigint;
+        SUPPRESS_EMBEDS: bigint;
         SOURCE_MESSAGE_DELETED: bigint;
         URGENT: bigint;
+        HAS_THREAD: bigint;
+        EPHEMERAL: bigint;
+        LOADING: bigint;
     };
     GUILD_VERIFICATION_LEVELS: {
         0: "NONE";

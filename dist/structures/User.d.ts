@@ -32,7 +32,7 @@ declare class User extends Base {
         dynamic?: boolean;
     }): string | null;
     fetch(): Promise<this>;
-    send(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<import("./Message")>;
+    send(content: import("../Types").StringResolvable, options?: Exclude<import("../Types").MessageOptions, "suppress">): Promise<import("./Message")>;
     _patch(data: import("@amanda/discordtypings").UserData): void;
 }
 export = User;

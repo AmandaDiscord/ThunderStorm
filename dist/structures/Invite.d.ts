@@ -13,6 +13,7 @@ declare class Invite {
     createdTimestamp: number;
     targetUserType: 1 | 2 | null;
     targetUser: import("./User") | null;
+    private _expiresAt;
     constructor(data: import("@amanda/discordtypings").InviteData & {
         channel_id?: string;
         created_at?: string;

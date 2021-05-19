@@ -40,7 +40,7 @@ declare class GuildMember {
         roles: string[];
         guild_id: string | undefined;
     };
-    send(content: import("../Types").StringResolvable, options?: import("../Types").MessageOptions): Promise<import("./Message")>;
+    send(content: import("../Types").StringResolvable, options?: Exclude<import("../Types").MessageOptions, "suppress">): Promise<import("./Message")>;
     _patch(data: import("@amanda/discordtypings").MemberData & {
         user: import("@amanda/discordtypings").UserData;
         guild_id?: string;

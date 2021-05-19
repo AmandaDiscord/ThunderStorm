@@ -5,7 +5,8 @@ declare class PartialMessage extends PartialBase<import("../Message")> {
     guild: import("./PartialGuild") | null;
     partialType: "Message";
     constructor(data: import("../../internal").PartialData, client: import("../Client"));
-    edit(content: import("../../Types").StringResolvable, options?: import("../../Types").MessageOptions): Promise<Message>;
+    reply(content: import("../../Types").StringResolvable, options?: Exclude<import("../../Types").MessageOptions, "suppress">): Promise<Message>;
+    edit(content: import("../../Types").StringResolvable, options?: Exclude<import("../../Types").MessageOptions, "nonce">): Promise<Message>;
     /**
      * @param timeout timeout in ms to delete the Message.
      */

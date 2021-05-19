@@ -177,10 +177,12 @@ async function transform(content, options, isEdit, isWebhook) {
     if (opts.allowedMentions)
         payload["allowed_mentions"] = opts.allowedMentions;
     // @ts-ignore
+    if (isEdit && opts.suppress)
+        payload["flags"] = 4;
+    // @ts-ignore
     if (opts.ephemeral)
         payload["flags"] = 64;
-    if (!isEdit)
-        payload["file"] = file ? file : undefined;
+    payload["file"] = file ? file : undefined;
     if (isEdit && !payload["content"])
         payload["content"] = null;
     if ((!payload["content"] && !isEdit) || (payload["content"] === ""))

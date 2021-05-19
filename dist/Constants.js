@@ -129,7 +129,8 @@ const USER_FLAGS = {
     BUGHUNTER_LEVEL_2: BigInt(1) << BigInt(14),
     VERIFIED_BOT: BigInt(1) << BigInt(16),
     EARLY_VERIFIED_DEVELOPER: BigInt(1) << BigInt(17),
-    VERIFIED_DEVELOPER: BigInt(1) << BigInt(17)
+    VERIFIED_DEVELOPER: BigInt(1) << BigInt(17),
+    CERTIFIED_MODERATOR: BigInt(1) << BigInt(18)
 };
 const SYSTEM_CHANNEL_FLAGS = {
     WELCOME_MESSAGE_DISABLED: BigInt(1) << BigInt(0),
@@ -138,8 +139,12 @@ const SYSTEM_CHANNEL_FLAGS = {
 const MESSAGE_FLAGS = {
     CROSSPOSTED: BigInt(1) << BigInt(0),
     IS_CROSSPOST: BigInt(1) << BigInt(1),
+    SUPPRESS_EMBEDS: BigInt(1) << BigInt(2),
     SOURCE_MESSAGE_DELETED: BigInt(1) << BigInt(3),
-    URGENT: BigInt(1) << BigInt(4)
+    URGENT: BigInt(1) << BigInt(4),
+    HAS_THREAD: BigInt(1) << BigInt(5),
+    EPHEMERAL: BigInt(1) << BigInt(6),
+    LOADING: BigInt(1) << BigInt(7)
 };
 const GUILD_VERIFICATION_LEVELS = {
     0: "NONE",
