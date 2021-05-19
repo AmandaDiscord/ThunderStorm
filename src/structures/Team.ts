@@ -6,7 +6,7 @@ import Base from "./Base";
 import TeamMember from "./TeamMember";
 
 class Team extends Base {
-	public name: string | null = null;
+	public name: string;
 	public icon: string | null = null;
 	public ownerID!: string;
 	public members: Collection<string, TeamMember> = new Collection();
@@ -48,7 +48,7 @@ class Team extends Base {
 	}
 
 	public _patch(data: import("@amanda/discordtypings").TeamData) {
-		if (!this.name || data.name !== undefined) this.name = data.name || null;
+		if (!this.name || data.name !== undefined) this.name = data.name || "";
 		if (!this.icon || data.icon !== undefined) this.icon = data.icon || null;
 		if (data.owner_user_id !== undefined) this.ownerID = data.owner_user_id;
 		if (data.members && Array.isArray(data.members)) {
