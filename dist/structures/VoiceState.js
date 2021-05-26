@@ -39,8 +39,8 @@ class VoiceState {
             this.channelID = data.channel_id;
         if (data.guild_id)
             this.guildID = data.guild_id;
-        if (data.member)
-            this.member = new GuildMember_1.default(data.member, this.client);
+        if (data.member !== undefined)
+            this.member = data.member ? new GuildMember_1.default(data.member, this.client) : null;
         if (data.deaf != undefined)
             this.serverDeaf = data.deaf;
         if (data.self_deaf != undefined)

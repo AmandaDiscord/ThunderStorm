@@ -1,6 +1,6 @@
 declare class InteractionMessage {
     client: import("./Client");
-    type: "ping" | "command";
+    type: "ping" | "command" | "button";
     id: string;
     applicationID: string;
     channel: import("./Partial/PartialChannel") | null;
@@ -8,8 +8,13 @@ declare class InteractionMessage {
     member: import("./GuildMember") | null;
     author: import("./User");
     command: import("./InteractionCommand") | null;
+    component: {
+        id: string;
+        type: 1 | 2;
+    } | null;
     token: string;
     version: number;
+    message: import("./Message") | null;
     constructor(data: import("@amanda/discordtypings").InteractionData, client: import("./Client"));
     get createdTimestamp(): number;
     get createdAt(): Date;
@@ -44,7 +49,9 @@ declare class InteractionMessage {
             user: {
                 username: string;
                 discriminator: string;
-                bot: boolean;
+                bot: boolean; /**
+                 * Reply to an interaction. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
+                 */
                 id: string;
                 avatar: string | null;
                 public_flags: number;
@@ -55,7 +62,9 @@ declare class InteractionMessage {
         user: {
             username: string;
             discriminator: string;
-            bot: boolean;
+            bot: boolean; /**
+             * Reply to an interaction. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
+             */
             id: string;
             avatar: string | null;
             public_flags: number;
@@ -64,17 +73,18 @@ declare class InteractionMessage {
         version: number;
         data: {
             id: string;
+            type: 1 | 2;
+        } | {
+            id: string;
             name: string;
             options: import("@amanda/discordtypings").ApplicationCommandInteractionDataOption[];
-            /**
-             * ACK an interaction ping. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
-             * Alternatively, return { type: 1 } in your route handler.
-             */
             resolved: {
                 users: {
                     username: string;
                     discriminator: string;
-                    bot: boolean;
+                    bot: boolean; /**
+                     * Reply to an interaction. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
+                     */
                     id: string;
                     avatar: string | null;
                     public_flags: number;
@@ -88,7 +98,9 @@ declare class InteractionMessage {
                     user: {
                         username: string;
                         discriminator: string;
-                        bot: boolean;
+                        bot: boolean; /**
+                         * Reply to an interaction. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
+                         */
                         id: string;
                         avatar: string | null;
                         public_flags: number;
@@ -116,6 +128,84 @@ declare class InteractionMessage {
                 }[];
             };
         } | null;
+        message: ({
+            id: string;
+            channel_id: string;
+            guild_id: string | null;
+            author: {
+                username: string;
+                discriminator: string;
+                bot: boolean; /**
+                 * Reply to an interaction. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
+                 */
+                id: string;
+                avatar: string | null;
+                public_flags: number;
+            };
+            member: {
+                id: string;
+                nick: string | null;
+                mute: boolean;
+                joined_at: string;
+                premium_since: string | null;
+                user: {
+                    username: string;
+                    discriminator: string;
+                    bot: boolean; /**
+                     * Reply to an interaction. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
+                     */
+                    id: string;
+                    avatar: string | null;
+                    public_flags: number;
+                };
+                roles: string[];
+                guild_id: string | undefined;
+            } | null;
+            attachments: import("./Util/Collection")<string, import("./MessageAttachment")>;
+            application: import("@amanda/discordtypings").ApplicationData | null;
+            content: string;
+            edited_timestamp: string | null;
+            embeds: {
+                title: string | null;
+                type: string;
+                description: string | null;
+                url: string | null;
+                timestamp: Date | null;
+                color: number;
+                fields: import("../Types").EmbedField[];
+                thumbnail: import("../Types").MessageEmbedThumbnail | null;
+                image: import("../Types").MessageEmbedImage | null;
+                author: {
+                    name: string;
+                    url: string;
+                    icon_url: string;
+                } | null;
+                footer: {
+                    text: string;
+                    icon_url: string;
+                } | null;
+            }[];
+            flags: number;
+            timestamp: string;
+            mentions: (import("@amanda/discordtypings").UserData & {
+                member?: import("@amanda/discordtypings").MemberData | undefined;
+            })[];
+            mention_roles: string[];
+            mention_everyone: boolean;
+            mention_channels: import("@amanda/discordtypings").ChannelMentionData[];
+            nonce: string | null;
+            pinned: boolean;
+            tts: boolean;
+            type: number;
+            system: boolean;
+            webhook_id: string | null;
+            thread: import("@amanda/discordtypings").ThreadChannelData | null;
+        } & {
+            activity?: {
+                party_id?: string | undefined;
+                type?: number | undefined;
+            } | undefined;
+        }) | null;
     };
     _patch(data: import("@amanda/discordtypings").InteractionData): void;
 }

@@ -10,6 +10,8 @@ class InteractionMessage {
         this.guild = null;
         this.member = null;
         this.command = null;
+        this.component = null;
+        this.message = null;
         this.client = client;
         this._patch(data);
     }
@@ -60,7 +62,7 @@ class InteractionMessage {
     toJSON() {
         var _a, _b, _c, _d, _e;
         return {
-            type: this.type === "ping" ? 1 : 2,
+            type: this.type === "ping" ? 1 : this.type === "command" ? 2 : 3,
             id: this.id,
             application_id: this.applicationID,
             channel_id: ((_a = this.channel) === null || _a === void 0 ? void 0 : _a.id) || null,
@@ -69,7 +71,8 @@ class InteractionMessage {
             user: ((_d = this.author) === null || _d === void 0 ? void 0 : _d.toJSON()) || null,
             token: this.token,
             version: this.version,
-            data: ((_e = this.command) === null || _e === void 0 ? void 0 : _e.toJSON()) || null
+            data: this.command ? this.command.toJSON() : this.component || null,
+            message: ((_e = this.message) === null || _e === void 0 ? void 0 : _e.toJSON()) || null
         };
     }
     _patch(data) {
@@ -78,8 +81,9 @@ class InteractionMessage {
         const GuildMember = require("./GuildMember");
         const InteractionCommand = require("./InteractionCommand");
         const User = require("./User");
+        const Message = require("./Message");
         if (data.type)
-            this.type = data.type === 1 ? "ping" : "command";
+            this.type = data.type === 1 ? "ping" : data.type === 2 ? "command" : "button";
         if (data.id)
             this.id = data.id;
         if (data.application_id)
@@ -96,8 +100,12 @@ class InteractionMessage {
             this.token = data.token;
         if (data.version)
             this.version = data.version;
-        if (data.data)
+        if (data.data && !data.data.component_type)
             this.command = new InteractionCommand(this, data.data);
+        if (data.data && data.data.component_type)
+            this.component = { id: data.data.custom_id, type: data.data.component_type };
+        if (data.message !== undefined)
+            this.message = data.message ? new Message(data.message, this.client) : null;
     }
 }
 module.exports = InteractionMessage;

@@ -32,7 +32,6 @@ const PartialRole_1 = __importDefault(require("./structures/Partial/PartialRole"
 const PartialThreadChannel_1 = __importDefault(require("./structures/Partial/PartialThreadChannel"));
 const PartialUser_1 = __importDefault(require("./structures/Partial/PartialUser"));
 let guildInboundTimeout = null;
-const guildInboundTimeoutDuration = 5000;
 function setReady(client) {
     client.readyTimestamp = Date.now();
     client.emit("ready", client.user);
@@ -63,12 +62,16 @@ function handle(data, client) {
         client.emit(Constants_1.default.CLIENT_ONLY_EVENTS.RAW, data);
         // @ts-ignore
         const typed = data;
+        if (guildInboundTimeout) {
+            clearTimeout(guildInboundTimeout);
+            guildInboundTimeout = null;
+        }
         if (!client.user)
             client.user = new ClientUser_1.default(typed.d.user, client);
         else
             client.user._patch(typed.d.user);
         if (client.readyAt === null && !guildInboundTimeout)
-            guildInboundTimeout = setTimeout(() => setReady(client), guildInboundTimeoutDuration);
+            guildInboundTimeout = setTimeout(() => setReady(client), client.options.connectTimeout || 5000);
         client.emit(Constants_1.default.EVENTS.SHARD_READY, data.shard_id, new Set(typed.d.guilds.filter(g => g.unavailable).map(g => g.id) || []));
     }
     if (!client.user)
@@ -111,7 +114,7 @@ function handle(data, client) {
             guildInboundTimeout = null;
         }
         if (client.readyAt === null)
-            guildInboundTimeout = setTimeout(() => setReady(client), guildInboundTimeoutDuration);
+            guildInboundTimeout = setTimeout(() => setReady(client), client.options.connectTimeout || 5000);
         // @ts-ignore
         const typed = data;
         const guild = new Guild_1.default(typed.d, client);

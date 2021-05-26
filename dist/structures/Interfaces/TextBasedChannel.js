@@ -183,6 +183,16 @@ async function transform(content, options, isEdit, isWebhook) {
     if (opts.ephemeral)
         payload["flags"] = 64;
     payload["file"] = file ? file : undefined;
+    if (opts.buttons) {
+        payload["components"] = opts.buttons.map(button => {
+            const sub = button.type === "row" && button.buttons ? button.buttons.map(bn => convertButton(bn)) : [];
+            const value = convertButton(button);
+            // @ts-ignore
+            if (button.type === "row" && sub.length)
+                value["components"] = sub;
+            return value;
+        });
+    }
     if (isEdit && !payload["content"])
         payload["content"] = null;
     if ((!payload["content"] && !isEdit) || (payload["content"] === ""))
@@ -208,6 +218,29 @@ async function transform(content, options, isEdit, isWebhook) {
     return payload;
 }
 exports.transform = transform;
+function convertButton(button) {
+    const value = {
+        type: button.type === "row" ? 1 : 2
+    };
+    if (button.style) {
+        value["style"] = button.style === "primary" ? 1 :
+            button.style === "secondary" ? 2 :
+                button.style === "success" ? 3 :
+                    button.style === "danger" ? 4 :
+                        button.style === "link" ? 5 : 1;
+    }
+    if (button.label)
+        value["label"] = button.label;
+    if (button.emoji)
+        value["emoji"] = button.emoji;
+    if (button.identifier)
+        value["custom_id"] = button.identifier;
+    if (button.url)
+        value["url"] = button.url;
+    if (button.disabled)
+        value["disabled"] = button.disabled;
+    return value;
+}
 function getStream(readable) {
     return new Promise(res => {
         const chunks = [];
