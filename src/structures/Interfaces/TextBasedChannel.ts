@@ -81,7 +81,7 @@ export async function transform(content: import("../../Types").StringResolvable 
 	const MessageEmbed: typeof import("../MessageEmbed") = require("../MessageEmbed");
 	const MessageAttachment: typeof import("../MessageAttachment") = require("../MessageAttachment");
 
-	const payload: { content?: string | null; embeds?: Array<any>; embed?: any; nonce?: string; tts?: boolean; file?: { name?: string, file: string }; allowed_mentions?: Partial<import("@amanda/discordtypings").AllowedMentionsData>; flags?: number } = {};
+	const payload: { content?: string | null; embeds?: Array<any>; embed?: any; nonce?: string; tts?: boolean; file?: { name?: string, file: string }; allowed_mentions?: Partial<import("@amanda/discordtypings").AllowedMentionsData>; flags?: number; components?: Array<import("@amanda/discordtypings").MessageComponentData>; } = {};
 	const opts = options ? options : {};
 
 	if (content instanceof MessageEmbed) {
@@ -167,6 +167,15 @@ export async function transform(content: import("../../Types").StringResolvable 
 	// @ts-ignore
 	if (opts.ephemeral) payload["flags"] = 64;
 	payload["file"] = file ? file as unknown as { name?: string; file: string } : undefined;
+	if (opts.buttons) {
+		payload["components"] = opts.buttons.map(button => {
+			const sub = button.type === "row" && button.buttons ? button.buttons.map(bn => convertButton(bn)) : [];
+			const value: import("@amanda/discordtypings").MessageComponentData = convertButton(button);
+			// @ts-ignore
+			if (button.type === "row" && sub.length) value["components"] = sub;
+			return value;
+		});
+	}
 
 	if (isEdit && !payload["content"]) payload["content"] = null;
 
@@ -188,6 +197,25 @@ export async function transform(content: import("../../Types").StringResolvable 
 	}
 
 	return payload;
+}
+
+function convertButton(button: import("../../Types").Button): import("@amanda/discordtypings").MessageComponentData {
+	const value: import("@amanda/discordtypings").MessageComponentData = {
+		type: button.type === "row" ? 1 : 2
+	};
+	if (button.style) {
+		value["style"] = button.style === "primary" ? 1 :
+			button.style === "secondary" ? 2 :
+			button.style === "success" ? 3 :
+			button.style === "danger" ? 4 :
+			button.style === "link" ? 5 : 1;
+	}
+	if (button.label) value["label"] = button.label;
+	if (button.emoji) value["emoji"] = button.emoji;
+	if (button.identifier) value["custom_id"] = button.identifier;
+	if (button.url) value["url"] = button.url;
+	if (button.disabled) value["disabled"] = button.disabled;
+	return value;
 }
 
 function getStream(readable: stream.Readable): Promise<Buffer> {

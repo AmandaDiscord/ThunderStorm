@@ -32,7 +32,6 @@ import PartialThreadChannel from "./structures/Partial/PartialThreadChannel";
 import PartialUser from "./structures/Partial/PartialUser";
 
 let guildInboundTimeout: NodeJS.Timeout | null = null;
-const guildInboundTimeoutDuration = 5000;
 
 function setReady(client: import("./structures/Client")) {
 	client.readyTimestamp = Date.now();
@@ -59,9 +58,13 @@ function handle(data: import("./internal").InboundDataType<keyof import("./inter
 		client.emit(Constants.CLIENT_ONLY_EVENTS.RAW, data);
 		// @ts-ignore
 		const typed: Required<import("./internal").InboundDataType<"READY">> = data;
+		if (guildInboundTimeout) {
+			clearTimeout(guildInboundTimeout);
+			guildInboundTimeout = null;
+		}
 		if (!client.user) client.user = new ClientUser(typed.d.user, client);
 		else client.user._patch(typed.d.user);
-		if (client.readyAt === null && !guildInboundTimeout) guildInboundTimeout = setTimeout(() => setReady(client), guildInboundTimeoutDuration);
+		if (client.readyAt === null && !guildInboundTimeout) guildInboundTimeout = setTimeout(() => setReady(client), client.options.connectTimeout || 5000);
 		client.emit(Constants.EVENTS.SHARD_READY, data.shard_id, new Set(typed.d.guilds.filter(g => g.unavailable).map(g => g.id) || []));
 	}
 
@@ -104,7 +107,7 @@ function handle(data: import("./internal").InboundDataType<keyof import("./inter
 			guildInboundTimeout = null;
 		}
 
-		if (client.readyAt === null) guildInboundTimeout = setTimeout(() => setReady(client), guildInboundTimeoutDuration);
+		if (client.readyAt === null) guildInboundTimeout = setTimeout(() => setReady(client), client.options.connectTimeout || 5000);
 		// @ts-ignore
 		const typed: Required<import("./internal").InboundDataType<"GUILD_CREATE">> = data;
 		const guild = new Guild(typed.d, client);

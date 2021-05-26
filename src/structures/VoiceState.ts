@@ -40,7 +40,7 @@ class VoiceState {
 	public _patch(data: import("@amanda/discordtypings").VoiceStateData) {
 		if (data.channel_id) this.channelID = data.channel_id;
 		if (data.guild_id) this.guildID = data.guild_id;
-		if (data.member) this.member = new GuildMember(data.member, this.client);
+		if (data.member !== undefined) this.member = data.member ? new GuildMember(data.member, this.client) : null;
 		if (data.deaf != undefined) this.serverDeaf = data.deaf;
 		if (data.self_deaf != undefined) this.selfDeaf = data.self_deaf;
 		if (data.mute != undefined) this.serverMute = data.mute;

@@ -3,7 +3,7 @@ import TextBasedChannel from "./Interfaces/TextBasedChannel";
 
 class InteractionMessage {
 	public client: import("./Client");
-	public type!: "ping" | "command";
+	public type!: "ping" | "command" | "button";
 	public id!: string;
 	public applicationID!: string;
 	public channel: import("./Partial/PartialChannel") | null = null;
@@ -11,8 +11,10 @@ class InteractionMessage {
 	public member: import("./GuildMember") | null = null;
 	public author!: import("./User");
 	public command: import("./InteractionCommand") | null = null;
+	public component: { id: string; type: 1 | 2 } | null = null;
 	public token!: string;
 	public version!: number;
+	public message: import("./Message") | null = null;
 
 	public constructor(data: import("@amanda/discordtypings").InteractionData, client: import("./Client")) {
 		this.client = client;
@@ -73,7 +75,7 @@ class InteractionMessage {
 
 	public toJSON() {
 		return {
-			type: this.type === "ping" ? 1 : 2,
+			type: this.type === "ping" ? 1 : this.type === "command" ? 2 : 3,
 			id: this.id,
 			application_id: this.applicationID,
 			channel_id: this.channel?.id || null,
@@ -82,7 +84,8 @@ class InteractionMessage {
 			user: this.author?.toJSON() || null,
 			token: this.token,
 			version: this.version,
-			data: this.command?.toJSON() || null
+			data: this.command ? this.command.toJSON() : this.component || null,
+			message: this.message?.toJSON() || null
 		};
 	}
 
@@ -92,8 +95,9 @@ class InteractionMessage {
 		const GuildMember: typeof import("./GuildMember") = require("./GuildMember");
 		const InteractionCommand: typeof import("./InteractionCommand") = require("./InteractionCommand");
 		const User: typeof import("./User") = require("./User");
+		const Message: typeof import("./Message") = require("./Message");
 
-		if (data.type) this.type = data.type === 1 ? "ping" : "command";
+		if (data.type) this.type = data.type === 1 ? "ping" : data.type === 2 ? "command" : "button";
 		if (data.id) this.id = data.id;
 		if (data.application_id) this.applicationID = data.application_id;
 		if (data.channel_id) this.channel = new PartialChannel({ id: data.channel_id, guild_id: data.guild_id }, this.client);
@@ -102,7 +106,9 @@ class InteractionMessage {
 		if (data.user || this.member) this.author = data.user ? new User(data.user, this.client) : (this.member as import("./GuildMember")).user;
 		if (data.token) this.token = data.token;
 		if (data.version) this.version = data.version;
-		if (data.data) this.command = new InteractionCommand(this, data.data);
+		if (data.data && !data.data.component_type) this.command = new InteractionCommand(this, data.data);
+		if (data.data && data.data.component_type) this.component = { id: data.data.custom_id as string, type: data.data.component_type };
+		if (data.message !== undefined) this.message = data.message ? new Message(data.message, this.client) : null;
 	}
 }
 
