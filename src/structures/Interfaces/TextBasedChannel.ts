@@ -77,7 +77,7 @@ export async function fetchMessages(client: import("../Client"), channelID: stri
 	return data.map(i => new Message(i, client));
 }
 
-export async function transform(content: import("../../Types").StringResolvable | import("../../Types").MessageOptions, options?: import("../../Types").MessageOptions | import("../../Types").InteractionMessageOptions, isEdit?: boolean, isWebhook?: boolean): Promise<{ content?: string | null; embed?: import("@amanda/discordtypings").EmbedData; embeds?: Array<import("@amanda/discordtypings").EmbedData>; nonce?: string; tts?: boolean; file?: any; flags?: number; allowed_mentions?: Partial<import("@amanda/discordtypings").AllowedMentionsData>; }> {
+export async function transform(content: import("../../Types").StringResolvable | import("../../Types").MessageOptions, options?: import("../../Types").MessageOptions | import("../../Types").InteractionMessageOptions, isEdit?: boolean, isWebhook?: boolean): Promise<{ content?: string | null; embed?: import("@amanda/discordtypings").EmbedData; embeds?: Array<import("@amanda/discordtypings").EmbedData>; nonce?: string; tts?: boolean; file?: any; flags?: number; allowed_mentions?: Partial<import("@amanda/discordtypings").AllowedMentionsData>; components?: Array<import("@amanda/discordtypings").MessageComponentData> }> {
 	const MessageEmbed: typeof import("../MessageEmbed") = require("../MessageEmbed");
 	const MessageAttachment: typeof import("../MessageAttachment") = require("../MessageAttachment");
 
