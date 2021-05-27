@@ -192,7 +192,10 @@ declare class InteractionMessage {
             webhook_id: string | null;
             thread: import("@amanda/discordtypings").ThreadChannelData | null;
             application_id: string | null;
-            components: import("@amanda/discordtypings").MessageComponentData[];
+            components: {
+                type: 1;
+                components: import("@amanda/discordtypings").ButtonData[];
+            }[];
         } & {
             activity?: {
                 party_id?: string | undefined;

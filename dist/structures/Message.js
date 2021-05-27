@@ -37,6 +37,7 @@ class Message extends Base_1.default {
         this.webhookID = null;
         this.buttons = [];
         const Button = require("./Button");
+        const ButtonRow = require("./ButtonRow");
         const MessageEmbed = require("./MessageEmbed");
         const PartalGuild = require("./Partial/PartialGuild");
         const PartialChannel = require("./Partial/PartialChannel"); // lazy load
@@ -88,7 +89,7 @@ class Message extends Base_1.default {
         if (data.application_id)
             this.applicationID = data.application_id;
         if (data.components)
-            this.buttons = data.components.map(b => new Button(b, this.client));
+            this.buttons = data.components.map(row => new ButtonRow((row.components || []).map(button => new Button(button, this.client))));
     }
     get cleanContent() {
         return Util_1.default.cleanContent(this.content, this);
@@ -189,6 +190,7 @@ class Message extends Base_1.default {
     _patch(data) {
         var _a;
         const Button = require("./Button");
+        const ButtonRow = require("./ButtonRow");
         const MessageEmbed = require("./MessageEmbed");
         const PartalGuild = require("./Partial/PartialGuild");
         const PartialChannel = require("./Partial/PartialChannel"); // lazy load
@@ -240,7 +242,7 @@ class Message extends Base_1.default {
         if (data.application_id)
             this.applicationID = data.application_id;
         if (data.components)
-            this.buttons = data.components.map(b => new Button(b, this.client));
+            this.buttons = data.components.map(row => new ButtonRow((row.components || []).map(button => new Button(button, this.client))));
     }
 }
 module.exports = Message;

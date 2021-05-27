@@ -129,7 +129,7 @@ export declare type MessageOptions = {
     file?: MessageAttachment;
     allowedMentions?: Exclude<Partial<import("@amanda/discordtypings").AllowedMentionsData>, "replied_user">;
     suppress?: boolean;
-    buttons?: Array<import("./structures/Button")>;
+    buttons?: Array<import("./structures/ButtonRow")>;
 };
 export declare type InteractionMessageOptions = {
     tts?: boolean;
@@ -138,7 +138,7 @@ export declare type InteractionMessageOptions = {
     allowedMentions?: Exclude<Partial<import("@amanda/discordtypings").AllowedMentionsData>, "replied_user">;
     ephemeral?: boolean;
     disableEveryone?: boolean;
-    buttons?: Array<import("./structures/Button")>;
+    buttons?: Array<import("./structures/ButtonRow")>;
 };
 export interface ClientOptions {
     disableEveryone?: boolean;
