@@ -10,6 +10,7 @@ import PartialUser from "./structures/Partial/PartialUser";
 
 import Application from "./structures/Application";
 import Base from "./structures/Base";
+import Button from "./structures/Button";
 import CategoryChannel from "./structures/CategoryChannel";
 import Channel from "./structures/Channel";
 import Client from "./structures/Client";
@@ -56,6 +57,7 @@ import PermissionOverwrites from "./structures/PermissionOverwrites";
 import Permissions from "./structures/Permissions";
 import SnowflakeUtil from "./structures/Util/SnowflakeUtil";
 import Util from "./structures/Util/Util";
+import TextBasedChannel from "./structures/Interfaces/TextBasedChannel";
 
 export * from "./Types";
 
@@ -64,6 +66,7 @@ const version = "11.6.4";
 export {
 	Application,
 	Base,
+	Button,
 	CategoryChannel,
 	Channel,
 	Client,
@@ -119,5 +122,6 @@ export {
 	Permissions,
 	SnowflakeUtil,
 	Util,
+	TextBasedChannel,
 	version
 };

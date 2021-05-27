@@ -11,7 +11,7 @@ class InteractionMessage {
 	public member: import("./GuildMember") | null = null;
 	public author!: import("./User");
 	public command: import("./InteractionCommand") | null = null;
-	public component: { id: string; type: 1 | 2 } | null = null;
+	public component: { id: string | null; type: 1 | 2 } | null = null;
 	public token!: string;
 	public version!: number;
 	public message: import("./Message") | null = null;
@@ -84,7 +84,7 @@ class InteractionMessage {
 			user: this.author?.toJSON() || null,
 			token: this.token,
 			version: this.version,
-			data: this.command ? this.command.toJSON() : this.component || null,
+			data: this.command ? this.command.toJSON() : this.component ? { custom_id: this.component.id, component_type: this.component.type } : null,
 			message: this.message?.toJSON() || null
 		};
 	}
@@ -107,7 +107,7 @@ class InteractionMessage {
 		if (data.token) this.token = data.token;
 		if (data.version) this.version = data.version;
 		if (data.data && !data.data.component_type) this.command = new InteractionCommand(this, data.data);
-		if (data.data && data.data.component_type) this.component = { id: data.data.custom_id as string, type: data.data.component_type };
+		if (data.data && data.data.component_type) this.component = { id: data.data.custom_id || null, type: data.data.component_type };
 		if (data.message !== undefined) this.message = data.message ? new Message(data.message, this.client) : null;
 	}
 }

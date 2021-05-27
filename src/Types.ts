@@ -116,7 +116,7 @@ export type MessageOptions = {
 	file?: MessageAttachment;
 	allowedMentions?: Exclude<Partial<import("@amanda/discordtypings").AllowedMentionsData>, "replied_user">;
 	suppress?: boolean;
-	buttons?: Array<Button>;
+	buttons?: Array<import("./structures/Button")>;
 }
 export type InteractionMessageOptions = {
 	tts?: boolean;
@@ -125,7 +125,7 @@ export type InteractionMessageOptions = {
 	allowedMentions?: Exclude<Partial<import("@amanda/discordtypings").AllowedMentionsData>, "replied_user">;
 	ephemeral?: boolean;
 	disableEveryone?: boolean;
-	buttons?: Array<Button>;
+	buttons?: Array<import("./structures/Button")>;
 }
 
 export interface ClientOptions {
@@ -298,18 +298,3 @@ export type BitFieldResolvable<T> = number | bigint | keyof T | import("./struct
 export type PermissionResolvable = BitFieldResolvable<typeof Constants.PERMISSION_FLAGS>;
 
 export type UserResolvable = string | import("./structures/User") | import("./structures/GuildMember") | import("./structures/Guild") | import("./structures/Message");
-
-export type Button = {
-	type: "row" | "button";
-	buttons?: Array<Button>;
-	style?: "primary" | "secondary" | "success" | "danger" | "link";
-	label?: string;
-	emoji?: {
-		name: string;
-		id: string | null;
-		animated?: boolean;
-	};
-	identifier?: string;
-	url?: string;
-	disabled?: boolean;
-}

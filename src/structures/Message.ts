@@ -37,10 +37,12 @@ class Message extends Base {
 	public type = 0;
 	public system!: boolean;
 	public webhookID: string | null = null;
+	public buttons: Array<import("./Button")> = [];
 
 	public constructor(data: import("@amanda/discordtypings").MessageData, client: import("./Client")) {
 		super(data, client);
 
+		const Button: typeof import("./Button") = require("./Button");
 		const MessageEmbed: typeof import("./MessageEmbed") = require("./MessageEmbed");
 		const PartalGuild: typeof import("./Partial/PartialGuild") = require("./Partial/PartialGuild");
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel"); // lazy load
@@ -70,6 +72,7 @@ class Message extends Base {
 		if (data.webhook_id !== undefined) this.webhookID = data.webhook_id;
 		if (data.thread !== undefined) this.thread = data.thread ? new ThreadTextChannel(data.thread, this.client) : null;
 		if (data.application_id) this.applicationID = data.application_id;
+		if (data.components) this.buttons = data.components.map(b => new Button(b, this.client));
 	}
 
 	public get cleanContent() {
@@ -96,7 +99,7 @@ class Message extends Base {
 
 	public async edit(content: import("../Types").StringResolvable, options: Exclude<import("../Types").MessageOptions, "nonce"> = {}) {
 		const TextBasedChannel: typeof import("./Interfaces/TextBasedChannel") = require("./Interfaces/TextBasedChannel");
-		const msg = await TextBasedChannel.send(this, content, options);
+		const msg = await TextBasedChannel.send(this, Util.isObject(content) && !content.buttons && this.buttons.length && (!options || !options.buttons) ? Object.assign({}, content, { buttons: this.buttons }) : content, options && !options.buttons && this.buttons.length ? Object.assign({}, options, { buttons: this.buttons }) : options);
 		if (this.guild) msg.guild_id = this.guild.id;
 		this._patch(msg);
 		return this;
@@ -152,7 +155,9 @@ class Message extends Base {
 			type: this.type,
 			system: this.system,
 			webhook_id: this.webhookID,
-			thread: this.thread ? this.thread.toJSON() : null
+			thread: this.thread ? this.thread.toJSON() : null,
+			application_id: this.applicationID || null,
+			components: this.buttons.map(i => i.toJSON())
 		};
 		if (this.activity) {
 			const activity: { party_id?: string; type?: number } = {};
@@ -168,6 +173,7 @@ class Message extends Base {
 	}
 
 	public _patch(data: import("@amanda/discordtypings").MessageData) {
+		const Button: typeof import("./Button") = require("./Button");
 		const MessageEmbed: typeof import("./MessageEmbed") = require("./MessageEmbed");
 		const PartalGuild: typeof import("./Partial/PartialGuild") = require("./Partial/PartialGuild");
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel"); // lazy load
@@ -197,6 +203,7 @@ class Message extends Base {
 		if (data.webhook_id !== undefined) this.webhookID = data.webhook_id;
 		if (data.thread !== undefined) this.thread = data.thread ? new ThreadTextChannel(data.thread, this.client) : null;
 		if (data.application_id) this.applicationID = data.application_id;
+		if (data.components) this.buttons = data.components.map(b => new Button(b, this.client));
 	}
 }
 
