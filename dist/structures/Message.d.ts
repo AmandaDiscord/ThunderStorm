@@ -34,6 +34,7 @@ declare class Message extends Base {
     type: number;
     system: boolean;
     webhookID: string | null;
+    buttons: Array<import("./Button")>;
     constructor(data: import("@amanda/discordtypings").MessageData, client: import("./Client"));
     get cleanContent(): string;
     reply(content: import("../Types").StringResolvable, options?: Exclude<import("../Types").MessageOptions, "suppress">): Promise<Message>;
@@ -113,6 +114,8 @@ declare class Message extends Base {
         system: boolean;
         webhook_id: string | null;
         thread: import("@amanda/discordtypings").ThreadChannelData | null;
+        application_id: string | null;
+        components: import("@amanda/discordtypings").MessageComponentData[];
     } & {
         activity?: {
             party_id?: string | undefined;

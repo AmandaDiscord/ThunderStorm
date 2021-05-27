@@ -9,7 +9,7 @@ declare class InteractionMessage {
     author: import("./User");
     command: import("./InteractionCommand") | null;
     component: {
-        id: string;
+        id: string | null;
         type: 1 | 2;
     } | null;
     token: string;
@@ -49,9 +49,7 @@ declare class InteractionMessage {
             user: {
                 username: string;
                 discriminator: string;
-                bot: boolean; /**
-                 * Reply to an interaction. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
-                 */
+                bot: boolean;
                 id: string;
                 avatar: string | null;
                 public_flags: number;
@@ -62,9 +60,7 @@ declare class InteractionMessage {
         user: {
             username: string;
             discriminator: string;
-            bot: boolean; /**
-             * Reply to an interaction. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
-             */
+            bot: boolean;
             id: string;
             avatar: string | null;
             public_flags: number;
@@ -73,18 +69,13 @@ declare class InteractionMessage {
         version: number;
         data: {
             id: string;
-            type: 1 | 2;
-        } | {
-            id: string;
             name: string;
             options: import("@amanda/discordtypings").ApplicationCommandInteractionDataOption[];
             resolved: {
                 users: {
                     username: string;
                     discriminator: string;
-                    bot: boolean; /**
-                     * Reply to an interaction. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
-                     */
+                    bot: boolean;
                     id: string;
                     avatar: string | null;
                     public_flags: number;
@@ -98,16 +89,17 @@ declare class InteractionMessage {
                     user: {
                         username: string;
                         discriminator: string;
-                        bot: boolean; /**
-                         * Reply to an interaction. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
-                         */
+                        bot: boolean;
                         id: string;
                         avatar: string | null;
                         public_flags: number;
                     };
                     roles: string[];
                     guild_id: string | undefined;
-                }[];
+                }[]; /**
+                 * ACK an interaction ping. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
+                 * Alternatively, return { type: 1 } in your route handler.
+                 */
                 roles: {
                     name: string;
                     id: string;
@@ -127,6 +119,9 @@ declare class InteractionMessage {
                     permissions: string;
                 }[];
             };
+        } | {
+            custom_id: string | null;
+            component_type: 1 | 2;
         } | null;
         message: ({
             id: string;
@@ -135,9 +130,7 @@ declare class InteractionMessage {
             author: {
                 username: string;
                 discriminator: string;
-                bot: boolean; /**
-                 * Reply to an interaction. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
-                 */
+                bot: boolean;
                 id: string;
                 avatar: string | null;
                 public_flags: number;
@@ -151,9 +144,7 @@ declare class InteractionMessage {
                 user: {
                     username: string;
                     discriminator: string;
-                    bot: boolean; /**
-                     * Reply to an interaction. You may not return in your route handler until after the request has sent. Await the promise to resolve before returning.
-                     */
+                    bot: boolean;
                     id: string;
                     avatar: string | null;
                     public_flags: number;
@@ -200,6 +191,8 @@ declare class InteractionMessage {
             system: boolean;
             webhook_id: string | null;
             thread: import("@amanda/discordtypings").ThreadChannelData | null;
+            application_id: string | null;
+            components: import("@amanda/discordtypings").MessageComponentData[];
         } & {
             activity?: {
                 party_id?: string | undefined;

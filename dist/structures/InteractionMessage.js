@@ -71,7 +71,7 @@ class InteractionMessage {
             user: ((_d = this.author) === null || _d === void 0 ? void 0 : _d.toJSON()) || null,
             token: this.token,
             version: this.version,
-            data: this.command ? this.command.toJSON() : this.component || null,
+            data: this.command ? this.command.toJSON() : this.component ? { custom_id: this.component.id, component_type: this.component.type } : null,
             message: ((_e = this.message) === null || _e === void 0 ? void 0 : _e.toJSON()) || null
         };
     }
@@ -103,7 +103,7 @@ class InteractionMessage {
         if (data.data && !data.data.component_type)
             this.command = new InteractionCommand(this, data.data);
         if (data.data && data.data.component_type)
-            this.component = { id: data.data.custom_id, type: data.data.component_type };
+            this.component = { id: data.data.custom_id || null, type: data.data.component_type };
         if (data.message !== undefined)
             this.message = data.message ? new Message(data.message, this.client) : null;
     }

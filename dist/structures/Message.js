@@ -35,6 +35,8 @@ class Message extends Base_1.default {
         this.tts = false;
         this.type = 0;
         this.webhookID = null;
+        this.buttons = [];
+        const Button = require("./Button");
         const MessageEmbed = require("./MessageEmbed");
         const PartalGuild = require("./Partial/PartialGuild");
         const PartialChannel = require("./Partial/PartialChannel"); // lazy load
@@ -85,6 +87,8 @@ class Message extends Base_1.default {
             this.thread = data.thread ? new ThreadTextChannel_1.default(data.thread, this.client) : null;
         if (data.application_id)
             this.applicationID = data.application_id;
+        if (data.components)
+            this.buttons = data.components.map(b => new Button(b, this.client));
     }
     get cleanContent() {
         return Util_1.default.cleanContent(this.content, this);
@@ -108,7 +112,7 @@ class Message extends Base_1.default {
     }
     async edit(content, options = {}) {
         const TextBasedChannel = require("./Interfaces/TextBasedChannel");
-        const msg = await TextBasedChannel.send(this, content, options);
+        const msg = await TextBasedChannel.send(this, Util_1.default.isObject(content) && !content.buttons && this.buttons.length && (!options || !options.buttons) ? Object.assign({}, content, { buttons: this.buttons }) : content, options && !options.buttons && this.buttons.length ? Object.assign({}, options, { buttons: this.buttons }) : options);
         if (this.guild)
             msg.guild_id = this.guild.id;
         this._patch(msg);
@@ -165,7 +169,9 @@ class Message extends Base_1.default {
             type: this.type,
             system: this.system,
             webhook_id: this.webhookID,
-            thread: this.thread ? this.thread.toJSON() : null
+            thread: this.thread ? this.thread.toJSON() : null,
+            application_id: this.applicationID || null,
+            components: this.buttons.map(i => i.toJSON())
         };
         if (this.activity) {
             const activity = {};
@@ -182,6 +188,7 @@ class Message extends Base_1.default {
     }
     _patch(data) {
         var _a;
+        const Button = require("./Button");
         const MessageEmbed = require("./MessageEmbed");
         const PartalGuild = require("./Partial/PartialGuild");
         const PartialChannel = require("./Partial/PartialChannel"); // lazy load
@@ -232,6 +239,8 @@ class Message extends Base_1.default {
             this.thread = data.thread ? new ThreadTextChannel_1.default(data.thread, this.client) : null;
         if (data.application_id)
             this.applicationID = data.application_id;
+        if (data.components)
+            this.buttons = data.components.map(b => new Button(b, this.client));
     }
 }
 module.exports = Message;
