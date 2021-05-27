@@ -19,6 +19,7 @@ export declare function transform(content: import("../../Types").StringResolvabl
     file?: any;
     flags?: number;
     allowed_mentions?: Partial<import("@amanda/discordtypings").AllowedMentionsData>;
+    components?: Array<import("@amanda/discordtypings").MessageComponentData>;
 }>;
 export declare function sendTyping(client: import("../Client"), channelID: string): Promise<void>;
 declare const _default: {

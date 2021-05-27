@@ -113,7 +113,15 @@ class Message extends Base_1.default {
     }
     async edit(content, options = {}) {
         const TextBasedChannel = require("./Interfaces/TextBasedChannel");
-        const msg = await TextBasedChannel.send(this, Util_1.default.isObject(content) && !content.buttons && this.buttons.length && (!options || !options.buttons) ? Object.assign({}, content, { buttons: this.buttons }) : content, options && !options.buttons && this.buttons.length ? Object.assign({}, options, { buttons: this.buttons }) : options);
+        const payload1 = await TextBasedChannel.transform(content, options, true);
+        let payload2 = {};
+        if (this.buttons.length && !payload1.components)
+            payload2 = await TextBasedChannel.transform(null, { buttons: this.buttons }, true);
+        // @ts-ignore
+        if (!payload1.content)
+            delete payload2.content;
+        const payload = Object.assign(payload2, payload1);
+        const msg = await this.client._snow.channel.editMessage(this.channel.id, this.id, payload, { disableEveryone: options.disableEveryone || this.client._snow.options.disableEveryone || false });
         if (this.guild)
             msg.guild_id = this.guild.id;
         this._patch(msg);
