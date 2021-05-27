@@ -37,12 +37,13 @@ class Message extends Base {
 	public type = 0;
 	public system!: boolean;
 	public webhookID: string | null = null;
-	public buttons: Array<import("./Button")> = [];
+	public buttons: Array<import("./ButtonRow")> = [];
 
 	public constructor(data: import("@amanda/discordtypings").MessageData, client: import("./Client")) {
 		super(data, client);
 
 		const Button: typeof import("./Button") = require("./Button");
+		const ButtonRow: typeof import("./ButtonRow") = require("./ButtonRow");
 		const MessageEmbed: typeof import("./MessageEmbed") = require("./MessageEmbed");
 		const PartalGuild: typeof import("./Partial/PartialGuild") = require("./Partial/PartialGuild");
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel"); // lazy load
@@ -72,7 +73,7 @@ class Message extends Base {
 		if (data.webhook_id !== undefined) this.webhookID = data.webhook_id;
 		if (data.thread !== undefined) this.thread = data.thread ? new ThreadTextChannel(data.thread, this.client) : null;
 		if (data.application_id) this.applicationID = data.application_id;
-		if (data.components) this.buttons = data.components.map(b => new Button(b, this.client));
+		if (data.components) this.buttons = data.components.map(row => new ButtonRow((row.components || []).map(button => new Button(button, this.client))));
 	}
 
 	public get cleanContent() {
@@ -174,6 +175,7 @@ class Message extends Base {
 
 	public _patch(data: import("@amanda/discordtypings").MessageData) {
 		const Button: typeof import("./Button") = require("./Button");
+		const ButtonRow: typeof import("./ButtonRow") = require("./ButtonRow");
 		const MessageEmbed: typeof import("./MessageEmbed") = require("./MessageEmbed");
 		const PartalGuild: typeof import("./Partial/PartialGuild") = require("./Partial/PartialGuild");
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel"); // lazy load
@@ -203,7 +205,7 @@ class Message extends Base {
 		if (data.webhook_id !== undefined) this.webhookID = data.webhook_id;
 		if (data.thread !== undefined) this.thread = data.thread ? new ThreadTextChannel(data.thread, this.client) : null;
 		if (data.application_id) this.applicationID = data.application_id;
-		if (data.components) this.buttons = data.components.map(b => new Button(b, this.client));
+		if (data.components) this.buttons = data.components.map(row => new ButtonRow((row.components || []).map(button => new Button(button, this.client))));
 	}
 }
 

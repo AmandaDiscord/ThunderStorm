@@ -11,6 +11,7 @@ import PartialUser from "./structures/Partial/PartialUser";
 import Application from "./structures/Application";
 import Base from "./structures/Base";
 import Button from "./structures/Button";
+import ButtonRow from "./structures/ButtonRow";
 import CategoryChannel from "./structures/CategoryChannel";
 import Channel from "./structures/Channel";
 import Client from "./structures/Client";
@@ -67,6 +68,7 @@ export {
 	Application,
 	Base,
 	Button,
+	ButtonRow,
 	CategoryChannel,
 	Channel,
 	Client,
