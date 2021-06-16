@@ -27,8 +27,8 @@ declare class MessageButton extends BaseMessageComponent {
             animated?: boolean | undefined;
         } | null;
         label: string | null;
-        style: 2 | 1 | 4 | 5 | 3;
-        type: 2 | 1;
+        style: 1 | 2 | 4 | 5 | 3;
+        type: 1 | 2;
         url: string | null;
     };
     static resolveStyle(style: import("../Types").MessageButtonStyleResolvable): import("../Types").MessageButtonStyle;

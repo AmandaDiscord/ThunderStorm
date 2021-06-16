@@ -21,7 +21,7 @@ declare class APIMessage {
     resolveFiles(): Promise<this>;
     split(): APIMessage[];
     static resolveFile(fileLike: import("../Types").BufferResolvable | import("stream").Stream | import("../Types").FileOptions | import("./MessageAttachment")): Promise<{
-        attachment: string | Buffer | import("stream").Stream | import("../Types").FileOptions | import("./MessageAttachment");
+        attachment: string | import("./MessageAttachment") | Buffer | import("../Types").FileOptions | import("stream").Stream;
         name: string;
         file: Buffer | import("stream").Stream;
     }>;

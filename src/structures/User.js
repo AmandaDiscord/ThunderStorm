@@ -2,7 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const TextBasedChannel_1 = __importDefault(require("./Interfaces/TextBasedChannel"));
+const TextBasedChannel_1 = __importDefault(require("./interfaces/TextBasedChannel"));
 const Base_1 = __importDefault(require("./Base"));
 const UserFlags_1 = __importDefault(require("../util/UserFlags"));
 const SnowflakeUtil_1 = __importDefault(require("../util/SnowflakeUtil"));

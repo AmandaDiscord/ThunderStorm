@@ -2,7 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const TextBasedChannel_1 = __importDefault(require("./Interfaces/TextBasedChannel"));
+const TextBasedChannel_1 = __importDefault(require("./interfaces/TextBasedChannel"));
 const Channel_1 = __importDefault(require("./Channel"));
 const Collection_1 = __importDefault(require("../util/Collection"));
 const User_1 = __importDefault(require("./User"));

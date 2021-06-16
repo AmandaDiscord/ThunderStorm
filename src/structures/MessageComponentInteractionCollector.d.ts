@@ -22,11 +22,11 @@ interface MessageComponentInteractionCollector {
 }
 declare class MessageComponentInteractionCollector extends Collector<import("./MessageComponentInteraction")> {
     message: import("./Message") | import("./Partial/PartialMessage") | null;
-    channel: import("./Partial/PartialChannel") | import("./TextChannel") | import("./DMChannel") | import("./NewsChannel") | import("./Interfaces/TextBasedChannel");
+    channel: import("./Partial/PartialChannel") | import("./TextChannel") | import("./DMChannel") | import("./NewsChannel") | import("./interfaces/TextBasedChannel");
     users: Collection<string, import("./User")>;
     total: number;
     options: import("../Types").MessageComponentInteractionCollectorOptions;
-    constructor(source: import("./Message") | import("./Partial/PartialMessage") | import("./TextChannel") | import("./DMChannel") | import("./NewsChannel") | import("./Interfaces/TextBasedChannel"), filter: import("../Types").CollectorFilter<import("./MessageComponentInteraction")>, options?: import("../Types").MessageComponentInteractionCollectorOptions);
+    constructor(source: import("./Message") | import("./Partial/PartialMessage") | import("./TextChannel") | import("./DMChannel") | import("./NewsChannel") | import("./interfaces/TextBasedChannel"), filter: import("../Types").CollectorFilter<import("./MessageComponentInteraction")>, options?: import("../Types").MessageComponentInteractionCollectorOptions);
     collect(interaction: import("./MessageComponentInteraction")): string | null;
     dispose(interaction: import("./MessageComponentInteraction")): string | null;
     empty(): void;

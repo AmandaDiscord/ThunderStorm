@@ -1,4 +1,4 @@
-import TextBasedChannel from "../Interfaces/TextBasedChannel";
+import TextBasedChannel from "../interfaces/TextBasedChannel";
 import PartialBase from "./PartialBase";
 declare class PartialUser extends PartialBase<import("../User")> implements TextBasedChannel {
     lastMessageID: TextBasedChannel["lastMessageID"];

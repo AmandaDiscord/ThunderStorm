@@ -1,4 +1,4 @@
-import TextBasedChannel from "./Interfaces/TextBasedChannel";
+import TextBasedChannel from "./interfaces/TextBasedChannel";
 import Base from "./Base";
 import UserFlags from "../util/UserFlags";
 declare class User extends Base implements TextBasedChannel {

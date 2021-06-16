@@ -1,4 +1,4 @@
-import TextBasedChannel from "./Interfaces/TextBasedChannel";
+import TextBasedChannel from "./interfaces/TextBasedChannel";
 import Collection from "../util/Collection";
 declare class GuildMember implements TextBasedChannel {
     lastMessageID: TextBasedChannel["lastMessageID"];

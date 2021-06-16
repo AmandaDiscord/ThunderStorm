@@ -20,10 +20,10 @@ interface MessageCollector {
     removeListener<E extends keyof CollectorEvents>(event: E, listener: (...args: CollectorEvents[E]) => any): this;
 }
 declare class MessageCollector extends Collector<import("./Message")> {
-    channel: import("./Interfaces/TextBasedChannel");
+    channel: import("./interfaces/TextBasedChannel");
     received: number;
     options: import("../Types").MessageCollectorOptions;
-    constructor(channel: import("./Interfaces/TextBasedChannel"), filter: import("../Types").CollectorFilter<import("./Message")>, options?: import("../Types").MessageCollectorOptions);
+    constructor(channel: import("./interfaces/TextBasedChannel"), filter: import("../Types").CollectorFilter<import("./Message")>, options?: import("../Types").MessageCollectorOptions);
     collect(message: import("./Message")): string | null;
     dispose(message: import("./Message")): string | null;
     get endReason(): "limit" | "processedLimit" | null;

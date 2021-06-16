@@ -244,7 +244,7 @@ export declare type InteractionType = Exclude<keyof typeof Constants.Interaction
 export declare type InteractionResponseType = Exclude<keyof typeof Constants.InteractionResponseTypes, number>;
 export declare type MessageComponentType = Exclude<keyof typeof Constants.MessageComponentTypes, number>;
 export declare type MessageButtonStyle = Exclude<keyof typeof Constants.MessageButtonStyles, number>;
-export declare type MessageTarget = import("./structures/Interfaces/TextBasedChannel") | import("./structures/TextChannel") | import("./structures/DMChannel") | import("./structures/User") | import("./structures/GuildMember") | import("./structures/Webhook") | import("./client/WebhookClient") | import("./structures/Interaction") | import("./structures/Message") | import("./structures/Partial/PartialMessage") | import("./structures/Interfaces/InteractionResponses");
+export declare type MessageTarget = import("./structures/interfaces/TextBasedChannel") | import("./structures/TextChannel") | import("./structures/DMChannel") | import("./structures/User") | import("./structures/GuildMember") | import("./structures/Webhook") | import("./client/WebhookClient") | import("./structures/Interaction") | import("./structures/Message") | import("./structures/Partial/PartialMessage") | import("./structures/interfaces/InteractionResponses");
 export declare type CollectorFilter<T> = (...args: Array<any>, collection: import("./util/Collection")<string, T>) => boolean | Promise<boolean>;
 export declare type CollectorOptions = {
     time?: number;

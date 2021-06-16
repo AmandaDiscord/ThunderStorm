@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const Constants_1 = __importDefault(require("../../util/Constants"));
-const TextBasedChannel_1 = __importDefault(require("../Interfaces/TextBasedChannel"));
+const TextBasedChannel_1 = __importDefault(require("../interfaces/TextBasedChannel"));
 const PartialBase_1 = __importDefault(require("./PartialBase"));
 class PartialChannel extends PartialBase_1.default {
     constructor(client, data) {

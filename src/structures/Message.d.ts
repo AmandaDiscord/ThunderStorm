@@ -8,7 +8,7 @@ import Collection from "../util/Collection";
 import MessageFlags from "../util/MessageFlags";
 declare class Message extends Base {
     partial: false;
-    channel: import("./Interfaces/TextBasedChannel");
+    channel: import("./interfaces/TextBasedChannel");
     deleted: boolean;
     type: import("../Types").MessageType | null;
     system: boolean | null;
@@ -33,7 +33,7 @@ declare class Message extends Base {
     flags: Readonly<MessageFlags>;
     reference: import("../Types").MessageReference | null;
     interaction: import("../Types").MessageInteraction | null;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").MessageData, channel: import("./Interfaces/TextBasedChannel"));
+    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").MessageData, channel: import("./interfaces/TextBasedChannel"));
     _patch(data: import("@amanda/discordtypings").MessageData): void;
     patch(data: import("@amanda/discordtypings").MessageData): this;
     get createdAt(): Date;

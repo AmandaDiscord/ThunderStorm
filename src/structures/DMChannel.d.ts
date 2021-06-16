@@ -1,4 +1,4 @@
-import TextBasedChannel from "./Interfaces/TextBasedChannel";
+import TextBasedChannel from "./interfaces/TextBasedChannel";
 import Channel from "./Channel";
 import Collection from "../util/Collection";
 import User from "./User";

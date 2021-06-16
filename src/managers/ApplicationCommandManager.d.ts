@@ -24,13 +24,13 @@ declare class ApplicationCommandManager extends BaseManager<import("../structure
         name: string;
         description: string;
         options: {
-            type: import("@amanda/discordtypings").ApplicationCommandOptionType;
+            type: 6 | 1 | 2 | 4 | 5 | 3 | 7 | 8 | 9;
             name: string;
             description: string;
             required?: boolean | undefined;
             choices?: import("../Types").ApplicationCommandOptionChoice[] | undefined;
             options?: {
-                type: import("@amanda/discordtypings").ApplicationCommandOptionType;
+                type: 6 | 1 | 2 | 4 | 5 | 3 | 7 | 8 | 9;
                 name: string;
                 description: string;
                 required?: boolean | undefined;

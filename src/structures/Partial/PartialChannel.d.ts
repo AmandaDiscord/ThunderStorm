@@ -1,4 +1,4 @@
-import TextBasedChannel from "../Interfaces/TextBasedChannel";
+import TextBasedChannel from "../interfaces/TextBasedChannel";
 import PartialBase from "./PartialBase";
 declare class PartialChannel extends PartialBase<import("../Channel")> implements TextBasedChannel {
     readonly lastPinAt: TextBasedChannel["lastPinAt"];

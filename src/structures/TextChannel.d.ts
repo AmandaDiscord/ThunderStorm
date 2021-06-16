@@ -1,4 +1,4 @@
-import TextBasedChannel from "./Interfaces/TextBasedChannel";
+import TextBasedChannel from "./interfaces/TextBasedChannel";
 import GuildChannel from "./GuildChannel";
 declare class TextChannel extends GuildChannel implements TextBasedChannel {
     readonly lastPinAt: TextBasedChannel["lastPinAt"];
