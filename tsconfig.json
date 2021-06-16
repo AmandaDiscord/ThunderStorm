@@ -14,7 +14,7 @@
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"noUnusedLocals": false,
-		"outDir": "./dist",
+		"outDir": "src",
 		"pretty": true,
 		"removeComments": false,
 		"resolveJsonModule": true,
@@ -24,7 +24,8 @@
 		"strictNullChecks": true,
 		"target": "ES2019",
 		"types": ["node"],
-		"typeRoots": ["./typings", "./node_modules/@types"]
+		"typeRoots": ["./typings", "./node_modules/@types"],
+		"skipLibCheck": true
 	},
-	"include": ["src"]
+	"include": ["ts"]
 }

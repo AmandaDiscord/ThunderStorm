@@ -1,0 +1,32 @@
+declare class Role {
+    client: import("../client/Client");
+    name: string;
+    id: string;
+    color: number;
+    managed: boolean;
+    hoisted: boolean;
+    permissions: number;
+    position: number;
+    mentionable: boolean;
+    guild: import("./Partial/PartialGuild");
+    partial: false;
+    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").RoleData & {
+        guild_id: string;
+    });
+    get createdTimestamp(): number;
+    get createdAt(): Date;
+    fetch(): Promise<this>;
+    toString(): string;
+    toJSON(): {
+        name: string;
+        id: string;
+        color: number;
+        managed: boolean;
+        hoist: boolean;
+        permissions: number;
+        position: number;
+        mentionable: boolean;
+        guild_id: string | undefined;
+    };
+}
+export = Role;

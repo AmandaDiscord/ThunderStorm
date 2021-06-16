@@ -1,0 +1,36 @@
+declare class ActionsManager {
+    client: import("../Client");
+    ChannelCreate: import("./ChannelCreate");
+    ChannelDelete: import("./ChannelDelete");
+    ChannelUpdate: import("./ChannelUpdate");
+    GuildBanAdd: import("./GuildBanAdd");
+    GuildBanRemove: import("./GuildBanRemove");
+    GuildDelete: import("./GuildDelete");
+    GuildEmojiCreate: import("./GuildEmojiCreate");
+    GuildEmojisUpdate: import("./GuildEmojisUpdate");
+    GuildIntegrationsUpdate: import("./GuildIntegrationsUpdate");
+    GuildMemberRemove: import("./GuildMemberRemove");
+    GuildMemberUpdate: import("./GuildMemberUpdate");
+    GuildRoleCreate: import("./GuildRoleCreate");
+    GuildRoleDelete: import("./GuildRoleDelete");
+    GuildRoleUpdate: import("./GuildRoleUpdate");
+    GuildUpdate: import("./GuildUpdate");
+    InviteCreate: import("./InviteCreate");
+    InviteDelete: import("./InviteDelete");
+    MessageCreate: import("./MessageCreate");
+    MessageDelete: import("./MessageDelete");
+    MessageDeleteBulk: import("./MessageDeleteBulk");
+    MessageReactionAdd: import("./MessageReactionAdd");
+    MessageReactionRemove: import("./MessageReactionRemove");
+    MessageReactionRemoveAll: import("./MessageReactionRemoveAll");
+    MessageReactionRemoveEmoji: import("./MessageReactionRemoveEmoji");
+    MessageUpdate: import("./MessageUpdate");
+    PresenceUpdate: import("./PresenceUpdate");
+    TypingStart: import("./TypingStart");
+    UserUpdate: import("./UserUpdate");
+    VoiceStateUpdate: import("./VoiceStateUpdate");
+    WebhooksUpdate: import("./WebhooksUpdate");
+    constructor(client: import("../Client"));
+    register(Action: typeof import("./Action")): void;
+}
+export = ActionsManager;
