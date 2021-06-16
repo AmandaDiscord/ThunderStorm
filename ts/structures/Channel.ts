@@ -12,7 +12,7 @@ class Channel extends Base {
 	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").ChannelData) {
 		super(client);
 
-		if (data) setImmediate(() => this._patch(data));
+		if (data) this._patch(data);
 	}
 
 	public get createdTimestamp() {

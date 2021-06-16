@@ -28,8 +28,6 @@ class TextChannel extends GuildChannel implements TextBasedChannel {
 
 	public constructor(guild: import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").TextChannelData) {
 		super(guild, data);
-
-		if (data) setImmediate(() => this._patch(data));
 	}
 
 	public toJSON() {

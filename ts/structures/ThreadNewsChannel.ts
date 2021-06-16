@@ -18,8 +18,6 @@ class ThreadNewsChannel extends NewsChannel {
 	public constructor(guild: import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").ThreadChannelData) {
 		// @ts-ignore
 		super(guild, data);
-
-		if (data) this._patch(data);
 	}
 
 	public async fetchMembers() {

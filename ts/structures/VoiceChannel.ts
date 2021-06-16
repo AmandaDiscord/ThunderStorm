@@ -8,8 +8,6 @@ class VoiceChannel extends BaseGuildVoiceChannel {
 
 	public constructor(guild: import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").VoiceChannelData) {
 		super(guild, data);
-
-		if (data) this._patch(data);
 	}
 
 	public toJSON(): import("@amanda/discordtypings").VoiceChannelData {

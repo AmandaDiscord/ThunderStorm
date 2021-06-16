@@ -6,8 +6,6 @@ class CategoryChannel extends GuildChannel {
 
 	public constructor(guild: import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").CategoryChannelData) {
 		super(guild, data);
-
-		this._patch(data);
 	}
 
 	public toJSON(): import("@amanda/discordtypings").CategoryChannelData {

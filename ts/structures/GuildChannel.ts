@@ -12,8 +12,6 @@ class GuildChannel extends Channel {
 		super(guild.client, data);
 
 		this.guild = guild;
-
-		if (data) setImmediate(() => this._patch(data));
 	}
 
 	public toJSON(): import("@amanda/discordtypings").GuildChannelData {
