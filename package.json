@@ -1,19 +1,15 @@
 {
   "name": "thunderstorm",
-  "version": "0.1.4",
-  "description": "A layer between CloudStorm and Discord.js-like code",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "tsc -p ."
-  },
+  "version": "0.2.0",
+  "description": "An abstraction layer between WeatherStack and Discord.js-like code bases",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
   "keywords": [
     "cloudstorm",
     "snowtransfer",
     "discord.js",
-    "amanda",
-    "discord"
+    "discord",
+    "weatherstack"
   ],
   "author": "PapiOphidian",
   "license": "MIT",
@@ -26,12 +22,12 @@
     "@amanda/discordtypings": "github:AmandaDiscord/DiscordTypings",
     "@types/centra": "2.2.0",
     "@types/node": "^15.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
-    "eslint": "^7.25.0",
-    "typescript": "~4.2.4"
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "eslint": "^7.27.0",
+    "typescript": "^4.3.2"
   },
   "files": [
-    "dist"
+    "src"
   ]
 }
