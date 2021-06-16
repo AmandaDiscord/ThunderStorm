@@ -48,6 +48,8 @@ class ThreadTextChannel extends TextChannel {
 	public _patch(data: import("@amanda/discordtypings").ThreadChannelData) {
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
 		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
+		// @ts-ignore
+		super._patch(data);
 		if (data.owner_id) {
 			this.ownerID = data.owner_id;
 			this.owner = new PartialUser(this.client, { id: this.ownerID });
@@ -57,8 +59,6 @@ class ThreadTextChannel extends TextChannel {
 		if (!this.meta || data.thread_metadata) this.meta = new ThreadMetaData(this, data.thread_metadata);
 		if (data.type) this.private = data.type === 12 ? true : false;
 		if (data.parent_id) this.parent = new PartialChannel(this.client, { id: data.parent_id, guild_id: data.guild_id, type: "text" });
-		// @ts-ignore
-		super._patch(data);
 	}
 }
 

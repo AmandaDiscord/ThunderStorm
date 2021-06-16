@@ -47,6 +47,8 @@ class ThreadNewsChannel extends NewsChannel {
 	public _patch(data: import("@amanda/discordtypings").ThreadChannelData) {
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
 		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
+		// @ts-ignore
+		super._patch(data);
 		if (data.owner_id) {
 			this.ownerID = data.owner_id;
 			this.owner = new PartialUser(this.client, { id: this.ownerID });
@@ -55,8 +57,6 @@ class ThreadNewsChannel extends NewsChannel {
 		if (data.message_count !== undefined) this.messageCount = data.message_count;
 		if (!this.meta || data.thread_metadata) this.meta = new ThreadMetaData(this, data.thread_metadata);
 		if (data.parent_id) this.parent = new PartialChannel(this.client, { id: data.parent_id, guild_id: data.guild_id, type: "news" });
-		// @ts-ignore
-		super._patch(data);
 	}
 }
 

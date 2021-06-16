@@ -41,6 +41,7 @@ class DMChannel extends Channel implements TextBasedChannel {
 	}
 
 	public _patch(data: import("@amanda/discordtypings").DMChannelData & { name?: string }) {
+		super._patch(data);
 		if (data.last_message_id !== undefined) this.lastMessageID = data.last_message_id || null;
 		if (data.last_pin_timestamp !== undefined) {
 			this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
@@ -52,7 +53,6 @@ class DMChannel extends Channel implements TextBasedChannel {
 				this.recipients.set(recipient.id, recipient.id === this.client.user?.id ? this.client.user : new User(this.client, recipient));
 			}
 		}
-		super._patch(data);
 	}
 }
 

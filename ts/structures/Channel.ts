@@ -12,6 +12,8 @@ class Channel extends Base {
 	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").ChannelData) {
 		super(client);
 
+		this.id = data.id;
+		this.name = data.name;
 		if (data) this._patch(data);
 	}
 

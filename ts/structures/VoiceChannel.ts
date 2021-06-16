@@ -20,6 +20,7 @@ class VoiceChannel extends BaseGuildVoiceChannel {
 	}
 
 	public _patch(data: import("@amanda/discordtypings").VoiceChannelData) {
+		super._patch(data);
 		if (data.bitrate !== undefined) this.bitrate = data.bitrate;
 		if (data.user_limit !== undefined) this.userLimit = data.user_limit;
 		if (data.rtc_region !== undefined) this.rtcRegion = data.rtc_region;

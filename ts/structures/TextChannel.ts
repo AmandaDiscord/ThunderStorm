@@ -43,6 +43,7 @@ class TextChannel extends GuildChannel implements TextBasedChannel {
 	}
 
 	public _patch(data: import("@amanda/discordtypings").TextChannelData) {
+		super._patch(data);
 		if (!this.lastMessageID || data.last_message_id !== undefined) this.lastMessageID = data.last_message_id || null;
 		if (!this.lastPinAt || data.last_pin_timestamp !== undefined) {
 			this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
@@ -50,8 +51,6 @@ class TextChannel extends GuildChannel implements TextBasedChannel {
 		if (!this.nsfw || data.nsfw !== undefined) this.nsfw = data.nsfw || false;
 		if (!this.rateLimitPerUser || data.rate_limit_per_user !== undefined) this.rateLimitPerUser = data.rate_limit_per_user || 0;
 		if (!this.topic || data.topic !== undefined) this.topic = data.topic || "";
-
-		super._patch(data);
 	}
 }
 
