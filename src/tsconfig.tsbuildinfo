@@ -782,8 +782,8 @@
         "signature": "ab64d72f73d02b6ee26a5825ed928e9e3b4e702341674a2ff55159fb95c06537"
       },
       "../ts/structures/dmchannel.ts": {
-        "version": "e73d01e6ae687fa8c3bd2f57dd8ff2788a822b7fc00acca071c1a3c3f32ce0d6",
-        "signature": "3191c4782728791f634b0fd775e366facf8d79642d29a5708c7cdcd849c03c28"
+        "version": "6c5559162aabded1aeea8225f7ef1a0096a0943d5a7bf87756e87da6a504d3c2",
+        "signature": "e58f8f7eb8a11e7e37a0842752c94d4b88e1771f08350495f762bcb4075ba1bf"
       },
       "../ts/structures/partial/partialbase.ts": {
         "version": "9ceb0c01bff534b621bf7b86bebb213589def0b2d1c77315d2ce36206cab94a8",
@@ -2991,7 +2991,6 @@
         "../ts/client/client.ts",
         "../node_modules/@amanda/discordtypings/index.d.ts",
         "../ts/structures/interfaces/textbasedchannel.ts",
-        "../ts/util/collection.ts",
         "../ts/structures/user.ts",
         "../ts/structures/channel.ts"
       ],

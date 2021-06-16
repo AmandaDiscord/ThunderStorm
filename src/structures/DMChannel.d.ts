@@ -1,6 +1,5 @@
 import TextBasedChannel from "./interfaces/TextBasedChannel";
 import Channel from "./Channel";
-import Collection from "../util/Collection";
 import User from "./User";
 declare class DMChannel extends Channel implements TextBasedChannel {
     readonly lastPinAt: TextBasedChannel["lastPinAt"];
@@ -19,7 +18,7 @@ declare class DMChannel extends Channel implements TextBasedChannel {
     awaitMessageComponentInteraction: TextBasedChannel["awaitMessageComponentInteraction"];
     fetchMessage: TextBasedChannel["fetchMessage"];
     fetchMessages: TextBasedChannel["fetchMessages"];
-    recipients: Collection<string, User>;
+    recipient: User;
     type: "dm";
     constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").DMChannelData);
     toJSON(): import("@amanda/discordtypings").DMChannelData;
