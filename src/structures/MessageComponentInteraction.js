@@ -12,7 +12,7 @@ class MessageComponentInteraction extends Interaction_1.default {
         super(client, data);
         const Message = require("./Message");
         const PartialChannel = require("./Partial/PartialChannel");
-        this.message = data.message ? new Message(this.client, data.message, this.channel && this.channel.id === data.message.channel_id ? this.channel : new PartialChannel(this.client, { id: data.message.channel_id, guild_id: data.message.guild_id })) : null;
+        this.message = data.message ? new Message(this.client, data.message, this.channel && this.channel.id === data.message.channel_id ? this.channel : new PartialChannel(this.client, { id: data.message.channel_id, guild_id: data.message.guild_id, type: data.message.guild_id ? "text" : "dm" })) : null;
         this.customID = ((_a = data.data) === null || _a === void 0 ? void 0 : _a.custom_id) || "";
         this.componentType = MessageComponentInteraction.resolveType((_b = data.data) === null || _b === void 0 ? void 0 : _b.component_type);
         this.deferred = false;

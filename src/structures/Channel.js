@@ -37,7 +37,6 @@ class Channel extends Base_1.default {
             this.id = data.id;
         if (data.name)
             this.name = data.name;
-        super._patch(data);
     }
 }
 module.exports = Channel;

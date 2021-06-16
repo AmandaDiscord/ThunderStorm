@@ -215,12 +215,12 @@ class Message extends Base_1.default {
         return this.type === "DEFAULT";
     }
     fetchReference() {
-        var _a;
+        var _a, _b;
         const PartialChannel = require("./Partial/PartialChannel");
         if (!this.reference)
             throw new errors_1.Error("MESSAGE_REFERENCE_MISSING");
         const { channelID, messageID } = this.reference;
-        const channel = new PartialChannel(this.client, { id: channelID, guild_id: (_a = this.guild) === null || _a === void 0 ? void 0 : _a.id });
+        const channel = new PartialChannel(this.client, { id: channelID, guild_id: (_a = this.guild) === null || _a === void 0 ? void 0 : _a.id, type: ((_b = this.guild) === null || _b === void 0 ? void 0 : _b.id) ? "text" : "dm" });
         if (!channel)
             throw new errors_1.Error("GUILD_CHANNEL_RESOLVE");
         return channel.fetchMessage(messageID);

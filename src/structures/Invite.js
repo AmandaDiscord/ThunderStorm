@@ -89,7 +89,7 @@ class Invite {
         if (data.max_uses !== undefined)
             this.maxUses = data.max_uses;
         if (data.channel || data.channel_id)
-            this.channel = new PartialChannel(this.client, { id: data.channel ? data.channel.id : data.channel_id, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? Constants_1.default.ChannelTypes[data.channel.type] : undefined });
+            this.channel = new PartialChannel(this.client, { id: data.channel ? data.channel.id : data.channel_id, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? Constants_1.default.ChannelTypes[data.channel.type] : (data.guild_id ? "text" : "dm") });
         if (data.created_at)
             this.createdTimestamp = new Date(data.created_at).getTime();
         if (data.inviter) {

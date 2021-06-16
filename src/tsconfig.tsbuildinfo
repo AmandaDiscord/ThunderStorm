@@ -566,7 +566,7 @@
         "signature": "86b770d27f8b2471c1a4c44518026669a298425afdba2ca23edb2b88b5057d45"
       },
       "../ts/structures/invite.ts": {
-        "version": "02a36de3b105e4a672c3465a741525eeb398faffb3c3d9efcfb33ef116702d23",
+        "version": "0057ba96675f9617210ab065d222a8eb31253ab6264fce6f3ed7d3749db6b0fc",
         "signature": "ebbe465692228bbdc6c86c6d196fddee4c849e9230d4da0f94ff01c0520ff82a"
       },
       "../ts/util/dataresolver.ts": {
@@ -654,11 +654,11 @@
         "signature": "5f3a1d61dbb39f922514a2f5404cb4f1aaeddcefe4e2dc047d058cd8cd885f84"
       },
       "../ts/structures/guild.ts": {
-        "version": "5600e60f7cbed1f1ccaaa337dbf6b6ae92fed5aa8cede9b105dd93daf632ed90",
+        "version": "ee68a13eceda40e06088de1ceff8c2499fc339e0301244c04083500646f0eb6e",
         "signature": "18fa778e58a1f72c8c9f5fd24cb380a5078bad3722ced98046b2b1a12e2047b6"
       },
       "../ts/structures/webhook.ts": {
-        "version": "0f55a6726f24b225efcc6c0b17462f1897a753a1a367b911306206bc9c3b927a",
+        "version": "75468b5a5c619049e5ca306cf3f0f3f35652a5c7dbb6d6e2bbf4ffe32988a6a1",
         "signature": "1a564b4c68d3f040319f8ea9747fb76aea88130733b804b43c9b467a48088954"
       },
       "../ts/client/webhookclient.ts": {
@@ -686,7 +686,7 @@
         "signature": "ac0b6200b5a8fce3f183fdf86baa9fa661d2224fdc719df9276ee174c65f9f47"
       },
       "../ts/structures/interaction.ts": {
-        "version": "1e66ff05c0a111bdc516a4467b0f08283889b9f3af35c4b954fc4569f6f97407",
+        "version": "dcd60d2fa36e54cc71a1f70ffd190c58a986cdd46fda11cb08671f2cd455ac19",
         "signature": "9f8a5eb15a6cda63b08e3fb06453e0fa252c98d6439edc197cf23a385bc0ed02"
       },
       "../ts/structures/interactionwebhook.ts": {
@@ -722,7 +722,7 @@
         "signature": "8bab85253682509208154c299bb00f3bedecb425bdbf72feb823795dafd00a4c"
       },
       "../ts/structures/messagecomponentinteraction.ts": {
-        "version": "6a6a9b32e24f5329bd7912d62a3cb21e4f5acb3e119b6d8b8323775f437d7107",
+        "version": "4c183fef6b4d257d9407559a78f96f94747c86c71db7a97beacc642b54e4d19e",
         "signature": "9021f6ab810ce0e9a95e748b4523c5b40f97163b0ddb10a3fe6416a7d6e2e6ef"
       },
       "../ts/structures/reactionemoji.ts": {
@@ -762,7 +762,7 @@
         "signature": "7c74bc314d66aff0ebe7a70526ca3641c978a6a498e484b4678a58c104a824c5"
       },
       "../ts/structures/messagementions.ts": {
-        "version": "67f80b997625159149364b282838f4415ffd417a048dca490dc70a1621204abf",
+        "version": "07c45ba319949a827073f6ebfca701c50b1c3e9a2edca6cd57fb664efe6de7a3",
         "signature": "ea3cf5c2aa7a6f219d90890d2f6d44fd43158733b97dced98f99af0bce5380a7"
       },
       "../ts/structures/sticker.ts": {
@@ -770,7 +770,7 @@
         "signature": "69b27d144a43514a142e33925d5e93b5156b36a06057c3354e022b091b4f7bfe"
       },
       "../ts/structures/message.ts": {
-        "version": "4a9e318af9a70947bff57f8729a892aad20e75fb9ec6e1f0ae2104dc0ffce3ea",
+        "version": "66198511a24880fdbe54f4c0aaf994621527edf9a996ddde1ec143c8435ba188",
         "signature": "00949dfc26d9af76642d7da3d02be46ed6e2369ef934809716fa6f7473e191af"
       },
       "../ts/structures/messagecollector.ts": {
@@ -782,7 +782,7 @@
         "signature": "ab64d72f73d02b6ee26a5825ed928e9e3b4e702341674a2ff55159fb95c06537"
       },
       "../ts/structures/dmchannel.ts": {
-        "version": "2a8880a125330d2f6787169f294bf19d852c60d21fe3bf898be7b3dec59f5d40",
+        "version": "0d113b5dcf1be0a353e7f2f562b23083fe0f3df33e52649e2766a2a7451df12d",
         "signature": "3191c4782728791f634b0fd775e366facf8d79642d29a5708c7cdcd849c03c28"
       },
       "../ts/structures/partial/partialbase.ts": {
@@ -866,7 +866,7 @@
         "signature": "2efea28dd2f619eb96d66b4fb85296695f9b230dd036ef34b53bf864577bb0c5"
       },
       "../ts/client/actions/messagecreate.ts": {
-        "version": "43d05cefe51803ac14f821c47ed28b2e366c620e9df9564914168ed9f107265d",
+        "version": "14419275e168d0f1244a517ee596ab59805f29933cc238faf605c42308b2c5bf",
         "signature": "e5dbfb778bdaa04fec9f55da38a4be955967a0d8851934c7630e15836f6da9c9"
       },
       "../ts/client/actions/messagedelete.ts": {
@@ -874,7 +874,7 @@
         "signature": "479e8b153b8667f8d58b7c397424412523fb9b0100b547e784bf09d84dd2adbb"
       },
       "../ts/client/actions/messagedeletebulk.ts": {
-        "version": "e41d9670df0b846a1b0de0cd6fa5e0c71a3dc400239846578121c1f76e64e4a7",
+        "version": "aa443d8f25600f3bb2576699d645562cc6bb98c25bae2ad45454584b4b533c11",
         "signature": "948265a5d52429e21acbcc540cdb23ab7763ff39f7b9ee2f36db9326b9cea0cd"
       },
       "../ts/client/actions/messagereactionadd.ts": {
@@ -894,7 +894,7 @@
         "signature": "3448a4f2e1167001aba356709aab67254ac34230e8b505a0c79621893f2528ff"
       },
       "../ts/client/actions/messageupdate.ts": {
-        "version": "3001fb6e68173353e215f7e9bed8d5e6d227b77a263ffeb26a0b33160900e19d",
+        "version": "1b83f37aa95004e686af1ea4c0482d407ce5adc74a593520439c241fbd1c92a1",
         "signature": "95668a84f79af6e94ef6b4346ea96c9138c20e0c76af58245e69d9b8dab2bf6b"
       },
       "../ts/client/actions/presenceupdate.ts": {
@@ -902,7 +902,7 @@
         "signature": "3c1dbdbf9ca19fcda6b7f9869c4e8807098999e54f37328ebdff66411f0527d6"
       },
       "../ts/client/actions/typingstart.ts": {
-        "version": "3cca50cd44908f09c52ec0df2d32a6e45d21d61ed49cbf10eedfe486c4a3bba1",
+        "version": "637e942f55f857234ad6f182a0dd0ff40f8c04aef9b193966a19f81f118905fc",
         "signature": "7b887d0b8d1f85d4ad6dc0bd3a4a2dbbf3d98efa9c47c970a2a79696ef0084e7"
       },
       "../ts/client/actions/userupdate.ts": {
@@ -914,7 +914,7 @@
         "signature": "c64f35fb8cf3568ce05e324da3f89a9207bf22f2401734abeeb7a7bce8227af6"
       },
       "../ts/client/actions/webhooksupdate.ts": {
-        "version": "60ed23fa3032ebaadc2ddceb03aa83465936990bde9c03a9e0c0659d15066095",
+        "version": "8e74a157d84206b5d0032fd94b397dcec3b3b217a19b3c5051a3eabe8dc0c5cf",
         "signature": "4dbf81b55b69c83db9192c51d13eeeb4b58444a13bb6eb9122352a6bffad7365"
       },
       "../ts/client/actions/actionmanager.ts": {
@@ -938,7 +938,7 @@
         "signature": "ee1975525773ba237393f1a11265a77a14bd9e8d627642070ac5bf63c5b5b6ef"
       },
       "../ts/structures/channel.ts": {
-        "version": "486f537283e8c7e5c2950d77f18d9aad0943ed5391d3efb8ea168e58f069a31c",
+        "version": "df9a685d45d2f91f6ed5b446011496436ad7fb766e2cf352410ff405348bceae",
         "signature": "1107995f795d4bd1b0bc4838ea6662142c6b4a3466803e7954b845610ff39c12"
       },
       "../ts/util/util.ts": {
@@ -958,7 +958,7 @@
         "signature": "54cb52e94102bdebafb47cceaa110908bbb9e45a2cce910c7e636792a45fb927"
       },
       "../ts/structures/guildauditlogs.ts": {
-        "version": "5422faccbaa7cf23d895de17b322effba63f771c04f223f37aa490fb76c01c1a",
+        "version": "c8cf98be006d40ee7e2a97309a09bdccd12476d9e0e5dfe685590e11191cc4c2",
         "signature": "265fc1350315db02f7ca1b8034601a119d7e64573e452d53e9be73e3ff235a1d"
       },
       "../ts/types.ts": {

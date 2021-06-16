@@ -8,7 +8,7 @@ class MessageUpdateAction extends Action_1.default {
     handle(data) {
         const Message = require("../../structures/Message");
         const PartialChannel = require("../../structures/Partial/PartialChannel");
-        const channel = new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id });
+        const channel = new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id, type: data.guild_id ? "text" : "dm" });
         const message = new Message(this.client, data, channel);
         this.client.emit(Constants_1.Events.MESSAGE_UPDATE, message);
         return {

@@ -240,7 +240,7 @@ class Guild extends BaseGuild_1.default {
         if (data.stage_instances && Array.isArray(data.stage_instances)) {
             this.stageInstances.clear();
             for (const instance of data.stage_instances)
-                this.stageInstances.set(instance.id, new PartialChannel(this.client, instance));
+                this.stageInstances.set(instance.id, new PartialChannel(this.client, { id: instance.channel_id, guild_id: instance.guild_id, type: "stage" }));
         }
     }
 }

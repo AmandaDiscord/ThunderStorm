@@ -192,14 +192,14 @@ class GuildAuditLogsEntry {
             case Actions.MESSAGE_DELETE:
             case Actions.MESSAGE_BULK_DELETE:
                 this.extra = {
-                    channel: new PartialChannel(guild.client, { id: (_c = data.options) === null || _c === void 0 ? void 0 : _c.channel_id, guild_id: guild.id }),
+                    channel: new PartialChannel(guild.client, { id: (_c = data.options) === null || _c === void 0 ? void 0 : _c.channel_id, guild_id: guild.id, type: "text" }),
                     count: Number((_d = data.options) === null || _d === void 0 ? void 0 : _d.count)
                 };
                 break;
             case Actions.MESSAGE_PIN:
             case Actions.MESSAGE_UNPIN:
                 this.extra = {
-                    channel: new PartialChannel(guild.client, { id: (_e = data.options) === null || _e === void 0 ? void 0 : _e.channel_id, guild_id: guild.id }),
+                    channel: new PartialChannel(guild.client, { id: (_e = data.options) === null || _e === void 0 ? void 0 : _e.channel_id, guild_id: guild.id, type: "text" }),
                     messageID: (_f = data.options) === null || _f === void 0 ? void 0 : _f.message_id
                 };
                 break;
@@ -274,7 +274,7 @@ class GuildAuditLogsEntry {
             // Discord sends a channel id for the MESSAGE_BULK_DELETE action type.
             this.target =
                 data.action_type === Actions.MESSAGE_BULK_DELETE
-                    ? new PartialChannel(guild.client, { id: data.target_id, guild_id: guild.id })
+                    ? new PartialChannel(guild.client, { id: data.target_id, guild_id: guild.id, type: "text" })
                     : new PartialUser(guild.client, { id: data.target_id });
         }
         else if (targetType === Targets.INTEGRATION) {
