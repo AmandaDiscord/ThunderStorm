@@ -31,7 +31,6 @@ class DMChannel extends Channel implements TextBasedChannel {
 
 		if (data.last_message_id !== undefined) this.lastMessageID = data.last_message_id || null;
 		if (data.last_pin_timestamp !== undefined) {
-			this.lastPinAt = data.last_pin_timestamp ? new Date(data.last_pin_timestamp) : null;
 			this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
 		}
 		if (data.recipients) {
