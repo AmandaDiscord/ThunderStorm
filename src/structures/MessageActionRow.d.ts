@@ -15,11 +15,11 @@ declare class MessageActionRow extends BaseMessageComponent {
                 animated?: boolean | undefined;
             } | null;
             label: string | null;
-            style: 1 | 2 | 4 | 5 | 3;
-            type: 1 | 2;
+            style: 2 | 1 | 4 | 5 | 3;
+            type: 2 | 1;
             url: string | null;
         }[];
-        type: 1 | 2;
+        type: 2 | 1;
     };
 }
 export = MessageActionRow;
