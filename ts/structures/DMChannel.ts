@@ -23,7 +23,7 @@ class DMChannel extends Channel implements TextBasedChannel {
 	public fetchMessage!: TextBasedChannel["fetchMessage"];
 	public fetchMessages!: TextBasedChannel["fetchMessages"];
 
-	public recipients: Collection<string, User> = new Collection();
+	public recipient!: User;
 	public type: "dm" = "dm";
 
 	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").DMChannelData) {
@@ -33,7 +33,7 @@ class DMChannel extends Channel implements TextBasedChannel {
 	public toJSON() {
 		const d: import("@amanda/discordtypings").DMChannelData = Object.assign(super.toJSON(), {
 			last_message_id: this.lastMessageID,
-			recipients: [...this.recipients.values()].map(u => u.toJSON()),
+			recipients: [this.recipient.toJSON()],
 			type: 1 as const
 		});
 		if (this.lastPinAt) d["last_pin_timestamp"] = this.lastPinAt.toISOString();
@@ -46,13 +46,7 @@ class DMChannel extends Channel implements TextBasedChannel {
 		if (data.last_pin_timestamp !== undefined) {
 			this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
 		}
-		if (data.recipients) {
-			this.recipients.clear();
-			for (const recipient of data.recipients) {
-				if (recipient.id === this.client.user?.id) this.client.user?._patch(recipient);
-				this.recipients.set(recipient.id, recipient.id === this.client.user?.id ? this.client.user : new User(this.client, recipient));
-			}
-		}
+		if (data.recipients) this.recipient = new User(this.client, data.recipients[0]);
 	}
 }
 
