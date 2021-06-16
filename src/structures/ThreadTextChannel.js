@@ -43,6 +43,8 @@ class ThreadTextChannel extends TextChannel_1.default {
     _patch(data) {
         const PartialChannel = require("./Partial/PartialChannel");
         const PartialUser = require("./Partial/PartialUser");
+        // @ts-ignore
+        super._patch(data);
         if (data.owner_id) {
             this.ownerID = data.owner_id;
             this.owner = new PartialUser(this.client, { id: this.ownerID });
@@ -57,8 +59,6 @@ class ThreadTextChannel extends TextChannel_1.default {
             this.private = data.type === 12 ? true : false;
         if (data.parent_id)
             this.parent = new PartialChannel(this.client, { id: data.parent_id, guild_id: data.guild_id, type: "text" });
-        // @ts-ignore
-        super._patch(data);
     }
 }
 module.exports = ThreadTextChannel;

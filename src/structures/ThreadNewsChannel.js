@@ -43,6 +43,8 @@ class ThreadNewsChannel extends NewsChannel_1.default {
     _patch(data) {
         const PartialChannel = require("./Partial/PartialChannel");
         const PartialUser = require("./Partial/PartialUser");
+        // @ts-ignore
+        super._patch(data);
         if (data.owner_id) {
             this.ownerID = data.owner_id;
             this.owner = new PartialUser(this.client, { id: this.ownerID });
@@ -55,8 +57,6 @@ class ThreadNewsChannel extends NewsChannel_1.default {
             this.meta = new ThreadMetadata_1.default(this, data.thread_metadata);
         if (data.parent_id)
             this.parent = new PartialChannel(this.client, { id: data.parent_id, guild_id: data.guild_id, type: "news" });
-        // @ts-ignore
-        super._patch(data);
     }
 }
 module.exports = ThreadNewsChannel;

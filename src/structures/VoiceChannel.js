@@ -20,6 +20,7 @@ class VoiceChannel extends BaseGuildVoiceChannel_1.default {
         });
     }
     _patch(data) {
+        super._patch(data);
         if (data.bitrate !== undefined)
             this.bitrate = data.bitrate;
         if (data.user_limit !== undefined)

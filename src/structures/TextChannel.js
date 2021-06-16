@@ -25,6 +25,7 @@ class TextChannel extends GuildChannel_1.default {
         return d;
     }
     _patch(data) {
+        super._patch(data);
         if (!this.lastMessageID || data.last_message_id !== undefined)
             this.lastMessageID = data.last_message_id || null;
         if (!this.lastPinAt || data.last_pin_timestamp !== undefined) {
@@ -36,7 +37,6 @@ class TextChannel extends GuildChannel_1.default {
             this.rateLimitPerUser = data.rate_limit_per_user || 0;
         if (!this.topic || data.topic !== undefined)
             this.topic = data.topic || "";
-        super._patch(data);
     }
 }
 TextBasedChannel_1.default.applyToClass(TextChannel, true);

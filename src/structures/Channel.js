@@ -10,6 +10,8 @@ class Channel extends Base_1.default {
         super(client);
         this.partial = false;
         this.type = "unknown";
+        this.id = data.id;
+        this.name = data.name;
         if (data)
             this._patch(data);
     }

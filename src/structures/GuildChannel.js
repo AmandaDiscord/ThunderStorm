@@ -10,8 +10,8 @@ class GuildChannel extends Channel_1.default {
         super(guild.client, data);
         this.parentID = null;
         this.rawPosition = 0;
-        this.permissionOverwrites = new Collection_1.default();
         this.guild = guild;
+        this.permissionOverwrites = this.permissionOverwrites || new Collection_1.default();
     }
     toJSON() {
         return {
@@ -24,16 +24,18 @@ class GuildChannel extends Channel_1.default {
     }
     _patch(data) {
         const PartialGuild = require("./Partial/PartialGuild");
+        super._patch(data);
         if (!this.parentID || data.parent_id !== undefined)
             this.parentID = data.parent_id || null;
         if (data.position !== undefined)
             this.rawPosition = data.position;
-        if (data.permission_overwrites && Array.isArray(data.permission_overwrites))
+        if (data.permission_overwrites && Array.isArray(data.permission_overwrites)) {
+            this.permissionOverwrites = new Collection_1.default();
             for (const i of data.permission_overwrites)
                 this.permissionOverwrites.set(i.id, new PermissionOverwrites_1.default(this, i));
+        }
         if (data.guild_id)
             this.guild = new PartialGuild(this.client, { id: data.guild_id });
-        super._patch(data);
     }
 }
 module.exports = GuildChannel;

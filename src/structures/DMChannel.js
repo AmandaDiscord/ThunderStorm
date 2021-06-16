@@ -26,6 +26,7 @@ class DMChannel extends Channel_1.default {
     }
     _patch(data) {
         var _a, _b, _c;
+        super._patch(data);
         if (data.last_message_id !== undefined)
             this.lastMessageID = data.last_message_id || null;
         if (data.last_pin_timestamp !== undefined) {
@@ -39,7 +40,6 @@ class DMChannel extends Channel_1.default {
                 this.recipients.set(recipient.id, recipient.id === ((_c = this.client.user) === null || _c === void 0 ? void 0 : _c.id) ? this.client.user : new User_1.default(this.client, recipient));
             }
         }
-        super._patch(data);
     }
 }
 TextBasedChannel_1.default.applyToClass(DMChannel, true, ["bulkDelete"]);
