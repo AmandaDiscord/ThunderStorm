@@ -11,7 +11,7 @@ class Channel extends Base_1.default {
         this.partial = false;
         this.type = "unknown";
         if (data)
-            setImmediate(() => this._patch(data));
+            this._patch(data);
     }
     get createdTimestamp() {
         return SnowflakeUtil_1.default.deconstruct(this.id).timestamp;

@@ -13,8 +13,6 @@ class DMChannel extends Channel_1.default {
         super(client, Object.assign({}, data, { name: ((_a = client.user) === null || _a === void 0 ? void 0 : _a.username) || data.recipients && data.recipients[0] ? data.recipients[0].id : "deleted-channel" }));
         this.recipients = new Collection_1.default();
         this.type = "dm";
-        if (data)
-            setImmediate(() => this._patch(data));
     }
     toJSON() {
         const d = Object.assign(super.toJSON(), {

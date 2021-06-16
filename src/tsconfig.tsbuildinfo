@@ -494,11 +494,11 @@
         "signature": "0dae8d5bef5c957d84c397ac8a224d4e47b5b3d19790a56c5a0bc7e25163ca23"
       },
       "../ts/structures/guildchannel.ts": {
-        "version": "19a4cc4f3fd4752ac72a5bed1314ccd5163a0da4351e6f47ffc6ec289d2a24b9",
+        "version": "cc30199b206373916ca48718ea5cd3c9af80b7548696394f83eb48a8c59d3750",
         "signature": "ce1378186af24b79fe02b8892d531242b49e0eb685f5704e9b2397d443b18688"
       },
       "../ts/structures/categorychannel.ts": {
-        "version": "2f0950ae6b5e6608ff57074574dfe5a0158fb5e17a3cd3352ab09c16ce7a6719",
+        "version": "f620de91ba0fc9b87eef532d01209c52e6a0e2713a3558d92e657c6e2e8a26f5",
         "signature": "8a6b544b2ca3061e5cb51abc67436af2aa2fb1a03421a851445ac72feaba02f7"
       },
       "../ts/structures/interfaces/collector.ts": {
@@ -578,7 +578,7 @@
         "signature": "4f6006d66a31ff22e6617638430cddbed8497543745c113c5529dd7b215a1198"
       },
       "../ts/structures/textchannel.ts": {
-        "version": "7b7cce9b312071cfe223eccf5f4562defbb7f0c899d930b7a762f1331bd277ae",
+        "version": "9599b1927b1839953b4f21c22f4a5199adce4914ff9195bf329d45fda6408350",
         "signature": "3dd5fbce614a607ed5c56a0cfc6c42b38b49272ff46a8e2e214e68600408a8e5"
       },
       "../ts/structures/newschannel.ts": {
@@ -594,7 +594,7 @@
         "signature": "4026fd73281e5eb3e0fb7273c2ae1ea8aed6d006ab52292b8ce0a8229a2c389c"
       },
       "../ts/structures/voicechannel.ts": {
-        "version": "4433b4b849c80d8ce05a6c15ff663306432ebb3d9a85603ee27bc35490850c3a",
+        "version": "105fcf5d57ff051d9e6a043e6496fc4b92b27256ff9eaf7e357f90fa9488726a",
         "signature": "eb7210db086d8826b722b39d3e6eea0f8e486634208ed0b144ea1e849435d1c1"
       },
       "../ts/structures/stagechannel.ts": {
@@ -638,7 +638,7 @@
         "signature": "d55646477aa169e7cabcbbb5a2b82b050d579403d7dee2bcd24fd26093e1ca44"
       },
       "../ts/structures/threadtextchannel.ts": {
-        "version": "93be32eede85a306a6af2ceb0cade56b0ef1c91f3985c7e23c440a396d845e0f",
+        "version": "94689051bfe6c3a93f9954402af7dad2e2db604e54ac257eb61191e3c92ac51a",
         "signature": "e59bf605e8b40dd50d44b25d51b9f6a44685686ee8473081aa6f085006bb2ea3"
       },
       "../ts/structures/threadmetadata.ts": {
@@ -646,7 +646,7 @@
         "signature": "e02d1b8b943eb25977edad9f87af3f4062bc8cd9981a674725c4bbbde701001a"
       },
       "../ts/structures/threadnewschannel.ts": {
-        "version": "49d74733228c439af3e966a4fa3c25f83f5b3e4fa3f7e44ca56a04f29336cb80",
+        "version": "dfe0e5933c96d165895a4e8ad01e33b385cdfee25099ab50741ddfebf351c48f",
         "signature": "3634b47fa393bcbfd6aa1163184f5bfb10745a9f7d61c49af87c35a6ecf6bacf"
       },
       "../ts/structures/clientuser.ts": {
@@ -782,7 +782,7 @@
         "signature": "ab64d72f73d02b6ee26a5825ed928e9e3b4e702341674a2ff55159fb95c06537"
       },
       "../ts/structures/dmchannel.ts": {
-        "version": "0d113b5dcf1be0a353e7f2f562b23083fe0f3df33e52649e2766a2a7451df12d",
+        "version": "a09fdbdf492bf772a50dbbbe6dc09ea6b795e76152ece8781dd1f741df8b0b07",
         "signature": "3191c4782728791f634b0fd775e366facf8d79642d29a5708c7cdcd849c03c28"
       },
       "../ts/structures/partial/partialbase.ts": {
@@ -938,7 +938,7 @@
         "signature": "ee1975525773ba237393f1a11265a77a14bd9e8d627642070ac5bf63c5b5b6ef"
       },
       "../ts/structures/channel.ts": {
-        "version": "df9a685d45d2f91f6ed5b446011496436ad7fb766e2cf352410ff405348bceae",
+        "version": "3e3682c9744201a68c3d16bfca276a42670e3eb519278da4dec47788501aefc8",
         "signature": "1107995f795d4bd1b0bc4838ea6662142c6b4a3466803e7954b845610ff39c12"
       },
       "../ts/util/util.ts": {

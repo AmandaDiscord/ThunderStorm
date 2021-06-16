@@ -10,8 +10,6 @@ class VoiceChannel extends BaseGuildVoiceChannel_1.default {
         this.userLimit = 0;
         this.rtcRegion = null;
         this.type = "voice";
-        if (data)
-            this._patch(data);
     }
     toJSON() {
         return Object.assign(super.toJSON(), {

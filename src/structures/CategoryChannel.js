@@ -7,7 +7,6 @@ class CategoryChannel extends GuildChannel_1.default {
     constructor(guild, data) {
         super(guild, data);
         this.type = "category";
-        this._patch(data);
     }
     toJSON() {
         return Object.assign(super.toJSON(), { type: 4, nsfw: this.nsfw });

@@ -15,8 +15,6 @@ class ThreadNewsChannel extends NewsChannel_1.default {
         this.memberCount = 0;
         this.messageCount = 0;
         this.members = new Collection_1.default();
-        if (data)
-            this._patch(data);
     }
     async fetchMembers() {
         const ms = await this.client._snow.channel.getChannelThreadMembers(this.id);

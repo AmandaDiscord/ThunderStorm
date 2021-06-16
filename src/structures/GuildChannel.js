@@ -12,8 +12,6 @@ class GuildChannel extends Channel_1.default {
         this.rawPosition = 0;
         this.permissionOverwrites = new Collection_1.default();
         this.guild = guild;
-        if (data)
-            setImmediate(() => this._patch(data));
     }
     toJSON() {
         return {

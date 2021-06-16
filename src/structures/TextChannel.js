@@ -11,8 +11,6 @@ class TextChannel extends GuildChannel_1.default {
         this.rateLimitPerUser = 0;
         this.topic = "";
         this.type = "text";
-        if (data)
-            setImmediate(() => this._patch(data));
     }
     toJSON() {
         const d = Object.assign(super.toJSON(), {
