@@ -29,17 +29,7 @@ class DMChannel extends Channel implements TextBasedChannel {
 	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").DMChannelData) {
 		super(client, Object.assign({}, data, { name: client.user?.username || data.recipients && data.recipients[0] ? data.recipients[0].id : "deleted-channel" }));
 
-		if (data.last_message_id !== undefined) this.lastMessageID = data.last_message_id || null;
-		if (data.last_pin_timestamp !== undefined) {
-			this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
-		}
-		if (data.recipients) {
-			this.recipients.clear();
-			for (const recipient of data.recipients) {
-				if (recipient.id === this.client.user?.id) this.client.user?._patch(recipient);
-				this.recipients.set(recipient.id, recipient.id === this.client.user?.id ? this.client.user : new User(this.client, recipient));
-			}
-		}
+		if (data) setImmediate(() => this._patch(data));
 	}
 
 	public toJSON() {

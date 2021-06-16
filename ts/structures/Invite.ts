@@ -90,7 +90,7 @@ class Invite {
 		if (data.max_age !== undefined) this.maxAge = data.max_age;
 		if (data.uses !== undefined) this.uses = data.uses;
 		if (data.max_uses !== undefined) this.maxUses = data.max_uses;
-		if (data.channel || data.channel_id) this.channel = new PartialChannel(this.client, { id: data.channel ? data.channel.id : data.channel_id as string, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? Constants.ChannelTypes[data.channel.type] : undefined });
+		if (data.channel || data.channel_id) this.channel = new PartialChannel(this.client, { id: data.channel ? data.channel.id : data.channel_id as string, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? Constants.ChannelTypes[data.channel.type] : (data.guild_id ? "text" : "dm") });
 		if (data.created_at) this.createdTimestamp = new Date(data.created_at).getTime();
 		if (data.inviter) {
 			if (data.inviter.id === this.client.user?.id) this.client.user._patch(data.inviter);

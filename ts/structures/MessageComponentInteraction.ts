@@ -26,7 +26,7 @@ class MessageComponentInteraction extends Interaction implements InteractionResp
 		const Message: typeof import("./Message") = require("./Message");
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
 
-		this.message = data.message ? new Message(this.client, data.message, this.channel && this.channel.id === data.message.channel_id ? this.channel : new PartialChannel(this.client, { id: data.message.channel_id, guild_id: data.message.guild_id })) : null;
+		this.message = data.message ? new Message(this.client, data.message, this.channel && this.channel.id === data.message.channel_id ? this.channel : new PartialChannel(this.client, { id: data.message.channel_id, guild_id: data.message.guild_id, type: data.message.guild_id ? "text" : "dm" })) : null;
 		this.customID = data.data?.custom_id || "";
 		this.componentType = MessageComponentInteraction.resolveType(data.data?.component_type as Exclude<keyof typeof MessageComponentTypes, string>);
 		this.deferred = false;

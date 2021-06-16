@@ -58,7 +58,7 @@ class Webhook {
 
 		const { data, files } = await apiMessage.resolveFiles();
 		return this.client._snow.webhook.executeWebhook(this.id, this.token as string, Object.assign({}, data || {}, { files }), { wait: true }).then((d: any) => {
-			const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id });
+			const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: "text" });
 			return new Message(this.client, d, channel);
 		});
 	}
@@ -107,7 +107,7 @@ class Webhook {
 		const Message: typeof import("./Message") = require("./Message");
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
 		const data = await this.client._snow.webhook.getWebhookMessage(this.id, this.token as string, message);
-		const channel = new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id });
+		const channel = new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id, type: "text" });
 		return new Message(this.client, data, channel);
 	}
 
@@ -124,7 +124,7 @@ class Webhook {
 		const { data, files } = await apiMessage.resolveData().resolveFiles();
 
 		const d = await this.client._snow.webhook.editWebhookMessage(this.id, this.token as string, typeof message === "string" ? message : message.id, Object.assign({}, data, { files }));
-		const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id });
+		const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: "text" });
 		return new Message(this.client, d, channel);
 	}
 

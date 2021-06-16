@@ -7,7 +7,7 @@ class MessageDeleteBulkAction extends Action {
 		const PartialChannel: typeof import("../../structures/Partial/PartialChannel") = require("../../structures/Partial/PartialChannel");
 		const PartialMessage: typeof import("../../structures/Partial/PartialMessage") = require("../../structures/Partial/PartialMessage");
 		const msgs = [];
-		const channel = new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id });
+		const channel = new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id, type: data.guild_id ? "text" : "dm" });
 		for (const id of data.ids) {
 			const message = new PartialMessage(this.client, { id: id, channel_id: data.channel_id });
 			message.channel = channel;

@@ -258,7 +258,7 @@ class Message extends Base {
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
 		if (!this.reference) throw new Error("MESSAGE_REFERENCE_MISSING");
 		const { channelID, messageID } = this.reference;
-		const channel = new PartialChannel(this.client, { id: channelID, guild_id: this.guild?.id });
+		const channel = new PartialChannel(this.client, { id: channelID, guild_id: this.guild?.id, type: this.guild?.id ? "text" : "dm" });
 		if (!channel) throw new Error("GUILD_CHANNEL_RESOLVE");
 		return channel.fetchMessage(messageID as string);
 	}

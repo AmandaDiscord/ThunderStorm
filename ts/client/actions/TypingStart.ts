@@ -6,7 +6,7 @@ class TypingStart extends Action {
 		const PartialChannel: typeof import("../../structures/Partial/PartialChannel") = require("../../structures/Partial/PartialChannel");
 		const PartialUser: typeof import("../../structures/Partial/PartialUser") = require("../../structures/Partial/PartialUser");
 
-		this.client.emit(Events.TYPING_START, new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id }), new PartialUser(this.client, { id: data.user_id }));
+		this.client.emit(Events.TYPING_START, new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id, type: data.guild_id ? "text" : "dm" }), new PartialUser(this.client, { id: data.user_id }));
 	}
 
 	tooLate(channel: any, user: any) {

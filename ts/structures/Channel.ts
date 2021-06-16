@@ -42,7 +42,6 @@ class Channel extends Base {
 	public _patch(data: import("@amanda/discordtypings").ChannelData) {
 		if (data.id) this.id = data.id;
 		if (data.name) this.name = data.name;
-		super._patch(data);
 	}
 }
 
