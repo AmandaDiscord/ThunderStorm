@@ -1,16 +1,16 @@
+import Base from "./Base";
 import ActivityFlags from "../util/ActivityFlags";
-export declare class Presence {
+export declare class Presence extends Base {
     userID: string;
     guild: import("./Partial/PartialGuild") | null;
-    client: import("../client/Client");
     status: import("../Types").PresenceStatus;
     activities: Array<Activity>;
     clientStatus: import("@amanda/discordtypings").ClientStatusData;
     user: import("./User");
     member: import("./GuildMember") | null;
     constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").PresenceData);
-    patch(data: import("@amanda/discordtypings").PresenceData): this;
-    _clone(): Presence;
+    _patch(data: import("@amanda/discordtypings").PresenceData): this;
+    _clone(): this;
     equals(presence: Presence): boolean;
     toJSON(): import("@amanda/discordtypings").PresenceData;
 }

@@ -15,7 +15,6 @@ class GuildMember {
         this.premiumSince = null;
         this.premiumSinceTimestamp = null;
         this.roles = new Collection_1.default();
-        this.guild = null;
         this.avatar = null;
         this.hoistRole = null;
         this.presence = null;
@@ -48,10 +47,9 @@ class GuildMember {
         return this;
     }
     async ban(options) {
-        var _a, _b;
         if (!this.guild)
             return this;
-        await this.client._snow.guild.createGuildBan(this.guild.id, this.id, { delete_message_days: ((_a = options) === null || _a === void 0 ? void 0 : _a.days) || 0, reason: (_b = options) === null || _b === void 0 ? void 0 : _b.reason });
+        await this.client._snow.guild.createGuildBan(this.guild.id, this.id, { delete_message_days: (options === null || options === void 0 ? void 0 : options.days) || 0, reason: options === null || options === void 0 ? void 0 : options.reason });
     }
     toString() {
         return `<@${this.id}>`;
@@ -96,7 +94,7 @@ class GuildMember {
         if (!this.guild || data.guild_id) {
             if (data.guild_id && !this.roles.has(data.guild_id))
                 this.roles.set(data.guild_id, new PartialRole(this.client, { id: data.guild_id, name: "@everyone" }));
-            this.guild = data.guild_id ? new PartialGuild(this.client, { id: data.guild_id }) : null;
+            this.guild = new PartialGuild(this.client, { id: data.guild_id });
         }
         if (data.roles && Array.isArray(data.roles)) {
             this.roles.clear();

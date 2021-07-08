@@ -14,6 +14,7 @@ class SystemChannelFlags extends BitField_1.default {
         this.FLAGS = FLAGS;
     }
 }
+Symbol.species;
 SystemChannelFlags.default = SystemChannelFlags;
 SystemChannelFlags.FLAGS = FLAGS;
 module.exports = SystemChannelFlags;

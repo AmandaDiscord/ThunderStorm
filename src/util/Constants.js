@@ -3,7 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Endpoints_1 = __importDefault(require("snowtransfer/dist/src/Endpoints"));
+exports.SYSTEM_USER_ID = exports.NSFWLevels = exports.MessageButtonStyles = exports.MessageComponentTypes = exports.InteractionResponseTypes = exports.InteractionTypes = exports.ApplicationCommandPermissionTypes = exports.ApplicationCommandOptionTypes = exports.OverwriteTypes = exports.StickerFormatTypes = exports.WebhookTypes = exports.MembershipStates = exports.DefaultMessageNotifications = exports.APIErrors = exports.VerificationLevels = exports.ExplicitContentFilterLevels = exports.Colors = exports.ChannelTypes = exports.ClientApplicationAssetTypes = exports.ActivityTypes = exports.SystemMessageTypes = exports.MessageTypes = exports.InviteScopes = exports.PartialTypes = exports.Events = exports.Endpoints = void 0;
+const Endpoints_1 = __importDefault(require("snowtransfer/dist/Endpoints"));
 const errors_1 = require("../errors");
 const AllowedImageFormats = ["webp", "png", "jpg", "jpeg", "gif"];
 const AllowedImageSizes = Array.from({ length: 9 }, (e, i) => 2 ** (i + 4));
@@ -281,12 +282,6 @@ exports.WebhookTypes = [
     "Channel Follower",
     "Application"
 ];
-exports.StickerTypes = {
-    1: "STANDARD",
-    "STANDARD": 1,
-    2: "GUILD",
-    "GUILD": 2
-};
 exports.StickerFormatTypes = {
     1: "PNG",
     PNG: 1,
@@ -365,6 +360,16 @@ exports.MessageButtonStyles = {
     5: "LINK",
     LINK: 5
 };
+exports.NSFWLevels = {
+    0: "DEFAULT",
+    DEFAULT: 0,
+    1: "EXPLICIT",
+    EXPLICIT: 1,
+    2: "SAFE",
+    SAFE: 2,
+    3: "AGE_RESTRICTED",
+    AGE_RESTRICTED: 3
+};
 exports.SYSTEM_USER_ID = "643945264868098049";
 const Constants = {
     SYSTEM_USER_ID: exports.SYSTEM_USER_ID,
@@ -384,7 +389,6 @@ const Constants = {
     DefaultMessageNotifications: exports.DefaultMessageNotifications,
     MembershipStates: exports.MembershipStates,
     WebhookTypes: exports.WebhookTypes,
-    StickerTypes: exports.StickerTypes,
     StickerFormatTypes: exports.StickerFormatTypes,
     OverwriteTypes: exports.OverwriteTypes,
     ApplicationCommandOptionTypes: exports.ApplicationCommandOptionTypes,
@@ -392,6 +396,7 @@ const Constants = {
     InteractionTypes: exports.InteractionTypes,
     InteractionResponseTypes: exports.InteractionResponseTypes,
     MessageComponentTypes: exports.MessageComponentTypes,
-    MessageButtonStyles: exports.MessageButtonStyles
+    MessageButtonStyles: exports.MessageButtonStyles,
+    NSFWLevels: exports.NSFWLevels
 };
 exports.default = Constants;

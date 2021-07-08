@@ -1,3 +1,3 @@
 "use strict";
-const DiscordAPIError = require("snowtransfer/dist/src/RequestHandler").DiscordAPIError;
+const DiscordAPIError = require("snowtransfer/dist/RequestHandler").DiscordAPIError;
 module.exports = DiscordAPIError;

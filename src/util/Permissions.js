@@ -50,6 +50,7 @@ class Permissions extends BitField_1.default {
         return (checkAdmin && super.has.call(this, this.constructor.FLAGS.ADMINISTRATOR)) || super.has.call(this, permission);
     }
 }
+Symbol.species;
 Permissions.default = Permissions;
 Permissions.FLAGS = FLAGS;
 Permissions.ALL = Object.values(FLAGS).reduce((all, p) => all | p, BigInt(0));

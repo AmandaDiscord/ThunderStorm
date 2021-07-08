@@ -46,8 +46,8 @@ class Emoji extends Base_1.default {
             this.id = data.id;
         if (data.name)
             this.name = data.name;
-        if (data.animated != undefined)
-            this.animated = data.animated;
+        if (data.animated !== undefined)
+            this.animated = !!data.animated;
     }
 }
 module.exports = Emoji;

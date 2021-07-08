@@ -19,6 +19,7 @@ class MessageFlags extends BitField_1.default {
         this.FLAGS = FLAGS;
     }
 }
+Symbol.species;
 MessageFlags.default = MessageFlags;
 MessageFlags.FLAGS = FLAGS;
 module.exports = MessageFlags;

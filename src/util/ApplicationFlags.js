@@ -20,6 +20,7 @@ class ApplicationFlags extends BitField_1.default {
         this.FLAGS = FLAGS;
     }
 }
+Symbol.species;
 ApplicationFlags.default = ApplicationFlags;
 ApplicationFlags.FLAGS = FLAGS;
 module.exports = ApplicationFlags;

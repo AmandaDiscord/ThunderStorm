@@ -1,5 +1,5 @@
 import MessageCollector from "../MessageCollector";
-import APIMessage from "../APIMessage";
+import MessagePayload from "../MessagePayload";
 import Collection from "../../util/Collection";
 import MessageComponentInteractionCollector from "../MessageComponentInteractionCollector";
 declare abstract class TextBasedChannel {
@@ -11,7 +11,7 @@ declare abstract class TextBasedChannel {
     constructor();
     get lastMessage(): import("../Partial/PartialMessage") | null;
     get lastPinAt(): Date | null;
-    send(options: string | APIMessage | import("../../Types").MessageOptions): Promise<import("../Message")>;
+    send(options: string | MessagePayload | import("../../Types").MessageOptions): Promise<import("../Message")>;
     startTyping(): Promise<void>;
     sendTyping(): Promise<void>;
     stopTyping(): void;

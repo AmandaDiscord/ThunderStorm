@@ -2,7 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const APIMessage_1 = __importDefault(require("./APIMessage"));
+const MessagePayload_1 = __importDefault(require("./MessagePayload"));
 const Base_1 = __importDefault(require("./Base"));
 const BaseMessageComponent_1 = __importDefault(require("./BaseMessageComponent"));
 const ClientApplication_1 = __importDefault(require("./ClientApplication"));
@@ -71,15 +71,15 @@ class Message extends Base_1.default {
         }
         this.nonce = "nonce" in data ? data.nonce : null;
         this.embeds = (data.embeds || []).map(e => new MessageEmbed_1.default(e, true));
-        this.components = (_a = data.components, (_a !== null && _a !== void 0 ? _a : [])).map(c => BaseMessageComponent_1.default.create(c, this.client));
+        this.components = ((_a = data.components) !== null && _a !== void 0 ? _a : []).map(c => BaseMessageComponent_1.default.create(c, this.client));
         if (data.attachments) {
             for (const attachment of data.attachments) {
                 this.attachments.set(attachment.id, new MessageAttachment_1.default(attachment.url, attachment.filename, attachment));
             }
         }
         this.stickers = new Collection_1.default();
-        if (data.stickers) {
-            for (const sticker of data.stickers) {
+        if (data.sticker_items) {
+            for (const sticker of data.sticker_items) {
                 this.stickers.set(sticker.id, new Sticker_1.default(this.client, sticker));
             }
         }
@@ -94,7 +94,7 @@ class Message extends Base_1.default {
         this.mentions = new MessageMentions_1.default(this, data.mentions, data.mention_roles, data.mention_everyone, data.mention_channels);
         this.webhookID = data.webhook_id || null;
         this.groupActivityApplication = data.application ? new ClientApplication_1.default(this.client, data.application) : null;
-        this.applicationID = (_b = data.application_id, (_b !== null && _b !== void 0 ? _b : null));
+        this.applicationID = (_b = data.application_id) !== null && _b !== void 0 ? _b : null;
         this.activity = data.activity
             ? {
                 partyID: data.activity.party_id,
@@ -229,7 +229,7 @@ class Message extends Base_1.default {
         return this.channel.type === "news" && !this.flags.has(MessageFlags_1.default.FLAGS.CROSSPOSTED) && this.type === "DEFAULT" && (this.author && this.author.id === this.client.user.id);
     }
     async edit(options) {
-        const opts = options instanceof APIMessage_1.default ? options : APIMessage_1.default.create(this, options);
+        const opts = options instanceof MessagePayload_1.default ? options : MessagePayload_1.default.create(this, options);
         const { data, files } = opts.resolveData();
         const d = await this.client._snow.channel.editMessage(this.channel.id, this.id, Object.assign({}, data, { files: files }), { disableEveryone: options.disableEveryone ? options.disableEveryone : this.client.options.disableEveryone || false });
         return this._patch(d);
@@ -283,14 +283,14 @@ class Message extends Base_1.default {
     reply(options) {
         var _a, _b;
         let data;
-        if (options instanceof APIMessage_1.default) {
+        if (options instanceof MessagePayload_1.default) {
             data = options;
         }
         else {
-            data = APIMessage_1.default.create(this, options, {
+            data = MessagePayload_1.default.create(this, options, {
                 reply: {
                     messageReference: this,
-                    failIfNotExists: (_b = (_a = options) === null || _a === void 0 ? void 0 : _a.failIfNotExists, (_b !== null && _b !== void 0 ? _b : true))
+                    failIfNotExists: (_b = (_a = options) === null || _a === void 0 ? void 0 : _a.failIfNotExists) !== null && _b !== void 0 ? _b : true
                 }
             });
         }

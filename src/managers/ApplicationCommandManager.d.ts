@@ -11,7 +11,7 @@ declare class ApplicationCommandManager extends BaseManager<import("../structure
     static readonly default: typeof ApplicationCommandManager;
     readonly [Symbol.species]: ApplicationCommandManagerConstructor;
     constructor(client: import("../client/Client"), iterable?: IterableIterator<import("../structures/ApplicationCommand")>);
-    add(data: import("../structures/ApplicationCommand"), cache?: boolean): ApplicationCommand;
+    _add(data: import("../structures/ApplicationCommand"), cache?: boolean): ApplicationCommand;
     get commandPath(): any;
     fetch(): Promise<Collection<string, import("../structures/ApplicationCommand")>>;
     fetch(id: undefined, cache?: boolean, force?: boolean): Promise<Collection<string, import("../structures/ApplicationCommand")>>;
@@ -24,13 +24,13 @@ declare class ApplicationCommandManager extends BaseManager<import("../structure
         name: string;
         description: string;
         options: {
-            type: import("@amanda/discordtypings").ApplicationCommandOptionType;
+            type: 2 | 1 | 9 | 4 | 6 | 5 | 3 | 7 | 8;
             name: string;
             description: string;
             required?: boolean | undefined;
             choices?: import("../Types").ApplicationCommandOptionChoice[] | undefined;
             options?: {
-                type: import("@amanda/discordtypings").ApplicationCommandOptionType;
+                type: 2 | 1 | 9 | 4 | 6 | 5 | 3 | 7 | 8;
                 name: string;
                 description: string;
                 required?: boolean | undefined;

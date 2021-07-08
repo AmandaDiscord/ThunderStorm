@@ -1,12 +1,13 @@
-import BaseGuild from "./BaseGuild";
+import AnonymousGuild from "./AnonymousGuild";
 import Collection from "../util/Collection";
 import Emoji from "./Emoji";
 import GuildMember from "./GuildMember";
 import Role from "./Role";
 import SystemChannelFlags from "../util/SystemChannelFlags";
 import VoiceState from "./VoiceState";
+import WelcomeScreen from "./WelcomeScreen";
 import GuildApplicationCommandManager from "../managers/GuildApplicationCommandManager";
-declare class Guild extends BaseGuild {
+declare class Guild extends AnonymousGuild {
     partial: false;
     name: string;
     id: string;
@@ -17,12 +18,8 @@ declare class Guild extends BaseGuild {
     ownerID: string;
     owner: import("./Partial/PartialUser");
     icon: string | null;
-    banner: string | null;
-    description: string | null;
     discoverySplash: string | null;
-    features: Array<import("../Types").Feature>;
     large: boolean;
-    splash: string | null;
     applicationID: string | null;
     afkTimeout: number;
     afkChannelID: string | null;
@@ -30,7 +27,6 @@ declare class Guild extends BaseGuild {
     systemChannelFlags: Readonly<SystemChannelFlags>;
     premiumTier: number;
     premiumSubscriptionCount: number;
-    vanityURLCode: string | null;
     rulesChannelID: string | null;
     publicUpdatesChannelID: string | null;
     preferredLocale: string;
@@ -44,7 +40,6 @@ declare class Guild extends BaseGuild {
     maximumMembers: number;
     maximumPresences: number;
     shardID: number;
-    verificationLevel: "NONE" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH";
     threads: Collection<string, import("./ThreadNewsChannel") | import("./ThreadTextChannel")>;
     stageInstances: Collection<string, import("./Partial/PartialChannel")>;
     joinedTimestamp: number;
@@ -52,6 +47,7 @@ declare class Guild extends BaseGuild {
     constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").GuildData);
     get joinedAt(): Date;
     get me(): GuildMember;
+    fetchWelcomeScreen(): Promise<WelcomeScreen>;
     bannerURL(options?: import("../Types").ImageURLOptions): string | null;
     toJSON(): {
         name: string;

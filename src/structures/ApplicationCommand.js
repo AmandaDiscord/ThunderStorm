@@ -9,14 +9,14 @@ class ApplicationCommand extends Base_1.default {
     constructor(client, data, guild) {
         super(client);
         this.id = data.id;
-        this.guild = (guild !== null && guild !== void 0 ? guild : null);
+        this.guild = guild !== null && guild !== void 0 ? guild : null;
         this._patch(data);
     }
     _patch(data) {
         var _a, _b;
         this.name = data.name;
         this.description = data.description;
-        this.options = (_b = (_a = data.options) === null || _a === void 0 ? void 0 : _a.map(o => this.constructor.transformOption(o, true)), (_b !== null && _b !== void 0 ? _b : []));
+        this.options = (_b = (_a = data.options) === null || _a === void 0 ? void 0 : _a.map(o => this.constructor.transformOption(o, true))) !== null && _b !== void 0 ? _b : [];
         this.defaultPermission = data.default_permission;
     }
     get createdTimestamp() {
@@ -27,7 +27,7 @@ class ApplicationCommand extends Base_1.default {
     }
     get manager() {
         var _a;
-        return (_a = this.guild, (_a !== null && _a !== void 0 ? _a : this.client.application)).commands;
+        return ((_a = this.guild) !== null && _a !== void 0 ? _a : this.client.application).commands;
     }
     edit(data) {
         return this.manager.edit(this, data);
@@ -59,5 +59,6 @@ class ApplicationCommand extends Base_1.default {
         };
     }
 }
+Symbol.species;
 ApplicationCommand.default = ApplicationCommand;
 module.exports = ApplicationCommand;

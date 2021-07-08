@@ -18,6 +18,6 @@ declare class MessageComponentInteraction extends Interaction implements Interac
     replied: boolean;
     webhook: InteractionWebhook;
     constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").InteractionData);
-    static resolveType(type: import("../Types").MessageComponentType | Exclude<keyof typeof MessageComponentTypes, string>): "ACTION_ROW" | "BUTTON";
+    static resolveType(type: import("../Types").MessageComponentType | Exclude<keyof typeof MessageComponentTypes, string>): import("../Types").MessageComponentType;
 }
 export = MessageComponentInteraction;

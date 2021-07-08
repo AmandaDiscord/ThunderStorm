@@ -17,8 +17,8 @@ class Interaction extends Base_1.default {
         this.id = data.id;
         this.token = data.token;
         this.applicationID = data.application_id;
-        this.channelID = (_a = data.channel_id, (_a !== null && _a !== void 0 ? _a : null));
-        this.guildID = (_b = data.guild_id, (_b !== null && _b !== void 0 ? _b : null));
+        this.channelID = (_a = data.channel_id) !== null && _a !== void 0 ? _a : null;
+        this.guildID = (_b = data.guild_id) !== null && _b !== void 0 ? _b : null;
         if (data.member) {
             this.member = new GuildMember(this.client, data.member);
             this.user = this.member.user;

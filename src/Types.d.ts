@@ -430,5 +430,5 @@ export declare type ChannelLogsQueryOptions = {
     after?: string;
     around?: string;
 };
-export declare type StickerType = Exclude<keyof typeof Constants.StickerTypes, number>;
+export declare type NSFWLevel = Exclude<keyof typeof Constants.NSFWLevels, number>;
 export {};

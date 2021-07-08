@@ -2,7 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const Endpoints_1 = __importDefault(require("snowtransfer/dist/src/Endpoints"));
+const Endpoints_1 = __importDefault(require("snowtransfer/dist/Endpoints"));
 const Base_1 = __importDefault(require("./Base"));
 const Constants_1 = require("../util/Constants");
 const DataResolver_1 = __importDefault(require("../util/DataResolver"));

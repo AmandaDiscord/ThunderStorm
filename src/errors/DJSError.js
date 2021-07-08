@@ -17,6 +17,7 @@ function makeDiscordjsError(Base) {
                 return this[kCode];
             }
         },
+        Symbol.species,
         _a.default = _a,
         _a;
 }

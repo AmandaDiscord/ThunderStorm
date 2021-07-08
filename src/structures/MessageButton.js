@@ -13,16 +13,16 @@ class MessageButton extends BaseMessageComponent_1.default {
     }
     setup(data) {
         var _a, _b, _c, _d, _e;
-        this.label = (_a = data.label, (_a !== null && _a !== void 0 ? _a : null));
+        this.label = (_a = data.label) !== null && _a !== void 0 ? _a : null;
         // @ts-ignore
-        this.customID = (_c = (_b = data.custom_id, (_b !== null && _b !== void 0 ? _b : data.customID)), (_c !== null && _c !== void 0 ? _c : null));
+        this.customID = (_c = (_b = data.custom_id) !== null && _b !== void 0 ? _b : data.customID) !== null && _c !== void 0 ? _c : null;
         this.style = data.style ? MessageButton.resolveStyle(data.style) : null;
         if (!data.emoji)
             this.emoji = null;
         else
             this.setEmoji(data.emoji);
-        this.url = (_d = data.url, (_d !== null && _d !== void 0 ? _d : null));
-        this.disabled = (_e = data.disabled, (_e !== null && _e !== void 0 ? _e : false));
+        this.url = (_d = data.url) !== null && _d !== void 0 ? _d : null;
+        this.disabled = (_e = data.disabled) !== null && _e !== void 0 ? _e : false;
     }
     setCustomID(customID) {
         // @ts-ignore

@@ -39,6 +39,9 @@ declare class GuildAuditLogs {
         INTEGRATION_CREATE: 80;
         INTEGRATION_UPDATE: 81;
         INTEGRATION_DELETE: 82;
+        STAGE_INSTANCE_CREATE: 83;
+        STAGE_INSTANCE_UPDATE: 84;
+        STAGE_INSTANCE_DELETE: 85;
     };
     static Targets: {
         ALL: "ALL";

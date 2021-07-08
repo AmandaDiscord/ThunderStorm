@@ -1,4 +1,4 @@
-import APIMessage from "./APIMessage";
+import MessagePayload from "./MessagePayload";
 import Base from "./Base";
 import MessageAttachment from "./MessageAttachment";
 import MessageComponentInteractionCollector from "./MessageComponentInteractionCollector";
@@ -57,7 +57,7 @@ declare class Message extends Base {
     react(emoji: import("../Types").EmojiIdentifierResolvable): Promise<this>;
     clearReactions(): Promise<this>;
     delete(): Promise<this>;
-    reply(options?: string | APIMessage | import("../Types").ReplyMessageOptions): Promise<Message>;
+    reply(options?: string | MessagePayload | import("../Types").ReplyMessageOptions): Promise<Message>;
     fetch(): Promise<this>;
     fetchWebhook(): Promise<import("./Webhook")>;
     suppressEmbeds(suppress?: boolean): Promise<void>;

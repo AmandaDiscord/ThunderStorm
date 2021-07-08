@@ -3,18 +3,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RichPresenceAssets = exports.Activity = exports.Presence = void 0;
+const Base_1 = __importDefault(require("./Base"));
 const Emoji_1 = __importDefault(require("./Emoji"));
 const ActivityFlags_1 = __importDefault(require("../util/ActivityFlags"));
 const Constants_1 = require("../util/Constants");
-class Presence {
+class Presence extends Base_1.default {
     constructor(client, data) {
+        super(client);
         this.guild = null;
         this.member = null;
-        this.client = client;
         this.userID = data.user.id;
-        this.patch(data);
+        this._patch(data);
     }
-    patch(data) {
+    _patch(data) {
         var _a;
         const GuildMember = require("./GuildMember");
         const User = require("./User");

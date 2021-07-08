@@ -5,7 +5,7 @@ declare abstract class BaseManager<T, C extends Collection<string, T>> {
     cacheType: C["constructor"];
     cache: C;
     constructor(client: import("../client/Client"), iterable: IterableIterator<T> | undefined, holds: new (...args: Array<any>) => T, cacheType?: C["constructor"], ...cacheOptions: ConstructorParameters<C["constructor"]>);
-    add(data: T, cache?: boolean, options?: {
+    _add(data: T, cache?: boolean, options?: {
         id?: string;
         extras?: Array<any>;
     }): T;

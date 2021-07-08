@@ -2,24 +2,24 @@ export declare const Endpoints: {
     CDN(root: string): {
         Emoji: (emojiID: string, format?: import("../Types").AllowedImageFormat) => string;
         Asset: (name: string) => string;
-        DefaultAvatar: (discriminator: string) => string;
-        Avatar: (userID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined, dynamic?: boolean) => string;
-        Banner: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined) => string;
-        Icon: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined, dynamic?: boolean) => string;
+        DefaultAvatar: (discriminator: number) => string;
+        Avatar: (userID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize | undefined, dynamic?: boolean) => string;
+        Banner: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize | undefined) => string;
+        Icon: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize | undefined, dynamic?: boolean) => string;
         AppIcon: (clientID: string, hash: string, options?: {
-            format?: "webp" | "png" | "jpg" | "jpeg" | "gif" | undefined;
-            size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined;
+            format?: import("../Types").AllowedImageFormat;
+            size?: import("../Types").ImageSize;
         }) => string;
         AppAsset: (clientID: string, hash: string, options?: {
-            format?: "webp" | "png" | "jpg" | "jpeg" | "gif" | undefined;
-            size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined;
+            format?: import("../Types").AllowedImageFormat;
+            size?: import("../Types").ImageSize;
         }) => string;
-        GDMIcon: (channelID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined) => string;
-        Splash: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined) => string;
-        DiscoverySplash: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined) => string;
+        GDMIcon: (channelID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize | undefined) => string;
+        Splash: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize | undefined) => string;
+        DiscoverySplash: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize | undefined) => string;
         TeamIcon: (teamID: string, hash: string, options?: {
-            format?: "webp" | "png" | "jpg" | "jpeg" | "gif" | undefined;
-            size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined;
+            format?: import("../Types").AllowedImageFormat;
+            size?: import("../Types").ImageSize;
         }) => string;
     };
     invite: (root: string, code: string) => string;
@@ -83,8 +83,44 @@ export declare const PartialTypes: {
     MESSAGE: "MESSAGE";
     REACTION: "REACTION";
 };
-export declare const InviteScopes: ["applications.builds.read", "applications.commands", "applications.entitlements", "applications.store.update", "connections", "email", "identity", "guilds", "guilds.join", "gdm.join", "webhook.incoming"];
-export declare const MessageTypes: ["DEFAULT", "RECIPIENT_ADD", "RECIPIENT_REMOVE", "CALL", "CHANNEL_NAME_CHANGE", "CHANNEL_ICON_CHANGE", "PINS_ADD", "GUILD_MEMBER_JOIN", "USER_PREMIUM_GUILD_SUBSCRIPTION", "USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1", "USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2", "USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3", "CHANNEL_FOLLOW_ADD", null, "GUILD_DISCOVERY_DISQUALIFIED", "GUILD_DISCOVERY_REQUALIFIED", "GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING", "GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING", null, "REPLY", "APPLICATION_COMMAND", "THREAD_STARTER_MESSAGE", "GUILD_INVITE_REMINDER"];
+export declare const InviteScopes: [
+    "applications.builds.read",
+    "applications.commands",
+    "applications.entitlements",
+    "applications.store.update",
+    "connections",
+    "email",
+    "identity",
+    "guilds",
+    "guilds.join",
+    "gdm.join",
+    "webhook.incoming"
+];
+export declare const MessageTypes: [
+    "DEFAULT",
+    "RECIPIENT_ADD",
+    "RECIPIENT_REMOVE",
+    "CALL",
+    "CHANNEL_NAME_CHANGE",
+    "CHANNEL_ICON_CHANGE",
+    "PINS_ADD",
+    "GUILD_MEMBER_JOIN",
+    "USER_PREMIUM_GUILD_SUBSCRIPTION",
+    "USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1",
+    "USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2",
+    "USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3",
+    "CHANNEL_FOLLOW_ADD",
+    null,
+    "GUILD_DISCOVERY_DISQUALIFIED",
+    "GUILD_DISCOVERY_REQUALIFIED",
+    "GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING",
+    "GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING",
+    null,
+    "REPLY",
+    "APPLICATION_COMMAND",
+    "THREAD_STARTER_MESSAGE",
+    "GUILD_INVITE_REMINDER"
+];
 export declare const SystemMessageTypes: Exclude<typeof MessageTypes, null | "DEFAULT" | "REPLY" | "APPLICATION_COMMAND">;
 export declare const ActivityTypes: ["PLAYING", "STREAMING", "LISTENING", "WATCHING", "CUSTOM_STATUS", "COMPETING"];
 export declare const ClientApplicationAssetTypes: {
@@ -219,12 +255,6 @@ export declare const APIErrors: {
 export declare const DefaultMessageNotifications: ["ALL", "MENTIONS"];
 export declare const MembershipStates: [null, "INVITED", "ACCEPTED"];
 export declare const WebhookTypes: [null, "Incoming", "Channel Follower", "Application"];
-export declare const StickerTypes: {
-    1: "STANDARD";
-    "STANDARD": 1;
-    2: "GUILD";
-    "GUILD": 2;
-};
 export declare const StickerFormatTypes: {
     1: "PNG";
     PNG: 1;
@@ -303,6 +333,16 @@ export declare const MessageButtonStyles: {
     5: "LINK";
     LINK: 5;
 };
+export declare const NSFWLevels: {
+    0: "DEFAULT";
+    DEFAULT: 0;
+    1: "EXPLICIT";
+    EXPLICIT: 1;
+    2: "SAFE";
+    SAFE: 2;
+    3: "AGE_RESTRICTED";
+    AGE_RESTRICTED: 3;
+};
 export declare const SYSTEM_USER_ID = "643945264868098049";
 declare const Constants: {
     SYSTEM_USER_ID: string;
@@ -310,24 +350,24 @@ declare const Constants: {
         CDN(root: string): {
             Emoji: (emojiID: string, format?: import("../Types").AllowedImageFormat) => string;
             Asset: (name: string) => string;
-            DefaultAvatar: (discriminator: string) => string;
-            Avatar: (userID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined, dynamic?: boolean) => string;
-            Banner: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined) => string;
-            Icon: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined, dynamic?: boolean) => string;
+            DefaultAvatar: (discriminator: number) => string;
+            Avatar: (userID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize | undefined, dynamic?: boolean) => string;
+            Banner: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize | undefined) => string;
+            Icon: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize | undefined, dynamic?: boolean) => string;
             AppIcon: (clientID: string, hash: string, options?: {
-                format?: "webp" | "png" | "jpg" | "jpeg" | "gif" | undefined;
-                size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined;
+                format?: import("../Types").AllowedImageFormat;
+                size?: import("../Types").ImageSize;
             }) => string;
             AppAsset: (clientID: string, hash: string, options?: {
-                format?: "webp" | "png" | "jpg" | "jpeg" | "gif" | undefined;
-                size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined;
+                format?: import("../Types").AllowedImageFormat;
+                size?: import("../Types").ImageSize;
             }) => string;
-            GDMIcon: (channelID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined) => string;
-            Splash: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined) => string;
-            DiscoverySplash: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined) => string;
+            GDMIcon: (channelID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize | undefined) => string;
+            Splash: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize | undefined) => string;
+            DiscoverySplash: (guildID: string, hash: string, format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize | undefined) => string;
             TeamIcon: (teamID: string, hash: string, options?: {
-                format?: "webp" | "png" | "jpg" | "jpeg" | "gif" | undefined;
-                size?: 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | undefined;
+                format?: import("../Types").AllowedImageFormat;
+                size?: import("../Types").ImageSize;
             }) => string;
         };
         invite: (root: string, code: string) => string;
@@ -527,12 +567,6 @@ declare const Constants: {
     DefaultMessageNotifications: ["ALL", "MENTIONS"];
     MembershipStates: [null, "INVITED", "ACCEPTED"];
     WebhookTypes: [null, "Incoming", "Channel Follower", "Application"];
-    StickerTypes: {
-        1: "STANDARD";
-        "STANDARD": 1;
-        2: "GUILD";
-        "GUILD": 2;
-    };
     StickerFormatTypes: {
         1: "PNG";
         PNG: 1;
@@ -610,6 +644,16 @@ declare const Constants: {
         DANGER: 4;
         5: "LINK";
         LINK: 5;
+    };
+    NSFWLevels: {
+        0: "DEFAULT";
+        DEFAULT: 0;
+        1: "EXPLICIT";
+        EXPLICIT: 1;
+        2: "SAFE";
+        SAFE: 2;
+        3: "AGE_RESTRICTED";
+        AGE_RESTRICTED: 3;
     };
 };
 export default Constants;

@@ -14,7 +14,7 @@ class DataResolver {
     }
     static resolveCode(data, regex) {
         var _a, _b;
-        return _b = (_a = data.matchAll(regex).next().value) === null || _a === void 0 ? void 0 : _a[1], (_b !== null && _b !== void 0 ? _b : data);
+        return (_b = (_a = data.matchAll(regex).next().value) === null || _a === void 0 ? void 0 : _a[1]) !== null && _b !== void 0 ? _b : data;
     }
     static resolveInviteCode(data) {
         return this.resolveCode(data, Invite_1.default.INVITES_PATTERN);

@@ -1,5 +1,5 @@
 import PartialBase from "./PartialBase";
-import APIMessage from "../APIMessage";
+import MessagePayload from "../MessagePayload";
 import Message from "../Message";
 import MessageComponentInteractionCollector from "../MessageComponentInteractionCollector";
 import ReactionCollector from "../ReactionCollector";
@@ -8,9 +8,9 @@ declare class PartialMessage extends PartialBase<import("../Message")> {
     partialType: "Message";
     constructor(client: import("../../client/Client"), data: import("../../internal").PartialData);
     get url(): string;
-    reply(options?: string | APIMessage | import("../../Types").ReplyMessageOptions): Promise<Message>;
+    reply(options?: string | MessagePayload | import("../../Types").ReplyMessageOptions): Promise<Message>;
     crosspost(): Promise<Message>;
-    edit(options?: string | import("../APIMessage") | import("../../Types").MessageEditOptions): Promise<Message>;
+    edit(options?: string | import("../MessagePayload") | import("../../Types").MessageEditOptions): Promise<Message>;
     delete(): Promise<this>;
     react(emoji: import("../../Types").EmojiIdentifierResolvable): Promise<this>;
     clearReactions(): Promise<this>;

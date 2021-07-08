@@ -11,9 +11,9 @@ class BaseManager {
         this.cache = new cacheType(...cacheOptions);
         if (iterable)
             for (const i of iterable)
-                this.add(i);
+                this._add(i);
     }
-    add(data, cache = true, options = { extras: [] }) {
+    _add(data, cache = true, options = { extras: [] }) {
         // @ts-ignore
         const existing = this.cache.get(options.id || data.id);
         // @ts-ignore

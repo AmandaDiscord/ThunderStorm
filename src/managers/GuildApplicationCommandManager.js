@@ -16,8 +16,8 @@ class GuildApplicationCommandManager extends ApplicationCommandManager_1.default
             const id = this.resolveID(command);
             if (!id)
                 throw new errors_1.TypeError("INVALID_TYPE", "command", "ApplicationCommandResolvable");
-            const data = await this.commandPath(id).permissions.get();
-            return data.permissions.map((perm) => this.constructor.transformPermissions(perm, true));
+            const d = await this.commandPath(id).permissions.get();
+            return d.permissions.map((perm) => this.constructor.transformPermissions(perm, true));
         }
         const data = await this.commandPath.permissions.get();
         return data.reduce((coll, perm) => coll.set(perm.id, perm.permissions.map((p) => this.constructor.transformPermissions(p, true))), new Collection_1.default());
@@ -48,5 +48,6 @@ class GuildApplicationCommandManager extends ApplicationCommandManager_1.default
         };
     }
 }
+Symbol.species;
 GuildApplicationCommandManager.default = GuildApplicationCommandManager;
 module.exports = GuildApplicationCommandManager;

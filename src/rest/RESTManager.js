@@ -8,7 +8,7 @@ const RequestHandler_1 = __importDefault(require("./RequestHandler"));
 const errors_1 = require("../errors");
 const Collection_1 = __importDefault(require("../util/Collection"));
 const Constants_1 = require("../util/Constants");
-const Endpoints_1 = __importDefault(require("snowtransfer/dist/src/Endpoints"));
+const Endpoints_1 = __importDefault(require("snowtransfer/dist/Endpoints"));
 class RESTManager {
     constructor(client, tokenPrefix = "Bot") {
         this.handlers = new Collection_1.default();

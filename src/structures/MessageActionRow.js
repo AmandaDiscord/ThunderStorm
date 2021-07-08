@@ -6,9 +6,9 @@ const BaseMessageComponent_1 = __importDefault(require("./BaseMessageComponent")
 const Constants_1 = require("../util/Constants");
 class MessageActionRow extends BaseMessageComponent_1.default {
     constructor(data) {
-        var _a, _b;
+        var _a;
         super({ type: "ACTION_ROW" });
-        this.components = (_b = (_a = data) === null || _a === void 0 ? void 0 : _a.components, (_b !== null && _b !== void 0 ? _b : [])).map(c => BaseMessageComponent_1.default.create(c, null, true));
+        this.components = ((_a = data === null || data === void 0 ? void 0 : data.components) !== null && _a !== void 0 ? _a : []).map(c => BaseMessageComponent_1.default.create(c, null, true));
     }
     addComponents(...components) {
         this.components.push(...components.flat(Infinity).map(c => BaseMessageComponent_1.default.create(c, null, true)));

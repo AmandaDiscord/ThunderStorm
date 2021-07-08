@@ -8,7 +8,7 @@ declare type Options = {
     headers?: any;
     files?: Array<any>;
 };
-declare type HTTPMethod = Parameters<import("snowtransfer/dist/src/RequestHandler")["request"]>[1];
+declare type HTTPMethod = Parameters<import("snowtransfer/dist/RequestHandler")["request"]>[1];
 declare class APIRequest {
     rest: import("./RESTManager");
     client: import("../client/BaseClient");

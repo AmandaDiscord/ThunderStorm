@@ -57,7 +57,7 @@ class BitField {
     valueOf() {
         return this.bitfield;
     }
-    *[Symbol.iterator]() {
+    *[(Symbol.species, Symbol.iterator)]() {
         yield* this.toArray();
     }
     static resolve(bit = BigInt(0)) {

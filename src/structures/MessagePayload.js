@@ -9,7 +9,7 @@ const Constants_1 = require("../util/Constants");
 const DataResolver_1 = __importDefault(require("../util/DataResolver"));
 const MessageFlags_1 = __importDefault(require("../util/MessageFlags"));
 const Util_1 = __importDefault(require("../util/Util"));
-class APIMessage {
+class MessagePayload {
     constructor(target, options) {
         this.data = null;
         this.files = null;
@@ -109,7 +109,7 @@ class APIMessage {
             if (message_id) {
                 message_reference = {
                     message_id,
-                    fail_if_not_exists: (_a = this.options.reply.failIfNotExists, (_a !== null && _a !== void 0 ? _a : true))
+                    fail_if_not_exists: (_a = this.options.reply.failIfNotExists) !== null && _a !== void 0 ? _a : true
                 };
             }
         }
@@ -132,7 +132,7 @@ class APIMessage {
         var _a, _b;
         if (this.files)
             return this;
-        this.files = await Promise.all((_b = (_a = this.options.files) === null || _a === void 0 ? void 0 : _a.map(file => this.constructor.resolveFile(file)), (_b !== null && _b !== void 0 ? _b : [])));
+        this.files = await Promise.all((_b = (_a = this.options.files) === null || _a === void 0 ? void 0 : _a.map(file => this.constructor.resolveFile(file))) !== null && _b !== void 0 ? _b : []);
         return this;
     }
     split() {
@@ -140,7 +140,7 @@ class APIMessage {
             this.resolveData();
         if (!Array.isArray(this.data.content))
             return [this];
-        const apiMessages = [];
+        const messagePayloads = [];
         for (let i = 0; i < this.data.content.length; i++) {
             let data;
             let opt;
@@ -152,11 +152,11 @@ class APIMessage {
                 data = { content: this.data.content[i], tts: this.data.tts, allowed_mentions: this.options.allowedMentions };
                 opt = { content: this.data.content[i], tts: this.data.tts, allowedMentions: this.options.allowedMentions };
             }
-            const apiMessage = new APIMessage(this.target, opt);
-            apiMessage.data = data;
-            apiMessages.push(apiMessage);
+            const messagePayload = new MessagePayload(this.target, opt);
+            messagePayload.data = data;
+            messagePayloads.push(messagePayload);
         }
-        return apiMessages;
+        return messagePayloads;
     }
     static async resolveFile(fileLike) {
         let attachment;
@@ -186,4 +186,5 @@ class APIMessage {
         return new this(target, typeof options !== "object" || options === null ? { content: options, ...extra } : { ...options, ...extra });
     }
 }
-module.exports = APIMessage;
+Symbol.species;
+module.exports = MessagePayload;

@@ -1,12 +1,12 @@
 /// <reference types="node" />
-interface APIMessageConstructor {
-    new (target: import("../Types").MessageTarget, options: import("../Types").MessageOptions | import("../Types").WebhookMessageOptions): APIMessage;
-    readonly prototype: APIMessage;
-    readonly [Symbol.species]: APIMessageConstructor;
+interface MessagePayloadConstructor {
+    new (target: import("../Types").MessageTarget, options: import("../Types").MessageOptions | import("../Types").WebhookMessageOptions): MessagePayload;
+    readonly prototype: MessagePayload;
+    readonly [Symbol.species]: MessagePayloadConstructor;
 }
-declare class APIMessage {
-    ["constructor"]: typeof APIMessage;
-    readonly [Symbol.species]: APIMessageConstructor;
+declare class MessagePayload {
+    ["constructor"]: typeof MessagePayload;
+    readonly [Symbol.species]: MessagePayloadConstructor;
     target: import("../Types").MessageTarget;
     options: import("../Types").MessageOptions | import("../Types").WebhookMessageOptions | import("../Types").MessageEditOptions | import("../Types").ReplyMessageOptions;
     data: any | null;
@@ -19,12 +19,12 @@ declare class APIMessage {
     makeContent(): string | string[] | undefined;
     resolveData(): this;
     resolveFiles(): Promise<this>;
-    split(): APIMessage[];
+    split(): MessagePayload[];
     static resolveFile(fileLike: import("../Types").BufferResolvable | import("stream").Stream | import("../Types").FileOptions | import("./MessageAttachment")): Promise<{
-        attachment: string | Buffer | import("stream").Stream | import("../Types").FileOptions | import("./MessageAttachment");
+        attachment: import("../Types").BufferResolvable | import("stream").Stream | import("../Types").FileOptions | import("./MessageAttachment");
         name: string;
         file: Buffer | import("stream").Stream;
     }>;
-    static create(target: import("../Types").MessageTarget, options?: string | null | import("../Types").MessageOptions | import("../Types").WebhookMessageOptions | import("../Types").MessageEditOptions, extra?: import("../Types").MessageOptions | import("../Types").WebhookMessageOptions): APIMessage;
+    static create(target: import("../Types").MessageTarget, options?: string | null | import("../Types").MessageOptions | import("../Types").WebhookMessageOptions | import("../Types").MessageEditOptions, extra?: import("../Types").MessageOptions | import("../Types").WebhookMessageOptions): MessagePayload;
 }
-export = APIMessage;
+export = MessagePayload;

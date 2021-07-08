@@ -15,7 +15,7 @@ declare class GuildMember implements TextBasedChannel {
     premiumSince: Date | null;
     premiumSinceTimestamp: number | null;
     roles: Collection<string, import("./Partial/PartialRole")>;
-    guild: import("./Partial/PartialGuild") | null;
+    guild: import("./Partial/PartialGuild");
     avatar: string | null;
     hoistRole: import("./Partial/PartialRole") | null;
     presence: import("./Presence").Presence | null;

@@ -7,11 +7,11 @@ interface DiscordjsErrorConstructor {
     readonly [Symbol.species]: DiscordjsErrorConstructor;
 }
 declare function makeDiscordjsError(Base: ErrorConstructor): {
-    new (key: string, ...args: any[]): {
-        ["constructor"]: any;
-        readonly [Symbol.species]: DiscordjsErrorConstructor;
+    new (key: string, ...args: Array<any>): {
+        constructor: any;
         readonly name: string;
         readonly code: string;
+        readonly [Symbol.species]: DiscordjsErrorConstructor;
         [kCode]: string;
         message: string;
         stack?: string | undefined;

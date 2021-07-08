@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const path_1 = require("path");
 const centra_1 = __importDefault(require("centra"));
-const Endpoints_1 = __importDefault(require("snowtransfer/dist/src/Endpoints"));
+const Endpoints_1 = __importDefault(require("snowtransfer/dist/Endpoints"));
 const Constants_1 = require("./Constants");
 const errors_1 = require("../errors");
 const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);

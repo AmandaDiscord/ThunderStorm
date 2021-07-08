@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const PartialBase_1 = __importDefault(require("./PartialBase"));
-const APIMessage_1 = __importDefault(require("../APIMessage"));
+const MessagePayload_1 = __importDefault(require("../MessagePayload"));
 const Message_1 = __importDefault(require("../Message"));
 const MessageComponentInteractionCollector_1 = __importDefault(require("../MessageComponentInteractionCollector"));
 const ReactionCollector_1 = __importDefault(require("../ReactionCollector"));
@@ -22,14 +22,14 @@ class PartialMessage extends PartialBase_1.default {
     reply(options) {
         var _a, _b;
         let data;
-        if (options instanceof APIMessage_1.default) {
+        if (options instanceof MessagePayload_1.default) {
             data = options;
         }
         else {
-            data = APIMessage_1.default.create(this, options, {
+            data = MessagePayload_1.default.create(this, options, {
                 reply: {
                     messageReference: this,
-                    failIfNotExists: (_b = (_a = options) === null || _a === void 0 ? void 0 : _a.failIfNotExists, (_b !== null && _b !== void 0 ? _b : true))
+                    failIfNotExists: (_b = (_a = options) === null || _a === void 0 ? void 0 : _a.failIfNotExists) !== null && _b !== void 0 ? _b : true
                 }
             });
         }
@@ -40,7 +40,7 @@ class PartialMessage extends PartialBase_1.default {
         return new Message_1.default(this.client, data, this.channel);
     }
     async edit(options = {}) {
-        const opts = options instanceof APIMessage_1.default ? options : APIMessage_1.default.create(this, options);
+        const opts = options instanceof MessagePayload_1.default ? options : MessagePayload_1.default.create(this, options);
         const { data, files } = opts.resolveData();
         const d = await this.client._snow.channel.editMessage(this.channel.id, this.id, Object.assign({}, data, { files: files }), { disableEveryone: options.disableEveryone ? options.disableEveryone : this.client.options.disableEveryone || false });
         return new Message_1.default(this.client, d, this.channel);

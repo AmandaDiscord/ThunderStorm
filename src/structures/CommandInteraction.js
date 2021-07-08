@@ -22,10 +22,10 @@ class CommandInteraction extends Interaction_1.default {
     get command() {
         var _a, _b, _c, _d;
         const id = this.commandID;
-        return _d = (_b = (_a = this.guild) === null || _a === void 0 ? void 0 : _a.commands.cache.get(id), (_b !== null && _b !== void 0 ? _b : (_c = this.client.application) === null || _c === void 0 ? void 0 : _c.commands.cache.get(id))), (_d !== null && _d !== void 0 ? _d : null);
+        return (_d = (_b = (_a = this.guild) === null || _a === void 0 ? void 0 : _a.commands.cache.get(id)) !== null && _b !== void 0 ? _b : (_c = this.client.application) === null || _c === void 0 ? void 0 : _c.commands.cache.get(id)) !== null && _d !== void 0 ? _d : null;
     }
     transformOption(option, resolved) {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var _a, _b, _c, _d;
         const User = require("./User");
         const GuildMember = require("./GuildMember");
         const TextChannel = require("./TextChannel");
@@ -44,13 +44,13 @@ class CommandInteraction extends Interaction_1.default {
             result.value = option.value;
         if ("options" in option)
             result.options = this._createOptionsCollection(option.options, resolved);
-        const user = (_b = (_a = resolved) === null || _a === void 0 ? void 0 : _a.users) === null || _b === void 0 ? void 0 : _b[option.value];
+        const user = (_a = resolved === null || resolved === void 0 ? void 0 : resolved.users) === null || _a === void 0 ? void 0 : _a[option.value];
         if (user)
             result.user = new User(this.client, user);
-        const member = (_d = (_c = resolved) === null || _c === void 0 ? void 0 : _c.members) === null || _d === void 0 ? void 0 : _d[option.value];
+        const member = (_b = resolved === null || resolved === void 0 ? void 0 : resolved.members) === null || _b === void 0 ? void 0 : _b[option.value];
         if (member)
             result.member = new GuildMember(this.client, { user: user, ...member });
-        const channel = (_f = (_e = resolved) === null || _e === void 0 ? void 0 : _e.channels) === null || _f === void 0 ? void 0 : _f[option.value];
+        const channel = (_c = resolved === null || resolved === void 0 ? void 0 : resolved.channels) === null || _c === void 0 ? void 0 : _c[option.value];
         if (channel) {
             let chan;
             if (channel.type === 0 && this.guild)
@@ -73,7 +73,7 @@ class CommandInteraction extends Interaction_1.default {
                 chan.guild = this.guild;
             result.channel = chan;
         }
-        const role = (_h = (_g = resolved) === null || _g === void 0 ? void 0 : _g.roles) === null || _h === void 0 ? void 0 : _h[option.value];
+        const role = (_d = resolved === null || resolved === void 0 ? void 0 : resolved.roles) === null || _d === void 0 ? void 0 : _d[option.value];
         if (role)
             result.role = new Role(this.client, Object.assign({}, role, { guild_id: this.guildID }));
         return result;

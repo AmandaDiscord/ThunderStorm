@@ -1,8 +1,21 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.GuildBan = exports.GuildAuditLogs = exports.Guild = exports.Emoji = exports.DMChannel = exports.CommandInteraction = exports.Collector = exports.ClientUser = exports.ClientApplication = exports.Channel = exports.CategoryChannel = exports.ButtonInteraction = exports.BaseMessageComponent = exports.BaseGuildVoiceChannel = exports.BaseGuildEmoji = exports.BaseGuild = exports.MessagePayload = exports.Activity = exports.Base = exports.ApplicationCommand = exports.Application = exports.AnonymousGuild = exports.splitMessage = exports.verifyString = exports.resolveColor = exports.fetchRecommendedShards = exports.escapeMarkdown = exports.discordSort = exports.GuildApplicationCommandManager = exports.ApplicationCommandManager = exports.handle = exports.version = exports.Util = exports.UserFlags = exports.SystemChannelFlags = exports.SnowflakeUtil = exports.Permissions = exports.MessageFlags = exports.HTTPError = exports.DiscordAPIError = exports.BaseManager = exports.DataResolver = exports.Constants = exports.Collection = exports.BitField = exports.ApplicationFlags = exports.ActivityFlags = exports.WebhookClient = exports.Client = exports.BaseClient = void 0;
+exports.PartialMessage = exports.PartialGuild = exports.PartialChannel = exports.PartialBase = exports.WelcomeScreen = exports.WelcomeChannel = exports.Webhook = exports.VoiceState = exports.VoiceRegion = exports.VoiceChannel = exports.User = exports.ThreadTextChannel = exports.ThreadNewsChannel = exports.ThreadMetaData = exports.ThreadMember = exports.TextChannel = exports.TeamMember = exports.Team = exports.StageChannel = exports.StoreChannel = exports.Sticker = exports.Role = exports.RichPresenceAssets = exports.ReactionEmoji = exports.ReactionCollector = exports.Presence = exports.PermissionOverwrites = exports.OAuth2Guild = exports.NewsChannel = exports.MessageReaction = exports.MessageMentions = exports.MessageEmbed = exports.MessageComponentInteractionCollector = exports.MessageComponentInteraction = exports.MessageCollector = exports.MessageButton = exports.MessageAttachment = exports.MessageActionRow = exports.Message = exports.InviteGuild = exports.Invite = exports.InteractionWebhook = exports.Interaction = exports.IntegrationApplication = exports.Integration = exports.GuildTemplate = exports.GuildPreview = exports.GuildMember = exports.GuildEmoji = exports.GuildChannel = void 0;
+exports.PartialUser = exports.PartialThreadChannel = exports.PartialRole = void 0;
 const BaseClient_1 = __importDefault(require("./client/BaseClient"));
 exports.BaseClient = BaseClient_1.default;
 const Client_1 = __importDefault(require("./client/Client"));
@@ -47,6 +60,8 @@ const ApplicationCommandManager_1 = __importDefault(require("./managers/Applicat
 exports.ApplicationCommandManager = ApplicationCommandManager_1.default;
 const GuildApplicationCommandManager_1 = __importDefault(require("./managers/GuildApplicationCommandManager"));
 exports.GuildApplicationCommandManager = GuildApplicationCommandManager_1.default;
+const AnonymousGuild_1 = __importDefault(require("./structures/AnonymousGuild"));
+exports.AnonymousGuild = AnonymousGuild_1.default;
 const Application_1 = __importDefault(require("./structures/interfaces/Application"));
 exports.Application = Application_1.default;
 const ApplicationCommand_1 = __importDefault(require("./structures/ApplicationCommand"));
@@ -54,9 +69,7 @@ exports.ApplicationCommand = ApplicationCommand_1.default;
 const Base_1 = __importDefault(require("./structures/Base"));
 exports.Base = Base_1.default;
 const Presence_1 = require("./structures/Presence");
-exports.Activity = Presence_1.Activity;
-const APIMessage_1 = __importDefault(require("./structures/APIMessage"));
-exports.APIMessage = APIMessage_1.default;
+Object.defineProperty(exports, "Activity", { enumerable: true, get: function () { return Presence_1.Activity; } });
 const BaseGuild_1 = __importDefault(require("./structures/BaseGuild"));
 exports.BaseGuild = BaseGuild_1.default;
 const BaseGuildEmoji_1 = __importDefault(require("./structures/BaseGuildEmoji"));
@@ -109,6 +122,8 @@ const InteractionWebhook_1 = __importDefault(require("./structures/InteractionWe
 exports.InteractionWebhook = InteractionWebhook_1.default;
 const Invite_1 = __importDefault(require("./structures/Invite"));
 exports.Invite = Invite_1.default;
+const InviteGuild_1 = __importDefault(require("./structures/InviteGuild"));
+exports.InviteGuild = InviteGuild_1.default;
 const Message_1 = __importDefault(require("./structures/Message"));
 exports.Message = Message_1.default;
 const MessageActionRow_1 = __importDefault(require("./structures/MessageActionRow"));
@@ -127,6 +142,8 @@ const MessageEmbed_1 = __importDefault(require("./structures/MessageEmbed"));
 exports.MessageEmbed = MessageEmbed_1.default;
 const MessageMentions_1 = __importDefault(require("./structures/MessageMentions"));
 exports.MessageMentions = MessageMentions_1.default;
+const MessagePayload_1 = __importDefault(require("./structures/MessagePayload"));
+exports.MessagePayload = MessagePayload_1.default;
 const MessageReaction_1 = __importDefault(require("./structures/MessageReaction"));
 exports.MessageReaction = MessageReaction_1.default;
 const NewsChannel_1 = __importDefault(require("./structures/NewsChannel"));
@@ -142,7 +159,7 @@ exports.ReactionCollector = ReactionCollector_1.default;
 const ReactionEmoji_1 = __importDefault(require("./structures/ReactionEmoji"));
 exports.ReactionEmoji = ReactionEmoji_1.default;
 const Presence_3 = require("./structures/Presence");
-exports.RichPresenceAssets = Presence_3.RichPresenceAssets;
+Object.defineProperty(exports, "RichPresenceAssets", { enumerable: true, get: function () { return Presence_3.RichPresenceAssets; } });
 const Role_1 = __importDefault(require("./structures/Role"));
 exports.Role = Role_1.default;
 const Sticker_1 = __importDefault(require("./structures/Sticker"));
@@ -175,6 +192,10 @@ const VoiceState_1 = __importDefault(require("./structures/VoiceState"));
 exports.VoiceState = VoiceState_1.default;
 const Webhook_1 = __importDefault(require("./structures/Webhook"));
 exports.Webhook = Webhook_1.default;
+const WelcomeChannel_1 = __importDefault(require("./structures/WelcomeChannel"));
+exports.WelcomeChannel = WelcomeChannel_1.default;
+const WelcomeScreen_1 = __importDefault(require("./structures/WelcomeScreen"));
+exports.WelcomeScreen = WelcomeScreen_1.default;
 const PartialBase_1 = __importDefault(require("./structures/Partial/PartialBase"));
 exports.PartialBase = PartialBase_1.default;
 const PartialChannel_1 = __importDefault(require("./structures/Partial/PartialChannel"));
@@ -189,6 +210,7 @@ const PartialThreadChannel_1 = __importDefault(require("./structures/Partial/Par
 exports.PartialThreadChannel = PartialThreadChannel_1.default;
 const PartialUser_1 = __importDefault(require("./structures/Partial/PartialUser"));
 exports.PartialUser = PartialUser_1.default;
+__exportStar(require("./Types"), exports);
 const discordSort = Util_1.default.discordSort;
 exports.discordSort = discordSort;
 const escapeMarkdown = Util_1.default.escapeMarkdown;

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const MessageCollector_1 = __importDefault(require("../MessageCollector"));
-const APIMessage_1 = __importDefault(require("../APIMessage"));
+const MessagePayload_1 = __importDefault(require("../MessagePayload"));
 const SnowflakeUtil_1 = __importDefault(require("../../util/SnowflakeUtil"));
 const Collection_1 = __importDefault(require("../../util/Collection"));
 const errors_1 = require("../../errors");
@@ -35,18 +35,18 @@ class TextBasedChannel {
         if (this instanceof User || this instanceof GuildMember) {
             return this.createDM().then(dm => dm.send(options));
         }
-        let apiMessage;
-        if (options instanceof APIMessage_1.default) {
-            apiMessage = options.resolveData();
+        let messagePayload;
+        if (options instanceof MessagePayload_1.default) {
+            messagePayload = options.resolveData();
         }
         else {
-            apiMessage = APIMessage_1.default.create(this, options).resolveData();
+            messagePayload = MessagePayload_1.default.create(this, options).resolveData();
         }
-        if (Array.isArray(apiMessage.data.content)) {
+        if (Array.isArray(messagePayload.data.content)) {
             // @ts-ignore
-            return Promise.all(apiMessage.split().map(this.send.bind(this)));
+            return Promise.all(messagePayload.split().map(this.send.bind(this)));
         }
-        const { data, files } = await apiMessage.resolveFiles();
+        const { data, files } = await messagePayload.resolveFiles();
         const d = await this.client._snow.channel.createMessage(this.id, Object.assign({}, data, { files: files }));
         const message = new Message(this.client, d, this);
         this.lastMessageID = message.id;

@@ -2,8 +2,8 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const Endpoints_1 = __importDefault(require("snowtransfer/dist/src/Endpoints"));
-const APIMessage_1 = __importDefault(require("./APIMessage"));
+const Endpoints_1 = __importDefault(require("snowtransfer/dist/Endpoints"));
+const MessagePayload_1 = __importDefault(require("./MessagePayload"));
 const Channel_1 = __importDefault(require("./Channel"));
 const Constants_1 = require("../util/Constants");
 const DataResolver_1 = __importDefault(require("../util/DataResolver"));
@@ -49,16 +49,16 @@ class Webhook {
         }
     }
     async send(options) {
-        let apiMessage;
+        let messagePayload;
         const Message = require("./Message");
         const PartialChannel = require("./Partial/PartialChannel");
-        if (options instanceof APIMessage_1.default) {
-            apiMessage = options.resolveData();
+        if (options instanceof MessagePayload_1.default) {
+            messagePayload = options.resolveData();
         }
         else {
-            apiMessage = APIMessage_1.default.create(this, options).resolveData();
+            messagePayload = MessagePayload_1.default.create(this, options).resolveData();
         }
-        const { data, files } = await apiMessage.resolveFiles();
+        const { data, files } = await messagePayload.resolveFiles();
         return this.client._snow.webhook.executeWebhook(this.id, this.token, Object.assign({}, data || {}, { files }), { wait: true }).then((d) => {
             const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: "text" });
             return new Message(this.client, d, channel);
@@ -115,12 +115,12 @@ class Webhook {
             throw new Error("WEBHOOK_TOKEN_UNAVAILABLE");
         const Message = require("./Message");
         const PartialChannel = require("./Partial/PartialChannel");
-        let apiMessage;
-        if (options instanceof APIMessage_1.default)
-            apiMessage = options;
+        let messagePayload;
+        if (options instanceof MessagePayload_1.default)
+            messagePayload = options;
         else
-            apiMessage = APIMessage_1.default.create(this, options);
-        const { data, files } = await apiMessage.resolveData().resolveFiles();
+            messagePayload = MessagePayload_1.default.create(this, options);
+        const { data, files } = await messagePayload.resolveData().resolveFiles();
         const d = await this.client._snow.webhook.editWebhookMessage(this.id, this.token, typeof message === "string" ? message : message.id, Object.assign({}, data, { files }));
         const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: "text" });
         return new Message(this.client, d, channel);

@@ -17,6 +17,7 @@ class ActivityFlags extends BitField_1.default {
         this.FLAGS = FLAGS;
     }
 }
+Symbol.species;
 ActivityFlags.default = ActivityFlags;
 ActivityFlags.FLAGS = FLAGS;
 module.exports = ActivityFlags;

@@ -26,6 +26,7 @@ class UserFlags extends BitField_1.default {
         this.FLAGS = FLAGS;
     }
 }
+Symbol.species;
 UserFlags.default = UserFlags;
 UserFlags.FLAGS = FLAGS;
 module.exports = UserFlags;

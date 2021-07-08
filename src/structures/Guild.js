@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const Constants_1 = __importDefault(require("../util/Constants"));
-const BaseGuild_1 = __importDefault(require("./BaseGuild"));
+const AnonymousGuild_1 = __importDefault(require("./AnonymousGuild"));
 const CategoryChannel_1 = __importDefault(require("./CategoryChannel"));
 const Collection_1 = __importDefault(require("../util/Collection"));
 const Emoji_1 = __importDefault(require("./Emoji"));
@@ -16,8 +16,9 @@ const SystemChannelFlags_1 = __importDefault(require("../util/SystemChannelFlags
 const TextChannel_1 = __importDefault(require("./TextChannel"));
 const VoiceChannel_1 = __importDefault(require("./VoiceChannel"));
 const VoiceState_1 = __importDefault(require("./VoiceState"));
+const WelcomeScreen_1 = __importDefault(require("./WelcomeScreen"));
 const GuildApplicationCommandManager_1 = __importDefault(require("../managers/GuildApplicationCommandManager"));
-class Guild extends BaseGuild_1.default {
+class Guild extends AnonymousGuild_1.default {
     constructor(client, data) {
         super(client, data);
         this.partial = false;
@@ -27,19 +28,14 @@ class Guild extends BaseGuild_1.default {
         this.approximatePresenceCount = 0;
         this.ownerID = Constants_1.default.SYSTEM_USER_ID;
         this.icon = null;
-        this.banner = null;
-        this.description = null;
         this.discoverySplash = null;
-        this.features = [];
         this.large = false;
-        this.splash = null;
         this.applicationID = null;
         this.afkTimeout = 0;
         this.afkChannelID = null;
         this.systemChannelID = null;
         this.premiumTier = 0;
         this.premiumSubscriptionCount = 0;
-        this.vanityURLCode = null;
         this.rulesChannelID = null;
         this.publicUpdatesChannelID = null;
         this.preferredLocale = "en-US";
@@ -64,6 +60,10 @@ class Guild extends BaseGuild_1.default {
     }
     get me() {
         return new GuildMember_1.default(this.client, { guild_id: this.id, deaf: false, hoisted_role: this.id, joined_at: this.joinedAt.toISOString(), mute: false, nick: null, roles: [], user: this.client.user.toJSON() });
+    }
+    async fetchWelcomeScreen() {
+        const data = await this.client.api.guilds(this.id, "welcome-screen").get();
+        return new WelcomeScreen_1.default(this, data);
     }
     bannerURL(options = { format: "png", size: 512 }) {
         if (!this.banner)
@@ -134,6 +134,7 @@ class Guild extends BaseGuild_1.default {
         return invites;
     }
     _patch(data) {
+        super._patch(data);
         const PartialChannel = require("./Partial/PartialChannel");
         const PartialUser = require("./Partial/PartialUser");
         if (data.name)
@@ -153,18 +154,10 @@ class Guild extends BaseGuild_1.default {
             this.maximumPresences = data.max_presences;
         if (data.owner_id)
             this.ownerID = data.owner_id;
-        if (data.banner !== undefined)
-            this.banner = data.banner;
-        if (data.description !== undefined)
-            this.description = data.description;
         if (data.discovery_splash !== undefined)
             this.discoverySplash = data.discovery_splash;
-        if (data.features)
-            this.features = data.features;
         if (data.large !== undefined)
             this.large = data.large;
-        if (data.splash !== undefined)
-            this.splash = data.splash;
         if (data.application_id !== undefined)
             this.applicationID = data.application_id;
         if (data.afk_timeout !== undefined)
@@ -179,8 +172,6 @@ class Guild extends BaseGuild_1.default {
             this.premiumSubscriptionCount = data.premium_subscription_count;
         if (!this.systemChannelFlags || data.system_channel_flags)
             this.systemChannelFlags = new SystemChannelFlags_1.default(data.system_channel_flags).freeze();
-        if (data.vanity_url_code !== undefined)
-            this.vanityURLCode = data.vanity_url_code;
         if (data.rules_channel_id !== undefined)
             this.rulesChannelID = data.rules_channel_id;
         if (data.preferred_locale)
@@ -189,8 +180,6 @@ class Guild extends BaseGuild_1.default {
             this.mfaLevel = data.mfa_level;
         this.owner = this.owner && data.owner_id === this.owner.id ? this.owner : new PartialUser(this.client, { id: this.ownerID });
         this.icon = data.icon || (this.icon ? this.icon : null);
-        if (!this.verificationLevel || data.verification_level !== undefined)
-            this.verificationLevel = Constants_1.default.VerificationLevels[data.verification_level] || "NONE";
         if (data.members && Array.isArray(data.members)) {
             this.members.clear();
             data.members.forEach(member => this.members.set(member.user.id, new GuildMember_1.default(this.client, member)));

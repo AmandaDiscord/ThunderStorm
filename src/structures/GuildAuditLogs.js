@@ -57,7 +57,10 @@ const Actions = {
     MESSAGE_UNPIN: 75,
     INTEGRATION_CREATE: 80,
     INTEGRATION_UPDATE: 81,
-    INTEGRATION_DELETE: 82
+    INTEGRATION_DELETE: 82,
+    STAGE_INSTANCE_CREATE: 83,
+    STAGE_INSTANCE_UPDATE: 84,
+    STAGE_INSTANCE_DELETE: 85
 };
 class GuildAuditLogs {
     constructor(guild, data) {
@@ -258,7 +261,7 @@ class GuildAuditLogsEntry {
             this.target = guild.me;
             guild.fetchInvites().then(invites => {
                 const change = this.changes.find(c => c.key === "code");
-                const target = invites.find(i => { var _a, _b; return i.code === (((_a = change) === null || _a === void 0 ? void 0 : _a.new) || ((_b = change) === null || _b === void 0 ? void 0 : _b.old)); });
+                const target = invites.find(i => i.code === ((change === null || change === void 0 ? void 0 : change.new) || (change === null || change === void 0 ? void 0 : change.old)));
                 if (target)
                     this.target = target;
                 else

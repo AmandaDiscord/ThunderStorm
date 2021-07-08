@@ -10,9 +10,9 @@ class ApplicationCommandManager extends BaseManager_1.default {
     constructor(client, iterable) {
         super(client, iterable, ApplicationCommand_1.default);
     }
-    add(data, cache) {
+    _add(data, cache) {
         // @ts-ignore
-        return super.add(data, cache, { extras: [this.guild] });
+        return super._add(data, cache, { extras: [this.guild] });
     }
     get commandPath() {
         var _a;
@@ -30,31 +30,31 @@ class ApplicationCommandManager extends BaseManager_1.default {
                     return existing;
             }
             const command = await this.commandPath(id).get();
-            return this.add(command, cache);
+            return this._add(command, cache);
         }
         const data = await this.commandPath.get();
         // @ts-ignore
-        return data.reduce((coll, command) => coll.set(command.id, this.add(command, cache)), new Collection_1.default());
+        return data.reduce((coll, command) => coll.set(command.id, this._add(command, cache)), new Collection_1.default());
     }
     async create(command) {
         const data = await this.commandPath.post({
             data: this.constructor.transformCommand(command)
         });
-        return this.add(data);
+        return this._add(data);
     }
     async set(commands) {
         const data = await this.commandPath.put({
             data: commands.map(c => this.constructor.transformCommand(c))
         });
         // @ts-ignore
-        return data.reduce((coll, command) => coll.set(command.id, this.add(command)), new Collection_1.default());
+        return data.reduce((coll, command) => coll.set(command.id, this._add(command)), new Collection_1.default());
     }
     async edit(command, data) {
         const id = this.resolveID(command);
         if (!id)
             throw new errors_1.TypeError("INVALID_TYPE", "command", "ApplicationCommandResolvable");
         const patched = await this.commandPath(id).patch({ data: this.constructor.transformCommand(data) });
-        return this.add(patched);
+        return this._add(patched);
     }
     async delete(command) {
         const id = this.resolveID(command);
@@ -63,7 +63,7 @@ class ApplicationCommandManager extends BaseManager_1.default {
         await this.commandPath(id).delete();
         const cached = this.cache.get(id);
         this.cache.delete(id);
-        return (cached !== null && cached !== void 0 ? cached : null);
+        return cached !== null && cached !== void 0 ? cached : null;
     }
     static transformCommand(command) {
         var _a;
@@ -75,5 +75,6 @@ class ApplicationCommandManager extends BaseManager_1.default {
         };
     }
 }
+Symbol.species;
 ApplicationCommandManager.default = ApplicationCommandManager;
 module.exports = ApplicationCommandManager;

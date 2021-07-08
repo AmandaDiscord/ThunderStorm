@@ -41,7 +41,7 @@ class User extends Base_1.default {
         return `${this.username}#${this.discriminator}`;
     }
     get defaultAvatarURL() {
-        return this.client.rest.cdn.DefaultAvatar(this.discriminator);
+        return this.client.rest.cdn.DefaultAvatar(Number(this.discriminator) % 5);
     }
     toString() {
         return `<@${this.id}>`;

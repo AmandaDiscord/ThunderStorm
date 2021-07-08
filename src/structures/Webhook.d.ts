@@ -1,4 +1,4 @@
-import APIMessage from "./APIMessage";
+import MessagePayload from "./MessagePayload";
 import { WebhookTypes } from "../util/Constants";
 declare class Webhook {
     client: import("../client/Client");
@@ -14,7 +14,7 @@ declare class Webhook {
     sourceChannel: import("./NewsChannel") | null;
     constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").WebhookData);
     _patch(data: import("@amanda/discordtypings").WebhookData): void;
-    send(options: string | APIMessage | import("../Types").WebhookMessageOptions): Promise<import("./Message")>;
+    send(options: string | MessagePayload | import("../Types").WebhookMessageOptions): Promise<import("./Message")>;
     /**
      * Sends a raw slack message with this webhook.
      * @param body The raw body to send
@@ -38,7 +38,7 @@ declare class Webhook {
         channel?: import("../Types").ChannelResolvable;
     }): Promise<Webhook>;
     fetchMessage(message: string | "@original"): Promise<import("./Message")>;
-    editMessage(message: import("../Types").MessageResolvable | "@original", options: string | APIMessage | import("../Types").WebhookEditMessageOptions): Promise<import("./Message")>;
+    editMessage(message: import("../Types").MessageResolvable | "@original", options: string | MessagePayload | import("../Types").WebhookEditMessageOptions): Promise<import("./Message")>;
     delete(): Promise<void>;
     deleteMessage(message: import("../Types").MessageResolvable | "@original"): Promise<void>;
     get createdTimestamp(): number;
