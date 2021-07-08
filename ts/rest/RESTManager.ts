@@ -4,9 +4,9 @@ import RequestHandler from "./RequestHandler";
 import { Error } from "../errors";
 import Collection from "../util/Collection";
 import { Endpoints } from "../util/Constants";
-import STEndpoints from "snowtransfer/dist/src/Endpoints";
+import STEndpoints from "snowtransfer/dist/Endpoints";
 
-type HTTPMethod = Parameters<import("snowtransfer/dist/src/RequestHandler")["request"]>[1];
+type HTTPMethod = Parameters<import("snowtransfer/dist/RequestHandler")["request"]>[1];
 type Options = {
 	route: string;
 	data?: any;

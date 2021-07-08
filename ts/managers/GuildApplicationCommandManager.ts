@@ -31,8 +31,8 @@ class GuildApplicationCommandManager extends ApplicationCommandManager {
 			const id = this.resolveID(command);
 			if (!id) throw new TypeError("INVALID_TYPE", "command", "ApplicationCommandResolvable");
 
-			const data = await this.commandPath(id).permissions.get();
-			return data.permissions.map((perm: any) => this.constructor.transformPermissions(perm, true));
+			const d = await this.commandPath(id).permissions.get();
+			return d.permissions.map((perm: any) => this.constructor.transformPermissions(perm, true));
 		}
 
 		const data = await this.commandPath.permissions.get();

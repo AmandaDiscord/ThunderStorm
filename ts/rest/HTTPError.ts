@@ -1,4 +1,4 @@
-type HTTPMethod = Parameters<import("snowtransfer/dist/src/RequestHandler")["request"]>[1];
+type HTTPMethod = Parameters<import("snowtransfer/dist/RequestHandler")["request"]>[1];
 
 class HTTPError extends Error {
 	public code: number;

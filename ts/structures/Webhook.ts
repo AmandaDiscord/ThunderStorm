@@ -1,6 +1,6 @@
-import Endpoints from "snowtransfer/dist/src/Endpoints";
+import Endpoints from "snowtransfer/dist/Endpoints";
 
-import APIMessage from "./APIMessage";
+import MessagePayload from "./MessagePayload";
 import Channel from "./Channel";
 import { WebhookTypes } from "../util/Constants";
 import DataResolver from "../util/DataResolver";
@@ -45,18 +45,18 @@ class Webhook {
 		}
 	}
 
-	public async send(options: string | APIMessage | import("../Types").WebhookMessageOptions): Promise<import("./Message")> {
-		let apiMessage: APIMessage;
+	public async send(options: string | MessagePayload | import("../Types").WebhookMessageOptions): Promise<import("./Message")> {
+		let messagePayload: MessagePayload;
 		const Message: typeof import("./Message") = require("./Message");
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
 
-		if (options instanceof APIMessage) {
-			apiMessage = options.resolveData();
+		if (options instanceof MessagePayload) {
+			messagePayload = options.resolveData();
 		} else {
-			apiMessage = APIMessage.create(this, options).resolveData();
+			messagePayload = MessagePayload.create(this, options).resolveData();
 		}
 
-		const { data, files } = await apiMessage.resolveFiles();
+		const { data, files } = await messagePayload.resolveFiles();
 		return this.client._snow.webhook.executeWebhook(this.id, this.token as string, Object.assign({}, data || {}, { files }), { wait: true }).then((d: any) => {
 			const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: "text" });
 			return new Message(this.client, d, channel);
@@ -111,17 +111,17 @@ class Webhook {
 		return new Message(this.client, data, channel);
 	}
 
-	public async editMessage(message: import("../Types").MessageResolvable | "@original", options: string | APIMessage | import("../Types").WebhookEditMessageOptions): Promise<import("./Message")> {
+	public async editMessage(message: import("../Types").MessageResolvable | "@original", options: string | MessagePayload | import("../Types").WebhookEditMessageOptions): Promise<import("./Message")> {
 		if (!this.token) throw new Error("WEBHOOK_TOKEN_UNAVAILABLE");
 		const Message: typeof import("./Message") = require("./Message");
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
 
-		let apiMessage;
+		let messagePayload;
 
-		if (options instanceof APIMessage) apiMessage = options;
-		else apiMessage = APIMessage.create(this, options);
+		if (options instanceof MessagePayload) messagePayload = options;
+		else messagePayload = MessagePayload.create(this, options);
 
-		const { data, files } = await apiMessage.resolveData().resolveFiles();
+		const { data, files } = await messagePayload.resolveData().resolveFiles();
 
 		const d = await this.client._snow.webhook.editWebhookMessage(this.id, this.token as string, typeof message === "string" ? message : message.id, Object.assign({}, data, { files }));
 		const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: "text" });

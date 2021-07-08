@@ -51,7 +51,7 @@ class Emoji extends Base {
 	public _patch(data: import("@amanda/discordtypings").EmojiData) {
 		if (data.id !== undefined) this.id = data.id;
 		if (data.name) this.name = data.name;
-		if (data.animated != undefined) this.animated = data.animated;
+		if (data.animated !== undefined) this.animated = !!data.animated;
 	}
 }
 

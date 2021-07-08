@@ -1,6 +1,6 @@
 import PartialBase from "./PartialBase";
 
-import APIMessage from "../APIMessage";
+import MessagePayload from "../MessagePayload";
 import Message from "../Message";
 import MessageComponentInteractionCollector from "../MessageComponentInteractionCollector";
 import ReactionCollector from "../ReactionCollector";
@@ -24,13 +24,13 @@ class PartialMessage extends PartialBase<import("../Message")> {
 		return `https://discord.com/channels/${this.guild ? this.guild.id : "@me"}/${this.channel.id}/${this.id}`;
 	}
 
-	public reply(options?: string | APIMessage | import("../../Types").ReplyMessageOptions) {
+	public reply(options?: string | MessagePayload | import("../../Types").ReplyMessageOptions) {
 		let data;
 
-		if (options instanceof APIMessage) {
+		if (options instanceof MessagePayload) {
 			data = options;
 		} else {
-			data = APIMessage.create(this, options, {
+			data = MessagePayload.create(this, options, {
 				reply: {
 					messageReference: this,
 					failIfNotExists: (options as import("../../Types").ReplyMessageOptions)?.failIfNotExists ?? true
@@ -45,8 +45,8 @@ class PartialMessage extends PartialBase<import("../Message")> {
 		return new Message(this.client, data, this.channel);
 	}
 
-	public async edit(options: string | import("../APIMessage") | import("../../Types").MessageEditOptions = {}) {
-		const opts = options instanceof APIMessage ? options : APIMessage.create(this, options);
+	public async edit(options: string | import("../MessagePayload") | import("../../Types").MessageEditOptions = {}) {
+		const opts = options instanceof MessagePayload ? options : MessagePayload.create(this, options);
 		const { data, files } = opts.resolveData();
 		const d = await this.client._snow.channel.editMessage(this.channel.id, this.id, Object.assign({}, data, { files: files }), { disableEveryone: (options as import("../../Types").MessageEditOptions).disableEveryone ? (options as import("../../Types").MessageEditOptions).disableEveryone : this.client.options.disableEveryone || false });
 		return new Message(this.client, d, this.channel);

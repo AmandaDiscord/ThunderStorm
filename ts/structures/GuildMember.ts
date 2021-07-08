@@ -21,7 +21,7 @@ class GuildMember implements TextBasedChannel {
 	public premiumSince: Date | null = null;
 	public premiumSinceTimestamp: number | null = null;
 	public roles: Collection<string, import("./Partial/PartialRole")> = new Collection();
-	public guild: import("./Partial/PartialGuild") | null = null;
+	public guild!: import("./Partial/PartialGuild");
 	public avatar: string | null = null;
 	public hoistRole: import("./Partial/PartialRole") | null = null;
 	public presence: import("./Presence").Presence | null = null;
@@ -105,7 +105,7 @@ class GuildMember implements TextBasedChannel {
 		}
 		if (!this.guild || data.guild_id) {
 			if (data.guild_id && !this.roles.has(data.guild_id)) this.roles.set(data.guild_id, new PartialRole(this.client, { id: data.guild_id, name: "@everyone" }));
-			this.guild = data.guild_id ? new PartialGuild(this.client, { id: data.guild_id }) : null;
+			this.guild = new PartialGuild(this.client, { id: data.guild_id as string });
 		}
 		if (data.roles && Array.isArray(data.roles)) {
 			this.roles.clear();

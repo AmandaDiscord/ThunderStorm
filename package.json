@@ -1,6 +1,6 @@
 {
   "name": "thunderstorm",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "An abstraction layer between WeatherStack and Discord.js-like code bases",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
@@ -14,20 +14,18 @@
   "author": "PapiOphidian",
   "license": "MIT",
   "dependencies": {
-    "@augu/collections": "^1.0.9",
-    "@sapphire/snowflake": "^1.3.2",
+    "@augu/collections": "^1.0.12",
+    "@sapphire/snowflake": "^1.3.5",
     "snowtransfer": "github:AmandaDiscord/SnowTransfer"
   },
   "devDependencies": {
     "@amanda/discordtypings": "github:AmandaDiscord/DiscordTypings",
     "@types/centra": "2.2.0",
-    "@types/node": "^15.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.25.0",
-    "@typescript-eslint/parser": "^4.25.0",
-    "eslint": "^7.27.0",
-    "typescript": "^4.3.2"
+    "@types/node": "^16.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.2",
+    "eslint": "^7.30.0",
+    "typescript": "^4.3.5"
   },
-  "files": [
-    "src"
-  ]
+  "files": ["src"]
 }

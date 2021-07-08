@@ -20,9 +20,9 @@ class ApplicationCommandManager extends BaseManager<import("../structures/Applic
 		super(client, iterable, ApplicationCommand);
 	}
 
-	public add(data: import("../structures/ApplicationCommand"), cache?: boolean) {
+	public _add(data: import("../structures/ApplicationCommand"), cache?: boolean) {
 		// @ts-ignore
-		return super.add(data, cache, { extras: [this.guild] });
+		return super._add(data, cache, { extras: [this.guild] });
 	}
 
 	public get commandPath() {
@@ -42,19 +42,19 @@ class ApplicationCommandManager extends BaseManager<import("../structures/Applic
 				if (existing) return existing;
 			}
 			const command = await this.commandPath(id).get();
-			return this.add(command, cache);
+			return this._add(command, cache);
 		}
 
 		const data = await this.commandPath.get();
 		// @ts-ignore
-		return data.reduce((coll, command) => coll.set(command.id, this.add(command, cache)), new Collection());
+		return data.reduce((coll, command) => coll.set(command.id, this._add(command, cache)), new Collection());
 	}
 
 	public async create(command: import("../Types").ApplicationCommandData) {
 		const data = await this.commandPath.post({
 			data: this.constructor.transformCommand(command)
 		});
-		return this.add(data);
+		return this._add(data);
 	}
 
 	public async set(commands: Array<import("../Types").ApplicationCommandData>): Promise<Collection<string, import("../structures/ApplicationCommand")>> {
@@ -62,7 +62,7 @@ class ApplicationCommandManager extends BaseManager<import("../structures/Applic
 			data: commands.map(c => this.constructor.transformCommand(c))
 		});
 		// @ts-ignore
-		return data.reduce((coll, command) => coll.set(command.id, this.add(command)), new Collection());
+		return data.reduce((coll, command) => coll.set(command.id, this._add(command)), new Collection());
 	}
 
 	public async edit(command: import("../Types").ApplicationCommandResolvable, data: import("../Types").ApplicationCommandData) {
@@ -70,7 +70,7 @@ class ApplicationCommandManager extends BaseManager<import("../structures/Applic
 		if (!id) throw new TypeError("INVALID_TYPE", "command", "ApplicationCommandResolvable");
 
 		const patched = await this.commandPath(id).patch({ data: this.constructor.transformCommand(data) });
-		return this.add(patched);
+		return this._add(patched);
 	}
 
 

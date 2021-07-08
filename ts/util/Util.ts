@@ -1,6 +1,6 @@
 import { parse } from "path";
 import fetch from "centra";
-import STEndpoints from "snowtransfer/dist/src/Endpoints";
+import STEndpoints from "snowtransfer/dist/Endpoints";
 
 import { Colors, Endpoints } from "./Constants";
 import { Error as DiscordError, RangeError, TypeError } from "../errors";

@@ -9,7 +9,7 @@ const reflectors = [
 	Symbol.for("nodejs.util.inspect.custom")
 ];
 
-type HTTPMethod = Parameters<import("snowtransfer/dist/src/RequestHandler")["request"]>[1];
+type HTTPMethod = Parameters<import("snowtransfer/dist/RequestHandler")["request"]>[1];
 
 function buildRoute(manager: import("./RESTManager")): any {
 	const route = [""];

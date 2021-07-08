@@ -1,5 +1,5 @@
 import MessageCollector from "../MessageCollector";
-import APIMessage from "../APIMessage";
+import MessagePayload from "../MessagePayload";
 import SnowflakeUtil from "../../util/SnowflakeUtil";
 import Collection from "../../util/Collection";
 import { TypeError } from "../../errors";
@@ -31,7 +31,7 @@ abstract class TextBasedChannel {
 		return this.lastPinTimestamp ? new Date(this.lastPinTimestamp) : null;
 	}
 
-	public async send(options: string | APIMessage | import("../../Types").MessageOptions): Promise<import("../Message")> {
+	public async send(options: string | MessagePayload | import("../../Types").MessageOptions): Promise<import("../Message")> {
 		const User: typeof import("../User") = require("../User");
 		const GuildMember: typeof import("../GuildMember") = require("../GuildMember");
 		const Message: typeof import("../Message") = require("../Message");
@@ -40,20 +40,20 @@ abstract class TextBasedChannel {
 			return this.createDM().then(dm => dm.send(options));
 		}
 
-		let apiMessage;
+		let messagePayload;
 
-		if (options instanceof APIMessage) {
-			apiMessage = options.resolveData();
+		if (options instanceof MessagePayload) {
+			messagePayload = options.resolveData();
 		} else {
-			apiMessage = APIMessage.create(this, options).resolveData();
+			messagePayload = MessagePayload.create(this, options).resolveData();
 		}
 
-		if (Array.isArray(apiMessage.data.content)) {
+		if (Array.isArray(messagePayload.data.content)) {
 			// @ts-ignore
-			return Promise.all(apiMessage.split().map(this.send.bind(this)));
+			return Promise.all(messagePayload.split().map(this.send.bind(this)));
 		}
 
-		const { data, files } = await apiMessage.resolveFiles();
+		const { data, files } = await messagePayload.resolveFiles();
 		const d = await this.client._snow.channel.createMessage(this.id, Object.assign({}, data, { files: files }));
 		const message = new Message(this.client, d, this);
 		this.lastMessageID = message.id;

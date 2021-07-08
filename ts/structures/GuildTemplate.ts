@@ -1,4 +1,4 @@
-import STEndpoints from "snowtransfer/dist/src/Endpoints";
+import STEndpoints from "snowtransfer/dist/Endpoints";
 
 import Base from "./Base";
 import { Events } from "../util/Constants";

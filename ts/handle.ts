@@ -138,7 +138,7 @@ function handle(packet: any, client: import("./client/Client")) {
 		client.emit(Constants.Events.THREAD_LIST_SYNC, new PartialGuild(client, { id: typed.d.guild_id }), new Collection((typed.d.channel_ids || []).map(id => [id, new PartialChannel(client, { id: id, guild_id: typed.d.guild_id })])), new Collection(typed.d.threads.map(thread => {
 			const channel = thread.type === 10 ? new ThreadNewsChannel(new PartialGuild(client, { id: typed.d.guild_id }), thread) : new ThreadTextChannel(new PartialGuild(client, { id: typed.d.guild_id }), thread);
 			const members = typed.d.members.filter(m => m.id === channel.id);
-			for (const member of members) channel.members.set(member.user_id, new ThreadMember(channel, member));
+			for (const member of members) channel.members.set(member.user_id as string, new ThreadMember(channel, member));
 			return [channel.id, channel];
 		})));
 	} else if (data.t === "THREAD_UPDATE") {
@@ -146,11 +146,11 @@ function handle(packet: any, client: import("./client/Client")) {
 		client.emit(Constants.Events.THREAD_UPDATE, typed.d.type === 10 ? new ThreadNewsChannel(new PartialGuild(client, { id: typed.d.guild_id }), typed.d) : new ThreadTextChannel(new PartialGuild(client, { id: typed.d.guild_id }), typed.d));
 	} else if (data.t === "THREAD_MEMBER_UPDATE") {
 		const typed: Required<import("./internal").InboundDataType<"THREAD_MEMBER_UPDATE">> = data;
-		client.emit(Constants.Events.THREAD_MEMBER_UPDATE, new ThreadMember(new PartialThreadChannel(new PartialGuild(client, { id: "UNKNOWN_GUILD" }), { id: typed.d.id }), typed.d));
+		client.emit(Constants.Events.THREAD_MEMBER_UPDATE, new ThreadMember(new PartialThreadChannel(new PartialGuild(client, { id: "UNKNOWN_GUILD" }), { id: typed.d.id as string }), typed.d));
 	} else if (data.t === "THREAD_MEMBERS_UPDATE") {
 		const typed: Required<import("./internal").InboundDataType<"THREAD_MEMBERS_UPDATE">> = data;
 		const thread = new PartialThreadChannel(new PartialGuild(client, { id: typed.d.guild_id }), { id: typed.d.id, guild_id: typed.d.guild_id, number: typed.d.member_count });
-		client.emit(Constants.Events.THREAD_MEMBERS_UPDATE, thread, { added: new Collection((typed.d.added_members || []).map(m => [m.user_id, new ThreadMember(thread, m)])), removed: new Collection((typed.d.removed_member_ids || []).map(i => [i, new PartialUser(client, { id: i })])) });
+		client.emit(Constants.Events.THREAD_MEMBERS_UPDATE, thread, { added: new Collection((typed.d.added_members || []).map(m => [m.user_id as string, new ThreadMember(thread, m)])), removed: new Collection((typed.d.removed_member_ids || []).map(i => [i, new PartialUser(client, { id: i })])) });
 	} else if (data.t === "TYPING_START") {
 		client.actions.TypingStart.handle(data.d);
 	} else if (data.t === "USER_UPDATE") {

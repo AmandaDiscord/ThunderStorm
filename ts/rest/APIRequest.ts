@@ -9,7 +9,7 @@ type Options = {
 	files?: Array<any>;
 }
 
-type HTTPMethod = Parameters<import("snowtransfer/dist/src/RequestHandler")["request"]>[1];
+type HTTPMethod = Parameters<import("snowtransfer/dist/RequestHandler")["request"]>[1];
 
 class APIRequest {
 	public rest: import("./RESTManager");

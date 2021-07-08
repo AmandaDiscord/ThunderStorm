@@ -6,17 +6,17 @@ import DataResolver from "../util/DataResolver";
 import MessageFlags from "../util/MessageFlags";
 import Util from "../util/Util";
 
-interface APIMessageConstructor {
-	new(target: import("../Types").MessageTarget, options: import("../Types").MessageOptions | import("../Types").WebhookMessageOptions): APIMessage;
-	readonly prototype: APIMessage;
-	readonly [Symbol.species]: APIMessageConstructor;
+interface MessagePayloadConstructor {
+	new(target: import("../Types").MessageTarget, options: import("../Types").MessageOptions | import("../Types").WebhookMessageOptions): MessagePayload;
+	readonly prototype: MessagePayload;
+	readonly [Symbol.species]: MessagePayloadConstructor;
 }
 
-class APIMessage {
+class MessagePayload {
 	// @ts-ignore
-	public ["constructor"]: typeof APIMessage;
+	public ["constructor"]: typeof MessagePayload;
 	// @ts-ignore
-	readonly [Symbol.species]: APIMessageConstructor;
+	readonly [Symbol.species]: MessagePayloadConstructor;
 
 	public target: import("../Types").MessageTarget;
 	public options: import("../Types").MessageOptions | import("../Types").WebhookMessageOptions | import("../Types").MessageEditOptions | import("../Types").ReplyMessageOptions;
@@ -170,7 +170,7 @@ class APIMessage {
 
 		if (!Array.isArray(this.data.content)) return [this];
 
-		const apiMessages = [];
+		const messagePayloads = [];
 
 		for (let i = 0; i < this.data.content.length; i++) {
 			let data;
@@ -184,12 +184,12 @@ class APIMessage {
 				opt = { content: this.data.content[i], tts: this.data.tts, allowedMentions: this.options.allowedMentions };
 			}
 
-			const apiMessage = new APIMessage(this.target, opt);
-			apiMessage.data = data;
-			apiMessages.push(apiMessage);
+			const messagePayload = new MessagePayload(this.target, opt);
+			messagePayload.data = data;
+			messagePayloads.push(messagePayload);
 		}
 
-		return apiMessages;
+		return messagePayloads;
 	}
 
 	public static async resolveFile(fileLike: import("../Types").BufferResolvable | import("stream").Stream | import("../Types").FileOptions | import("./MessageAttachment")) {
@@ -230,4 +230,4 @@ class APIMessage {
 	}
 }
 
-export = APIMessage;
+export = MessagePayload;

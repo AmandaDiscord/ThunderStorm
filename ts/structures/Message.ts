@@ -1,4 +1,4 @@
-import APIMessage from "./APIMessage";
+import MessagePayload from "./MessagePayload";
 import Base from "./Base";
 import BaseMessageComponent from "./BaseMessageComponent";
 import ClientApplication from "./ClientApplication";
@@ -103,8 +103,8 @@ class Message extends Base {
 		}
 
 		this.stickers = new Collection();
-		if (data.stickers) {
-			for (const sticker of data.stickers) {
+		if (data.sticker_items) {
+			for (const sticker of data.sticker_items) {
 				this.stickers.set(sticker.id, new Sticker(this.client, sticker));
 			}
 		}
@@ -268,7 +268,7 @@ class Message extends Base {
 	}
 
 	public async edit(options: import("../Types").MessageEditOptions) {
-		const opts = options instanceof APIMessage ? options : APIMessage.create(this, options);
+		const opts = options instanceof MessagePayload ? options : MessagePayload.create(this, options);
 		const { data, files } = opts.resolveData();
 		const d = await this.client._snow.channel.editMessage(this.channel.id, this.id, Object.assign({}, data, { files: files }), { disableEveryone: (options as import("../Types").MessageEditOptions).disableEveryone ? (options as import("../Types").MessageEditOptions).disableEveryone : this.client.options.disableEveryone || false });
 		return this._patch(d);
@@ -319,13 +319,13 @@ class Message extends Base {
 		return this;
 	}
 
-	public reply(options?: string | APIMessage | import("../Types").ReplyMessageOptions) {
+	public reply(options?: string | MessagePayload | import("../Types").ReplyMessageOptions) {
 		let data;
 
-		if (options instanceof APIMessage) {
+		if (options instanceof MessagePayload) {
 			data = options;
 		} else {
-			data = APIMessage.create(this, options, {
+			data = MessagePayload.create(this, options, {
 				reply: {
 					messageReference: this,
 					failIfNotExists: (options as import("../Types").ReplyMessageOptions)?.failIfNotExists ?? true

@@ -1,4 +1,4 @@
-import STEndpoints from "snowtransfer/dist/src/Endpoints";
+import STEndpoints from "snowtransfer/dist/Endpoints";
 
 import { Error, RangeError } from "../errors";
 
@@ -17,7 +17,7 @@ export const Endpoints = {
 		return {
 			Emoji: (emojiID: string, format: import("../Types").AllowedImageFormat = "png") => `${root}/emojis/${emojiID}.${format}`,
 			Asset: (name: string) => `${root}/assets/${name}`,
-			DefaultAvatar: (discriminator: string) => `${root}/embed/avatars/${discriminator}.png`,
+			DefaultAvatar: (discriminator: number) => `${root}/embed/avatars/${discriminator}.png`,
 			Avatar: (userID: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
 				if (dynamic) format = hash.startsWith("a_") ? "gif" : format;
 				return makeImageUrl(`${root}/avatars/${userID}/${hash}`, { format, size });
@@ -336,13 +336,6 @@ export const WebhookTypes: [null, "Incoming", "Channel Follower", "Application"]
 	"Application"
 ];
 
-export const StickerTypes = {
-	1: "STANDARD" as const,
-	"STANDARD": 1 as const,
-	2: "GUILD" as const,
-	"GUILD": 2 as const
-};
-
 export const StickerFormatTypes = {
 	1: "PNG" as const,
 	PNG: 1 as const,
@@ -429,6 +422,17 @@ export const MessageButtonStyles = {
 	LINK: 5 as const
 };
 
+export const NSFWLevels = {
+	0: "DEFAULT" as const,
+	DEFAULT: 0 as const,
+	1: "EXPLICIT" as const,
+	EXPLICIT: 1 as const,
+	2: "SAFE" as const,
+	SAFE: 2 as const,
+	3: "AGE_RESTRICTED" as const,
+	AGE_RESTRICTED: 3 as const
+};
+
 export const SYSTEM_USER_ID = "643945264868098049";
 
 const Constants = {
@@ -449,7 +453,6 @@ const Constants = {
 	DefaultMessageNotifications,
 	MembershipStates,
 	WebhookTypes,
-	StickerTypes,
 	StickerFormatTypes,
 	OverwriteTypes,
 	ApplicationCommandOptionTypes,
@@ -457,7 +460,8 @@ const Constants = {
 	InteractionTypes,
 	InteractionResponseTypes,
 	MessageComponentTypes,
-	MessageButtonStyles
+	MessageButtonStyles,
+	NSFWLevels
 };
 
 export default Constants;

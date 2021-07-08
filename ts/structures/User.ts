@@ -47,7 +47,7 @@ class User extends Base implements TextBasedChannel {
 	}
 
 	public get defaultAvatarURL() {
-		return this.client.rest.cdn.DefaultAvatar(this.discriminator);
+		return this.client.rest.cdn.DefaultAvatar(Number(this.discriminator) % 5);
 	}
 
 	public toString() {

@@ -23,11 +23,11 @@ import handle from "./handle";
 import ApplicationCommandManager from "./managers/ApplicationCommandManager";
 import GuildApplicationCommandManager from "./managers/GuildApplicationCommandManager";
 
+import AnonymousGuild from "./structures/AnonymousGuild";
 import Application from "./structures/interfaces/Application";
 import ApplicationCommand from "./structures/ApplicationCommand";
 import Base from "./structures/Base";
 import { Activity } from "./structures/Presence";
-import APIMessage from "./structures/APIMessage";
 import BaseGuild from "./structures/BaseGuild";
 import BaseGuildEmoji from "./structures/BaseGuildEmoji";
 import BaseGuildVoiceChannel from "./structures/BaseGuildVoiceChannel";
@@ -54,6 +54,7 @@ import IntegrationApplication from "./structures/IntegrationApplication";
 import Interaction from "./structures/Interaction";
 import InteractionWebhook from "./structures/InteractionWebhook";
 import Invite from "./structures/Invite";
+import InviteGuild from "./structures/InviteGuild";
 import Message from "./structures/Message";
 import MessageActionRow from "./structures/MessageActionRow";
 import MessageAttachment from "./structures/MessageAttachment";
@@ -63,6 +64,7 @@ import MessageComponentInteraction from "./structures/MessageComponentInteractio
 import MessageComponentInteractionCollector from "./structures/MessageComponentInteractionCollector";
 import MessageEmbed from "./structures/MessageEmbed";
 import MessageMentions from "./structures/MessageMentions";
+import MessagePayload from "./structures/MessagePayload";
 import MessageReaction from "./structures/MessageReaction";
 import NewsChannel from "./structures/NewsChannel";
 import OAuth2Guild from "./structures/Oauth2Guild";
@@ -87,6 +89,8 @@ import VoiceChannel from "./structures/VoiceChannel";
 import VoiceRegion from "./structures/VoiceRegion";
 import VoiceState from "./structures/VoiceState";
 import Webhook from "./structures/Webhook";
+import WelcomeChannel from "./structures/WelcomeChannel";
+import WelcomeScreen from "./structures/WelcomeScreen";
 
 import PartialBase from "./structures/Partial/PartialBase";
 import PartialChannel from "./structures/Partial/PartialChannel";
@@ -137,11 +141,12 @@ export {
 	verifyString,
 	splitMessage,
 
+	AnonymousGuild,
 	Application,
 	ApplicationCommand,
 	Base,
 	Activity,
-	APIMessage,
+	MessagePayload,
 	BaseGuild,
 	BaseGuildEmoji,
 	BaseGuildVoiceChannel,
@@ -168,6 +173,7 @@ export {
 	Interaction,
 	InteractionWebhook,
 	Invite,
+	InviteGuild,
 	Message,
 	MessageActionRow,
 	MessageAttachment,
@@ -201,6 +207,8 @@ export {
 	VoiceRegion,
 	VoiceState,
 	Webhook,
+	WelcomeChannel,
+	WelcomeScreen,
 
 	PartialBase,
 	PartialChannel,

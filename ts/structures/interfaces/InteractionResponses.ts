@@ -1,7 +1,6 @@
 import { InteractionResponseTypes } from "../../util/Constants";
 import MessageFlags from "../../util/MessageFlags";
-import APIMessage from "../APIMessage";
-
+import MessagePayload from "../MessagePayload";
 
 class InteractionResponses {
 	public deferred?: boolean;
@@ -22,14 +21,14 @@ class InteractionResponses {
 		this.deferred = true;
 	}
 
-	public async reply(options: string | APIMessage | import("../../Types").InteractionReplyOptions): Promise<void> {
+	public async reply(options: string | MessagePayload | import("../../Types").InteractionReplyOptions): Promise<void> {
 		if (this.deferred || this.replied) throw new Error("INTERACTION_ALREADY_REPLIED");
 
-		let apiMessage;
-		if (options instanceof APIMessage) apiMessage = options;
-		else apiMessage = APIMessage.create(this, options);
+		let messagePayload;
+		if (options instanceof MessagePayload) messagePayload = options;
+		else messagePayload = MessagePayload.create(this, options);
 
-		const { data, files } = await apiMessage.resolveData().resolveFiles();
+		const { data, files } = await messagePayload.resolveData().resolveFiles();
 
 		await this.client._snow.interaction.createInteractionResponse(this.id, this.token, {
 			type: InteractionResponseTypes.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -42,7 +41,7 @@ class InteractionResponses {
 		return this.webhook.fetchMessage("@original");
 	}
 
-	public editReply(options: string | APIMessage | import("../../Types").WebhookEditMessageOptions): Promise<import("../Message")> {
+	public editReply(options: string | MessagePayload | import("../../Types").WebhookEditMessageOptions): Promise<import("../Message")> {
 		return this.webhook.editMessage("@original", options);
 	}
 
@@ -50,7 +49,7 @@ class InteractionResponses {
 		await this.webhook.deleteMessage("@original");
 	}
 
-	public followUp(options: string | APIMessage | import("../../Types").InteractionReplyOptions): Promise<import("../Message")> {
+	public followUp(options: string | MessagePayload | import("../../Types").InteractionReplyOptions): Promise<import("../Message")> {
 		return this.webhook.send(options);
 	}
 
@@ -62,14 +61,14 @@ class InteractionResponses {
 		this.deferred = true;
 	}
 
-	public async update(options: string | APIMessage | import("../../Types").WebhookEditMessageOptions): Promise<void> {
+	public async update(options: string | MessagePayload | import("../../Types").WebhookEditMessageOptions): Promise<void> {
 		if (this.deferred || this.replied) throw new Error("INTERACTION_ALREADY_REPLIED");
 
-		let apiMessage;
-		if (options instanceof APIMessage) apiMessage = options;
-		else apiMessage = APIMessage.create(this, options);
+		let messagePayload;
+		if (options instanceof MessagePayload) messagePayload = options;
+		else messagePayload = MessagePayload.create(this, options);
 
-		const { data, files } = await apiMessage.resolveData().resolveFiles();
+		const { data, files } = await messagePayload.resolveData().resolveFiles();
 
 		await this.client._snow.interaction.createInteractionResponse(this.id, this.token, {
 			type: InteractionResponseTypes.UPDATE_MESSAGE,

@@ -55,7 +55,10 @@ const Actions = {
 	MESSAGE_UNPIN: 75 as const,
 	INTEGRATION_CREATE: 80 as const,
 	INTEGRATION_UPDATE: 81 as const,
-	INTEGRATION_DELETE: 82 as const
+	INTEGRATION_DELETE: 82 as const,
+	STAGE_INSTANCE_CREATE: 83 as const,
+	STAGE_INSTANCE_UPDATE: 84 as const,
+	STAGE_INSTANCE_DELETE: 85 as const
 };
 
 class GuildAuditLogs {

@@ -1,11 +1,11 @@
+import Base from "./Base";
 import Emoji from "./Emoji";
 import ActivityFlags from "../util/ActivityFlags";
 import { ActivityTypes } from "../util/Constants";
 
-export class Presence {
+export class Presence extends Base {
 	public userID: string;
 	public guild: import("./Partial/PartialGuild") | null = null;
-	public client: import("../client/Client");
 	public status!: import("../Types").PresenceStatus;
 	public activities!: Array<Activity>;
 	public clientStatus!: import("@amanda/discordtypings").ClientStatusData;
@@ -13,13 +13,13 @@ export class Presence {
 	public member: import("./GuildMember") | null = null;
 
 	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").PresenceData) {
-		this.client = client;
+		super(client);
 		this.userID = data.user.id;
 
-		this.patch(data);
+		this._patch(data);
 	}
 
-	public patch(data: import("@amanda/discordtypings").PresenceData) {
+	public _patch(data: import("@amanda/discordtypings").PresenceData) {
 		const GuildMember: typeof import("./GuildMember") = require("./GuildMember");
 		const User: typeof import("./User") = require("./User");
 		// @ts-ignore
@@ -48,7 +48,7 @@ export class Presence {
 		return this;
 	}
 
-	public _clone(): Presence {
+	public _clone(): this {
 		const clone = Object.assign(Object.create(this), this);
 		if (this.activities) clone.activities = this.activities.map(activity => activity._clone());
 		return clone;

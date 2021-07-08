@@ -11,10 +11,10 @@ abstract class BaseManager<T, C extends Collection<string, T>> {
 		this.client = client;
 		this.cacheType = cacheType;
 		this.cache = new cacheType(...cacheOptions) as C;
-		if (iterable) for (const i of iterable) this.add(i);
+		if (iterable) for (const i of iterable) this._add(i);
 	}
 
-	public add(data: T, cache = true, options: { id?: string; extras?: Array<any> } = { extras: [] }) {
+	public _add(data: T, cache = true, options: { id?: string; extras?: Array<any> } = { extras: [] }) {
 		// @ts-ignore
 		const existing = this.cache.get(options.id || data.id);
 		// @ts-ignore
