@@ -180,10 +180,14 @@ class Guild extends AnonymousGuild_1.default {
             this.mfaLevel = data.mfa_level;
         this.owner = this.owner && data.owner_id === this.owner.id ? this.owner : new PartialUser(this.client, { id: this.ownerID });
         this.icon = data.icon || (this.icon ? this.icon : null);
+        if (!this.members)
+            this.members = new Collection_1.default();
         if (data.members && Array.isArray(data.members)) {
             this.members.clear();
             data.members.forEach(member => this.members.set(member.user.id, new GuildMember_1.default(this.client, member)));
         }
+        if (!this.channels)
+            this.channels = new Collection_1.default();
         if (data.channels && Array.isArray(data.channels)) {
             this.channels.clear();
             for (const channel of data.channels) {
@@ -204,21 +208,29 @@ class Guild extends AnonymousGuild_1.default {
                 this.channels.set(chan.id, chan);
             }
         }
+        if (!this.roles)
+            this.roles = new Collection_1.default();
         if (data.roles && Array.isArray(data.roles)) {
             this.roles.clear();
             for (const role of data.roles)
                 this.roles.set(role.id, new Role_1.default(this.client, Object.assign({}, role, { guild_id: this.id })));
         }
+        if (!this.voiceStates)
+            this.voiceStates = new Collection_1.default();
         if (data.voice_states && Array.isArray(data.voice_states)) {
             this.voiceStates.clear();
             for (const state of data.voice_states)
                 this.voiceStates.set(state.user_id, new VoiceState_1.default(this.client, state));
         }
+        if (!this.emojis)
+            this.emojis = new Collection_1.default();
         if (data.emojis && Array.isArray(data.emojis)) {
             this.emojis.clear();
             for (const emoji of data.emojis)
                 this.emojis.set(emoji.id || emoji.name, new Emoji_1.default(this.client, emoji));
         }
+        if (!this.threads)
+            this.threads = new Collection_1.default();
         if (data.threads && Array.isArray(data.threads)) {
             const ThreadNewsChannel = require("./ThreadNewsChannel");
             const ThreadTextChannel = require("./ThreadTextChannel");
@@ -226,6 +238,8 @@ class Guild extends AnonymousGuild_1.default {
             for (const thread of data.threads)
                 this.threads.set(thread.id, [11, 12].includes(thread.type) ? new ThreadTextChannel(this, thread) : new ThreadNewsChannel(this, thread));
         }
+        if (!this.stageInstances)
+            this.stageInstances = new Collection_1.default();
         if (data.stage_instances && Array.isArray(data.stage_instances)) {
             this.stageInstances.clear();
             for (const instance of data.stage_instances)
