@@ -1,15 +1,14 @@
 import BitField from "./BitField";
 
 const FLAGS = {
-	MANAGED_EMOJI: BigInt(1) << BigInt(2),
-	GROUP_DM_CREATE: BigInt(1) << BigInt(4),
-	RPC_HAS_CONNECTED: BigInt(1) << BigInt(11),
 	GATEWAY_PRESENCE: BigInt(1) << BigInt(12),
 	GATEWAY_PRESENCE_LIMITED: BigInt(1) << BigInt(13),
 	GATEWAY_GUILD_MEMBERS: BigInt(1) << BigInt(14),
 	GATEWAY_GUILD_MEMBERS_LIMITED: BigInt(1) << BigInt(15),
 	VERIFICATION_PENDING_GUILD_LIMIT: BigInt(1) << BigInt(16),
-	EMBEDDED: BigInt(1) << BigInt(17)
+	EMBEDDED: BigInt(1) << BigInt(17),
+	GATEWAY_MESSAGE_CONTENT: BigInt(1) << BigInt(18),
+	GATEWAY_MESSAGE_CONTENT_LIMITED: BigInt(1) << BigInt(19)
 };
 
 interface ApplicationFlagsConstructor {

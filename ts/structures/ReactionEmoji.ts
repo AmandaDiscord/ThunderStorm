@@ -4,48 +4,48 @@ class ReactionEmoji {
 	public client: import("../client/Client");
 	public reaction: import("./MessageReaction");
 	public name: string;
-	public id: string | null;
+	public Id: string | null;
 	public animated: boolean;
 
 	public constructor(reaction: import("./MessageReaction"), emoji: { name: string; id: string | null; animated?: boolean }) {
 		this.client = reaction.message.client;
 		this.reaction = reaction;
 		this.name = emoji.name;
-		this.id = emoji.id;
+		this.Id = emoji.id;
 		this.animated = emoji.animated || false;
 	}
 
 	public get createdTimestamp() {
-		if (!this.id) return null;
-		return SnowflakeUtil.deconstruct(this.id).timestamp;
+		if (!this.Id) return null;
+		return SnowflakeUtil.deconstruct(this.Id).timestamp;
 	}
 
 	public get createdAt() {
-		if (!this.id) return null;
+		if (!this.Id) return null;
 		return new Date(this.createdTimestamp as number);
 	}
 
 	public get url() {
-		if (!this.id) return null;
-		return this.client.rest.cdn.Emoji(this.id, this.animated ? "gif" : "png");
+		if (!this.Id) return null;
+		return this.client.rest.cdn.Emoji(this.Id, this.animated ? "gif" : "png");
 	}
 
 	public get identifier() {
-		if (this.id) return `${this.name}:${this.id}`;
+		if (this.Id) return `${this.name}:${this.Id}`;
 		return encodeURIComponent(this.name);
 	}
 
 	public toJSON() {
 		return {
-			id: this.id,
+			id: this.Id,
 			name: this.name,
 			animated: this.animated
 		};
 	}
 
 	public toString() {
-		if (!this.id) return this.name;
-		return `<${this.animated ? "a" : ""}:${this.name}:${this.id}>`;
+		if (!this.Id) return this.name;
+		return `<${this.animated ? "a" : ""}:${this.name}:${this.Id}>`;
 	}
 }
 

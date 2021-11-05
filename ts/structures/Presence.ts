@@ -4,45 +4,37 @@ import ActivityFlags from "../util/ActivityFlags";
 import { ActivityTypes } from "../util/Constants";
 
 export class Presence extends Base {
-	public userID: string;
+	public userId: string;
 	public guild: import("./Partial/PartialGuild") | null = null;
 	public status!: import("../Types").PresenceStatus;
 	public activities!: Array<Activity>;
-	public clientStatus!: import("@amanda/discordtypings").ClientStatusData;
+	public clientStatus!: import("discord-typings").ClientStatusData;
 	public user!: import("./User");
 	public member: import("./GuildMember") | null = null;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").PresenceData) {
+	public constructor(client: import("../client/Client"), data: import("discord-typings").PresenceData) {
 		super(client);
-		this.userID = data.user.id;
+		this.userId = data.user.id;
 
 		this._patch(data);
 	}
 
-	public _patch(data: import("@amanda/discordtypings").PresenceData) {
+	public _patch(data: import("discord-typings").PresenceData | import("discord-typings").PresenceUpdateData) {
 		const GuildMember: typeof import("./GuildMember") = require("./GuildMember");
 		const User: typeof import("./User") = require("./User");
-		// @ts-ignore
-		this.status = data.status || this.status || "offline";
+		this.status = (data as import("discord-typings").PresenceUpdateData).status || this.status || "offline";
 
-		if (data.activities) {
-			this.activities = data.activities.map(activity => new Activity(this, activity));
-			// @ts-ignore
-		} else if (data.activity || data.game) {
-			// @ts-ignore
-			this.activities = [new Activity(this, data.game || data.activity)];
-		} else {
-			this.activities = [];
-		}
+		if (data.activities) this.activities = data.activities.map(activity => new Activity(this, activity));
+		else this.activities = [];
 		this.clientStatus = data.client_status || null;
 		if (data.user && data.guild_id) {
-			this.member = new GuildMember(this.client, Object.assign({}, data, { mute: false, deaf: false, hoisted_role: data.guild_id, joined_at: new Date().toISOString(), nick: data.nick || null }));
+			this.member = new GuildMember(this.client, Object.assign({}, data as import("discord-typings").PresenceData, { mute: false, deaf: false, hoisted_role: data.guild_id, joined_at: new Date().toISOString(), nick: (data as import("discord-typings").PresenceData).nick || null }));
 			this.user = this.member.user;
 			this.member.presence = this;
 			this.user.presence = this;
 			this.guild = this.member.guild;
 		} else if (data.user) {
-			this.user = data.user.id === this.client.user?.id ? this.client.user : new User(this.client, data.user);
+			this.user = data.user.id === this.client.user?.Id ? this.client.user : new User(this.client, data.user);
 		}
 
 		return this;
@@ -68,21 +60,16 @@ export class Presence extends Base {
 	}
 
 	public toJSON() {
-		// @ts-ignore
-		const value: import("@amanda/discordtypings").PresenceData = this.member ? this.member.toJSON() : { user: this.user.toJSON() };
+		const value: import("discord-typings").PresenceData = this.member ? this.member.toJSON() as unknown as import("discord-typings").PresenceData : { user: this.user.toJSON() } as unknown as import("discord-typings").PresenceData;
 
 		value["activities"] = this.activities.map(i => i.toJSON());
 		value["client_status"] = this.clientStatus;
-		if (this.guild) value["guild_id"] = this.guild.id;
+		if (this.guild) value["guild_id"] = this.guild.Id;
 
 		// @ts-ignore
-		delete value["joined_at"];
+		delete value["joined_at"]; delete value["mute"];
 		// @ts-ignore
-		delete value["mute"];
-		// @ts-ignore
-		delete value["deaf"];
-		// @ts-ignore
-		delete value["hoisted_role"];
+		delete value["deaf"]; delete value["hoisted_role"];
 
 		return value;
 	}
@@ -95,16 +82,16 @@ export class Activity {
 	public url: string | null;
 	public details: string | null;
 	public state: string | null;
-	public applicationID: string | null;
+	public applicationId: string | null;
 	public timestamps: { start: Date | null; end: Date | null; } | null;
-	public party: Exclude<import("@amanda/discordtypings").ActivityData["party"], undefined> | null;
+	public party: Exclude<import("discord-typings").ActivityData["party"], undefined> | null;
 	public assets: RichPresenceAssets | null;
-	public syncID: string;
+	public syncId: string;
 	public flags: Readonly<ActivityFlags>;
 	public emoji: import("./Emoji") | null;
 	public createdTimestamp: number;
 
-	public constructor(presence: Presence, data: import("@amanda/discordtypings").ActivityData) {
+	public constructor(presence: Presence, data: import("discord-typings").ActivityData) {
 		this.presence = presence;
 
 		this.name = data.name;
@@ -112,7 +99,7 @@ export class Activity {
 		this.url = data.url || null;
 		this.details = data.details || null;
 		this.state = data.state || null;
-		this.applicationID = data.application_id || null;
+		this.applicationId = data.application_id || null;
 		this.timestamps = data.timestamps
 			? {
 				start: data.timestamps.start ? new Date(Number(data.timestamps.start)) : null,
@@ -122,7 +109,7 @@ export class Activity {
 		this.party = data.party || null;
 		this.assets = data.assets ? new RichPresenceAssets(this, data.assets) : null;
 		// @ts-ignore
-		this.syncID = data.sync_id;
+		this.syncId = data.sync_id;
 		this.flags = new ActivityFlags(data.flags).freeze();
 		this.emoji = data.emoji ? new Emoji(presence.client, data.emoji) : null;
 		this.createdTimestamp = new Date(data.created_at).getTime();
@@ -172,7 +159,7 @@ export class RichPresenceAssets {
 	public smallImage: string | null;
 	public activity: Activity;
 
-	public constructor(activity: Activity, assets: Exclude<import("@amanda/discordtypings").ActivityData["assets"], undefined>) {
+	public constructor(activity: Activity, assets: Exclude<import("discord-typings").ActivityData["assets"], undefined>) {
 		this.activity = activity;
 
 		this.largeText = assets.large_text || null;
@@ -183,7 +170,7 @@ export class RichPresenceAssets {
 
 	public smallImageURL(options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = {}) {
 		if (!this.smallImage) return null;
-		return this.activity.presence.client.rest.cdn.AppAsset(this.activity.applicationID as string, this.smallImage, {
+		return this.activity.presence.client.rest.cdn.AppAsset(this.activity.applicationId as string, this.smallImage, {
 			format: options.format,
 			size: options.size
 		});
@@ -196,7 +183,7 @@ export class RichPresenceAssets {
 		} else if (/^twitch:/.test(this.largeImage)) {
 			return `https://static-cdn.jtvnw.net/previews-ttv/live_user_${this.largeImage.slice(7)}.png`;
 		}
-		return this.activity.presence.client.rest.cdn.AppAsset(this.activity.applicationID as string, this.largeImage, {
+		return this.activity.presence.client.rest.cdn.AppAsset(this.activity.applicationId as string, this.largeImage, {
 			format: options.format,
 			size: options.size
 		});

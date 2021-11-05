@@ -28,7 +28,7 @@ class MessageComponentInteractionCollector extends Collector<import("./MessageCo
 	public message: import("./Message") | import("./Partial/PartialMessage") | null;
 	public channel: import("./Partial/PartialChannel") | import("./TextChannel") | import("./DMChannel") | import("./NewsChannel") | import("./interfaces/TextBasedChannel");
 	public users: Collection<string, import("./User")> = new Collection();
-	public total = 0
+	public total = 0;
 	public options!: import("../Types").MessageComponentInteractionCollectorOptions;
 
 	public constructor(source: import("./Message") | import("./Partial/PartialMessage") | import("./TextChannel") | import("./DMChannel") | import("./NewsChannel") | import("./interfaces/TextBasedChannel"), filter: import("../Types").CollectorFilter<import("./MessageComponentInteraction")>, options: import("../Types").MessageComponentInteractionCollectorOptions = {}) {
@@ -65,7 +65,7 @@ class MessageComponentInteractionCollector extends Collector<import("./MessageCo
 
 		this.on("collect", interaction => {
 			this.total++;
-			this.users.set(interaction.user.id, interaction.user);
+			this.users.set(interaction.user.Id, interaction.user);
 		});
 	}
 
@@ -73,20 +73,20 @@ class MessageComponentInteractionCollector extends Collector<import("./MessageCo
 		if (!interaction.isMessageComponent()) return null;
 
 		if (this.message) {
-			return interaction.message?.id === this.message.id ? interaction.id : null;
+			return interaction.message?.Id === this.message.Id ? interaction.Id : null;
 		}
 
-		return interaction.channel?.id === this.channel?.id ? interaction.id : null;
+		return interaction.channel?.Id === this.channel?.Id ? interaction.Id : null;
 	}
 
 	public dispose(interaction: import("./MessageComponentInteraction")): string | null {
 		if (!interaction.isMessageComponent()) return null;
 
 		if (this.message) {
-			return interaction.message?.id === this.message.id ? interaction.id : null;
+			return interaction.message?.Id === this.message.Id ? interaction.Id : null;
 		}
 
-		return interaction.channel?.id === this.channel.id ? interaction.id : null;
+		return interaction.channel?.Id === this.channel.Id ? interaction.Id : null;
 	}
 
 	public empty() {
@@ -104,20 +104,19 @@ class MessageComponentInteractionCollector extends Collector<import("./MessageCo
 	}
 
 	private _handleMessageDeletion(message: import("./Partial/PartialMessage")): void {
-		if (message.id === this.message?.id) {
+		if (message.Id === this.message?.Id) {
 			this.stop("messageDelete");
 		}
 	}
 
 	private _handleChannelDeletion(channel: import("./GuildChannel") | import("./Partial/PartialChannel")): void {
-		if (channel.id === this.channel.id) {
+		if (channel.Id === this.channel.Id) {
 			this.stop("channelDelete");
 		}
 	}
 
 	private _handleGuildDeletion(guild: import("./Guild") | import("./Partial/PartialGuild")): void {
-		// @ts-ignore
-		if (guild.id === this.channel.guild?.id) {
+		if (guild.Id === (this.channel as import("./GuildChannel")).guild?.Id) {
 			this.stop("guildDelete");
 		}
 	}

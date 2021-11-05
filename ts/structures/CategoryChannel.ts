@@ -1,18 +1,20 @@
 import GuildChannel from "./GuildChannel";
 
+import Constants from "../util/Constants";
+
 class CategoryChannel extends GuildChannel {
 	public nsfw!: boolean;
-	public type: "category" = "category";
+	public type: typeof Constants.ChannelTypes[4] = Constants.ChannelTypes[4];
 
-	public constructor(guild: import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").CategoryChannelData) {
+	public constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").CategoryChannelData) {
 		super(guild, data);
 	}
 
-	public toJSON(): import("@amanda/discordtypings").CategoryChannelData {
+	public toJSON(): import("discord-typings").CategoryChannelData {
 		return Object.assign(super.toJSON(), { type: 4 as const, nsfw: this.nsfw });
 	}
 
-	public _patch(data: import("@amanda/discordtypings").CategoryChannelData) {
+	public _patch(data: import("discord-typings").CategoryChannelData) {
 		if (data.nsfw) this.nsfw = data.nsfw || false;
 		super._patch(data);
 	}

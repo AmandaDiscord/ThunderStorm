@@ -11,12 +11,12 @@ class GuildTemplate extends Base {
 	public name!: string;
 	public description!: string | null;
 	public usageCount!: number;
-	public creatorID!: string;
+	public creatorId!: string;
 	public creator!: import("./User");
 	public createdAt!: Date;
 	public updatedAt!: Date;
-	public guildID!: string;
-	public serializedGuild!: Partial<import("@amanda/discordtypings").GuildData>;
+	public guildId!: string;
+	public serializedGuild!: Partial<import("discord-typings").GuildData>;
 	public unSynced!: boolean | null;
 	public guild!: import("./Partial/PartialGuild");
 
@@ -33,12 +33,12 @@ class GuildTemplate extends Base {
 		this.name = data.name;
 		this.description = data.description;
 		this.usageCount = data.usage_count;
-		this.creatorID = data.creator_id;
+		this.creatorId = data.creator_id;
 		this.creator = new User(this.client, data.creator);
 		this.createdAt = new Date(data.created_at);
 		this.updatedAt = new Date(data.updated_at);
-		this.guildID = data.source_guild_id;
-		this.guild = new PartialGuild(this.client, { id: this.guildID });
+		this.guildId = data.source_guild_id;
+		this.guild = new PartialGuild(this.client, { id: this.guildId });
 		this.serializedGuild = data.serialized_source_guild;
 		this.unSynced = "is_dirty" in data ? Boolean(data.is_dirty) : null;
 
@@ -62,7 +62,7 @@ class GuildTemplate extends Base {
 			};
 
 			const handleGuild = (guild: import("./Guild")) => {
-				if (guild.id === data.id) {
+				if (guild.Id === data.Id) {
 					client.clearTimeout(timeout);
 					resolveGuild(guild);
 				}
@@ -77,7 +77,7 @@ class GuildTemplate extends Base {
 
 	public edit(options: { name?: string, description?: string } = {}): Promise<this> {
 		return this.client.api
-			.guilds(this.guildID)
+			.guilds(this.guildId)
 			.templates(this.code)
 			.patch({ data: options })
 			.then((data: any) => this._patch(data));
@@ -85,7 +85,7 @@ class GuildTemplate extends Base {
 
 	public delete(): Promise<this> {
 		return this.client.api
-			.guilds(this.guildID)
+			.guilds(this.guildId)
 			.templates(this.code)
 			.delete()
 			.then(() => this);
@@ -93,7 +93,7 @@ class GuildTemplate extends Base {
 
 	public sync(): Promise<this> {
 		return this.client.api
-			.guilds(this.guildID)
+			.guilds(this.guildId)
 			.templates(this.code)
 			.put()
 			.then((data: any) => this._patch(data));

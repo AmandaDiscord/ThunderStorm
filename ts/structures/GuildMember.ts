@@ -6,13 +6,13 @@ import User from "./User";
 
 // @ts-ignore
 class GuildMember implements TextBasedChannel {
-	public lastMessageID!: TextBasedChannel["lastMessageID"];
+	public lastMessageId!: TextBasedChannel["lastMessageId"];
 	public lastMessage!: TextBasedChannel["lastMessage"];
 	public send!: TextBasedChannel["send"];
 
 	public client: import("../client/Client");
 	public user!: import("./User");
-	public id!: string;
+	public Id!: string;
 	public nickname: string | null = null;
 	public deaf = false;
 	public mute = false;
@@ -25,9 +25,9 @@ class GuildMember implements TextBasedChannel {
 	public avatar: string | null = null;
 	public hoistRole: import("./Partial/PartialRole") | null = null;
 	public presence: import("./Presence").Presence | null = null;
-	public lastMessageChannelID: string | null = null;
+	public lastMessageChannelId: string | null = null;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").MemberData & { user: import("@amanda/discordtypings").UserData; guild_id?: string }) {
+	public constructor(client: import("../client/Client"), data: import("discord-typings").MemberData & { user: import("discord-typings").UserData; guild_id?: string }) {
 		this.client = client;
 
 		if (data) this._patch(data);
@@ -56,41 +56,41 @@ class GuildMember implements TextBasedChannel {
 
 	public async kick(reason?: string) {
 		if (!this.guild) return this;
-		await this.client._snow.guild.removeGuildMember(this.guild.id, this.id, { reason });
+		await this.client._snow.guild.removeGuildMember(this.guild.Id, this.Id, { reason });
 		return this;
 	}
 
 	public async ban(options?: { days?: number; reason?: string }) {
 		if (!this.guild) return this;
-		await this.client._snow.guild.createGuildBan(this.guild.id, this.id, { delete_message_days: options?.days || 0, reason: options?.reason });
+		await this.client._snow.guild.createGuildBan(this.guild.Id, this.Id, { delete_message_days: options?.days || 0, reason: options?.reason });
 	}
 
 	public toString() {
-		return `<@${this.id}>`;
+		return `<@${this.Id}>`;
 	}
 
 	public toJSON() {
 		return {
-			id: this.id,
+			id: this.Id,
 			nick: this.nickname,
 			mute: this.mute,
 			joined_at: this.joinedAt.toISOString(),
 			premium_since: this.premiumSince,
 			user: this.user.toJSON(),
-			roles: this.roles.map(r => r.id),
-			guild_id: this.guild ? this.guild.id : null,
-			hoisted_role: this.hoistRole ? this.hoistRole.id : null
+			roles: this.roles.map(r => r.Id),
+			guild_id: this.guild ? this.guild.Id : null,
+			hoisted_role: this.hoistRole ? this.hoistRole.Id : null
 		};
 	}
 
-	public _patch(data: import("@amanda/discordtypings").MemberData & { user: import("@amanda/discordtypings").UserData; guild_id?: string }) {
+	public _patch(data: import("discord-typings").MemberData & { user: import("discord-typings").UserData; guild_id?: string }) {
 		const PartialGuild: typeof import("./Partial/PartialGuild") = require("./Partial/PartialGuild");
 		const PartialRole: typeof import("./Partial/PartialRole") = require("./Partial/PartialRole");
 
 		if (data.user) {
-			if (data.user.id === this.client.user?.id) this.client.user._patch(data.user);
-			this.user = data.user.id === this.client.user?.id ? this.client.user : new User(this.client, data.user);
-			this.id = data.user.id;
+			if (data.user.id === this.client.user?.Id) this.client.user._patch(data.user);
+			this.user = data.user.id === this.client.user?.Id ? this.client.user : new User(this.client, data.user);
+			this.Id = data.user.id;
 		}
 		if (data.nick !== undefined) this.nickname = data.nick;
 		if (data.deaf !== undefined) this.deaf = data.deaf;
@@ -110,7 +110,7 @@ class GuildMember implements TextBasedChannel {
 		if (data.roles && Array.isArray(data.roles)) {
 			this.roles.clear();
 			for (const role of data.roles) {
-				if (role === data.guild_id || role === this.guild?.id) continue;
+				if (role === data.guild_id || role === this.guild?.Id) continue;
 				const r = new PartialRole(this.client, { id: role });
 				r.guild = this.guild;
 				this.roles.set(role, r);

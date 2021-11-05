@@ -3,18 +3,18 @@ import Util from "../util/Util";
 class MessageAttachment {
 	public attachment: string | Buffer | import("stream").Stream;
 	public name: string | null;
-	public id!: string;
+	public Id!: string;
 	public size!: number;
 	public url!: string;
 	public proxyURL = "";
 	public height: number | null = null;
 	public width: number | null = null;
 
-	public constructor(attachment: import("../Types").BufferResolvable | import("stream").Stream, name: string | null = null, data?: import("@amanda/discordtypings").AttachmentData) {
+	public constructor(attachment: import("../Types").BufferResolvable | import("stream").Stream, name: string | null = null, data?: import("discord-typings").AttachmentData) {
 		this.attachment = attachment;
 		this.name = name;
 		if (data) {
-			if (data.id) this.id = data.id;
+			if (data.id) this.Id = data.id;
 			if (data.size) this.size = data.size;
 			if (data.url) this.url = data.url;
 			if (data.proxy_url) this.proxyURL = data.proxy_url;
@@ -34,8 +34,8 @@ class MessageAttachment {
 		return this;
 	}
 
-	public _patch(data: import("@amanda/discordtypings").AttachmentData) {
-		if (data.id) this.id = data.id;
+	public _patch(data: import("discord-typings").AttachmentData) {
+		if (data.id) this.Id = data.id;
 		if (data.size) this.size = data.size;
 		if (data.url) this.url = data.url;
 		if (data.proxy_url) this.proxyURL = data.proxy_url;
@@ -49,7 +49,7 @@ class MessageAttachment {
 
 	public toJSON() {
 		return {
-			id: this.id,
+			id: this.Id,
 			size: this.size,
 			url: this.url,
 			proxy_url: this.url,

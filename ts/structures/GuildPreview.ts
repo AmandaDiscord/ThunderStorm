@@ -13,14 +13,14 @@ class GuildPreview extends Base {
 	public description!: string | null;
 	public emojis!: Collection<string, GuildPreviewEmoji>;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").GuildPreviewData) {
+	public constructor(client: import("../client/Client"), data: import("discord-typings").GuildPreviewData) {
 		super(client);
 
 		if (data) this._patch(data);
 	}
 
-	public _patch(data: import("@amanda/discordtypings").GuildPreviewData) {
-		this.id = data.id;
+	public _patch(data: import("discord-typings").GuildPreviewData) {
+		this.Id = data.id;
 		this.name = data.name;
 		this.icon = data.icon;
 		this.splash = data.splash;
@@ -42,21 +42,21 @@ class GuildPreview extends Base {
 
 	public splashURL(options: import("../Types").ImageURLOptions = {}) {
 		if (!this.splash) return null;
-		return this.client.rest.cdn.Splash(this.id, this.splash, options.format, options.size);
+		return this.client.rest.cdn.Splash(this.Id, this.splash, options.format, options.size);
 	}
 
 	public discoverySplashURL(options: import("../Types").ImageURLOptions = {}) {
 		if (!this.discoverySplash) return null;
-		return this.client.rest.cdn.DiscoverySplash(this.id, this.discoverySplash, options.format, options.size);
+		return this.client.rest.cdn.DiscoverySplash(this.Id, this.discoverySplash, options.format, options.size);
 	}
 
 	public iconURL(options: import("../Types").ImageURLOptions & { dynamic?: boolean } = {}) {
 		if (!this.icon) return null;
-		return this.client.rest.cdn.Icon(this.id, this.icon, options.format, options.size, options.dynamic);
+		return this.client.rest.cdn.Icon(this.Id, this.icon, options.format, options.size, options.dynamic);
 	}
 
 	async fetch(): Promise<this> {
-		const data = await this.client._snow.guild.getGuildPreview(this.id);
+		const data = await this.client._snow.guild.getGuildPreview(this.Id);
 		this._patch(data);
 		return this;
 	}

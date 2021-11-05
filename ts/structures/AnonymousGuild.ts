@@ -3,9 +3,8 @@ import { VerificationLevels, NSFWLevels } from "../util/Constants";
 
 /**
  * Bundles common attributes and methods between {@link Guild} and {@link InviteGuild}
- * @abstract
  */
-class AnonymousGuild extends BaseGuild {
+abstract class AnonymousGuild extends BaseGuild {
 	public splash!: string | null;
 	public banner!: string | null;
 	public description!: string | null;
@@ -33,12 +32,12 @@ class AnonymousGuild extends BaseGuild {
 
 	public bannerURL(options: import("../Types").ImageURLOptions = {}) {
 		if (!this.banner) return null;
-		return this.client.rest.cdn.Banner(this.id, this.banner, options.format, options.size);
+		return this.client.rest.cdn.Banner(this.Id, this.banner, options.format, options.size);
 	}
 
 	public splashURL(options: import("../Types").ImageURLOptions = {}) {
 		if (!this.splash) return null;
-		return this.client.rest.cdn.Splash(this.id, this.splash, options.format, options.size);
+		return this.client.rest.cdn.Splash(this.Id, this.splash, options.format, options.size);
 	}
 }
 

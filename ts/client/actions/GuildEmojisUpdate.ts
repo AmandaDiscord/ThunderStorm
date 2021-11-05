@@ -3,7 +3,7 @@ import Collection from "../../util/Collection";
 import { Events } from "../../util/Constants";
 
 class GuildEmojisUpdateAction extends Action {
-	public handle(data: import("@amanda/discordtypings").GuildEmojisUpdateData) {
+	public handle(data: import("discord-typings").GuildEmojisUpdateData) {
 		const PartialGuild: typeof import("../../structures/Partial/PartialGuild") = require("../../structures/Partial/PartialGuild");
 		const Emoji: typeof import("../../structures/Emoji") = require("../../structures/Emoji");
 
@@ -16,7 +16,7 @@ class GuildEmojisUpdateAction extends Action {
 			if (emoji.createdTimestamp && emoji.createdTimestamp > Date.now() - 1000) this.client.actions.GuildEmojiCreate.handle(guild, emoji);
 		}
 
-		this.client.emit(Events.GUILD_EMOJIS_UPDATE, guild, new Collection(emojis.map(e => [e.id as string, e])));
+		this.client.emit(Events.GUILD_EMOJIS_UPDATE, guild, new Collection(emojis.map(e => [e.Id as string, e])));
 	}
 }
 

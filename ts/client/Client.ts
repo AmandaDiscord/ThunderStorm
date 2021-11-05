@@ -53,19 +53,19 @@ class Client extends BaseClient {
 	}
 
 	public toString() {
-		return this.user ? `<@${this.user.id}>` : "Client";
+		return this.user ? `<@${this.user.Id}>` : "Client";
 	}
 
-	public async fetchUser(userID: string): Promise<import("../structures/User")> {
+	public async fetchUser(userId: string): Promise<import("../structures/User")> {
 		const User: typeof import("../structures/User") = require("../structures/User");
-		const user = await this._snow.user.getUser(userID);
-		if (user.id === this.user?.id) this.user._patch(user);
-		return user.id === this.user?.id ? this.user : new User(this, user);
+		const user = await this._snow.user.getUser(userId);
+		if (user.id === this.user?.Id) this.user!._patch(user);
+		return user.id === this.user?.Id ? this.user! : new User(this, user);
 	}
 
-	public async fetchInvite(id: string): Promise<import("../structures/Invite") | null> {
+	public async fetchInvite(Id: string): Promise<import("../structures/Invite") | null> {
 		const Invite: typeof import("../structures/Invite") = require("../structures/Invite");
-		const match = id.match(/h?t?t?p?s?:?\/?\/?d?i?s?c?o?r?d?\.?g?g?\/?([\w\d]+)/);
+		const match = Id.match(/h?t?t?p?s?:?\/?\/?d?i?s?c?o?r?d?\.?g?g?\/?([\w\d]+)/);
 		let code;
 		if (match && match[1]) code = match[1];
 		if (!code) return null;
@@ -73,8 +73,8 @@ class Client extends BaseClient {
 		return new Invite(this, data);
 	}
 
-	public async fetchWebhook(id: string, token?: string) {
-		const data = await this._snow.webhook.getWebhook(id, token);
+	public async fetchWebhook(Id: string, token?: string) {
+		const data = await this._snow.webhook.getWebhook(Id, token);
 		return new Webhook(this, { token, ...data });
 	}
 

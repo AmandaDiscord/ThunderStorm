@@ -11,19 +11,19 @@ class InteractionWebhook implements Webhook {
 	public avatar!: Webhook["avatar"];
 	public name!: Webhook["name"];
 	public type!: Webhook["type"];
-	public guildID!: Webhook["guildID"];
-	public channelID!: Webhook["channelID"];
+	public guildId!: Webhook["guildId"];
+	public channelId!: Webhook["channelId"];
 	public owner!: Webhook["owner"];
 	public sourceGuild!: Webhook["sourceGuild"];
 	public sourceChannel!: Webhook["sourceChannel"];
 
 	public client: import("../client/Client");
-	public id: string;
+	public Id: string;
 	public token: string;
 
-	public constructor(client: import("../client/Client"), id: string, token: string) {
+	public constructor(client: import("../client/Client"), Id: string, token: string) {
 		this.client = client;
-		this.id = id;
+		this.Id = Id;
 		this.token = token;
 	}
 }

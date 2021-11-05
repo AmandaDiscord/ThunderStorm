@@ -7,23 +7,23 @@ class GenericAction {
 		this.client = client;
 	}
 
-	public handle(data: any) {
-		return data;
+	public handle(...args: Array<any>) {
+		return args as any;
 	}
 
-	public getPayload(data: any, manager: any, id: string, partialType: keyof typeof PartialTypes) {
+	public getPayload(data: any, manager: any, Id: string, partialType: keyof typeof PartialTypes) {
 		return data;
 	}
 
 	public getChannel(data: any) {
-		const id = data.channel_id || data.id;
+		const id = data.channel_id || data.Id;
 		return (
 			data.channel ||
 			this.getPayload(
 				{
 					id,
 					guild_id: data.guild_id,
-					recipients: [data.author || { id: data.user_id }]
+					recipients: [data.author || { Id: data.user_id }]
 				},
 				{},
 				id,
@@ -33,14 +33,14 @@ class GenericAction {
 	}
 
 	getMessage(data: any, channel: any) {
-		const id = data.message_id || data.id;
+		const id = data.message_id || data.Id;
 		return (
 			data.message ||
 			this.getPayload(
 				{
 					id,
-					channel_id: channel.id,
-					guild_id: data.guild_id || (channel.guild ? channel.guild.id : null)
+					channel_id: channel.Id,
+					guild_id: data.guild_id || (channel.guild ? channel.guild.Id : null)
 				},
 				channel.messages,
 				id,
@@ -50,12 +50,12 @@ class GenericAction {
 	}
 
 	getReaction(data: any, message: any, user: any) {
-		const id = data.emoji.id || decodeURIComponent(data.emoji.name);
+		const id = data.emoji.Id || decodeURIComponent(data.emoji.name);
 		return this.getPayload(
 			{
 				emoji: data.emoji,
 				count: message.partial ? null : 0,
-				me: user ? user.id === this.client.user?.id : false
+				me: user ? user.Id === this.client.user?.Id : false
 			},
 			message.reactions,
 			id,
@@ -64,7 +64,7 @@ class GenericAction {
 	}
 
 	getMember(data: any, guild: any) {
-		return this.getPayload(data, guild.members, data.user.id, PartialTypes.GUILD_MEMBER);
+		return this.getPayload(data, guild.members, data.user.Id, PartialTypes.GUILD_MEMBER);
 	}
 
 	getUser(data: any) {

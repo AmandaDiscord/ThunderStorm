@@ -1,16 +1,18 @@
 import BaseGuildVoiceChannel from "./BaseGuildVoiceChannel";
 
+import Constants from "../util/Constants";
+
 class VoiceChannel extends BaseGuildVoiceChannel {
 	public bitrate = 8;
 	public userLimit = 0;
 	public rtcRegion: string | null = null;
-	public type: "voice" = "voice";
+	public type: typeof Constants.ChannelTypes[2] = Constants.ChannelTypes[2];
 
-	public constructor(guild: import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").VoiceChannelData) {
+	public constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").VoiceChannelData) {
 		super(guild, data);
 	}
 
-	public toJSON(): import("@amanda/discordtypings").VoiceChannelData {
+	public toJSON(): import("discord-typings").VoiceChannelData {
 		return Object.assign(super.toJSON(), {
 			bitrate: this.bitrate,
 			user_limit: this.userLimit,
@@ -19,7 +21,7 @@ class VoiceChannel extends BaseGuildVoiceChannel {
 		});
 	}
 
-	public _patch(data: import("@amanda/discordtypings").VoiceChannelData) {
+	public _patch(data: import("discord-typings").VoiceChannelData) {
 		super._patch(data);
 		if (data.bitrate !== undefined) this.bitrate = data.bitrate;
 		if (data.user_limit !== undefined) this.userLimit = data.user_limit;

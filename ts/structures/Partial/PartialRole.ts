@@ -15,12 +15,12 @@ class PartialRole extends PartialBase<import("../Role")> {
 	}
 
 	public toString() {
-		return `<@&${this.id}>`;
+		return `<@&${this.Id}>`;
 	}
 
 	public toJSON() {
 		return {
-			guild_id: this.guild ? this.guild.id : null,
+			guild_id: this.guild ? this.guild.Id : null,
 			...super.toJSON()
 		};
 	}

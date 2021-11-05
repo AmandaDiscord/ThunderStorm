@@ -67,8 +67,7 @@ class ActionsManager {
 	}
 
 	public register(Action: typeof import("./Action")) {
-		// @ts-ignore
-		this[Action.name.replace(/Action$/, "")] = new Action(this.client);
+		this[Action.name.replace(/Action$/, "") as Exclude<keyof ActionsManager, "client">] = new Action(this.client) as any;
 	}
 }
 

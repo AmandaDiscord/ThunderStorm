@@ -4,7 +4,7 @@ import Collection from "../util/Collection";
 import { ApplicationCommandPermissionTypes } from "../util/Constants";
 
 interface GuildApplicationCommandManagerConstructor {
-	new(client: import("../client/Client"), iterable?: IterableIterator<import("../structures/ApplicationCommand")>): GuildApplicationCommandManager;
+	new(guild: import("../structures/Partial/PartialGuild") | import("../structures/Guild"), iterable?: IterableIterator<import("../structures/ApplicationCommand")>): GuildApplicationCommandManager;
 	readonly prototype: GuildApplicationCommandManager;
 	readonly [Symbol.species]: GuildApplicationCommandManagerConstructor;
 }
@@ -28,7 +28,7 @@ class GuildApplicationCommandManager extends ApplicationCommandManager {
 	public async fetchPermissions(command: import("../Types").ApplicationCommandResolvable): Promise<Array<import("../Types").ApplicationCommandPermissions>>
 	public async fetchPermissions(command?: import("../Types").ApplicationCommandResolvable): Promise<Array<import("../Types").ApplicationCommandPermissions> | Collection<string, Array<import("../Types").ApplicationCommandPermissions>>> {
 		if (command) {
-			const id = this.resolveID(command);
+			const id = this.resolveId(command);
 			if (!id) throw new TypeError("INVALID_TYPE", "command", "ApplicationCommandResolvable");
 
 			const d = await this.commandPath(id).permissions.get();
@@ -39,7 +39,7 @@ class GuildApplicationCommandManager extends ApplicationCommandManager {
 		return data.reduce(
 			(coll: Collection<string, Array<import("../Types").ApplicationCommandPermissions>>, perm: any) =>
 				coll.set(
-					perm.id,
+					perm.Id,
 					perm.permissions.map((p: any) => this.constructor.transformPermissions(p, true))
 				),
 			new Collection()
@@ -49,7 +49,7 @@ class GuildApplicationCommandManager extends ApplicationCommandManager {
 	public async setPermissions(command: import("../Types").ApplicationCommandResolvable, permissions: Array<import("../Types").ApplicationCommandPermissionData>): Promise<Array<import("../Types").ApplicationCommandPermissions>>;
 	public async setPermissions(command: Array<import("../Types").GuildApplicationCommandPermissionData>): Promise<Collection<string, Array<import("../Types").ApplicationCommandPermissions>>>;
 	public async setPermissions(command: import("../Types").ApplicationCommandResolvable | Array<import("../Types").GuildApplicationCommandPermissionData>, permissions?: Array<import("../Types").ApplicationCommandPermissionData>): Promise<Array<import("../Types").ApplicationCommandPermissions> | Collection<string, Array<import("../Types").ApplicationCommandPermissions>>> {
-		const id = this.resolveID(command as import("../Types").ApplicationCommandResolvable);
+		const id = this.resolveId(command as import("../Types").ApplicationCommandResolvable);
 
 		if (id) {
 			const data = await this.commandPath(id).permissions.put({
@@ -60,14 +60,14 @@ class GuildApplicationCommandManager extends ApplicationCommandManager {
 
 		const data = await this.commandPath.permissions.put({
 			data: (command as Array<import("../Types").GuildApplicationCommandPermissionData>).map(perm => ({
-				id: perm.id,
+				Id: perm.Id,
 				permissions: perm.permissions.map(p => this.constructor.transformPermissions(p))
 			}))
 		});
 		return data.reduce(
 			(coll: Collection<string, Array<import("../Types").ApplicationCommandPermissions>>, perm: any) =>
 				coll.set(
-					perm.id,
+					perm.Id,
 					perm.permissions.map((p: any) => this.constructor.transformPermissions(p, true))
 				),
 			new Collection()
@@ -76,7 +76,7 @@ class GuildApplicationCommandManager extends ApplicationCommandManager {
 
 	public static transformPermissions(permissions: import("../Types").ApplicationCommandPermissionData, received?: boolean) {
 		return {
-			id: permissions.id,
+			Id: permissions.Id,
 			permission: permissions.permission,
 			type:
 				typeof permissions.type === "number" && !received

@@ -15,31 +15,31 @@ function makeImageUrl(root: string, options: { format?: import("../Types").Allow
 export const Endpoints = {
 	CDN(root: string) {
 		return {
-			Emoji: (emojiID: string, format: import("../Types").AllowedImageFormat = "png") => `${root}/emojis/${emojiID}.${format}`,
+			Emoji: (emojiId: string, format: import("../Types").AllowedImageFormat = "png") => `${root}/emojis/${emojiId}.${format}`,
 			Asset: (name: string) => `${root}/assets/${name}`,
 			DefaultAvatar: (discriminator: number) => `${root}/embed/avatars/${discriminator}.png`,
-			Avatar: (userID: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
+			Avatar: (userId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
 				if (dynamic) format = hash.startsWith("a_") ? "gif" : format;
-				return makeImageUrl(`${root}/avatars/${userID}/${hash}`, { format, size });
+				return makeImageUrl(`${root}/avatars/${userId}/${hash}`, { format, size });
 			},
-			Banner: (guildID: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
-				makeImageUrl(`${root}/banners/${guildID}/${hash}`, { format, size }),
-			Icon: (guildID: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
+			Banner: (guildId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
+				makeImageUrl(`${root}/banners/${guildId}/${hash}`, { format, size }),
+			Icon: (guildId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
 				if (dynamic) format = hash.startsWith("a_") ? "gif" : format;
-				return makeImageUrl(`${root}/icons/${guildID}/${hash}`, { format, size });
+				return makeImageUrl(`${root}/icons/${guildId}/${hash}`, { format, size });
 			},
-			AppIcon: (clientID: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = {}) =>
-				makeImageUrl(`${root}/app-icons/${clientID}/${hash}`, { size: options.size, format: options.format }),
-			AppAsset: (clientID: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = { format: "png" }) =>
-				makeImageUrl(`${root}/app-assets/${clientID}/${hash}`, { size: options.size, format: options.format }),
-			GDMIcon: (channelID: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
-				makeImageUrl(`${root}/channel-icons/${channelID}/${hash}`, { size, format }),
-			Splash: (guildID: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
-				makeImageUrl(`${root}/splashes/${guildID}/${hash}`, { size, format }),
-			DiscoverySplash: (guildID: string, hash: string, format: import("../Types").AllowedImageFormat = "webp", size?: import("../Types").ImageSize) =>
-				makeImageUrl(`${root}/discovery-splashes/${guildID}/${hash}`, { size, format }),
-			TeamIcon: (teamID: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = { format: "png" }) =>
-				makeImageUrl(`${root}/team-icons/${teamID}/${hash}`, { size: options.size, format: options.format })
+			AppIcon: (clientId: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = {}) =>
+				makeImageUrl(`${root}/app-icons/${clientId}/${hash}`, { size: options.size, format: options.format }),
+			AppAsset: (clientId: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = { format: "png" }) =>
+				makeImageUrl(`${root}/app-assets/${clientId}/${hash}`, { size: options.size, format: options.format }),
+			GDMIcon: (channelId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
+				makeImageUrl(`${root}/channel-icons/${channelId}/${hash}`, { size, format }),
+			Splash: (guildId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
+				makeImageUrl(`${root}/splashes/${guildId}/${hash}`, { size, format }),
+			DiscoverySplash: (guildId: string, hash: string, format: import("../Types").AllowedImageFormat = "webp", size?: import("../Types").ImageSize) =>
+				makeImageUrl(`${root}/discovery-splashes/${guildId}/${hash}`, { size, format }),
+			TeamIcon: (teamId: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = { format: "png" }) =>
+				makeImageUrl(`${root}/team-icons/${teamId}/${hash}`, { size: options.size, format: options.format })
 		};
 	},
 	invite: (root: string, code: string) => `${root}/${code}`,
@@ -192,26 +192,35 @@ export const ClientApplicationAssetTypes = {
 };
 
 export const ChannelTypes = {
-	0: "text" as const,
-	text: 0 as const,
-	1: "dm" as const,
-	dm: 1 as const,
-	2: "voice" as const,
-	voice: 2 as const,
-	4: "category" as const,
-	category: 4 as const,
-	5: "news" as const,
-	news: 5 as const,
-	6: "store" as const,
-	store: 6 as const,
-	10: "news-thread" as const,
-	"news-thread": 10 as const,
-	11: "public-thread" as const,
-	"public-thread": 11 as const,
-	12: "private-thread" as const,
-	"private-thread": 12 as const,
-	13: "stage" as const,
-	stage: 13 as const
+	"-1": "UNKNOWN" as const,
+	UNKNOWN: -1 as const,
+	0: "GUILD_TEXT" as const,
+	GUILD_TEXT: 0 as const,
+	1: "DM" as const,
+	DM: 1 as const,
+	2: "GUILD_VOICE" as const,
+	GUILD_VOICE: 2 as const,
+	4: "GUILD_CATEGORY" as const,
+	GUILD_CATEGORY: 4 as const,
+	5: "GUILD_NEWS" as const,
+	GUILD_NEWS: 5 as const,
+	6: "GUILD_STORE" as const,
+	GUILD_STORE: 6 as const,
+	10: "GUILD_NEWS_THREAD" as const,
+	GUILD_NEWS_THREAD: 10 as const,
+	11: "GUILD_PUBLIC_THREAD" as const,
+	GUILD_PUBLIC_THREAD: 11 as const,
+	12: "GUILD_PRIVATE_THREAD" as const,
+	GUILD_PRIVATE_THREAD: 12 as const,
+	13: "GUILD_STAGE_VOICE" as const,
+	GUILD_STAGE_VOICE: 13 as const
+};
+
+export const VoiceBasedChannelTypes = {
+	2: "GUILD_VOICE" as const,
+	GUILD_VOICE: 2 as const,
+	13: "GUILD_STAGE_VOICE" as const,
+	GUILD_STAGE_VOICE: 13 as const
 };
 
 export const Colors = {
@@ -370,7 +379,9 @@ export const ApplicationCommandOptionTypes = {
 	8: "ROLE" as const,
 	ROLE: 8 as const,
 	9: "MENTIONABLE" as const,
-	MENTIONABLE: 9 as const
+	MENTIONABLE: 9 as const,
+	10: "NUMBER" as const,
+	NUMBER: 10 as const
 };
 
 export const ApplicationCommandPermissionTypes = {

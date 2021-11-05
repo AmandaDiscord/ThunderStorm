@@ -21,8 +21,8 @@ class SnowflakeUtil {
 		return {
 			timestamp: timestamp,
 			date: new Date(timestamp),
-			workerID: Number(deconstructed.workerID),
-			processID: Number(deconstructed.processID),
+			workerId: Number(deconstructed.workerID),
+			processId: Number(deconstructed.processID),
 			increment: Number(deconstructed.increment),
 			binary: Util.idToBinary(snowflake)
 		} as import("../Types").DeconstructedSnowflake;

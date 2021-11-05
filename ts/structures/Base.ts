@@ -2,7 +2,7 @@ import Util from "../util/Util";
 
 abstract class Base {
 	public client: import("../client/Client");
-	public id!: string;
+	public Id!: string;
 
 	public constructor(client: import("../client/Client")) {
 		this.client = client;
@@ -22,12 +22,12 @@ abstract class Base {
 		return clone;
 	}
 
-	public toJSON(...props: Array<Record<keyof this, string | boolean>>) {
+	public toJSON<K extends keyof this>(...props: Array<{ [P in K]: string | boolean }>) {
 		return Util.flatten(this, ...props);
 	}
 
 	public valueOf() {
-		return this.id;
+		return this.Id;
 	}
 }
 

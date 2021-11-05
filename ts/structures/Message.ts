@@ -10,7 +10,7 @@ import ReactionCollector from "./ReactionCollector";
 import Sticker from "./Sticker";
 import { Error } from "../errors";
 import Collection from "../util/Collection";
-import { InteractionTypes, MessageTypes, SystemMessageTypes } from "../util/Constants";
+import { ChannelTypes, InteractionTypes, MessageTypes, SystemMessageTypes } from "../util/Constants";
 import MessageFlags from "../util/MessageFlags";
 import SnowflakeUtil from "../util/SnowflakeUtil";
 import Util from "../util/Util";
@@ -35,16 +35,16 @@ class Message extends Base {
 	public editedTimestamp!: number | null;
 	public reactions!: Collection<string, import("./MessageReaction")>;
 	public mentions!: import("./MessageMentions");
-	public webhookID!: string | null;
+	public webhookId!: string | null;
 	public groupActivityApplication!: import("./ClientApplication") | null;
-	public applicationID!: string | null;
+	public applicationId!: string | null;
 	public activity!: import("../Types").MessageActivity | null;
 	public member!: import("./GuildMember");
 	public flags!: Readonly<MessageFlags>;
 	public reference!: import("../Types").MessageReference | null;
 	public interaction!: import("../Types").MessageInteraction | null;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").MessageData, channel: import("./interfaces/TextBasedChannel")) {
+	public constructor(client: import("../client/Client"), data: import("discord-typings").MessageData, channel: import("./interfaces/TextBasedChannel")) {
 		super(client);
 
 		this.channel = channel;
@@ -52,12 +52,12 @@ class Message extends Base {
 		if (data) this._patch(data);
 	}
 
-	public _patch(data: import("@amanda/discordtypings").MessageData) {
+	public _patch(data: import("discord-typings").MessageData) {
 		const User: typeof import("./User") = require("./User");
 		const MessageReaction: typeof import("./MessageReaction") = require("./MessageReaction");
 		const GuildMember: typeof import("./GuildMember") = require("./GuildMember");
 
-		this.id = data.id;
+		this.Id = data.id;
 
 		if ("type" in data) {
 			this.type = MessageTypes[data.type] as import("../Types").MessageType;
@@ -74,8 +74,8 @@ class Message extends Base {
 		}
 
 		if ("author" in data) {
-			this.author = data.author.id === this.client.user!.id ? this.client.user : new User(this.client, data.author);
-			if (data.author.id === this.client.user!.id) this.client.user!._patch(data.author);
+			this.author = data.author.id === this.client.user!.Id ? this.client.user : new User(this.client, data.author);
+			if (data.author.id === this.client.user!.Id) this.client.user!._patch(data.author);
 		} else if (!this.author) {
 			this.author = null;
 		}
@@ -109,7 +109,7 @@ class Message extends Base {
 			}
 		}
 
-		this.createdTimestamp = SnowflakeUtil.deconstruct(this.id).timestamp;
+		this.createdTimestamp = SnowflakeUtil.deconstruct(this.Id).timestamp;
 		this.editedTimestamp = data.edited_timestamp ? new Date(data.edited_timestamp).getTime() : null;
 
 		if (data.reactions && data.reactions.length > 0) {
@@ -120,12 +120,12 @@ class Message extends Base {
 		}
 
 		this.mentions = new Mentions(this, data.mentions, data.mention_roles, data.mention_everyone, data.mention_channels);
-		this.webhookID = data.webhook_id || null;
+		this.webhookId = data.webhook_id || null;
 		this.groupActivityApplication = data.application ? new ClientApplication(this.client, data.application) : null;
-		this.applicationID = data.application_id ?? null;
+		this.applicationId = data.application_id ?? null;
 		this.activity = data.activity
 			? {
-				partyID: data.activity.party_id,
+				partyId: data.activity.party_id,
 				type: data.activity.type
 			}
 			: null;
@@ -140,25 +140,25 @@ class Message extends Base {
 
 		this.reference = data.message_reference
 			? {
-				channelID: data.message_reference.channel_id as string,
-				guildID: data.message_reference.guild_id || null,
-				messageID: data.message_reference.message_id || null
+				channelId: data.message_reference.channel_id as string,
+				guildId: data.message_reference.guild_id || null,
+				messageId: data.message_reference.message_id || null
 			}
 			: null;
 
 		if (data.interaction) {
 			this.interaction = {
-				id: data.interaction.id,
+				Id: data.interaction.id,
 				type: InteractionTypes[data.interaction.type],
 				commandName: data.interaction.name,
-				user: this.author && data.interaction.user.id === this.author.id ? this.author : new User(this.client, data.interaction.user)
+				user: this.author && data.interaction.user.id === this.author.Id ? this.author : new User(this.client, data.interaction.user)
 			};
 		} else if (!this.interaction) {
 			this.interaction = null;
 		}
 	}
 
-	public patch(data: import("@amanda/discordtypings").MessageData) {
+	public patch(data: import("discord-typings").MessageData) {
 		const clone = this._clone();
 
 		if (data.edited_timestamp) this.editedTimestamp = new Date(data.edited_timestamp).getTime();
@@ -176,13 +176,13 @@ class Message extends Base {
 				this.attachments.set(attachment.id, new MessageAttachment(attachment.url, attachment.filename, attachment));
 			}
 		} else {
-			this.attachments = new Collection(this.attachments.map(i => [i.id, i]));
+			this.attachments = new Collection(this.attachments.map(i => [i.Id, i]));
 		}
 
 		this.mentions = new Mentions(
 			this,
 			"mentions" in data ? data.mentions : this.mentions.users.map(u => u.toJSON()),
-			"mention_roles" in data ? data.mention_roles : this.mentions.roles.map(r => r.id),
+			"mention_roles" in data ? data.mention_roles : this.mentions.roles.map(r => r.Id),
 			"mention_everyone" in data ? data.mention_everyone : this.mentions.everyone,
 			"mention_channels" in data ? data.mention_channels : this.mentions.crosspostedChannels.map(i => i.toJSON())
 		);
@@ -201,12 +201,11 @@ class Message extends Base {
 	}
 
 	public get guild(): import("./Partial/PartialGuild") | null {
-		// @ts-ignore
-		return this.channel.guild;
+		return (this.channel as import("./TextChannel")).guild;
 	}
 
 	public get url() {
-		return `https://discord.com/channels/${this.guild ? this.guild.id : "@me"}/${this.channel.id}/${this.id}`;
+		return `https://discord.com/channels/${this.guild ? this.guild.Id : "@me"}/${this.channel.Id}/${this.Id}`;
 	}
 
 	public get cleanContent() {
@@ -243,11 +242,11 @@ class Message extends Base {
 	}
 
 	public get editable() {
-		return this.author?.id === this.client.user!.id;
+		return this.author?.Id === this.client.user!.Id;
 	}
 
 	public get deletable() {
-		return !this.deleted && this.author?.id === this.client.user!.id;
+		return !this.deleted && this.author?.Id === this.client.user!.Id;
 	}
 
 	public get pinnable() {
@@ -257,36 +256,36 @@ class Message extends Base {
 	public fetchReference() {
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
 		if (!this.reference) throw new Error("MESSAGE_REFERENCE_MISSING");
-		const { channelID, messageID } = this.reference;
-		const channel = new PartialChannel(this.client, { id: channelID, guild_id: this.guild?.id, type: this.guild?.id ? "text" : "dm" });
+		const { channelId, messageId } = this.reference;
+		const channel = new PartialChannel(this.client, { id: channelId, guild_id: this.guild?.Id, type: this.guild?.Id ? ChannelTypes[0] : ChannelTypes[1] });
 		if (!channel) throw new Error("GUILD_CHANNEL_RESOLVE");
-		return channel.fetchMessage(messageID as string);
+		return channel.fetchMessage(messageId as string);
 	}
 
 	public get crosspostable() {
-		return this.channel.type === "news" && !this.flags.has(MessageFlags.FLAGS.CROSSPOSTED) && this.type === "DEFAULT" && (this.author && this.author.id === this.client.user!.id);
+		return this.channel.type === ChannelTypes[5] && !this.flags.has(MessageFlags.FLAGS.CROSSPOSTED) && this.type === "DEFAULT" && (this.author && this.author.Id === this.client.user!.Id);
 	}
 
 	public async edit(options: import("../Types").MessageEditOptions) {
 		const opts = options instanceof MessagePayload ? options : MessagePayload.create(this, options);
 		const { data, files } = opts.resolveData();
-		const d = await this.client._snow.channel.editMessage(this.channel.id, this.id, Object.assign({}, data, { files: files }), { disableEveryone: (options as import("../Types").MessageEditOptions).disableEveryone ? (options as import("../Types").MessageEditOptions).disableEveryone : this.client.options.disableEveryone || false });
+		const d = await this.client._snow.channel.editMessage(this.channel.Id, this.Id, Object.assign({}, data, { files: files }), { disableEveryone: (options as import("../Types").MessageEditOptions).disableEveryone ? (options as import("../Types").MessageEditOptions).disableEveryone : this.client.options.disableEveryone || false });
 		return this._patch(d);
 	}
 
 	public async crosspost() {
-		const d = await this.client._snow.channel.crosspostMessage(this.channel.id, this.id);
+		const d = await this.client._snow.channel.crosspostMessage(this.channel.Id, this.Id);
 		this._patch(d);
 		return this;
 	}
 
 	public async pin() {
-		await this.client._snow.channel.addChannelPinnedMessage(this.channel.id, this.id);
+		await this.client._snow.channel.addChannelPinnedMessage(this.channel.Id, this.Id);
 		return this;
 	}
 
 	public async unpin() {
-		await this.client._snow.channel.removeChannelPinnedMessage(this.channel.id, this.id);
+		await this.client._snow.channel.removeChannelPinnedMessage(this.channel.Id, this.Id);
 		return this;
 	}
 
@@ -296,26 +295,26 @@ class Message extends Base {
 		if (typeof emoji === "string") {
 			if (emoji.match(/^\d+$/)) emoji = `_:${emoji}`;
 		} else {
-			if (!emoji.name && !emoji.id) throw new TypeError("MESSAGE_REACT_EMOJI_NOT_RESOLAVABLE");
+			if (!emoji.name && !emoji.Id) throw new TypeError("MESSAGE_REACT_EMOJI_NOT_RESOLAVABLE");
 			if (emoji instanceof ReactionEmoji || emoji instanceof GuildEmoji) emoji = emoji.identifier;
-			else emoji = emoji.id === null ? emoji.name as string : `${emoji.name ? emoji.name : "_"}:${emoji.id}`;
+			else emoji = emoji.Id === null ? emoji.name as string : `${emoji.name ? emoji.name : "_"}:${emoji.Id}`;
 		}
 		const ceregex = /<?a?:?(\w+):(\d+)>?/;
 		let value;
 		const match = emoji.match(ceregex);
 		if (match) value = `${match[1]}:${match[2]}`;
 		else value = emoji;
-		await this.client._snow.channel.createReaction(this.channel.id, this.id, encodeURIComponent(value));
+		await this.client._snow.channel.createReaction(this.channel.Id, this.Id, encodeURIComponent(value));
 		return this;
 	}
 
 	public async clearReactions() {
-		await this.client._snow.channel.deleteAllReactions(this.channel.id, this.id);
+		await this.client._snow.channel.deleteAllReactions(this.channel.Id, this.Id);
 		return this;
 	}
 
 	public async delete(): Promise<this> {
-		await this.client._snow.channel.deleteMessage(this.channel.id, this.id);
+		await this.client._snow.channel.deleteMessage(this.channel.Id, this.Id);
 		return this;
 	}
 
@@ -336,14 +335,14 @@ class Message extends Base {
 	}
 
 	public async fetch() {
-		const d = await this.client._snow.channel.getChannelMessage(this.channel.id, this.id);
+		const d = await this.client._snow.channel.getChannelMessage(this.channel.Id, this.Id);
 		this._patch(d);
 		return this;
 	}
 
 	public fetchWebhook() {
-		if (!this.webhookID) return Promise.reject(new Error("WEBHOOK_MESSAGE"));
-		return this.client.fetchWebhook(this.webhookID);
+		if (!this.webhookId) return Promise.reject(new Error("WEBHOOK_MESSAGE"));
+		return this.client.fetchWebhook(this.webhookId);
 	}
 
 	public suppressEmbeds(suppress = true) {
@@ -362,14 +361,14 @@ class Message extends Base {
 		return this.edit({ attachments: [] });
 	}
 
-	public equals(message: Message, rawData: import("@amanda/discordtypings").MessageData) {
+	public equals(message: Message, rawData: import("discord-typings").MessageData) {
 		if (!message) return false;
 		const embedUpdate = !message.author && !message.attachments;
-		if (embedUpdate) return this.id === message.id && this.embeds.length === message.embeds.length;
+		if (embedUpdate) return this.Id === message.Id && this.embeds.length === message.embeds.length;
 
 		let equal =
-			this.id === message.id &&
-			!!this.author && this.author.id === message.author?.id &&
+			this.Id === message.Id &&
+			!!this.author && this.author.Id === message.author?.Id &&
 			this.content === message.content &&
 			this.tts === message.tts &&
 			this.nonce === message.nonce &&
@@ -391,12 +390,11 @@ class Message extends Base {
 	}
 
 	public toJSON() {
-		// @ts-ignore
 		return super.toJSON({
-			channel: "channelID",
-			author: "authorID",
-			groupActivityApplication: "groupActivityApplicationID",
-			guild: "guildID",
+			channel: "channelId",
+			author: "authorId",
+			groupActivityApplication: "groupActivityApplicationId",
+			guild: "guildId",
 			cleanContent: true,
 			member: false,
 			reactions: false

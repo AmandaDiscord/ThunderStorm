@@ -25,7 +25,7 @@ class Integration extends Base {
 		const User: typeof import("./User") = require("./User");
 
 		this.guild = guild;
-		this.id = data.id;
+		this.Id = data.Id;
 		this.name = data.name;
 		this.type = data.type;
 		this.enabled = data.enabled;
@@ -56,8 +56,8 @@ class Integration extends Base {
 	public sync(): Promise<this> {
 		this.syncing = true;
 		return this.client.api
-			.guilds(this.guild.id)
-			.integrations(this.id)
+			.guilds(this.guild.Id)
+			.integrations(this.Id)
 			.post()
 			.then(() => {
 				this.syncing = false;
@@ -76,8 +76,8 @@ class Integration extends Base {
 		}
 		// The option enable_emoticons is only available for Twitch at this moment
 		return this.client.api
-			.guilds(this.guild.id)
-			.integrations(this.id)
+			.guilds(this.guild.Id)
+			.integrations(this.Id)
 			.patch({ payload, reason })
 			.then(() => {
 				this._patch(data);
@@ -87,15 +87,14 @@ class Integration extends Base {
 
 	public delete(reason?: string): Promise<this> {
 		return this.client.api
-			.guilds(this.guild.id)
-			.integrations(this.id)
+			.guilds(this.guild.Id)
+			.integrations(this.Id)
 			.delete({ reason })
 			.then(() => this);
 	}
 
 	public toJSON() {
-		// @ts-ignore
-		return super.toJSON({ role: "roleID", guild: "guildID", user: "userID" });
+		return super.toJSON({ role: "roleId", guild: "guildId", user: "userId" });
 	}
 }
 

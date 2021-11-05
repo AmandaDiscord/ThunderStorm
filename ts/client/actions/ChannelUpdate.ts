@@ -2,7 +2,7 @@ import Action from "./Action";
 import { Events } from "../../util/Constants";
 
 class ChannelUpdateAction extends Action {
-	public handle(data: import("@amanda/discordtypings").ChannelData) {
+	public handle(data: import("discord-typings").ChannelData) {
 		const PartialGuild: typeof import("../../structures/Partial/PartialGuild") = require("../../structures/Partial/PartialGuild");
 		const TextChannel: typeof import("../../structures/TextChannel") = require("../../structures/TextChannel");
 		const DMChannel: typeof import("../../structures/DMChannel") = require("../../structures/DMChannel");
@@ -14,8 +14,7 @@ class ChannelUpdateAction extends Action {
 		const Channel: typeof import("../../structures/Channel") = require("../../structures/Channel");
 
 		let guild;
-		// @ts-ignore
-		if (data.guild_id) guild = new PartialGuild(this.client, { id: data.guild_id });
+		if ((data as import("discord-typings").GuildChannelData).guild_id) guild = new PartialGuild(this.client, { id: (data as import("discord-typings").GuildChannelData).guild_id });
 
 		let chan;
 		if (data.type === 0 && guild) chan = new TextChannel(guild, data as any);

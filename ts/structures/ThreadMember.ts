@@ -2,13 +2,13 @@ import Base from "./Base";
 
 class ThreadMember extends Base {
 	public flags = 0;
-	public threadID!: string;
+	public threadId!: string;
 	public thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel") | import("./Partial/PartialThreadChannel");
 	public joinedAt!: Date;
 	public joinedTimestamp!: number;
 	public user!: import("./Partial/PartialUser");
 
-	public constructor(thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel") | import("./Partial/PartialThreadChannel"), data: import("@amanda/discordtypings").ThreadMemberData) {
+	public constructor(thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel") | import("./Partial/PartialThreadChannel"), data: import("discord-typings").ThreadMemberData) {
 		super(thread.client);
 		this.thread = thread;
 
@@ -18,23 +18,23 @@ class ThreadMember extends Base {
 	public toJSON() {
 		return {
 			flags: this.flags,
-			id: this.threadID,
+			id: this.threadId,
 			join_timestamp: this.joinedAt.toISOString(),
-			user_id: this.user.id
+			user_id: this.user.Id
 		};
 	}
 
-	public _patch(data: import("@amanda/discordtypings").ThreadMemberData) {
+	public _patch(data: import("discord-typings").ThreadMemberData) {
 		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
 		if (data.flags !== undefined) this.flags = data.flags;
-		if (!this.threadID || data.id) this.threadID = data.id || this.thread.id;
+		if (!this.threadId || data.id) this.threadId = data.id || this.thread.Id;
 		if (data.join_timestamp) {
 			this.joinedAt = new Date(data.join_timestamp);
 			this.joinedTimestamp = this.joinedAt.getTime();
 		}
 		if (data.user_id) {
 			this.user = new PartialUser(this.client, { id: data.user_id });
-			this.id = this.user.id;
+			this.Id = this.user.Id;
 		}
 	}
 }

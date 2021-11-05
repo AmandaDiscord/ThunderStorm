@@ -10,7 +10,7 @@ class ThreadMetaData {
 	public archiveStatusChangedTimestamp!: number;
 	private _archived = false;
 
-	public constructor(thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel"), data: import("@amanda/discordtypings").ThreadMetaData) {
+	public constructor(thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel"), data: import("discord-typings").ThreadMetaData) {
 		this.client = thread.client;
 		this.thread = thread;
 
@@ -19,8 +19,8 @@ class ThreadMetaData {
 
 	public get archived() {
 		if (this._archived || this.archiver) return true;
-		if (this.thread.lastMessageID && this.autoArchiveDuration !== 0) {
-			const lastSendTimestamp = SnowflakeUtil.deconstruct(this.thread.lastMessageID).timestamp;
+		if (this.thread.lastMessageId && this.autoArchiveDuration !== 0) {
+			const lastSendTimestamp = SnowflakeUtil.deconstruct(this.thread.lastMessageId).timestamp;
 			if (Date.now() >= lastSendTimestamp + (this.autoArchiveDuration * 1000 * 60)) return true;
 		}
 		if (this.archiveStatusChangedTimestamp && this.autoArchiveDuration && Date.now() > this.archiveStatusChangedTimestamp + (this.autoArchiveDuration * 1000 * 60)) return true;
@@ -34,11 +34,11 @@ class ThreadMetaData {
 			archived: this.archived,
 			archive_timestamp: this.archiveStatusChangedAt.toISOString()
 		};
-		if (this.archiver) value["archiver_id"] = this.archiver.id;
+		if (this.archiver) value["archiver_id"] = this.archiver.Id;
 		return value;
 	}
 
-	public _patch(data: import("@amanda/discordtypings").ThreadMetaData) {
+	public _patch(data: import("discord-typings").ThreadMetaData) {
 		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
 		if (data) {
 			if (data.locked !== undefined) this.locked = data.locked;

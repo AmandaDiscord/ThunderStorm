@@ -218,3 +218,5 @@ export {
 	PartialThreadChannel,
 	PartialUser
 };
+
+module.exports.default = module.exports;

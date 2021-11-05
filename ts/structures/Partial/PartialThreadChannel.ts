@@ -2,10 +2,12 @@ import TextBasedChannel from "../interfaces/TextBasedChannel";
 
 import PartialBase from "./PartialBase";
 
+import Constants from "../../util/Constants";
+
 class PartialThreadChannel extends PartialBase<import("../ThreadTextChannel") | import("../ThreadNewsChannel")> implements TextBasedChannel {
 	public readonly lastPinAt!: TextBasedChannel["lastPinAt"];
 	public lastPinTimestamp!: TextBasedChannel["lastPinTimestamp"];
-	public lastMessageID!: TextBasedChannel["lastMessageID"];
+	public lastMessageId!: TextBasedChannel["lastMessageId"];
 	public readonly lastMessage!: TextBasedChannel["lastMessage"];
 	public send!: TextBasedChannel["send"];
 	public startTyping!: TextBasedChannel["startTyping"];
@@ -20,7 +22,7 @@ class PartialThreadChannel extends PartialBase<import("../ThreadTextChannel") | 
 	public bulkDelete!: TextBasedChannel["bulkDelete"];
 	public fetchMessage!: TextBasedChannel["fetchMessage"];
 	public fetchMessages!: TextBasedChannel["fetchMessages"];
-	public type: "public-thread" = "public-thread";
+	public type: typeof Constants.ChannelTypes[11] = Constants.ChannelTypes[11];
 
 	public partialType: "Thread" = "Thread";
 	public guild: import("./PartialGuild") | null;
@@ -38,13 +40,13 @@ class PartialThreadChannel extends PartialBase<import("../ThreadTextChannel") | 
 	}
 
 	public toString() {
-		return `<#${this.id}>`;
+		return `<#${this.Id}>`;
 	}
 
 	public toJSON() {
 		return {
-			guild_id: this.guild?.id || null,
-			parent_id: this.parent.id,
+			guild_id: this.guild?.Id || null,
+			parent_id: this.parent.Id,
 			member_count: this.memberCount,
 			...super.toJSON()
 		};

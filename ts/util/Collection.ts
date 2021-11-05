@@ -201,8 +201,7 @@ class Collection<K, V> extends BaseCollection<K, V> {
 	}
 
 	public toJSON() {
-		// @ts-ignore
-		return this.map(e => (typeof e?.toJSON === "function" ? e.toJSON() : Util.flatten(e)));
+		return this.map(e => (typeof (e as any)?.toJSON === "function" ? (e as any).toJSON() : Util.flatten(e)));
 	}
 
 	public get length() {

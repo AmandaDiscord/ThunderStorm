@@ -9,7 +9,7 @@ class GuildDeleteAction extends Action {
 		this.deleted = new Map();
 	}
 
-	public handle(data: import("@amanda/discordtypings").GuildDeleteData) {
+	public handle(data: import("discord-typings").GuildDeleteData) {
 		const PartialGuild: typeof import("../../structures/Partial/PartialGuild") = require("../../structures/Partial/PartialGuild");
 		const guild = new PartialGuild(this.client, data);
 		if (data.unavailable) {
@@ -21,7 +21,7 @@ class GuildDeleteAction extends Action {
 		return { guild };
 	}
 
-	public scheduleForDeletion(id: string) {
+	public scheduleForDeletion(Id: string) {
 		void 0;
 	}
 }

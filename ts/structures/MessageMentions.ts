@@ -1,4 +1,5 @@
 import Collection from "../util/Collection";
+import Constants from "../util/Constants";
 
 import GuildMember from "./GuildMember";
 import User from "./User";
@@ -20,7 +21,7 @@ class MessageMentions {
 	public roles: Collection<string, import("./Partial/PartialRole")> = new Collection();
 	public crosspostedChannels: Collection<string, import("./GuildChannel")> = new Collection();
 
-	public constructor(message: import("./Message"), users: Array<import("@amanda/discordtypings").UserData & { member?: import("@amanda/discordtypings").MemberData }> | undefined, roles: Array<string> | undefined, everyone: boolean, crosspostedChannels: Array<import("@amanda/discordtypings").ChannelMentionData> | undefined) {
+	public constructor(message: import("./Message"), users: Array<import("discord-typings").UserData & { member?: import("discord-typings").MemberData }> | undefined, roles: Array<string> | undefined, everyone: boolean, crosspostedChannels: Array<import("discord-typings").ChannelMentionData> | undefined) {
 		this.client = message.client;
 		this.guild = message.guild;
 		this._content = message.content;
@@ -35,18 +36,18 @@ class MessageMentions {
 					const obj = Object.assign({}, user.member, { user: user });
 					this.members.set(user.id, new GuildMember(this.client, obj));
 				}
-				if (user.id === this.client.user?.id) this.client.user._patch(user);
-				this.users.set(user.id, user.id === this.client.user?.id ? this.client.user : new User(this.client, user));
+				if (user.id === this.client.user?.Id) this.client.user._patch(user);
+				this.users.set(user.id, user.id === this.client.user?.Id ? this.client.user : new User(this.client, user));
 			}
 		}
 
 		const matches = (this._content || "").match(MessageMentions.CHANNELS_PATTERN);
 		if (matches) {
-			for (const channel of matches.slice(1)) this.channels.set(channel, new PartialChannel(this.client, { id: channel, guild_id: this.guild?.id, type: this.guild?.id ? "text" : "dm" }));
+			for (const channel of matches.slice(1)) this.channels.set(channel, new PartialChannel(this.client, { id: channel, guild_id: this.guild?.Id, type: this.guild?.Id ? Constants.ChannelTypes[0] : Constants.ChannelTypes[1] }));
 		}
 
 		if (roles && this.guild) {
-			for (const role of roles) this.roles.set(role, new PartialRole(this.client, { id: role, guild_id: this.guild.id }));
+			for (const role of roles) this.roles.set(role, new PartialRole(this.client, { id: role, guild_id: this.guild.Id }));
 		}
 
 		if (crosspostedChannels) {
@@ -68,7 +69,7 @@ class MessageMentions {
 				else if (channel.type === 13 && this.guild) data = new StageChannel(this.guild, channel as any);
 				else if (this.guild) data = new GuildChannel(this.guild, channel as any);
 				else data = new Channel(this.client, channel as any);
-				this.crosspostedChannels.set(data.id, data as any);
+				this.crosspostedChannels.set(data.Id, data as any);
 			}
 		}
 	}
@@ -76,8 +77,8 @@ class MessageMentions {
 	public toJSON() {
 		return {
 			mentions: [...this.users.values()].map(u => {
-				const member = this.members.get(u.id);
-				const value: import("@amanda/discordtypings").UserData & { member?: import("@amanda/discordtypings").MemberData } = u.toJSON();
+				const member = this.members.get(u.Id);
+				const value: import("discord-typings").UserData & { member?: import("discord-typings").MemberData } = u.toJSON();
 				if (member) {
 					const mj = member.toJSON();
 					// @ts-ignore I know what I'm doing
@@ -86,9 +87,9 @@ class MessageMentions {
 				}
 				return value;
 			}),
-			mention_roles: [...this.roles.values()].map(r => r.id),
+			mention_roles: [...this.roles.values()].map(r => r.Id),
 			mention_everyone: this.everyone,
-			mention_channels: [...this.crosspostedChannels.values()].map(c => c.toJSON()) as Array<import("@amanda/discordtypings").ChannelMentionData>
+			mention_channels: [...this.crosspostedChannels.values()].map(c => c.toJSON()) as Array<import("discord-typings").ChannelMentionData>
 		};
 	}
 }

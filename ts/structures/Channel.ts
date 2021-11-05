@@ -5,20 +5,20 @@ import SnowflakeUtil from "../util/SnowflakeUtil";
 
 class Channel extends Base {
 	public partial: false = false;
-	public id!: string;
+	public Id!: string;
 	public name!: string;
-	public type: "category" | "dm" | "news" | "text" | "voice" | "stage" | "store" | "unknown" = "unknown";
+	public type: import("../Types").ChannelType = "UNKNOWN";
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").ChannelData) {
+	public constructor(client: import("../client/Client"), data: import("discord-typings").ChannelData) {
 		super(client);
 
-		this.id = data.id;
+		this.Id = data.id;
 		this.name = data.name;
 		if (data) this._patch(data);
 	}
 
 	public get createdTimestamp() {
-		return SnowflakeUtil.deconstruct(this.id).timestamp;
+		return SnowflakeUtil.deconstruct(this.Id).timestamp;
 	}
 
 	public get createdAt() {
@@ -30,19 +30,19 @@ class Channel extends Base {
 	}
 
 	public toString() {
-		return `<#${this.id}>`;
+		return `<#${this.Id}>`;
 	}
 
 	public toJSON() {
 		return {
-			id: this.id,
-			name: this.id,
-			type: ChannelTypes[this.type as import("../Types").ChannelType] || 0 as const
+			id: this.Id,
+			name: this.Id,
+			type: ChannelTypes[this.type] || 0 as const
 		};
 	}
 
-	public _patch(data: import("@amanda/discordtypings").ChannelData) {
-		if (data.id) this.id = data.id;
+	public _patch(data: import("discord-typings").ChannelData) {
+		if (data.id) this.Id = data.id;
 		if (data.name) this.name = data.name;
 	}
 }

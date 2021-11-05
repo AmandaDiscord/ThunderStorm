@@ -11,13 +11,13 @@ class ClientApplication extends Application {
 	public botPublic!: boolean | null;
 	public owner!: import("./User") | import("./Team") | null;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").ApplicationData) {
+	public constructor(client: import("../client/Client"), data: import("discord-typings").ApplicationData) {
 		super(client, data);
 
 		this.commands = new ApplicationCommandManager(this.client);
 	}
 
-	public _patch(data: import("@amanda/discordtypings").ApplicationData) {
+	public _patch(data: import("discord-typings").ApplicationData) {
 		super._patch(data);
 
 		const User: typeof import("./User") = require("./User");
@@ -27,11 +27,11 @@ class ClientApplication extends Application {
 		this.rpcOrigins = data.rpc_origins ?? this.rpcOrigins ?? [];
 		this.botRequireCodeGrant = data.bot_require_code_grant ?? this.botRequireCodeGrant ?? null;
 		this.botPublic = data.bot_public ?? this.botPublic ?? null;
-		if (data.owner && data.owner.id === this.client.user?.id) this.client.user._patch(data.owner);
+		if (data.owner && data.owner.id === this.client.user?.Id) this.client.user._patch(data.owner);
 		this.owner = data.team
 			? new Team(this.client, data.team)
 			: data.owner
-				? (data.owner.id === this.client.user?.id ? this.client.user : new User(this.client, data.owner))
+				? (data.owner.id === this.client.user?.Id ? this.client.user : new User(this.client, data.owner))
 				: this.owner ?? null;
 	}
 

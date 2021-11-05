@@ -3,7 +3,8 @@ import BitField from "./BitField";
 const FLAGS = {
 	SUPPRESS_JOIN_NOTIFICATIONS: BigInt(1) << BigInt(0),
 	SUPPRESS_PREMIUM_SUBSCRIPTIONS: BigInt(1) << BigInt(1),
-	SUPPRESS_GUILD_REMINDER_NOTIFICATIONS: BigInt(1) << BigInt(2)
+	SUPPRESS_GUILD_REMINDER_NOTIFICATIONS: BigInt(1) << BigInt(2),
+	SUPPRESS_GUILD_NOTIFICATION_REPLIES: BigInt(1) << BigInt(3)
 };
 
 interface SystemChannelFlagsConstructor {

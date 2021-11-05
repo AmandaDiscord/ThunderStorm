@@ -5,7 +5,7 @@ class OAuth2Guild extends BaseGuild {
 	public owner: boolean;
 	public permissions: Readonly<Permissions>;
 
-	constructor(client: import("../client/Client"), data: Partial<import("@amanda/discordtypings").GuildData>) {
+	constructor(client: import("../client/Client"), data: Partial<import("discord-typings").GuildData>) {
 		super(client, data);
 
 		this.owner = data.owner as boolean;

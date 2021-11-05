@@ -1,4 +1,4 @@
-import Discord = require("@amanda/discordtypings");
+import Discord from "discord-typings";
 
 type ChannelDatas = Discord.DMChannelData | Discord.TextChannelData | Discord.CategoryChannelData | Discord.NewsChannelData | Discord.VoiceChannelData | Discord.StageChannelData;
 export interface GatewayEventDataTable {
@@ -60,7 +60,7 @@ export interface PartialData {
 	guild_id?: Discord.Snowflake;
 	channel_id?: Discord.Snowflake;
 	number?: number;
-	type?: import("./Types").ChannelType | "unknown";
+	type?: import("./Types").ChannelType;
 	name?: string;
 	permissions?: string;
 	topic?: string;

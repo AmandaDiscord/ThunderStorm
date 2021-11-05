@@ -4,59 +4,60 @@ import NewsChannel from "./NewsChannel";
 import ThreadMetaData from "./ThreadMetadata";
 import ThreadMember from "./ThreadMember";
 
+import Constants from "../util/Constants";
+
 class ThreadNewsChannel extends NewsChannel {
 	// @ts-ignore
-	public type: "news-thread" = "news-thread";
-	public ownerID!: string;
+	public type: typeof Constants.ChannelTypes[10];
+	public ownerId!: string;
 	public owner!: import("./Partial/PartialUser");
 	public memberCount = 0;
 	public messageCount = 0;
 	public meta!: import("./ThreadMetadata");
 	public members: Collection<string, ThreadMember> = new Collection();
 	public parent!: import("./Partial/PartialChannel");
+	public defaultAutoArchiveDuration = 0;
 
-	public constructor(guild: import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").ThreadChannelData) {
-		// @ts-ignore
-		super(guild, data);
+	public constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").ThreadChannelData) {
+		super(guild, data as unknown as import("discord-typings").NewsChannelData);
 	}
 
 	public async fetchMembers() {
-		const ms = await this.client._snow.channel.getChannelThreadMembers(this.id);
+		const ms = await this.client._snow.channel.getChannelThreadMembers(this.Id);
 		if (!ms) return null;
 		const members = ms.map(m => new ThreadMember(this, m));
 		this.members.clear();
-		for (const member of members) this.members.set(member.id, member);
+		for (const member of members) this.members.set(member.Id, member);
 		return members;
 	}
 
 	// @ts-ignore
-	public toJSON(): import("@amanda/discordtypings").ThreadChannelData {
-		// @ts-ignore
+	public toJSON(): import("discord-typings").ThreadChannelData {
 		return Object.assign(super.toJSON(), {
 			type: 10,
-			owner_id: this.ownerID,
+			owner_id: this.ownerId,
 			member_count: this.memberCount,
 			message_count: this.messageCount,
 			thread_metadata: this.meta.toJSON(),
-			parent_id: this.parent.id,
-			guild_id: this.guild.id
-		});
+			parent_id: this.parent.Id,
+			guild_id: this.guild.Id,
+			default_auto_archive_duration: this.defaultAutoArchiveDuration
+		}) as unknown as import("discord-typings").ThreadChannelData;
 	}
 
 	// @ts-ignore
-	public _patch(data: import("@amanda/discordtypings").ThreadChannelData) {
+	public _patch(data: import("discord-typings").ThreadChannelData) {
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
 		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
-		// @ts-ignore
-		super._patch(data);
+		super._patch(data as unknown as import("discord-typings").TextChannelData);
 		if (data.owner_id) {
-			this.ownerID = data.owner_id;
-			this.owner = new PartialUser(this.client, { id: this.ownerID });
+			this.ownerId = data.owner_id;
+			this.owner = new PartialUser(this.client, { id: this.ownerId });
 		}
 		if (data.member_count !== undefined) this.memberCount = data.member_count;
 		if (data.message_count !== undefined) this.messageCount = data.message_count;
 		if (!this.meta || data.thread_metadata) this.meta = new ThreadMetaData(this, data.thread_metadata);
-		if (data.parent_id) this.parent = new PartialChannel(this.client, { id: data.parent_id, guild_id: data.guild_id, type: "news" });
+		if (data.parent_id) this.parent = new PartialChannel(this.client, { id: data.parent_id, guild_id: data.guild_id, type: Constants.ChannelTypes[10] });
 	}
 }
 

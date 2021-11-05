@@ -53,7 +53,7 @@ function handle(packet: any, client: import("./client/Client")) {
 		client.actions.ChannelDelete.handle(data.d);
 	} else if (data.t === "CHANNEL_PINS_UPDATE") {
 		const typed: Required<import("./internal").InboundDataType<"CHANNEL_PINS_UPDATE">> = data;
-		client.emit(Constants.Events.CHANNEL_PINS_UPDATE, new PartialChannel(client, { id: typed.d.channel_id, guild_id: typed.d.guild_id, type: typed.d.guild_id ? "text" : "dm" }), new Date(typed.d.last_pin_timestamp));
+		client.emit(Constants.Events.CHANNEL_PINS_UPDATE, new PartialChannel(client, { id: typed.d.channel_id, guild_id: typed.d.guild_id, type: typed.d.guild_id ? Constants.ChannelTypes[0] : Constants.ChannelTypes[1] }), new Date(typed.d.last_pin_timestamp));
 	} else if (data.t === "CHANNEL_UPDATE") {
 		client.actions.ChannelDelete.handle(data.d);
 	} else if (data.t === "GUILD_BAN_ADD") {
@@ -137,9 +137,9 @@ function handle(packet: any, client: import("./client/Client")) {
 		const typed: Required<import("./internal").InboundDataType<"THREAD_LIST_SYNC">> = data;
 		client.emit(Constants.Events.THREAD_LIST_SYNC, new PartialGuild(client, { id: typed.d.guild_id }), new Collection((typed.d.channel_ids || []).map(id => [id, new PartialChannel(client, { id: id, guild_id: typed.d.guild_id })])), new Collection(typed.d.threads.map(thread => {
 			const channel = thread.type === 10 ? new ThreadNewsChannel(new PartialGuild(client, { id: typed.d.guild_id }), thread) : new ThreadTextChannel(new PartialGuild(client, { id: typed.d.guild_id }), thread);
-			const members = typed.d.members.filter(m => m.id === channel.id);
+			const members = typed.d.members.filter(m => m.id === channel.Id);
 			for (const member of members) channel.members.set(member.user_id as string, new ThreadMember(channel, member));
-			return [channel.id, channel];
+			return [channel.Id, channel];
 		})));
 	} else if (data.t === "THREAD_UPDATE") {
 		const typed: Required<import("./internal").InboundDataType<"THREAD_UPDATE">> = data;

@@ -46,7 +46,6 @@ function register(sym: string, val: any) {
 	messages.set(sym, typeof val === "function" ? val : String(val));
 }
 
-// @ts-ignore
 const DJSError: {
 	register: typeof register,
 	Error: ReturnType<typeof makeDiscordjsError>;
@@ -56,10 +55,9 @@ const DJSError: {
 } = {
 	register,
 	Error: makeDiscordjsError(Error),
-	// @ts-ignore
 	TypeError: makeDiscordjsError(TypeError),
-	// @ts-ignore
-	RangeError: makeDiscordjsError(RangeError)
+	RangeError: makeDiscordjsError(RangeError),
+	Messages: undefined as unknown as typeof import("./Messages")
 };
 
 export = DJSError;

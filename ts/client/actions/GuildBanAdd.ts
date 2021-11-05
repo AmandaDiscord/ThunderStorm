@@ -2,7 +2,7 @@ import Action from "./Action";
 import { Events } from "../../util/Constants";
 
 class GuildBanAdd extends Action {
-	public handle(data: import("@amanda/discordtypings").GuildBanAddData) {
+	public handle(data: import("discord-typings").GuildBanAddData) {
 		const GuildBan: typeof import("../../structures/GuildBan") = require("../../structures/GuildBan");
 		const PartialGuild: typeof import("../../structures/Partial/PartialGuild") = require("../../structures/Partial/PartialGuild");
 

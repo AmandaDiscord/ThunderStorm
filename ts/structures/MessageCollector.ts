@@ -58,13 +58,13 @@ class MessageCollector extends Collector<import("./Message")> {
 	}
 
 	public collect(message: import("./Message")) {
-		if (message.channel.id !== this.channel.id) return null;
+		if (message.channel.Id !== this.channel.Id) return null;
 		this.received++;
-		return message.id;
+		return message.Id;
 	}
 
 	public dispose(message: import("./Message")) {
-		return message.channel.id === this.channel.id ? message.id : null;
+		return message.channel.Id === this.channel.Id ? message.Id : null;
 	}
 
 	public get endReason(): "limit" | "processedLimit" | null {
@@ -74,12 +74,11 @@ class MessageCollector extends Collector<import("./Message")> {
 	}
 
 	private _handleChannelDeletion(channel: import("./interfaces/TextBasedChannel")) {
-		if (channel.id === this.channel.id) this.stop("channelDelete");
+		if (channel.Id === this.channel.Id) this.stop("channelDelete");
 	}
 
 	private _handleGuildDeletion(guild: import("./Guild") | import("./Partial/PartialGuild")) {
-		// @ts-ignore
-		if (this.channel.guild && guild.id === this.channel.guild.id) this.stop("guildDelete");
+		if ((this.channel as import("./TextChannel")).guild && guild.Id === (this.channel as import("./TextChannel")).guild.Id) this.stop("guildDelete");
 	}
 }
 

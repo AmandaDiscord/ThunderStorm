@@ -15,15 +15,12 @@ abstract class BaseManager<T, C extends Collection<string, T>> {
 	}
 
 	public _add(data: T, cache = true, options: { id?: string; extras?: Array<any> } = { extras: [] }) {
-		// @ts-ignore
-		const existing = this.cache.get(options.id || data.id);
-		// @ts-ignore
-		if (existing && existing._patch && cache) existing._patch(data);
+		const existing = this.cache.get(options.id || (data as any).Id);
+		if (existing && (existing as any)._patch && cache) (existing as any)._patch(data);
 		if (existing) return existing;
 
 		const entry = this.holds ? new this.holds(this.client, data, ...options.extras || []) : data;
-		// @ts-ignore
-		if (cache) this.cache.set(options.id || entry.id, entry);
+		if (cache) this.cache.set(options.id || (entry as any).Id, entry);
 		return entry;
 	}
 
@@ -33,9 +30,8 @@ abstract class BaseManager<T, C extends Collection<string, T>> {
 		return null;
 	}
 
-	public resolveID(idOrInstance: string | T): string | null {
-		// @ts-ignore
-		if (idOrInstance instanceof this.holds) return idOrInstance.id;
+	public resolveId(idOrInstance: string | T): string | null {
+		if (idOrInstance instanceof this.holds) return (idOrInstance as any).Id;
 		if (typeof idOrInstance === "string") return idOrInstance;
 		return null;
 	}

@@ -4,7 +4,6 @@ import InteractionResponses from "./interfaces/InteractionResponses";
 import Collection from "../util/Collection";
 import { ApplicationCommandOptionTypes } from "../util/Constants";
 
-// @ts-ignore
 class CommandInteraction extends Interaction implements InteractionResponses {
 	public defer!: InteractionResponses["defer"];
 	public reply!: InteractionResponses["reply"];
@@ -12,8 +11,10 @@ class CommandInteraction extends Interaction implements InteractionResponses {
 	public editReply!: InteractionResponses["editReply"];
 	public deleteReply!: InteractionResponses["deleteReply"];
 	public followUp!: InteractionResponses["followUp"];
+	public deferUpdate!: any;
+	public update!: any;
 
-	public commandID: string;
+	public commandId: string;
 	public commandName: string;
 	public channel: any;
 	public deferred = false;
@@ -21,21 +22,21 @@ class CommandInteraction extends Interaction implements InteractionResponses {
 	public replied = false;
 	public webhook: InteractionWebhook;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").InteractionData) {
+	public constructor(client: import("../client/Client"), data: import("discord-typings").InteractionData) {
 		super(client, data);
 
-		this.commandID = data.data?.id as string;
+		this.commandId = data.data?.id as string;
 		this.commandName = data.data?.name as string;
 		this.options = this._createOptionsCollection(data.data?.options as Array<any>, data.data?.resolved as any);
-		this.webhook = new InteractionWebhook(this.client, this.applicationID, this.token);
+		this.webhook = new InteractionWebhook(this.client, this.applicationId, this.token);
 	}
 
 	public get command() {
-		const id = this.commandID;
+		const id = this.commandId;
 		return this.guild?.commands.cache.get(id) ?? this.client.application?.commands.cache.get(id) ?? null;
 	}
 
-	public transformOption(option: import("@amanda/discordtypings").ApplicationCommandInteractionDataOption, resolved: import("@amanda/discordtypings").ApplicationCommandInteractionDataResolved) {
+	public transformOption(option: import("discord-typings").ApplicationCommandInteractionDataOption, resolved: import("discord-typings").ApplicationCommandInteractionDataResolved) {
 		const User: typeof import("./User") = require("./User");
 		const GuildMember: typeof import("./GuildMember") = require("./GuildMember");
 		const TextChannel: typeof import("./TextChannel") = require("./TextChannel");
@@ -59,7 +60,7 @@ class CommandInteraction extends Interaction implements InteractionResponses {
 		if (user) result.user = new User(this.client, user);
 
 		const member = resolved?.members?.[option.value as string];
-		if (member) result.member = new GuildMember(this.client, { user: user as import("@amanda/discordtypings").UserData, ...member });
+		if (member) result.member = new GuildMember(this.client, { user: user as import("discord-typings").UserData, ...member });
 
 		const channel = resolved?.channels?.[option.value as string];
 		if (channel) {
@@ -77,12 +78,12 @@ class CommandInteraction extends Interaction implements InteractionResponses {
 		}
 
 		const role = resolved?.roles?.[option.value as string];
-		if (role) result.role = new Role(this.client, Object.assign({}, role, { guild_id: this.guildID as string }));
+		if (role) result.role = new Role(this.client, Object.assign({}, role, { guild_id: this.guildId as string }));
 
 		return result;
 	}
 
-	public _createOptionsCollection(options: Array<import("@amanda/discordtypings").ApplicationCommandInteractionDataOption>, resolved: import("@amanda/discordtypings").ApplicationCommandInteractionDataResolved) {
+	public _createOptionsCollection(options: Array<import("discord-typings").ApplicationCommandInteractionDataOption>, resolved: import("discord-typings").ApplicationCommandInteractionDataResolved) {
 		const optionsCollection = new Collection<string, import("../Types").CommandInteractionOption>();
 		if (typeof options === "undefined") return optionsCollection;
 		for (const option of options) {

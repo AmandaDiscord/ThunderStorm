@@ -8,7 +8,7 @@ class BaseClient extends EventEmitter {
 	private _immediates: Set<NodeJS.Immediate>;
 	public options: import("../Types").ClientOptions;
 	public rest: import("../rest/RESTManager");
-	public _snow: import("snowtransfer");
+	public _snow: import("snowtransfer").SnowTransfer;
 	public token: string;
 	public accessToken: string | null = null;
 

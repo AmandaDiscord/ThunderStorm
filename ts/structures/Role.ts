@@ -3,23 +3,23 @@ import SnowflakeUtil from "../util/SnowflakeUtil";
 class Role {
 	public client: import("../client/Client");
 	public name: string;
-	public id: string;
+	public Id: string;
 	public color: number;
 	public managed: boolean;
 	public hoisted: boolean;
-	public permissions: number;
+	public permissions: string;
 	public position: number;
 	public mentionable: boolean;
 	public guild: import("./Partial/PartialGuild");
 	public partial: false = false;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").RoleData & { guild_id: string; }) {
+	public constructor(client: import("../client/Client"), data: import("discord-typings").RoleData & { guild_id: string; }) {
 		const PartialGuild: typeof import("./Partial/PartialGuild") = require("./Partial/PartialGuild"); // lazy load
 
 		this.client = client;
 
 		this.name = data.name;
-		this.id = data.id;
+		this.Id = data.id;
 		this.color = data.color;
 		this.managed = data.managed;
 		this.hoisted = data.hoist;
@@ -31,7 +31,7 @@ class Role {
 	}
 
 	public get createdTimestamp() {
-		return SnowflakeUtil.deconstruct(this.id).timestamp;
+		return SnowflakeUtil.deconstruct(this.Id).timestamp;
 	}
 
 	public get createdAt() {
@@ -43,20 +43,20 @@ class Role {
 	}
 
 	public toString() {
-		return `<@&${this.id}>`;
+		return `<@&${this.Id}>`;
 	}
 
 	public toJSON() {
 		return {
 			name: this.name,
-			id: this.id,
+			id: this.Id,
 			color: this.color,
 			managed: this.managed,
 			hoist: this.hoisted,
 			permissions: this.permissions,
 			position: this.position,
 			mentionable: this.mentionable,
-			guild_id: this.guild ? this.guild.id : undefined
+			guild_id: this.guild ? this.guild.Id : undefined
 		};
 	}
 }

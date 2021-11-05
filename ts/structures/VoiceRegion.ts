@@ -1,5 +1,5 @@
 class VoiceRegion {
-	public id: string;
+	public Id: string;
 	public name: string;
 	public vip: boolean;
 	public deprecated: boolean;
@@ -8,7 +8,7 @@ class VoiceRegion {
 	public sampleHostname: string;
 
 	public constructor(data: { id: string; name: string; vip: boolean; deprecated: boolean; optimal: boolean; custom: boolean; sample_hostname?: string }) {
-		this.id = data.id;
+		this.Id = data.id;
 		this.name = data.name;
 		this.vip = data.vip;
 		this.deprecated = data.deprecated;
@@ -23,7 +23,7 @@ class VoiceRegion {
 
 	public toJSON() {
 		return {
-			id: this.id,
+			id: this.Id,
 			name: this.name,
 			vip: this.vip,
 			deprecated: this.deprecated,

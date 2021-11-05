@@ -1,14 +1,14 @@
 import Emoji from "./Emoji";
 
 abstract class BaseGuildEmoji extends Emoji {
-	public id!: string;
+	public Id!: string;
 	public guild: import("./Guild") | import("./Partial/PartialGuild") | import("./GuildPreview");
 	public requiresColons: boolean | null;
 	public managed: boolean | null;
 	public available: boolean | null;
 	public _roles: Array<string>;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").EmojiData, guild: import("./Guild") | import("./Partial/PartialGuild") | import("./GuildPreview")) {
+	public constructor(client: import("../client/Client"), data: import("discord-typings").EmojiData, guild: import("./Guild") | import("./Partial/PartialGuild") | import("./GuildPreview")) {
 		super(client, data);
 
 		this.guild = guild;
@@ -22,7 +22,7 @@ abstract class BaseGuildEmoji extends Emoji {
 		this._patch(data);
 	}
 
-	public _patch(data: import("@amanda/discordtypings").EmojiData) {
+	public _patch(data: import("discord-typings").EmojiData) {
 		if (data.name) this.name = data.name;
 
 		if (typeof data.require_colons !== "undefined") this.requiresColons = data.require_colons;

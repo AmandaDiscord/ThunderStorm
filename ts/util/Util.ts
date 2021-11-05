@@ -51,8 +51,7 @@ class Util {
 	}
 
 	public static splitMessage(text: string, { maxLength = 2000, char = "\n" as string | RegExp, prepend = "", append = "" } = {}) {
-		// @ts-ignore
-		text = Util.verifyString(text, RangeError, "MESSAGE_CONTENT_TYPE", false);
+		text = Util.verifyString(text, RangeError as unknown as ErrorConstructor, "MESSAGE_CONTENT_TYPE", false);
 		if (text.length <= maxLength) return [text];
 		const splitText = text.split(char);
 		if (splitText.some(elem => elem.length > maxLength)) throw new RangeError("SPLIT_MAX_LEN");
@@ -180,18 +179,18 @@ class Util {
 
 	static parseEmoji(text: string) {
 		if (text.includes("%")) text = decodeURIComponent(text);
-		if (!text.includes(":")) return { animated: false, name: text, id: null };
+		if (!text.includes(":")) return { animated: false, name: text, Id: null };
 		const m = text.match(/<?(?:(a):)?(\w{2,32}):(\d{17,19})?>?/);
 		if (!m) return null;
-		return { animated: Boolean(m[1]), name: m[2], id: m[3] || null };
+		return { animated: Boolean(m[1]), name: m[2], Id: m[3] || null };
 	}
 
-	static resolvePartialEmoji(emoji: import("../Types").EmojiIdentifierResolvable): { id: string | null; name?: string; animated?: boolean } | null {
+	static resolvePartialEmoji(emoji: import("../Types").EmojiIdentifierResolvable): { Id: string | null; name?: string; animated?: boolean } | null {
 		if (!emoji) return null;
-		if (typeof emoji === "string") return /^\d{17,19}$/.test(emoji) ? { id: emoji } : Util.parseEmoji(emoji);
-		const { id, name, animated } = emoji;
-		if (!id && !name) return null;
-		return { id, name, animated };
+		if (typeof emoji === "string") return /^\d{17,19}$/.test(emoji) ? { Id: emoji } : Util.parseEmoji(emoji);
+		const { Id, id, name, animated } = emoji as unknown as { Id: string, id: string, name: string, animated?: boolean };
+		if (!Id && !id && !name) return null;
+		return { Id: Id || id || null, name, animated };
 	}
 
 	static cloneObject<T>(obj: T): T {
@@ -266,8 +265,8 @@ class Util {
 		return collection.sorted(
 			(a, b) =>
 				a.rawPosition - b.rawPosition ||
-				parseInt(b.id.slice(0, -10)) - parseInt(a.id.slice(0, -10)) ||
-				parseInt(b.id.slice(10)) - parseInt(a.id.slice(10))
+				parseInt(b.Id.slice(0, -10)) - parseInt(a.Id.slice(0, -10)) ||
+				parseInt(b.Id.slice(10)) - parseInt(a.Id.slice(10))
 		);
 	}
 
@@ -275,7 +274,7 @@ class Util {
 		let updatedItems = sorted.array();
 		Util.moveElementInArray(updatedItems, item, position, relative);
 		// @ts-ignore
-		updatedItems = updatedItems.map((r, i) => ({ id: r.id, position: i }));
+		updatedItems = updatedItems.map((r, i) => ({ Id: r.Id, position: i }));
 		return route.patch({ data: updatedItems, reason }).then(() => updatedItems);
 	}
 
@@ -299,7 +298,7 @@ class Util {
 		return bin;
 	}
 
-	static binaryToID(num: string): string {
+	static binaryToId(num: string): string {
 		let dec = "";
 
 		while (num.length > 50) {

@@ -58,7 +58,7 @@ export interface ClientEvents {
 	webhookUpdate: [import("./structures/Partial/PartialChannel")];
 }
 
-export type ChannelType = Exclude<keyof typeof Constants.ChannelTypes, number>;
+export type ChannelType = Exclude<keyof typeof Constants.ChannelTypes, number | "-1"> | "UNKNOWN";
 
 export type ChannelResolvable = import("./structures/Channel") | string;
 
@@ -146,18 +146,18 @@ export type MessageAdditions = MessageEmbed | MessageAttachment | Array<MessageE
 
 export interface ClientOptions {
 	disableEveryone?: boolean;
-	snowtransfer: import("snowtransfer");
+	snowtransfer: import("snowtransfer").SnowTransfer;
 	connectTimeout?: number;
 	restGlobalRateLimit?: number;
 	restSweepInterval?: number;
 }
 
-export type FetchMemberOptions = { ids?: Array<string>; query?: string; limit?: number; after?: string; };
+export type FetchMemberOptions = { Ids?: Array<string>; query?: string; limit?: number; after?: string; };
 
 export type EmbedField = {
 	name: string;
 	value: string;
-	inline: boolean;
+	inline?: boolean;
 }
 
 export type FileOptions = {
@@ -210,7 +210,7 @@ export type EmbedFieldData = {
 	inline?: boolean
 }
 
-export type Feature = import("@amanda/discordtypings").GuildFeature;
+export type Feature = import("discord-typings").GuildFeature;
 
 export type BitFieldResolvable<T> = number | bigint | keyof T | import("./util/BitField")<T> | Array<BitFieldResolvable<T>>;
 
@@ -234,7 +234,7 @@ export type ImageURLOptions = {
 }
 
 export type MessageActivity = {
-	partyID?: string;
+	partyId?: string;
 	type?: number;
 }
 
@@ -252,7 +252,7 @@ export type MembershipState = Exclude<FlattenIfArray<typeof Constants.Membership
 
 export type WebhookType = Exclude<FlattenIfArray<typeof Constants.WebhookTypes>, null>;
 
-export type PresenceStatus = import("@amanda/discordtypings").PresenceUpdateData["status"];
+export type PresenceStatus = import("discord-typings").PresenceUpdateData["status"];
 
 export type ClientPresenceStatus = Exclude<PresenceStatus, "offline">;
 
@@ -300,7 +300,7 @@ export type GuildEmojiEditData = {
 export type RoleResolvable = string | import("./structures/Role") | import("./structures/Partial/PartialRole");
 
 export type ApplicationAsset = {
-	id: string;
+	Id: string;
 	name: string;
 	type: string;
 }
@@ -337,18 +337,18 @@ export type ApplicationCommandOptionChoice = {
 }
 
 export type ApplicationCommandPermissionData = {
-	id: string;
+	Id: string;
 	type: ApplicationCommandPermissionType | Exclude<keyof typeof Constants.ApplicationCommandPermissionTypes, string>;
 	permission: boolean;
 }
 
 export type GuildApplicationCommandPermissionData = {
-	id: string;
+	Id: string;
 	permissions: Array<ApplicationCommandPermissionData>;
 }
 
 export type ApplicationCommandPermissions = {
-	id: string;
+	Id: string;
 	type: ApplicationCommandPermissionType;
 	permission: boolean;
 }
@@ -383,7 +383,7 @@ export interface MessageActionRowOptions extends BaseMessageComponentOptions {
 
 export interface MessageButtonOptions extends BaseMessageComponentOptions {
 	label?: string | null;
-	customID?: string | null;
+	customId?: string | null;
 	style?: MessageButtonStyleResolvable | null;
 	emoji?: EmojiResolvable | null;
 	url?: string | null;
@@ -394,7 +394,7 @@ export type MessageButtonStyleResolvable = Exclude<keyof typeof Constants.Messag
 
 export type EmojiIdentifierResolvable = string | EmojiResolvable;
 
-export type EmojiResolvable = string | import("./structures/GuildEmoji") | import("./structures/ReactionEmoji") | { id: string | null; name?: string; animated?: boolean };
+export type EmojiResolvable = string | import("./structures/GuildEmoji") | import("./structures/ReactionEmoji") | { Id?: string | null; id?: string | null; name?: string; animated?: boolean };
 
 export interface MessageComponentInteractionCollectorOptions extends CollectorOptions {
 	max?: number;
@@ -405,8 +405,8 @@ export interface MessageComponentInteractionCollectorOptions extends CollectorOp
 export type DeconstructedSnowflake = {
 	timestamp: number;
 	date: Date;
-	workerID: number;
-	processID: number;
+	workerId: number;
+	processId: number;
 	increment: number;
 	binary: string;
 }
@@ -416,7 +416,7 @@ export type ApplicationCommandResolvable = import("./structures/ApplicationComma
 export type Base64Resolvable = Buffer | string;
 
 export type IntegrationAccount = {
-	id: string;
+	Id: string;
 	name: string;
 }
 
@@ -480,13 +480,13 @@ export type MessageEditOptions = {
 }
 
 export type MessageReference = {
-	channelID: string;
-	guildID: string | null;
-	messageID: string | null;
+	channelId: string;
+	guildId: string | null;
+	messageId: string | null;
 }
 
 export type MessageInteraction = {
-	id: string;
+	Id: string;
 	type: InteractionType;
 	commandName: string;
 	user: import("./structures/User");
