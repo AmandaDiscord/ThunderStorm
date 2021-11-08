@@ -4,7 +4,8 @@ import MessageAttachment from "./structures/MessageAttachment";
 import MessageEmbed from "./structures/MessageEmbed";
 
 type AnyChannel = import("./structures/DMChannel") | import("./structures/TextChannel") | import("./structures/VoiceChannel") | import("./structures/CategoryChannel") | import("./structures/NewsChannel") | import("./structures/StoreChannel") | import("./structures/StageChannel");
-type FlattenIfArray<T> = T extends Array<infer R> ? R : T;
+export type FlattenIfArray<T> = T extends Array<infer R> ? R : T;
+export type FlattenIfReadonlyArray<T> = T extends ReadonlyArray<infer R> ? R : T;
 
 export interface ClientEvents {
 	channelCreate: [AnyChannel];
@@ -238,25 +239,26 @@ export type MessageActivity = {
 	type?: number;
 }
 
-export type InviteScope = FlattenIfArray<typeof Constants.InviteScopes>;
+export type InviteScope = FlattenIfReadonlyArray<typeof Constants.InviteScopes>;
 
-export type MessageType = Exclude<FlattenIfArray<typeof Constants.MessageTypes>, null>;
+export type MessageType = Exclude<FlattenIfReadonlyArray<typeof Constants.MessageTypes>, null>;
+export type SystemMessageType = Exclude<FlattenIfArray<typeof Constants.SystemMessageTypes>, null>
 
-export type ExplicitContentFilterLevel = FlattenIfArray<typeof Constants.ExplicitContentFilterLevels>;
+export type ExplicitContentFilterLevel = FlattenIfReadonlyArray<typeof Constants.ExplicitContentFilterLevels>;
 
-export type VerificationLevel = FlattenIfArray<typeof Constants.VerificationLevels>;
+export type VerificationLevel = FlattenIfReadonlyArray<typeof Constants.VerificationLevels>;
 
-export type DefaultMessageNotification = FlattenIfArray<typeof Constants.DefaultMessageNotifications>;
+export type DefaultMessageNotification = FlattenIfReadonlyArray<typeof Constants.DefaultMessageNotifications>;
 
-export type MembershipState = Exclude<FlattenIfArray<typeof Constants.MembershipStates>, null>;
+export type MembershipState = Exclude<FlattenIfReadonlyArray<typeof Constants.MembershipStates>, null>;
 
-export type WebhookType = Exclude<FlattenIfArray<typeof Constants.WebhookTypes>, null>;
+export type WebhookType = Exclude<FlattenIfReadonlyArray<typeof Constants.WebhookTypes>, null>;
 
 export type PresenceStatus = import("discord-typings").PresenceUpdateData["status"];
 
 export type ClientPresenceStatus = Exclude<PresenceStatus, "offline">;
 
-export type ActivityType = FlattenIfArray<typeof Constants.ActivityTypes>;
+export type ActivityType = FlattenIfReadonlyArray<typeof Constants.ActivityTypes>;
 
 export type StickerFormatType = Exclude<keyof typeof Constants.StickerFormatTypes, number>;
 
@@ -300,7 +302,7 @@ export type GuildEmojiEditData = {
 export type RoleResolvable = string | import("./structures/Role") | import("./structures/Partial/PartialRole");
 
 export type ApplicationAsset = {
-	Id: string;
+	id: string;
 	name: string;
 	type: string;
 }
@@ -337,18 +339,18 @@ export type ApplicationCommandOptionChoice = {
 }
 
 export type ApplicationCommandPermissionData = {
-	Id: string;
+	id: string;
 	type: ApplicationCommandPermissionType | Exclude<keyof typeof Constants.ApplicationCommandPermissionTypes, string>;
 	permission: boolean;
 }
 
 export type GuildApplicationCommandPermissionData = {
-	Id: string;
+	id: string;
 	permissions: Array<ApplicationCommandPermissionData>;
 }
 
 export type ApplicationCommandPermissions = {
-	Id: string;
+	id: string;
 	type: ApplicationCommandPermissionType;
 	permission: boolean;
 }
@@ -416,7 +418,7 @@ export type ApplicationCommandResolvable = import("./structures/ApplicationComma
 export type Base64Resolvable = Buffer | string;
 
 export type IntegrationAccount = {
-	Id: string;
+	id: string;
 	name: string;
 }
 
@@ -486,7 +488,7 @@ export type MessageReference = {
 }
 
 export type MessageInteraction = {
-	Id: string;
+	id: string;
 	type: InteractionType;
 	commandName: string;
 	user: import("./structures/User");

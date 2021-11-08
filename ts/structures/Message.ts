@@ -61,7 +61,7 @@ class Message extends Base {
 
 		if ("type" in data) {
 			this.type = MessageTypes[data.type] as import("../Types").MessageType;
-			this.system = SystemMessageTypes.includes(this.type);
+			this.system = SystemMessageTypes.includes(this.type as import("../Types").SystemMessageType);
 		} else if (typeof this.type !== "string") {
 			this.system = null;
 			this.type = null;
