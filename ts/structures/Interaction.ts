@@ -2,6 +2,8 @@ import Base from "./Base";
 import { InteractionTypes, ChannelTypes } from "../util/Constants";
 import SnowflakeUtil from "../util/SnowflakeUtil";
 
+import Permissions from "../util/Permissions";
+
 class Interaction extends Base {
 	public type: import("../Types").InteractionType;
 	public token: string;
@@ -11,6 +13,7 @@ class Interaction extends Base {
 	public user: import("./User");
 	public member: import("./GuildMember") | null;
 	public version: number;
+	public memberPermissions: Readonly<import("../util/Permissions")> | null;
 
 	public channel: import("./Partial/PartialChannel") | null;
 	public guild: import("./Partial/PartialGuild") | null;
@@ -24,7 +27,7 @@ class Interaction extends Base {
 		const User: typeof import("./User") = require("./User");
 
 		this.type = InteractionTypes[data.type];
-		this.Id = data.id;
+		this.id = data.id;
 		this.token = data.token;
 		this.applicationId = data.application_id;
 		this.channelId = data.channel_id ?? null;
@@ -40,10 +43,11 @@ class Interaction extends Base {
 
 		this.channel = data.channel_id ? new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id, type: data.guild_id ? ChannelTypes[0] : ChannelTypes[1] }) : null;
 		this.guild = this.channel && this.channel.guild ? this.channel.guild : (data.guild_id ? new PartialGuild(this.client, { id: data.guild_id }) : null);
+		this.memberPermissions = data.member ? new Permissions(BigInt(data.member.permissions || 0)).freeze() : null;
 	}
 
 	public get createdTimestamp() {
-		return SnowflakeUtil.deconstruct(this.Id).timestamp;
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
 	}
 
 	public get createdAt() {

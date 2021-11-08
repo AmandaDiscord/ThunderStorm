@@ -394,7 +394,7 @@ export type MessageButtonStyleResolvable = Exclude<keyof typeof Constants.Messag
 
 export type EmojiIdentifierResolvable = string | EmojiResolvable;
 
-export type EmojiResolvable = string | import("./structures/GuildEmoji") | import("./structures/ReactionEmoji") | { Id?: string | null; id?: string | null; name?: string; animated?: boolean };
+export type EmojiResolvable = string | import("./structures/GuildEmoji") | import("./structures/ReactionEmoji") | { id: string | null; name?: string; animated?: boolean };
 
 export interface MessageComponentInteractionCollectorOptions extends CollectorOptions {
 	max?: number;

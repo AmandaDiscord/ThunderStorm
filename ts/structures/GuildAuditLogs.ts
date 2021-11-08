@@ -79,7 +79,7 @@ class GuildAuditLogs {
 	public constructor(guild: import("./Guild") | import("./Partial/PartialGuild"), data: import("discord-typings").AuditLogObject) {
 		if (data.webhooks) {
 			for (const hook of data.webhooks) {
-				this.webhooks.set(hook.Id, new Webhook(guild.client, hook));
+				this.webhooks.set(hook.id, new Webhook(guild.client, hook));
 			}
 		}
 
@@ -91,7 +91,7 @@ class GuildAuditLogs {
 
 		for (const item of data.audit_log_entries) {
 			const entry = new GuildAuditLogsEntry(this, guild, item);
-			this.entries.set(entry.Id, entry);
+			this.entries.set(entry.id, entry);
 		}
 	}
 
@@ -194,7 +194,7 @@ class GuildAuditLogsEntry {
 	public reason: string | null;
 	public executor: import("./Partial/PartialUser") | null;
 	public changes: Array<import("../Types").AuditLogChange>;
-	public Id: string;
+	public id: string;
 	public extra: import("./Partial/PartialUser") | import("./Partial/PartialRole") | import("./Role") | { removed?: number; days?: number; channel?: import("./Partial/PartialChannel"); count?: number; messageId?: string; } | null;
 	public target: import("../Types").AuditLogEntryTarget | null;
 
@@ -211,7 +211,7 @@ class GuildAuditLogsEntry {
 		this.reason = data.reason || null;
 		this.executor = data.user_id ? new PartialUser(guild.client, { id: data.user_id }) : null;
 		this.changes = data.changes ? data.changes.map(c => ({ key: c.key, old: c.old_value, new: c.new_value })) : [];
-		this.Id = data.id;
+		this.id = data.id;
 
 		this.extra = null;
 		switch (data.action_type) {
@@ -226,7 +226,7 @@ class GuildAuditLogsEntry {
 		case Actions.MESSAGE_DELETE:
 		case Actions.MESSAGE_BULK_DELETE:
 			this.extra = {
-				channel: new PartialChannel(guild.client, { id: data.options?.channel_id as string, guild_id: guild.Id, type: ChannelTypes[0] }),
+				channel: new PartialChannel(guild.client, { id: data.options?.channel_id as string, guild_id: guild.id, type: ChannelTypes[0] }),
 				count: Number(data.options?.count)
 			};
 			break;
@@ -234,7 +234,7 @@ class GuildAuditLogsEntry {
 		case Actions.MESSAGE_PIN:
 		case Actions.MESSAGE_UNPIN:
 			this.extra = {
-				channel: new PartialChannel(guild.client, { id: data.options?.channel_id as string, guild_id: guild.Id, type: ChannelTypes[0] }),
+				channel: new PartialChannel(guild.client, { id: data.options?.channel_id as string, guild_id: guild.id, type: ChannelTypes[0] }),
 				messageId: data.options?.message_id
 			};
 			break;
@@ -272,12 +272,12 @@ class GuildAuditLogsEntry {
 				o[c.key] = c.new || c.old;
 				return o;
 			}, {} as { [key: string]: any }) as import("../Types").AuditLogEntryTarget;
-			(this.target as Exclude<import("../Types").AuditLogEntryTarget, import("./Invite")>).Id = data.target_id;
+			(this.target as Exclude<import("../Types").AuditLogEntryTarget, import("./Invite")>).id = data.target_id;
 			// MEMBER_DISCONNECT and similar types do not provide a target_id.
 		} else if (targetType === Targets.USER && data.target_id) {
 			this.target = new PartialUser(guild.client, { id: data.target_id });
 		} else if (targetType === Targets.GUILD) {
-			this.target = data.target_id === guild.Id ? guild : new PartialGuild(guild.client, { id: data.target_id as string });
+			this.target = data.target_id === guild.id ? guild : new PartialGuild(guild.client, { id: data.target_id as string });
 		} else if (targetType === Targets.WEBHOOK) {
 			this.target =
 				logs.webhooks.get(data.target_id as string) ||
@@ -289,8 +289,8 @@ class GuildAuditLogsEntry {
 							return o;
 						},
 						{
-							Id: data.target_id,
-							guild_id: guild.Id
+							id: data.target_id,
+							guild_id: guild.id
 						} as any
 					)
 				);
@@ -311,7 +311,7 @@ class GuildAuditLogsEntry {
 			// Discord sends a channel id for the MESSAGE_BULK_DELETE action type.
 			this.target =
 				data.action_type === Actions.MESSAGE_BULK_DELETE
-					? new PartialChannel(guild.client, { id: data.target_id as string, guild_id: guild.Id, type: ChannelTypes[0] })
+					? new PartialChannel(guild.client, { id: data.target_id as string, guild_id: guild.id, type: ChannelTypes[0] })
 					: new PartialUser(guild.client, { id: data.target_id as string });
 		} else if (targetType === Targets.INTEGRATION) {
 			this.target =
@@ -323,17 +323,17 @@ class GuildAuditLogsEntry {
 							o[c.key] = c.new || c.old;
 							return o;
 						},
-						{ Id: data.target_id } as any
+						{ id: data.target_id } as any
 					),
 					guild
 				);
 		} else if (data.target_id) {
-			this.target = { Id: data.target_id };
+			this.target = { id: data.target_id };
 		}
 	}
 
 	public get createdTimestamp() {
-		return SnowflakeUtil.deconstruct(this.Id).timestamp;
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
 	}
 
 	public get createdAt() {

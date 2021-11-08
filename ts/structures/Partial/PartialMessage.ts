@@ -18,12 +18,12 @@ class PartialMessage extends PartialBase<import("../Message")> {
 
 		const PartialChannel: typeof import("./PartialChannel") = require("./PartialChannel");
 
-		this.channel = new PartialChannel(client, { id: data.channel_id as string, guild_id: data.guild_id, type: data.guild_id ? ChannelTypes[0] : ChannelTypes[1] });
+		this.channel = new PartialChannel(client, { id: data.channel_id as string, guild_id: data.guild_id, type: data.guild_id ? ChannelTypes[0] as import("../../Types").ChannelType : ChannelTypes[1] as import("../../Types").ChannelType });
 		this.guild = this.channel.guild || null;
 	}
 
 	public get url() {
-		return `https://discord.com/channels/${this.guild ? this.guild.Id : "@me"}/${this.channel.Id}/${this.Id}`;
+		return `https://discord.com/channels/${this.guild ? this.guild.id : "@me"}/${this.channel.id}/${this.id}`;
 	}
 
 	public reply(options?: string | MessagePayload | import("../../Types").ReplyMessageOptions) {
@@ -43,19 +43,19 @@ class PartialMessage extends PartialBase<import("../Message")> {
 	}
 
 	public async crosspost() {
-		const data = await this.client._snow.channel.crosspostMessage(this.channel.Id, this.Id);
+		const data = await this.client._snow.channel.crosspostMessage(this.channel.id, this.id);
 		return new Message(this.client, data, this.channel);
 	}
 
 	public async edit(options: string | import("../MessagePayload") | import("../../Types").MessageEditOptions = {}) {
 		const opts = options instanceof MessagePayload ? options : MessagePayload.create(this, options);
 		const { data, files } = opts.resolveData();
-		const d = await this.client._snow.channel.editMessage(this.channel.Id, this.Id, Object.assign({}, data, { files: files }), { disableEveryone: (options as import("../../Types").MessageEditOptions).disableEveryone ? (options as import("../../Types").MessageEditOptions).disableEveryone : this.client.options.disableEveryone || false });
+		const d = await this.client._snow.channel.editMessage(this.channel.id, this.id, Object.assign({}, data, { files: files }), { disableEveryone: (options as import("../../Types").MessageEditOptions).disableEveryone ? (options as import("../../Types").MessageEditOptions).disableEveryone : this.client.options.disableEveryone || false });
 		return new Message(this.client, d, this.channel);
 	}
 
 	public async delete(): Promise<this> {
-		await this.client._snow.channel.deleteMessage(this.channel.Id, this.Id);
+		await this.client._snow.channel.deleteMessage(this.channel.id, this.id);
 		return this;
 	}
 
@@ -65,31 +65,31 @@ class PartialMessage extends PartialBase<import("../Message")> {
 		if (typeof emoji === "string") {
 			if (emoji.match(/^\d+$/)) emoji = `_:${emoji}`;
 		} else {
-			if (!emoji.name && !emoji.Id) throw new TypeError("MESSAGE_REACT_EMOJI_NOT_RESOLAVABLE");
+			if (!emoji.name && !emoji.id) throw new TypeError("MESSAGE_REACT_EMOJI_NOT_RESOLAVABLE");
 			if (emoji instanceof ReactionEmoji || emoji instanceof GuildEmoji) emoji = emoji.identifier;
-			else emoji = emoji.Id === null ? emoji.name as string : `${emoji.name ? emoji.name : "_"}:${emoji.Id}`;
+			else emoji = emoji.id === null ? emoji.name as string : `${emoji.name ? emoji.name : "_"}:${emoji.id}`;
 		}
 		const ceregex = /<?a?:?(\w+):(\d+)>?/;
 		let value;
 		const match = emoji.match(ceregex);
 		if (match) value = `${match[1]}:${match[2]}`;
 		else value = emoji;
-		await this.client._snow.channel.createReaction(this.channel.Id, this.Id, encodeURIComponent(value));
+		await this.client._snow.channel.createReaction(this.channel.id, this.id, encodeURIComponent(value));
 		return this;
 	}
 
 	public async clearReactions() {
-		await this.client._snow.channel.deleteAllReactions(this.channel.Id, this.Id);
+		await this.client._snow.channel.deleteAllReactions(this.channel.id, this.id);
 		return this;
 	}
 
 	public async pin() {
-		await this.client._snow.channel.addChannelPinnedMessage(this.channel.Id, this.Id);
+		await this.client._snow.channel.addChannelPinnedMessage(this.channel.id, this.id);
 		return this;
 	}
 
 	public async unpin() {
-		await this.client._snow.channel.removeChannelPinnedMessage(this.channel.Id, this.Id);
+		await this.client._snow.channel.removeChannelPinnedMessage(this.channel.id, this.id);
 		return this;
 	}
 
@@ -139,8 +139,8 @@ class PartialMessage extends PartialBase<import("../Message")> {
 	}
 
 	public toJSON() {
-		const value: { channel_id: string; guild_id?: string } = { channel_id: this.channel.Id };
-		if (this.guild) value["guild_id"] = this.guild.Id;
+		const value: { channel_id: string; guild_id?: string } = { channel_id: this.channel.id };
+		if (this.guild) value["guild_id"] = this.guild.id;
 		return Object.assign(super.toJSON(), value);
 	}
 }

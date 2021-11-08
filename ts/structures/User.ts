@@ -14,7 +14,7 @@ class User extends Base implements TextBasedChannel {
 	public username!: string;
 	public discriminator!: string;
 	public bot!: boolean;
-	public Id!: string;
+	public id!: string;
 	public avatar!: string | null;
 	public flags!: Readonly<UserFlags>;
 	public system!: boolean;
@@ -28,14 +28,14 @@ class User extends Base implements TextBasedChannel {
 		if (data.username) this.username = data.username;
 		if (data.discriminator) this.discriminator = data.discriminator;
 		if (!this.bot || data.bot !== undefined) this.bot = data.bot || false;
-		if (data.id) this.Id = data.id;
+		if (data.id) this.id = data.id;
 		if (!this.avatar) this.avatar = data.avatar || null;
 		if (!this.flags || data.public_flags) this.flags = new UserFlags(data.public_flags || 0).freeze();
 		if (!this.system || data.system !== undefined) this.system = data.system || false;
 	}
 
 	public get createdTimestamp() {
-		return SnowflakeUtil.deconstruct(this.Id).timestamp;
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
 	}
 
 	public get createdAt() {
@@ -51,7 +51,7 @@ class User extends Base implements TextBasedChannel {
 	}
 
 	public toString() {
-		return `<@${this.Id}>`;
+		return `<@${this.id}>`;
 	}
 
 	public toJSON() {
@@ -59,7 +59,7 @@ class User extends Base implements TextBasedChannel {
 			username: this.username,
 			discriminator: this.discriminator,
 			bot: this.bot,
-			id: this.Id,
+			id: this.id,
 			avatar: this.avatar,
 			public_flags: Number(this.flags.bitfield)
 		};
@@ -67,12 +67,12 @@ class User extends Base implements TextBasedChannel {
 
 	public avatarURL(options: import("../Types").ImageURLOptions & { dynamic?: boolean } = { size: 128, format: "png", dynamic: true }) {
 		if (!this.avatar) return null;
-		return this.client.rest.cdn.Avatar(this.Id, this.avatar, options.format, options.size, options.dynamic);
+		return this.client.rest.cdn.Avatar(this.id, this.avatar, options.format, options.size, options.dynamic);
 	}
 
 	public async createDM() {
 		const DMChannel: typeof import("./DMChannel") = require("./DMChannel");
-		const d = await this.client._snow.user.createDirectMessageChannel(this.Id);
+		const d = await this.client._snow.user.createDirectMessageChannel(this.id);
 		const channel = new DMChannel(this.client, d);
 		this.dmChannel = channel;
 		return channel;
@@ -81,7 +81,7 @@ class User extends Base implements TextBasedChannel {
 	public async deleteDM() {
 		const { dmChannel } = this;
 		if (!dmChannel) throw new Error("USER_NO_DMCHANNEL");
-		const data = await this.client.api.channels(dmChannel.Id).delete();
+		const data = await this.client.api.channels(dmChannel.id).delete();
 		this.client.actions.ChannelDelete.handle(data);
 		return dmChannel;
 	}
@@ -93,7 +93,7 @@ class User extends Base implements TextBasedChannel {
 
 	public equals(user: User) {
 		return user &&
-			this.Id === user.Id &&
+			this.id === user.id &&
 			this.username === user.username &&
 			this.discriminator === user.discriminator &&
 			this.avatar === user.avatar;
@@ -101,7 +101,7 @@ class User extends Base implements TextBasedChannel {
 
 	public async fetchFlags(force = false) {
 		if (this.flags && !force) return this.flags;
-		const data = await this.client._snow.user.getUser(this.Id);
+		const data = await this.client._snow.user.getUser(this.id);
 		this._patch(data);
 		return this.flags;
 	}
@@ -114,7 +114,7 @@ class User extends Base implements TextBasedChannel {
 		if (data.username) this.username = data.username;
 		if (data.discriminator) this.discriminator = data.discriminator;
 		if (!this.bot || data.bot !== undefined) this.bot = data.bot || false;
-		if (data.id) this.Id = data.id;
+		if (data.id) this.id = data.id;
 		if (!this.avatar || data.avatar !== undefined) this.avatar = data.avatar || null;
 		if (!this.flags || data.public_flags) this.flags = new UserFlags(data.public_flags || 0).freeze();
 		if (!this.system || data.system !== undefined) this.system = data.system || false;

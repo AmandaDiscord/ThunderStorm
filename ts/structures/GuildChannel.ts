@@ -17,7 +17,7 @@ class GuildChannel extends Channel {
 
 	public toJSON(): import("discord-typings").GuildChannelData {
 		return {
-			guild_id: this.guild.Id,
+			guild_id: this.guild.id,
 			parent_id: this.parentId,
 			position: this.rawPosition,
 			permission_overwrites: [...this.permissionOverwrites.values()].map(i => i.toJSON()),

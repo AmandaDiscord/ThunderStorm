@@ -16,7 +16,7 @@ class GuildEmojisUpdateAction extends Action {
 			if (emoji.createdTimestamp && emoji.createdTimestamp > Date.now() - 1000) this.client.actions.GuildEmojiCreate.handle(guild, emoji);
 		}
 
-		this.client.emit(Events.GUILD_EMOJIS_UPDATE, guild, new Collection(emojis.map(e => [e.Id as string, e])));
+		this.client.emit(Events.GUILD_EMOJIS_UPDATE, guild, new Collection(emojis.map(e => [e.id as string, e])));
 	}
 }
 

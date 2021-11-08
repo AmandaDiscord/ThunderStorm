@@ -5,20 +5,20 @@ import SnowflakeUtil from "../util/SnowflakeUtil";
 
 class Channel extends Base {
 	public partial: false = false;
-	public Id!: string;
+	public id!: string;
 	public name!: string;
 	public type: import("../Types").ChannelType = "UNKNOWN";
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").ChannelData) {
 		super(client);
 
-		this.Id = data.id;
+		this.id = data.id;
 		this.name = data.name;
 		if (data) this._patch(data);
 	}
 
 	public get createdTimestamp() {
-		return SnowflakeUtil.deconstruct(this.Id).timestamp;
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
 	}
 
 	public get createdAt() {
@@ -30,19 +30,19 @@ class Channel extends Base {
 	}
 
 	public toString() {
-		return `<#${this.Id}>`;
+		return `<#${this.id}>`;
 	}
 
 	public toJSON() {
 		return {
-			id: this.Id,
-			name: this.Id,
+			id: this.id,
+			name: this.name,
 			type: ChannelTypes[this.type] || 0 as const
 		};
 	}
 
 	public _patch(data: import("discord-typings").ChannelData) {
-		if (data.id) this.Id = data.id;
+		if (data.id) this.id = data.id;
 		if (data.name) this.name = data.name;
 	}
 }

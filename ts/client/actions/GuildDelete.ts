@@ -21,7 +21,7 @@ class GuildDeleteAction extends Action {
 		return { guild };
 	}
 
-	public scheduleForDeletion(Id: string) {
+	public scheduleForDeletion(id: string) {
 		void 0;
 	}
 }

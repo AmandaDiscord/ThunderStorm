@@ -6,7 +6,7 @@ import { TypeError } from "../../errors";
 import MessageComponentInteractionCollector from "../MessageComponentInteractionCollector";
 
 abstract class TextBasedChannel {
-	public Id!: string;
+	public id!: string;
 	public lastMessageId: string | null = null;
 	public lastPinTimestamp: number | null = null;
 	public client!: import("../../client/Client");
@@ -20,7 +20,7 @@ abstract class TextBasedChannel {
 		const PartialMessage: typeof import("../Partial/PartialMessage") = require("../Partial/PartialMessage");
 		let message = null;
 		if (this.lastMessageId) {
-			message = new PartialMessage(this.client, { id: this.lastMessageId, channel_id: this.Id });
+			message = new PartialMessage(this.client, { id: this.lastMessageId, channel_id: this.id });
 			if ((this as unknown as import("../TextChannel")).guild) message.guild = (this as unknown as import("../TextChannel")).guild;
 		}
 		return message;
@@ -53,9 +53,9 @@ abstract class TextBasedChannel {
 		}
 
 		const { data, files } = await messagePayload.resolveFiles();
-		const d = await this.client._snow.channel.createMessage(this.Id, Object.assign({}, data, { files: files }));
+		const d = await this.client._snow.channel.createMessage(this.id, Object.assign({}, data, { files: files }));
 		const message = new Message(this.client, d, this);
-		this.lastMessageId = message.Id;
+		this.lastMessageId = message.id;
 		return message;
 	}
 
@@ -64,7 +64,7 @@ abstract class TextBasedChannel {
 	}
 
 	public sendTyping() {
-		return this.client._snow.channel.startChannelTyping(this.Id);
+		return this.client._snow.channel.startChannelTyping(this.id);
 	}
 
 	public stopTyping() {
@@ -114,28 +114,28 @@ abstract class TextBasedChannel {
 	public async bulkDelete(messages: Collection<string, import("../Message")> | Array<import("../../Types").MessageResolvable> | number, filterOld = false): Promise<Collection<string, import("../Partial/PartialMessage")>> {
 		const PartialMessage: typeof import("../Partial/PartialMessage") = require("../Partial/PartialMessage");
 		if (Array.isArray(messages) || messages instanceof Collection) {
-			let messageIds: Array<string> = messages instanceof Collection ? messages.keyArray() : messages.map(m => typeof m === "string" ? m : m.Id);
+			let messageIds: Array<string> = messages instanceof Collection ? messages.keyArray() : messages.map(m => typeof m === "string" ? m : m.id);
 			if (filterOld) {
 				messageIds = messageIds.filter(id => Date.now() - SnowflakeUtil.deconstruct(id).timestamp < 1209600000);
 			}
 			if (messageIds.length === 0) return new Collection();
 			if (messageIds.length === 1) {
-				await this.client._snow.channel.deleteMessage(this.Id, messageIds[0]);
-				return new Collection([[messageIds[0], new PartialMessage(this.client, { id: messageIds[0], channel_id: this.Id, guild_id: (this as unknown as import("../TextChannel")).guild ? (this as unknown as import("../TextChannel")).guild.Id : undefined })]]);
+				await this.client._snow.channel.deleteMessage(this.id, messageIds[0]);
+				return new Collection([[messageIds[0], new PartialMessage(this.client, { id: messageIds[0], channel_id: this.id, guild_id: (this as unknown as import("../TextChannel")).guild ? (this as unknown as import("../TextChannel")).guild.id : undefined })]]);
 			}
-			await this.client._snow.channel.bulkDeleteMessages(this.Id, messageIds);
+			await this.client._snow.channel.bulkDeleteMessages(this.id, messageIds);
 			const collection: Collection<string, import("../Partial/PartialMessage")> = new Collection();
 			return messageIds.reduce(
 				(col, id) =>
 					col.set(
 						id,
-						new PartialMessage(this.client, { id: id, channel_id: this.Id, guild_id: (this as unknown as import("../TextChannel")).guild ? (this as unknown as import("../TextChannel")).guild.Id : undefined })
+						new PartialMessage(this.client, { id: id, channel_id: this.id, guild_id: (this as unknown as import("../TextChannel")).guild ? (this as unknown as import("../TextChannel")).guild.id : undefined })
 					),
 				collection
 			);
 		}
 		if (!isNaN(messages)) {
-			const msgs = await this.client._snow.channel.getChannelMessages(this.Id, { limit: messages });
+			const msgs = await this.client._snow.channel.getChannelMessages(this.id, { limit: messages });
 			return this.bulkDelete(msgs.map(i => i.id), filterOld);
 		}
 		throw new TypeError("MESSAGE_BULK_DELETE_TYPE");
@@ -145,15 +145,15 @@ abstract class TextBasedChannel {
 		const Message: typeof import("../Message") = require("../Message");
 		let messageId;
 		if (typeof message === "string") messageId = message;
-		else messageId = message.Id;
+		else messageId = message.id;
 
-		const msg = await this.client._snow.channel.getChannelMessage(this.Id, messageId);
+		const msg = await this.client._snow.channel.getChannelMessage(this.id, messageId);
 		return new Message(this.client, msg, this);
 	}
 
 	public async fetchMessages(options?: import("../../Types").ChannelLogsQueryOptions) {
 		const Message: typeof import("../Message") = require("../Message");
-		const messages = await this.client._snow.channel.getChannelMessages(this.Id, options);
+		const messages = await this.client._snow.channel.getChannelMessages(this.id, options);
 		return new Collection(messages.map(m => [m.id, new Message(this.client, m, this)]));
 	}
 

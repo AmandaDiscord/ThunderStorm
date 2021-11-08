@@ -24,11 +24,11 @@ class ThreadTextChannel extends TextChannel {
 	}
 
 	public async fetchMembers() {
-		const ms = await this.client._snow.channel.getChannelThreadMembers(this.Id);
+		const ms = await this.client._snow.channel.getChannelThreadMembers(this.id);
 		if (!ms) return null;
 		const members = ms.map(m => new ThreadMember(this, m));
 		this.members.clear();
-		for (const member of members) this.members.set(member.Id, member);
+		for (const member of members) this.members.set(member.id, member);
 		return members;
 	}
 
@@ -40,8 +40,8 @@ class ThreadTextChannel extends TextChannel {
 			member_count: this.memberCount,
 			message_count: this.messageCount,
 			thread_metadata: this.meta.toJSON(),
-			parent_id: this.parent.Id,
-			guild_id: this.guild.Id
+			parent_id: this.parent.id,
+			guild_id: this.guild.id
 		});
 	}
 

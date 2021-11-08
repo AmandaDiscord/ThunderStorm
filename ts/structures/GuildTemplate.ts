@@ -62,7 +62,7 @@ class GuildTemplate extends Base {
 			};
 
 			const handleGuild = (guild: import("./Guild")) => {
-				if (guild.Id === data.Id) {
+				if (guild.id === data.id) {
 					client.clearTimeout(timeout);
 					resolveGuild(guild);
 				}

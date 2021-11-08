@@ -57,7 +57,7 @@ class Message extends Base {
 		const MessageReaction: typeof import("./MessageReaction") = require("./MessageReaction");
 		const GuildMember: typeof import("./GuildMember") = require("./GuildMember");
 
-		this.Id = data.id;
+		this.id = data.id;
 
 		if ("type" in data) {
 			this.type = MessageTypes[data.type] as import("../Types").MessageType;
@@ -74,8 +74,8 @@ class Message extends Base {
 		}
 
 		if ("author" in data) {
-			this.author = data.author.id === this.client.user!.Id ? this.client.user : new User(this.client, data.author);
-			if (data.author.id === this.client.user!.Id) this.client.user!._patch(data.author);
+			this.author = data.author.id === this.client.user!.id ? this.client.user : new User(this.client, data.author);
+			if (data.author.id === this.client.user!.id) this.client.user!._patch(data.author);
 		} else if (!this.author) {
 			this.author = null;
 		}
@@ -109,7 +109,7 @@ class Message extends Base {
 			}
 		}
 
-		this.createdTimestamp = SnowflakeUtil.deconstruct(this.Id).timestamp;
+		this.createdTimestamp = SnowflakeUtil.deconstruct(this.id).timestamp;
 		this.editedTimestamp = data.edited_timestamp ? new Date(data.edited_timestamp).getTime() : null;
 
 		if (data.reactions && data.reactions.length > 0) {
@@ -148,10 +148,10 @@ class Message extends Base {
 
 		if (data.interaction) {
 			this.interaction = {
-				Id: data.interaction.id,
+				id: data.interaction.id,
 				type: InteractionTypes[data.interaction.type],
 				commandName: data.interaction.name,
-				user: this.author && data.interaction.user.id === this.author.Id ? this.author : new User(this.client, data.interaction.user)
+				user: this.author && data.interaction.user.id === this.author.id ? this.author : new User(this.client, data.interaction.user)
 			};
 		} else if (!this.interaction) {
 			this.interaction = null;
@@ -176,13 +176,13 @@ class Message extends Base {
 				this.attachments.set(attachment.id, new MessageAttachment(attachment.url, attachment.filename, attachment));
 			}
 		} else {
-			this.attachments = new Collection(this.attachments.map(i => [i.Id, i]));
+			this.attachments = new Collection(this.attachments.map(i => [i.id, i]));
 		}
 
 		this.mentions = new Mentions(
 			this,
 			"mentions" in data ? data.mentions : this.mentions.users.map(u => u.toJSON()),
-			"mention_roles" in data ? data.mention_roles : this.mentions.roles.map(r => r.Id),
+			"mention_roles" in data ? data.mention_roles : this.mentions.roles.map(r => r.id),
 			"mention_everyone" in data ? data.mention_everyone : this.mentions.everyone,
 			"mention_channels" in data ? data.mention_channels : this.mentions.crosspostedChannels.map(i => i.toJSON())
 		);
@@ -205,7 +205,7 @@ class Message extends Base {
 	}
 
 	public get url() {
-		return `https://discord.com/channels/${this.guild ? this.guild.Id : "@me"}/${this.channel.Id}/${this.Id}`;
+		return `https://discord.com/channels/${this.guild ? this.guild.id : "@me"}/${this.channel.id}/${this.id}`;
 	}
 
 	public get cleanContent() {
@@ -242,11 +242,11 @@ class Message extends Base {
 	}
 
 	public get editable() {
-		return this.author?.Id === this.client.user!.Id;
+		return this.author?.id === this.client.user!.id;
 	}
 
 	public get deletable() {
-		return !this.deleted && this.author?.Id === this.client.user!.Id;
+		return !this.deleted && this.author?.id === this.client.user!.id;
 	}
 
 	public get pinnable() {
@@ -257,35 +257,35 @@ class Message extends Base {
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
 		if (!this.reference) throw new Error("MESSAGE_REFERENCE_MISSING");
 		const { channelId, messageId } = this.reference;
-		const channel = new PartialChannel(this.client, { id: channelId, guild_id: this.guild?.Id, type: this.guild?.Id ? ChannelTypes[0] : ChannelTypes[1] });
+		const channel = new PartialChannel(this.client, { id: channelId, guild_id: this.guild?.id, type: this.guild?.id ? ChannelTypes[0] : ChannelTypes[1] });
 		if (!channel) throw new Error("GUILD_CHANNEL_RESOLVE");
 		return channel.fetchMessage(messageId as string);
 	}
 
 	public get crosspostable() {
-		return this.channel.type === ChannelTypes[5] && !this.flags.has(MessageFlags.FLAGS.CROSSPOSTED) && this.type === "DEFAULT" && (this.author && this.author.Id === this.client.user!.Id);
+		return this.channel.type === ChannelTypes[5] && !this.flags.has(MessageFlags.FLAGS.CROSSPOSTED) && this.type === "DEFAULT" && (this.author && this.author.id === this.client.user!.id);
 	}
 
 	public async edit(options: import("../Types").MessageEditOptions) {
 		const opts = options instanceof MessagePayload ? options : MessagePayload.create(this, options);
 		const { data, files } = opts.resolveData();
-		const d = await this.client._snow.channel.editMessage(this.channel.Id, this.Id, Object.assign({}, data, { files: files }), { disableEveryone: (options as import("../Types").MessageEditOptions).disableEveryone ? (options as import("../Types").MessageEditOptions).disableEveryone : this.client.options.disableEveryone || false });
+		const d = await this.client._snow.channel.editMessage(this.channel.id, this.id, Object.assign({}, data, { files: files }), { disableEveryone: (options as import("../Types").MessageEditOptions).disableEveryone ? (options as import("../Types").MessageEditOptions).disableEveryone : this.client.options.disableEveryone || false });
 		return this._patch(d);
 	}
 
 	public async crosspost() {
-		const d = await this.client._snow.channel.crosspostMessage(this.channel.Id, this.Id);
+		const d = await this.client._snow.channel.crosspostMessage(this.channel.id, this.id);
 		this._patch(d);
 		return this;
 	}
 
 	public async pin() {
-		await this.client._snow.channel.addChannelPinnedMessage(this.channel.Id, this.Id);
+		await this.client._snow.channel.addChannelPinnedMessage(this.channel.id, this.id);
 		return this;
 	}
 
 	public async unpin() {
-		await this.client._snow.channel.removeChannelPinnedMessage(this.channel.Id, this.Id);
+		await this.client._snow.channel.removeChannelPinnedMessage(this.channel.id, this.id);
 		return this;
 	}
 
@@ -295,26 +295,26 @@ class Message extends Base {
 		if (typeof emoji === "string") {
 			if (emoji.match(/^\d+$/)) emoji = `_:${emoji}`;
 		} else {
-			if (!emoji.name && !emoji.Id) throw new TypeError("MESSAGE_REACT_EMOJI_NOT_RESOLAVABLE");
+			if (!emoji.name && !emoji.id) throw new TypeError("MESSAGE_REACT_EMOJI_NOT_RESOLAVABLE");
 			if (emoji instanceof ReactionEmoji || emoji instanceof GuildEmoji) emoji = emoji.identifier;
-			else emoji = emoji.Id === null ? emoji.name as string : `${emoji.name ? emoji.name : "_"}:${emoji.Id}`;
+			else emoji = emoji.id === null ? emoji.name as string : `${emoji.name ? emoji.name : "_"}:${emoji.id}`;
 		}
 		const ceregex = /<?a?:?(\w+):(\d+)>?/;
 		let value;
 		const match = emoji.match(ceregex);
 		if (match) value = `${match[1]}:${match[2]}`;
 		else value = emoji;
-		await this.client._snow.channel.createReaction(this.channel.Id, this.Id, encodeURIComponent(value));
+		await this.client._snow.channel.createReaction(this.channel.id, this.id, encodeURIComponent(value));
 		return this;
 	}
 
 	public async clearReactions() {
-		await this.client._snow.channel.deleteAllReactions(this.channel.Id, this.Id);
+		await this.client._snow.channel.deleteAllReactions(this.channel.id, this.id);
 		return this;
 	}
 
 	public async delete(): Promise<this> {
-		await this.client._snow.channel.deleteMessage(this.channel.Id, this.Id);
+		await this.client._snow.channel.deleteMessage(this.channel.id, this.id);
 		return this;
 	}
 
@@ -335,7 +335,7 @@ class Message extends Base {
 	}
 
 	public async fetch() {
-		const d = await this.client._snow.channel.getChannelMessage(this.channel.Id, this.Id);
+		const d = await this.client._snow.channel.getChannelMessage(this.channel.id, this.id);
 		this._patch(d);
 		return this;
 	}
@@ -364,11 +364,11 @@ class Message extends Base {
 	public equals(message: Message, rawData: import("discord-typings").MessageData) {
 		if (!message) return false;
 		const embedUpdate = !message.author && !message.attachments;
-		if (embedUpdate) return this.Id === message.Id && this.embeds.length === message.embeds.length;
+		if (embedUpdate) return this.id === message.id && this.embeds.length === message.embeds.length;
 
 		let equal =
-			this.Id === message.Id &&
-			!!this.author && this.author.Id === message.author?.Id &&
+			this.id === message.id &&
+			!!this.author && this.author.id === message.author?.id &&
 			this.content === message.content &&
 			this.tts === message.tts &&
 			this.nonce === message.nonce &&

@@ -20,7 +20,7 @@ import GuildApplicationCommandManager from "../managers/GuildApplicationCommandM
 class Guild extends AnonymousGuild {
 	public partial: false = false;
 	public name = "unknown";
-	public Id!: string;
+	public id!: string;
 	public available!: boolean;
 	public memberCount = 0;
 	public approximateMemberCount = 0;
@@ -68,23 +68,23 @@ class Guild extends AnonymousGuild {
 	}
 
 	public get me() {
-		return new GuildMember(this.client, { guild_id: this.Id, deaf: false, hoisted_role: this.Id, joined_at: this.joinedAt.toISOString(), mute: false, nick: null, roles: [], user: (this.client.user as import("./ClientUser")).toJSON() });
+		return new GuildMember(this.client, { guild_id: this.id, deaf: false, hoisted_role: this.id, joined_at: this.joinedAt.toISOString(), mute: false, nick: null, roles: [], user: (this.client.user as import("./ClientUser")).toJSON() });
 	}
 
 	public async fetchWelcomeScreen() {
-		const data = await this.client.api.guilds(this.Id, "welcome-screen").get();
+		const data = await this.client.api.guilds(this.id, "welcome-screen").get();
 		return new WelcomeScreen(this, data);
 	}
 
 	public bannerURL(options: import("../Types").ImageURLOptions = { format: "png", size: 512 }) {
 		if (!this.banner) return null;
-		return this.client.rest.cdn.Banner(this.Id, this.banner, options.format, options.size);
+		return this.client.rest.cdn.Banner(this.id, this.banner, options.format, options.size);
 	}
 
 	public toJSON() {
 		return {
 			name: this.name,
-			id: this.Id,
+			id: this.id,
 			unavailable: !this.available,
 			member_count: this.memberCount,
 			approximate_member_count: this.approximateMemberCount,
@@ -118,12 +118,12 @@ class Guild extends AnonymousGuild {
 	public async fetchMembers(options: string): Promise<import("./GuildMember") | null>
 	public async fetchMembers(options: import("../Types").FetchMemberOptions): Promise<Array<import("./GuildMember")> | null>
 	public async fetchMembers(options: string | import("../Types").FetchMemberOptions) {
-		if (typeof options === "string") return this.client._snow.guild.getGuildMember(this.Id, options).then(d => new GuildMember(this.client, d as any));
+		if (typeof options === "string") return this.client._snow.guild.getGuildMember(this.id, options).then(d => new GuildMember(this.client, d as any));
 		else {
 			const payload: { limit?: number; after?: string; } = {};
 			if (options.limit) payload["limit"] = options.limit;
 			if (options.after) payload["after"] = options.after;
-			const data = await this.client._snow.guild.getGuildMembers(this.Id, payload) as unknown as Array<import("discord-typings").MemberData & { user: import("discord-typings").UserData }>;
+			const data = await this.client._snow.guild.getGuildMembers(this.id, payload) as unknown as Array<import("discord-typings").MemberData & { user: import("discord-typings").UserData }>;
 			if (!data || data.length === 0) return null;
 			if (!options.query) return data.map(d => new GuildMember(this.client, d));
 			else if (options.Ids) return data.filter(d => (d.user ? options.Ids?.includes(d.user.id) : false)).map(d => new GuildMember(this.client, d));
@@ -133,7 +133,7 @@ class Guild extends AnonymousGuild {
 
 	public async fetchInvites() {
 		const Invite: typeof import("./Invite") = require("./Invite");
-		const inviteItems = await this.client._snow.guild.getGuildInvites(this.Id);
+		const inviteItems = await this.client._snow.guild.getGuildInvites(this.id);
 		const invites: Collection<string, import("./Invite")> = new Collection();
 		for (const inviteItem of inviteItems) {
 			const invite = new Invite(this.client, inviteItem);
@@ -148,7 +148,7 @@ class Guild extends AnonymousGuild {
 		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
 
 		if (data.name) this.name = data.name;
-		if (data.id) this.Id = data.id;
+		if (data.id) this.id = data.id;
 		this.available = data.unavailable !== undefined ? !data.unavailable : (this.available ? true : false);
 		if (data.member_count) this.memberCount = data.member_count;
 		if (data.approximate_member_count !== undefined) this.approximateMemberCount = data.approximate_member_count;
@@ -168,7 +168,7 @@ class Guild extends AnonymousGuild {
 		if (data.rules_channel_id !== undefined) this.rulesChannelId = data.rules_channel_id;
 		if (data.preferred_locale) this.preferredLocale = data.preferred_locale;
 		if (data.mfa_level !== undefined) this.mfaLevel = data.mfa_level;
-		this.owner = this.owner && data.owner_id === this.owner.Id ? this.owner : new PartialUser(this.client, { id: this.ownerId });
+		this.owner = this.owner && data.owner_id === this.owner.id ? this.owner : new PartialUser(this.client, { id: this.ownerId });
 		this.icon = data.icon || (this.icon ? this.icon : null);
 
 		if (!this.members) this.members = new Collection();
@@ -188,14 +188,14 @@ class Guild extends AnonymousGuild {
 				else if (channel.type === 6) chan = new StoreChannel(this as any, channel);
 				else if (channel.type === 13) chan = new StageChannel(this as any, channel);
 				else chan = new TextChannel(this as any, channel);
-				this.channels.set(chan.Id, chan);
+				this.channels.set(chan.id, chan);
 			}
 		}
 
 		if (!this.roles) this.roles = new Collection();
 		if (data.roles && Array.isArray(data.roles)) {
 			this.roles.clear();
-			for (const role of data.roles) this.roles.set(role.id, new Role(this.client, Object.assign({}, role, { guild_id: this.Id })));
+			for (const role of data.roles) this.roles.set(role.id, new Role(this.client, Object.assign({}, role, { guild_id: this.id })));
 		}
 
 		if (!this.voiceStates) this.voiceStates = new Collection();

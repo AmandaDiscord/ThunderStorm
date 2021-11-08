@@ -20,21 +20,21 @@ class ThreadMember extends Base {
 			flags: this.flags,
 			id: this.threadId,
 			join_timestamp: this.joinedAt.toISOString(),
-			user_id: this.user.Id
+			user_id: this.user.id
 		};
 	}
 
 	public _patch(data: import("discord-typings").ThreadMemberData) {
 		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
 		if (data.flags !== undefined) this.flags = data.flags;
-		if (!this.threadId || data.id) this.threadId = data.id || this.thread.Id;
+		if (!this.threadId || data.id) this.threadId = data.id || this.thread.id;
 		if (data.join_timestamp) {
 			this.joinedAt = new Date(data.join_timestamp);
 			this.joinedTimestamp = this.joinedAt.getTime();
 		}
 		if (data.user_id) {
 			this.user = new PartialUser(this.client, { id: data.user_id });
-			this.Id = this.user.Id;
+			this.id = this.user.id;
 		}
 	}
 }

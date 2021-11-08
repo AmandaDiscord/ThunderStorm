@@ -34,7 +34,7 @@ export class Presence extends Base {
 			this.user.presence = this;
 			this.guild = this.member.guild;
 		} else if (data.user) {
-			this.user = data.user.id === this.client.user?.Id ? this.client.user : new User(this.client, data.user);
+			this.user = data.user.id === this.client.user?.id ? this.client.user : new User(this.client, data.user);
 		}
 
 		return this;
@@ -64,7 +64,7 @@ export class Presence extends Base {
 
 		value["activities"] = this.activities.map(i => i.toJSON());
 		value["client_status"] = this.clientStatus;
-		if (this.guild) value["guild_id"] = this.guild.Id;
+		if (this.guild) value["guild_id"] = this.guild.id;
 
 		// @ts-ignore
 		delete value["joined_at"]; delete value["mute"];

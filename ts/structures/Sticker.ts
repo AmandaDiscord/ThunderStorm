@@ -11,13 +11,13 @@ class Sticker extends Base {
 	constructor(client: import("../client/Client"), sticker: import("discord-typings").StickerItemData) {
 		super(client);
 
-		this.Id = sticker.id;
+		this.id = sticker.id;
 		this.format = StickerFormatTypes[sticker.format_type];
 		this.name = sticker.name;
 	}
 
 	public get createdTimestamp() {
-		return SnowflakeUtil.deconstruct(this.Id).timestamp;
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
 	}
 
 	public get createdAt() {
@@ -25,7 +25,7 @@ class Sticker extends Base {
 	}
 
 	public get url() {
-		return `${STEndpoints.CDN_URL}/stickers/${this.Id}.${this.format === "LOTTIE" ? "json" : "png"}`;
+		return `${STEndpoints.CDN_URL}/stickers/${this.id}.${this.format === "LOTTIE" ? "json" : "png"}`;
 	}
 }
 

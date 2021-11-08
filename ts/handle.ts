@@ -137,9 +137,9 @@ function handle(packet: any, client: import("./client/Client")) {
 		const typed: Required<import("./internal").InboundDataType<"THREAD_LIST_SYNC">> = data;
 		client.emit(Constants.Events.THREAD_LIST_SYNC, new PartialGuild(client, { id: typed.d.guild_id }), new Collection((typed.d.channel_ids || []).map(id => [id, new PartialChannel(client, { id: id, guild_id: typed.d.guild_id })])), new Collection(typed.d.threads.map(thread => {
 			const channel = thread.type === 10 ? new ThreadNewsChannel(new PartialGuild(client, { id: typed.d.guild_id }), thread) : new ThreadTextChannel(new PartialGuild(client, { id: typed.d.guild_id }), thread);
-			const members = typed.d.members.filter(m => m.id === channel.Id);
+			const members = typed.d.members.filter(m => m.id === channel.id);
 			for (const member of members) channel.members.set(member.user_id as string, new ThreadMember(channel, member));
-			return [channel.Id, channel];
+			return [channel.id, channel];
 		})));
 	} else if (data.t === "THREAD_UPDATE") {
 		const typed: Required<import("./internal").InboundDataType<"THREAD_UPDATE">> = data;

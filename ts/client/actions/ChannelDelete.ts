@@ -12,7 +12,7 @@ class ChannelDeleteAction extends Action {
 	public handle(data: any) {
 		const PartialChannel: typeof import("../../structures/Partial/PartialChannel") = require("../../structures/Partial/PartialChannel");
 
-		const channel = new PartialChannel(this.client, { id: data.Id, name: data.name, type: ChannelTypes[data.type as import("discord-typings").ChannelType] || "text" });
+		const channel = new PartialChannel(this.client, { id: data.id, name: data.name, type: ChannelTypes[data.type as import("discord-typings").ChannelType] || "text" });
 		this.client.emit(Events.CHANNEL_DELETE, channel);
 		return { channel };
 	}

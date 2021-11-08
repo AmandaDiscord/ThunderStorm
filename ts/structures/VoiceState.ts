@@ -2,7 +2,7 @@ import GuildMember from "./GuildMember";
 
 class VoiceState {
 	public client: import("../client/Client");
-	public Id!: string;
+	public id!: string;
 	public channelId: string | null = null;
 	public guildId: string | null = null;
 	public member: GuildMember | null = null;
@@ -32,7 +32,7 @@ class VoiceState {
 			session_id: this.sessionId,
 			self_stream: this.streaming,
 			suppress: this.supress,
-			user_id: this.Id
+			user_id: this.id
 		};
 	}
 
@@ -47,7 +47,7 @@ class VoiceState {
 		if (data.session_id) this.sessionId = data.session_id;
 		if (data.self_stream != undefined) this.streaming = data.self_stream;
 		if (data.suppress != undefined) this.supress = data.suppress;
-		if (data.user_id) this.Id = data.user_id;
+		if (data.user_id) this.id = data.user_id;
 	}
 }
 

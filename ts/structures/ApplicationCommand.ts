@@ -22,7 +22,7 @@ class ApplicationCommand extends Base {
 	public constructor(client: import("../client/Client"), data: import("discord-typings").ApplicationCommand, guild?: import("./Guild") | import("./Partial/PartialGuild")) {
 		super(client);
 
-		this.Id = data.id;
+		this.id = data.id;
 		this.guild = guild ?? null;
 
 		this._patch(data);
@@ -36,7 +36,7 @@ class ApplicationCommand extends Base {
 	}
 
 	public get createdTimestamp() {
-		return SnowflakeUtil.deconstruct(this.Id).timestamp;
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
 	}
 
 	public get createdAt() {

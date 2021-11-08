@@ -8,7 +8,7 @@ class MessageReactionAdd extends Action {
 		const MessageReaction: typeof import("../../structures/MessageReaction") = require("../../structures/MessageReaction");
 		if (!data.emoji) return false;
 
-		const reaction = new MessageReaction(new PartialMessage(this.client, { id: data.message_id, channel_id: data.channel_id, guild_id: data.guild_id }), data.emoji, 1, data.user_id === this.client.user?.Id);
+		const reaction = new MessageReaction(new PartialMessage(this.client, { id: data.message_id, channel_id: data.channel_id, guild_id: data.guild_id }), data.emoji, 1, data.user_id === this.client.user?.id);
 		const user = new PartialUser(this.client, { id: data.user_id });
 
 		this.client.emit(Events.MESSAGE_REACTION_ADD, reaction, user);

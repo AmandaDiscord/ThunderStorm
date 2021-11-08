@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+
 import STEndpoints from "snowtransfer/dist/Endpoints";
 
 import { Error, RangeError } from "../errors";
@@ -9,7 +11,7 @@ const AllowedImageSizes: Array<import("../Types").ImageSize> = Array.from({ leng
 function makeImageUrl(root: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = { format: "png" }) {
 	if (options.format && !AllowedImageFormats.includes(options.format)) throw new Error("IMAGE_FORMAT", options.format);
 	if (options.size && !AllowedImageSizes.includes(options.size)) throw new RangeError("IMAGE_SIZE", options.size);
-	return `${root}.${options.format}${options.size ? `?size=${options.size}` : ""}`;
+	return `${root}.${options.format || "png"}${options.size ? `?size=${options.size}` : ""}`;
 }
 
 export const Endpoints = {
@@ -22,8 +24,14 @@ export const Endpoints = {
 				if (dynamic) format = hash.startsWith("a_") ? "gif" : format;
 				return makeImageUrl(`${root}/avatars/${userId}/${hash}`, { format, size });
 			},
-			Banner: (guildId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
-				makeImageUrl(`${root}/banners/${guildId}/${hash}`, { format, size }),
+			GuildMemberAvatar: (guildId: string, memberId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
+				if (dynamic && hash.startsWith("a_")) format = "gif";
+				return makeImageUrl(`${root}/guilds/${guildId}/users/${memberId}/avatars/${hash}`, { format, size });
+			},
+			Banner: (id: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
+				if (dynamic && hash.startsWith("a_")) format = "gif";
+				makeImageUrl(`${root}/banners/${id}/${hash}`, { format, size });
+			},
 			Icon: (guildId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
 				if (dynamic) format = hash.startsWith("a_") ? "gif" : format;
 				return makeImageUrl(`${root}/icons/${guildId}/${hash}`, { format, size });
@@ -32,6 +40,8 @@ export const Endpoints = {
 				makeImageUrl(`${root}/app-icons/${clientId}/${hash}`, { size: options.size, format: options.format }),
 			AppAsset: (clientId: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = { format: "png" }) =>
 				makeImageUrl(`${root}/app-assets/${clientId}/${hash}`, { size: options.size, format: options.format }),
+			StickerPackBanner: (bannerId: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
+				makeImageUrl(`${root}/app-assets/710982414301790216/store/${bannerId}`, { size, format }),
 			GDMIcon: (channelId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
 				makeImageUrl(`${root}/channel-icons/${channelId}/${hash}`, { size, format }),
 			Splash: (guildId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
@@ -39,7 +49,11 @@ export const Endpoints = {
 			DiscoverySplash: (guildId: string, hash: string, format: import("../Types").AllowedImageFormat = "webp", size?: import("../Types").ImageSize) =>
 				makeImageUrl(`${root}/discovery-splashes/${guildId}/${hash}`, { size, format }),
 			TeamIcon: (teamId: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = { format: "png" }) =>
-				makeImageUrl(`${root}/team-icons/${teamId}/${hash}`, { size: options.size, format: options.format })
+				makeImageUrl(`${root}/team-icons/${teamId}/${hash}`, { size: options.size, format: options.format }),
+			Sticker: (stickerId: string, stickerFormat: "LOTTIE" | "png") =>
+				`${root}/stickers/${stickerId}.${stickerFormat === "LOTTIE" ? "json" : "png"}`,
+			RoleIcon: (roleId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
+				makeImageUrl(`${root}/role-icons/${roleId}/${hash}`, { size, format })
 		};
 	},
 	invite: (root: string, code: string) => `${root}/${code}`,
@@ -106,7 +120,7 @@ export const PartialTypes = {
 	REACTION: "REACTION" as const
 };
 
-export const InviteScopes: [
+export const InviteScopes = [
 	"applications.builds.read",
 	"applications.commands",
 	"applications.entitlements",
@@ -118,21 +132,9 @@ export const InviteScopes: [
 	"guilds.join",
 	"gdm.join",
 	"webhook.incoming"
-] = [
-	"applications.builds.read",
-	"applications.commands",
-	"applications.entitlements",
-	"applications.store.update",
-	"connections",
-	"email",
-	"identity",
-	"guilds",
-	"guilds.join",
-	"gdm.join",
-	"webhook.incoming"
-];
+] as const;
 
-export const MessageTypes: [
+export const MessageTypes = [
 	"DEFAULT",
 	"RECIPIENT_ADD",
 	"RECIPIENT_REMOVE",
@@ -156,72 +158,35 @@ export const MessageTypes: [
 	"APPLICATION_COMMAND",
 	"THREAD_STARTER_MESSAGE",
 	"GUILD_INVITE_REMINDER"
-] = [
-	"DEFAULT",
-	"RECIPIENT_ADD",
-	"RECIPIENT_REMOVE",
-	"CALL",
-	"CHANNEL_NAME_CHANGE",
-	"CHANNEL_ICON_CHANGE",
-	"PINS_ADD",
-	"GUILD_MEMBER_JOIN",
-	"USER_PREMIUM_GUILD_SUBSCRIPTION",
-	"USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1",
-	"USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2",
-	"USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3",
-	"CHANNEL_FOLLOW_ADD",
-	null,
-	"GUILD_DISCOVERY_DISQUALIFIED",
-	"GUILD_DISCOVERY_REQUALIFIED",
-	"GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING",
-	"GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING",
-	null,
-	"REPLY",
-	"APPLICATION_COMMAND",
-	"THREAD_STARTER_MESSAGE",
-	"GUILD_INVITE_REMINDER"
-];
+] as const;
 
-export const SystemMessageTypes: Exclude<typeof MessageTypes, null | "DEFAULT" | "REPLY" | "APPLICATION_COMMAND"> = MessageTypes.filter(type => type && !["DEFAULT", "REPLY", "APPLICATION_COMMAND"].includes(type)) as Exclude<typeof MessageTypes, null | "DEFAULT" | "REPLY" | "APPLICATION_COMMAND">;
+export const SystemMessageTypes = MessageTypes.filter(type => type && !["DEFAULT", "REPLY", "APPLICATION_COMMAND"].includes(type)) as ["RECIPIENT_ADD", "RECIPIENT_REMOVE", "CALL", "CHANNEL_NAME_CHANGE", "CHANNEL_ICON_CHANGE", "PINS_ADD", "GUILD_MEMBER_JOIN", "USER_PREMIUM_GUILD_SUBSCRIPTION", "USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1", "USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2", "USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3", "CHANNEL_FOLLOW_ADD", null, "GUILD_DISCOVERY_DISQUALIFIED", "GUILD_DISCOVERY_REQUALIFIED", "GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING", "GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING", null, "THREAD_STARTER_MESSAGE", "GUILD_INVITE_REMINDER"];
 
-export const ActivityTypes: ["PLAYING", "STREAMING", "LISTENING", "WATCHING", "CUSTOM_STATUS", "COMPETING"] = ["PLAYING", "STREAMING", "LISTENING", "WATCHING", "CUSTOM_STATUS", "COMPETING"];
+export const ActivityTypes = ["PLAYING", "STREAMING", "LISTENING", "WATCHING", "CUSTOM_STATUS", "COMPETING"] as const;
 
 export const ClientApplicationAssetTypes = {
 	SMALL: 1 as const,
 	BIG: 2 as const
 };
 
-export const ChannelTypes = {
-	"-1": "UNKNOWN" as const,
+export const ChannelTypes = enumerate({
 	UNKNOWN: -1 as const,
-	0: "GUILD_TEXT" as const,
 	GUILD_TEXT: 0 as const,
-	1: "DM" as const,
 	DM: 1 as const,
-	2: "GUILD_VOICE" as const,
 	GUILD_VOICE: 2 as const,
-	4: "GUILD_CATEGORY" as const,
 	GUILD_CATEGORY: 4 as const,
-	5: "GUILD_NEWS" as const,
 	GUILD_NEWS: 5 as const,
-	6: "GUILD_STORE" as const,
 	GUILD_STORE: 6 as const,
-	10: "GUILD_NEWS_THREAD" as const,
 	GUILD_NEWS_THREAD: 10 as const,
-	11: "GUILD_PUBLIC_THREAD" as const,
 	GUILD_PUBLIC_THREAD: 11 as const,
-	12: "GUILD_PRIVATE_THREAD" as const,
 	GUILD_PRIVATE_THREAD: 12 as const,
-	13: "GUILD_STAGE_VOICE" as const,
 	GUILD_STAGE_VOICE: 13 as const
-};
+});
 
-export const VoiceBasedChannelTypes = {
-	2: "GUILD_VOICE" as const,
+export const VoiceBasedChannelTypes = enumerate({
 	GUILD_VOICE: 2 as const,
-	13: "GUILD_STAGE_VOICE" as const,
 	GUILD_STAGE_VOICE: 13 as const
-};
+});
 
 export const Colors = {
 	DEFAULT: 0x000000,
@@ -256,9 +221,9 @@ export const Colors = {
 	RANDOM: 0xD // XD. Replaced at runtime when used natively
 };
 
-export const ExplicitContentFilterLevels: ["DISABLED", "MEMBERS_WITHOUT_ROLES", "ALL_MEMBERS"] = ["DISABLED", "MEMBERS_WITHOUT_ROLES", "ALL_MEMBERS"];
+export const ExplicitContentFilterLevels = ["DISABLED", "MEMBERS_WITHOUT_ROLES", "ALL_MEMBERS"] as const;
 
-export const VerificationLevels: ["NONE", "LOW", "MEDIUM", "HIGH", "VERY_HIGH"] = ["NONE", "LOW", "MEDIUM", "HIGH", "VERY_HIGH"];
+export const VerificationLevels = ["NONE", "LOW", "MEDIUM", "HIGH", "VERY_HIGH"] as const;
 
 export const APIErrors = {
 	UNKNOWN_ACCOUNT: 10001 as const,
@@ -330,149 +295,120 @@ export const APIErrors = {
 	RESOURCE_OVERLOADED: 130000 as const
 };
 
-export const DefaultMessageNotifications: ["ALL", "MENTIONS"] = ["ALL", "MENTIONS"];
+export const DefaultMessageNotifications = ["ALL", "MENTIONS"] as const;
 
-export const MembershipStates: [null, "INVITED", "ACCEPTED"] = [
+export const MembershipStates = [
 	null,
 	"INVITED",
 	"ACCEPTED"
-];
+] as const;
 
-export const WebhookTypes: [null, "Incoming", "Channel Follower", "Application"] = [
+export const WebhookTypes = [
 	null,
 	"Incoming",
 	"Channel Follower",
 	"Application"
-];
+] as const;
 
-export const StickerFormatTypes = {
-	1: "PNG" as const,
+export const StickerFormatTypes = enumerate({
 	PNG: 1 as const,
-	2: "APNG" as const,
 	APNG: 2 as const,
-	3: "LOTTIE" as const,
 	LOTTIE: 3 as const
-};
+});
 
-export const OverwriteTypes = {
-	0: "role" as const,
+export const OverwriteTypes = enumerate({
 	role: 0 as const,
-	1: "member" as const,
 	member: 1 as const
-};
+});
 
-export const ApplicationCommandOptionTypes = {
-	1: "SUB_COMMAND" as const,
+export const ApplicationCommandOptionTypes = enumerate({
 	SUB_COMMAND: 1 as const,
-	2: "SUB_COMMAND_GROUP" as const,
 	SUB_COMMAND_GROUP: 2 as const,
-	3: "STRING" as const,
 	STRING: 3 as const,
-	4: "INTEGER" as const,
 	INTEGER: 4 as const,
-	5: "BOOLEAN" as const,
 	BOOLEAN: 5 as const,
-	6: "USER" as const,
 	USER: 6 as const,
-	7: "CHANNEL" as const,
 	CHANNEL: 7 as const,
-	8: "ROLE" as const,
 	ROLE: 8 as const,
-	9: "MENTIONABLE" as const,
 	MENTIONABLE: 9 as const,
-	10: "NUMBER" as const,
 	NUMBER: 10 as const
-};
+});
 
-export const ApplicationCommandPermissionTypes = {
-	1: "ROLE" as const,
+export const ApplicationCommandPermissionTypes = enumerate({
 	ROLE: 1 as const,
-	2: "USER" as const,
 	USER: 2 as const
-};
+});
 
-export const InteractionTypes = {
-	1: "PING" as const,
+export const InteractionTypes = enumerate({
 	PING: 1 as const,
-	2: "APPLICATION_COMMAND" as const,
 	APPLICATION_COMMAND: 2 as const,
-	3: "MESSAGE_COMPONENT" as const,
-	MESSAGE_COMPONENT: 3 as const
-};
+	MESSAGE_COMPONENT: 3 as const,
+	APPLICATION_COMMAND_AUTOCOMPLETE: 4 as const
+});
 
-export const InteractionResponseTypes = {
-	1: "PONG" as const,
+export const InteractionResponseTypes = enumerate({
 	PONG: 1 as const,
-	4: "CHANNEL_MESSAGE_WITH_SOURCE" as const,
 	CHANNEL_MESSAGE_WITH_SOURCE: 4 as const,
-	5: "DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE" as const,
 	DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE: 5 as const,
-	6: "DEFERRED_MESSAGE_UPDATE" as const,
 	DEFERRED_MESSAGE_UPDATE: 6 as const,
-	7: "UPDATE_MESSAGE" as const,
 	UPDATE_MESSAGE: 7 as const
-};
+});
 
-export const MessageComponentTypes = {
-	1: "ACTION_ROW" as const,
+export const MessageComponentTypes = enumerate({
 	ACTION_ROW: 1 as const,
-	2: "BUTTON" as const,
-	BUTTON: 2 as const
-};
+	BUTTON: 2 as const,
+	SELECT_MENU: 3 as const
+});
 
-export const MessageButtonStyles = {
-	1: "PRIMARY" as const,
+export const MessageButtonStyles = enumerate({
 	PRIMARY: 1 as const,
-	2: "SECONDARY" as const,
 	SECONDARY: 2 as const,
-	3: "SUCCESS" as const,
 	SUCCESS: 3 as const,
-	4: "DANGER" as const,
 	DANGER: 4 as const,
-	5: "LINK" as const,
 	LINK: 5 as const
-};
+});
 
-export const NSFWLevels = {
-	0: "DEFAULT" as const,
+export const MFALevels = enumerate({
+	NONE: 0 as const,
+	ELEVATED: 1 as const
+});
+
+export const NSFWLevels = enumerate({
 	DEFAULT: 0 as const,
-	1: "EXPLICIT" as const,
 	EXPLICIT: 1 as const,
-	2: "SAFE" as const,
 	SAFE: 2 as const,
-	3: "AGE_RESTRICTED" as const,
 	AGE_RESTRICTED: 3 as const
-};
+});
+
+export const PrivacyLevels = enumerate({
+	PUBLIC: 1 as const,
+	GUILD_ONLY: 2 as const
+});
+
+export const PremiumTiers = enumerate({
+	NONE: 0 as const,
+	TIER_1: 1 as const,
+	TIER_2: 2 as const,
+	TIER_3: 3 as const
+});
 
 export const SYSTEM_USER_ID = "643945264868098049";
 
-const Constants = {
-	SYSTEM_USER_ID,
-	Endpoints,
-	Events,
-	PartialTypes,
-	InviteScopes,
-	MessageTypes,
-	SystemMessageTypes,
-	ActivityTypes,
-	ClientApplicationAssetTypes,
-	ChannelTypes,
-	Colors,
-	ExplicitContentFilterLevels,
-	VerificationLevels,
-	APIErrors,
-	DefaultMessageNotifications,
-	MembershipStates,
-	WebhookTypes,
-	StickerFormatTypes,
-	OverwriteTypes,
-	ApplicationCommandOptionTypes,
-	ApplicationCommandPermissionTypes,
-	InteractionTypes,
-	InteractionResponseTypes,
-	MessageComponentTypes,
-	MessageButtonStyles,
-	NSFWLevels
+type KeyFromVal<T, V> = {
+	[K in keyof T]: V extends T[K] ? K : never
+}[keyof T];
+
+type Inverse<M extends Record<string, number>> = {
+	[K in M[keyof M]]: KeyFromVal<M, K>
 };
 
-export default Constants;
+function enumerate<T extends Record<string, number>>(obj: T): T & Inverse<T> {
+	const entries = Object.entries(obj);
+	const mirror = {} as Record<number, string>;
+	for (const [key, value] of entries) {
+		mirror[value] = key;
+	}
+	return Object.assign(obj, mirror) as T & Inverse<T>;
+}
+
+export default exports as typeof import("./Constants");

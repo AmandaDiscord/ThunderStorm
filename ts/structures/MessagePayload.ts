@@ -127,7 +127,7 @@ class MessagePayload {
 
 		let message_reference;
 		if (typeof (this.options as import("../Types").MessageOptions).reply === "object") {
-			const message_id: string = typeof ((this.options as import("../Types").MessageOptions).reply as import("../Types").ReplyOptions).messageReference === "string" ? ((this.options as import("../Types").MessageOptions).reply as import("../Types").ReplyOptions).messageReference as string : (((this.options as import("../Types").MessageOptions).reply as import("../Types").ReplyOptions).messageReference as Exclude<import("../Types").MessageResolvable, string>).Id;
+			const message_id: string = typeof ((this.options as import("../Types").MessageOptions).reply as import("../Types").ReplyOptions).messageReference === "string" ? ((this.options as import("../Types").MessageOptions).reply as import("../Types").ReplyOptions).messageReference as string : (((this.options as import("../Types").MessageOptions).reply as import("../Types").ReplyOptions).messageReference as Exclude<import("../Types").MessageResolvable, string>).id;
 			if (message_id) {
 				message_reference = {
 					message_id,

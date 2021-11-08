@@ -15,7 +15,7 @@ class MessageDeleteBulkAction extends Action {
 			msgs.push(message);
 		}
 
-		const messages = new Collection(msgs.map(msg => [msg.Id, msg]));
+		const messages = new Collection(msgs.map(msg => [msg.id, msg]));
 		this.client.emit(Events.MESSAGE_BULK_DELETE, messages);
 		return { messages };
 	}

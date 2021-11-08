@@ -22,8 +22,8 @@ class TeamMember extends Base {
 
 	public toJSON() {
 		return {
-			id: this.Id,
-			team_id: this.team.Id,
+			id: this.id,
+			team_id: this.team.id,
 			membership_state: this.membershipState === "INVITED" ? 1 : 2 as 1 | 2,
 			permissions: this.permissions,
 			user: this.user.toJSON()
@@ -34,9 +34,9 @@ class TeamMember extends Base {
 		if (data.permissions) this.permissions = data.permissions;
 		if (!this.membershipState || data.membership_state) this.membershipState = data.membership_state === 1 ? "INVITED" : "ACCEPTED";
 		if (data.user) {
-			if (data.user.id === this.client.user?.Id) this.client.user._patch(data.user);
-			this.user = data.user.id === this.client.user?.Id ? this.client.user : new User(this.client, data.user);
-			this.Id = this.user.Id;
+			if (data.user.id === this.client.user?.id) this.client.user._patch(data.user);
+			this.user = data.user.id === this.client.user?.id ? this.client.user : new User(this.client, data.user);
+			this.id = this.user.id;
 		}
 	}
 }

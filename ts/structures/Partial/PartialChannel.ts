@@ -27,7 +27,7 @@ class PartialChannel extends PartialBase<import("../Channel")> implements TextBa
 	public partialType: "Channel" = "Channel";
 	public guild: import("./PartialGuild") | null;
 	public name: string;
-	public permissions: import("../../util/Permissions");
+	public permissions: Readonly<import("../../util/Permissions")>;
 	public topic: string | null;
 
 	public constructor(client: import("../../client/Client"), data: import("../../internal").PartialData) {
@@ -38,17 +38,17 @@ class PartialChannel extends PartialBase<import("../Channel")> implements TextBa
 		this.guild = data.guild_id ? new PartialGuild(client, { id: data.guild_id }) : null;
 		this.type = data.type || "UNKNOWN";
 		this.name = data.name || "UNKNOWN";
-		this.permissions = new Permissions(BigInt(data.permissions || 0));
+		this.permissions = new Permissions(BigInt(data.permissions || 0)).freeze();
 		this.topic = data.topic || null;
 	}
 
 	public toString() {
-		return `<#${this.Id}>`;
+		return `<#${this.id}>`;
 	}
 
 	public toJSON() {
 		return {
-			guild_id: this.guild ? this.guild.Id : null,
+			guild_id: this.guild ? this.guild.id : null,
 			type: Number(Object.keys(Constants.ChannelTypes).find(k => Constants.ChannelTypes[k as unknown as Exclude<keyof typeof import("../../util/Constants")["ChannelTypes"], string>] === this.type) || 0),
 			name: this.name,
 			permissions: this.permissions.bitfield.toString(),

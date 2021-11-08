@@ -11,7 +11,7 @@ class ClientVoiceManager {
 	}
 
 	public onVoiceStateUpdate(payload: import("../../internal").InboundDataType<"VOICE_STATE_UPDATE">["d"]) {
-		if (payload?.guild_id && payload.session_id && payload.user_id === this.client.user?.Id) {
+		if (payload?.guild_id && payload.session_id && payload.user_id === this.client.user?.id) {
 			this.adapters.get(payload.guild_id)?.onVoiceStateUpdate(payload);
 		}
 	}

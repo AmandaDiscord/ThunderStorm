@@ -61,13 +61,13 @@ class Invite {
 			max_age: this.maxAge,
 			max_uses: this.maxUses,
 			channel: this.channel.toJSON(),
-			channel_id: this.channel.Id
+			channel_id: this.channel.id
 		};
 		if (this.inviter) value["inviter"] = this.inviter.toJSON();
 		if (this.createdAt) value["created_at"] = this.createdAt.toISOString();
 		if (this.guild) {
 			value["guild"] = this.guild.toJSON();
-			value["guild_id"] = this.guild.Id;
+			value["guild_id"] = this.guild.id;
 		}
 		if (this.expiresAt) value["expires_at"] = this.expiresAt.toISOString();
 		return value;
@@ -93,8 +93,8 @@ class Invite {
 		if (data.channel || data.channel_id) this.channel = new PartialChannel(this.client, { id: data.channel ? data.channel.id : data.channel_id as string, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? Constants.ChannelTypes[data.channel.type] : (data.guild_id ? Constants.ChannelTypes[0] : Constants.ChannelTypes[1]) });
 		if (data.created_at) this.createdTimestamp = new Date(data.created_at).getTime();
 		if (data.inviter) {
-			if (data.inviter.id === this.client.user?.Id) this.client.user._patch(data.inviter);
-			this.inviter = data.inviter.id === this.client.user?.Id ? this.client.user : new User(this.client, data.inviter);
+			if (data.inviter.id === this.client.user?.id) this.client.user._patch(data.inviter);
+			this.inviter = data.inviter.id === this.client.user?.id ? this.client.user : new User(this.client, data.inviter);
 		}
 		if (data.target_type !== undefined) this.targetUserType = data.target_type;
 		if (data.target_user !== undefined) this.targetUser = new User(this.client, data.target_user);

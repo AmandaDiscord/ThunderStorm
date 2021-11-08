@@ -25,14 +25,14 @@ class ApplicationCommandManager extends BaseManager<import("../structures/Applic
 	}
 
 	public get commandPath() {
-		let path = this.client.api.applications(this.client.application?.Id);
-		if ((this as unknown as import("./GuildApplicationCommandManager")).guild) path = path.guilds((this as unknown as import("./GuildApplicationCommandManager")).guild.Id);
+		let path = this.client.api.applications(this.client.application?.id);
+		if ((this as unknown as import("./GuildApplicationCommandManager")).guild) path = path.guilds((this as unknown as import("./GuildApplicationCommandManager")).guild.id);
 		return path.commands;
 	}
 
 	public async fetch(): Promise<Collection<string, import("../structures/ApplicationCommand")>>;
-	public async fetch(Id: undefined, cache?: boolean, force?: boolean): Promise<Collection<string, import("../structures/ApplicationCommand")>>;
-	public async fetch(Id: string, cache?: boolean, force?: boolean): Promise<import("../structures/ApplicationCommand")>;
+	public async fetch(id: undefined, cache?: boolean, force?: boolean): Promise<Collection<string, import("../structures/ApplicationCommand")>>;
+	public async fetch(id: string, cache?: boolean, force?: boolean): Promise<import("../structures/ApplicationCommand")>;
 	public async fetch(id?: string, cache = true, force = false): Promise<Collection<string, import("../structures/ApplicationCommand")> | import("../structures/ApplicationCommand")> {
 		if (id) {
 			if (!force) {

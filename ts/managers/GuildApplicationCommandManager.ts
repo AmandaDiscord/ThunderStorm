@@ -39,7 +39,7 @@ class GuildApplicationCommandManager extends ApplicationCommandManager {
 		return data.reduce(
 			(coll: Collection<string, Array<import("../Types").ApplicationCommandPermissions>>, perm: any) =>
 				coll.set(
-					perm.Id,
+					perm.id,
 					perm.permissions.map((p: any) => this.constructor.transformPermissions(p, true))
 				),
 			new Collection()
@@ -60,14 +60,14 @@ class GuildApplicationCommandManager extends ApplicationCommandManager {
 
 		const data = await this.commandPath.permissions.put({
 			data: (command as Array<import("../Types").GuildApplicationCommandPermissionData>).map(perm => ({
-				Id: perm.Id,
+				id: perm.id,
 				permissions: perm.permissions.map(p => this.constructor.transformPermissions(p))
 			}))
 		});
 		return data.reduce(
 			(coll: Collection<string, Array<import("../Types").ApplicationCommandPermissions>>, perm: any) =>
 				coll.set(
-					perm.Id,
+					perm.id,
 					perm.permissions.map((p: any) => this.constructor.transformPermissions(p, true))
 				),
 			new Collection()
@@ -76,7 +76,7 @@ class GuildApplicationCommandManager extends ApplicationCommandManager {
 
 	public static transformPermissions(permissions: import("../Types").ApplicationCommandPermissionData, received?: boolean) {
 		return {
-			Id: permissions.Id,
+			id: permissions.id,
 			permission: permissions.permission,
 			type:
 				typeof permissions.type === "number" && !received

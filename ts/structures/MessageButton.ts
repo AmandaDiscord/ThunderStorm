@@ -7,7 +7,7 @@ class MessageButton extends BaseMessageComponent {
 	public label!: string | null;
 	public customId!: string | null;
 	public style!: import("../Types").MessageButtonStyle | null;
-	public emoji!: { Id: string | null; name?: string; animated?: boolean } | null;
+	public emoji!: { id: string | null; name?: string; animated?: boolean } | null;
 	public url!: string | null;
 	public disabled!: boolean;
 
@@ -38,9 +38,9 @@ class MessageButton extends BaseMessageComponent {
 	}
 
 	public setEmoji(emoji: import("../Types").EmojiIdentifierResolvable): this {
-		if (typeof emoji === "string" && /^\d+$/.test(emoji)) this.emoji = { Id: emoji };
+		if (typeof emoji === "string" && /^\d+$/.test(emoji)) this.emoji = { id: emoji };
 		else if (typeof emoji === "string") this.emoji = Util.parseEmoji(`${emoji}`);
-		else this.emoji = { Id: (emoji as Exclude<import("../Types").EmojiIdentifierResolvable, import("./GuildEmoji") | import("./ReactionEmoji") | string>).id || emoji.Id || "", name: emoji.name, animated: emoji.animated };
+		else this.emoji = { id: (emoji as Exclude<import("../Types").EmojiIdentifierResolvable, import("./GuildEmoji") | import("./ReactionEmoji") | string>).id || emoji.id || "", name: emoji.name, animated: emoji.animated };
 		return this;
 	}
 

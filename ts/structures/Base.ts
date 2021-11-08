@@ -2,7 +2,7 @@ import Util from "../util/Util";
 
 abstract class Base {
 	public client: import("../client/Client");
-	public Id!: string;
+	public id!: string;
 
 	public constructor(client: import("../client/Client")) {
 		this.client = client;
@@ -27,7 +27,7 @@ abstract class Base {
 	}
 
 	public valueOf() {
-		return this.Id;
+		return this.id;
 	}
 }
 

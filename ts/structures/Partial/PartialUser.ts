@@ -15,7 +15,7 @@ class PartialUser extends PartialBase<import("../User")> implements TextBasedCha
 	}
 
 	public toString() {
-		return `<@${this.Id}>`;
+		return `<@${this.id}>`;
 	}
 }
 

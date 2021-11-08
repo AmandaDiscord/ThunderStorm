@@ -64,17 +64,17 @@ class ReactionCollector extends Collector<import("./MessageReaction")> {
 
 		this.on("collect", (reaction, user) => {
 			this.total++;
-			this.users.set(user.Id, user);
+			this.users.set(user.id, user);
 		});
 
 		this.on("remove", (reaction, user) => {
 			this.total--;
-			if (!this.collected.some(r => r.users.has(user.Id))) this.users.delete(user.Id);
+			if (!this.collected.some(r => r.users.has(user.id))) this.users.delete(user.id);
 		});
 	}
 
 	public collect(reaction: import("./MessageReaction"), user: import("./Partial/PartialUser")) {
-		if (reaction.message.Id !== this.message.Id) return null;
+		if (reaction.message.id !== this.message.id) return null;
 		// @ts-ignore
 		if (reaction.count === 1 && this.filter(reaction, user, this.collected)) {
 			this.emit("create", reaction, user);
@@ -84,8 +84,8 @@ class ReactionCollector extends Collector<import("./MessageReaction")> {
 	}
 
 	public dispose(reaction: import("./MessageReaction"), user: import("./Partial/PartialUser")) {
-		if (reaction.message.Id !== this.message.Id) return null;
-		if (this.collected.has(ReactionCollector.key(reaction)) && this.users.has(user.Id)) {
+		if (reaction.message.id !== this.message.id) return null;
+		if (this.collected.has(ReactionCollector.key(reaction)) && this.users.has(user.id)) {
 			this.emit("remove", reaction, user);
 		}
 		return reaction.count ? null : ReactionCollector.key(reaction);
@@ -106,25 +106,25 @@ class ReactionCollector extends Collector<import("./MessageReaction")> {
 	}
 
 	public _handleMessageDeletion(message: import("./Partial/PartialMessage") | import("./Message")) {
-		if (message.Id === this.message.Id) {
+		if (message.id === this.message.id) {
 			this.stop("messageDelete");
 		}
 	}
 
 	public _handleChannelDeletion(channel: import("./Partial/PartialChannel")) {
-		if (channel.Id === this.message.channel.Id) {
+		if (channel.id === this.message.channel.id) {
 			this.stop("channelDelete");
 		}
 	}
 
 	public _handleGuildDeletion(guild: import("./Partial/PartialGuild") | import("./Guild")) {
-		if (this.message.guild && guild.Id === this.message.guild.Id) {
+		if (this.message.guild && guild.id === this.message.guild.id) {
 			this.stop("guildDelete");
 		}
 	}
 
 	public static key(reaction: import("./MessageReaction")) {
-		return reaction.emoji.Id || reaction.emoji.name;
+		return reaction.emoji.id || reaction.emoji.name;
 	}
 }
 

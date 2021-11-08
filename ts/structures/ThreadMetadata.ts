@@ -34,7 +34,7 @@ class ThreadMetaData {
 			archived: this.archived,
 			archive_timestamp: this.archiveStatusChangedAt.toISOString()
 		};
-		if (this.archiver) value["archiver_id"] = this.archiver.Id;
+		if (this.archiver) value["archiver_id"] = this.archiver.id;
 		return value;
 	}
 

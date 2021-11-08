@@ -40,13 +40,13 @@ class PartialThreadChannel extends PartialBase<import("../ThreadTextChannel") | 
 	}
 
 	public toString() {
-		return `<#${this.Id}>`;
+		return `<#${this.id}>`;
 	}
 
 	public toJSON() {
 		return {
-			guild_id: this.guild?.Id || null,
-			parent_id: this.parent.Id,
+			guild_id: this.guild?.id || null,
+			parent_id: this.parent.id,
 			member_count: this.memberCount,
 			...super.toJSON()
 		};

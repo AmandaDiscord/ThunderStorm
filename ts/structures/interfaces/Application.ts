@@ -13,14 +13,14 @@ abstract class Application extends Base {
 	}
 
 	public _patch(data: import("discord-typings").ApplicationData) {
-		this.Id = data.id;
+		this.id = data.id;
 		this.name = data.name ?? this.name ?? null;
 		this.description = data.description ?? this.description ?? null;
 		this.icon = data.icon ?? this.icon ?? null;
 	}
 
 	public get createdTimestamp() {
-		return SnowflakeUtil.deconstruct(this.Id).timestamp;
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
 	}
 
 	public get createdAt() {
@@ -29,12 +29,12 @@ abstract class Application extends Base {
 
 	public iconURL(options: import("../../Types").ImageURLOptions = {}) {
 		if (!this.icon) return null;
-		return this.client.rest.cdn.AppIcon(this.Id, this.icon, options);
+		return this.client.rest.cdn.AppIcon(this.id, this.icon, options);
 	}
 
 	public coverURL(options: import("../../Types").ImageURLOptions = {}) {
 		if (!this.cover) return null;
-		return this.client.rest.cdn.AppIcon(this.Id, this.cover, options);
+		return this.client.rest.cdn.AppIcon(this.id, this.cover, options);
 	}
 
 	public fetchAssets() {

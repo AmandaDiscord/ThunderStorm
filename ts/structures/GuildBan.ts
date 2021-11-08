@@ -8,7 +8,7 @@ class GuildBan extends Base {
 	public constructor(client: import("../client/Client"), data: import("discord-typings").GuildBanAddData & { reason?: string }, guild: import("./Partial/PartialGuild")) {
 		super(client);
 
-		this.Id = data.user.id;
+		this.id = data.user.id;
 		this.guild = guild;
 
 		this._patch(data);
@@ -25,8 +25,8 @@ class GuildBan extends Base {
 	}
 
 	public async fetch() {
-		const bans = await this.client._snow.guild.getGuildBans(this.guild.Id);
-		return (bans || []).find(ban => ban.user.Id === this.user.Id) || null;
+		const bans = await this.client._snow.guild.getGuildBans(this.guild.id);
+		return (bans || []).find(ban => ban.user.id === this.user.id) || null;
 	}
 }
 

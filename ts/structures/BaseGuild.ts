@@ -9,7 +9,7 @@ class BaseGuild extends Base {
 	public constructor(client: import("../client/Client"), data: Partial<import("discord-typings").GuildData>) {
 		super(client);
 
-		this.Id = data.id as string;
+		this.id = data.id as string;
 
 		this.name = data.name as string;
 
@@ -19,7 +19,7 @@ class BaseGuild extends Base {
 	}
 
 	public get createdTimestamp() {
-		return SnowflakeUtil.deconstruct(this.Id).timestamp;
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
 	}
 
 	public get createdAt() {
@@ -43,12 +43,12 @@ class BaseGuild extends Base {
 
 	public iconURL(options: import("../Types").ImageURLOptions & { dynamic?: boolean } = {}) {
 		if (!this.icon) return null;
-		return this.client.rest.cdn.Icon(this.Id, this.icon, options.format, options.size, options.dynamic);
+		return this.client.rest.cdn.Icon(this.id, this.icon, options.format, options.size, options.dynamic);
 	}
 
 	public async fetch() {
 		const Guild: typeof import("./Guild") = require("./Guild");
-		const data = await this.client._snow.guild.getGuild(this.Id, { with_counts: true });
+		const data = await this.client._snow.guild.getGuild(this.id, { with_counts: true });
 		return new Guild(this.client, data);
 	}
 

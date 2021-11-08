@@ -3,7 +3,7 @@ import Util from "../util/Util";
 class MessageAttachment {
 	public attachment: string | Buffer | import("stream").Stream;
 	public name: string | null;
-	public Id!: string;
+	public id!: string;
 	public size!: number;
 	public url!: string;
 	public proxyURL = "";
@@ -14,7 +14,7 @@ class MessageAttachment {
 		this.attachment = attachment;
 		this.name = name;
 		if (data) {
-			if (data.id) this.Id = data.id;
+			if (data.id) this.id = data.id;
 			if (data.size) this.size = data.size;
 			if (data.url) this.url = data.url;
 			if (data.proxy_url) this.proxyURL = data.proxy_url;
@@ -35,7 +35,7 @@ class MessageAttachment {
 	}
 
 	public _patch(data: import("discord-typings").AttachmentData) {
-		if (data.id) this.Id = data.id;
+		if (data.id) this.id = data.id;
 		if (data.size) this.size = data.size;
 		if (data.url) this.url = data.url;
 		if (data.proxy_url) this.proxyURL = data.proxy_url;
@@ -49,7 +49,7 @@ class MessageAttachment {
 
 	public toJSON() {
 		return {
-			id: this.Id,
+			id: this.id,
 			size: this.size,
 			url: this.url,
 			proxy_url: this.url,

@@ -179,18 +179,18 @@ class Util {
 
 	static parseEmoji(text: string) {
 		if (text.includes("%")) text = decodeURIComponent(text);
-		if (!text.includes(":")) return { animated: false, name: text, Id: null };
+		if (!text.includes(":")) return { animated: false, name: text, id: null };
 		const m = text.match(/<?(?:(a):)?(\w{2,32}):(\d{17,19})?>?/);
 		if (!m) return null;
-		return { animated: Boolean(m[1]), name: m[2], Id: m[3] || null };
+		return { animated: Boolean(m[1]), name: m[2], id: m[3] || null };
 	}
 
-	static resolvePartialEmoji(emoji: import("../Types").EmojiIdentifierResolvable): { Id: string | null; name?: string; animated?: boolean } | null {
+	static resolvePartialEmoji(emoji: import("../Types").EmojiIdentifierResolvable): { id: string | null; name?: string; animated?: boolean } | null {
 		if (!emoji) return null;
-		if (typeof emoji === "string") return /^\d{17,19}$/.test(emoji) ? { Id: emoji } : Util.parseEmoji(emoji);
-		const { Id, id, name, animated } = emoji as unknown as { Id: string, id: string, name: string, animated?: boolean };
-		if (!Id && !id && !name) return null;
-		return { Id: Id || id || null, name, animated };
+		if (typeof emoji === "string") return /^\d{17,19}$/.test(emoji) ? { id: emoji } : Util.parseEmoji(emoji);
+		const { id, name, animated } = emoji;
+		if (!id && !name) return null;
+		return { id, name, animated };
 	}
 
 	static cloneObject<T>(obj: T): T {
@@ -265,8 +265,8 @@ class Util {
 		return collection.sorted(
 			(a, b) =>
 				a.rawPosition - b.rawPosition ||
-				parseInt(b.Id.slice(0, -10)) - parseInt(a.Id.slice(0, -10)) ||
-				parseInt(b.Id.slice(10)) - parseInt(a.Id.slice(10))
+				parseInt(b.id.slice(0, -10)) - parseInt(a.id.slice(0, -10)) ||
+				parseInt(b.id.slice(10)) - parseInt(a.id.slice(10))
 		);
 	}
 
@@ -274,7 +274,7 @@ class Util {
 		let updatedItems = sorted.array();
 		Util.moveElementInArray(updatedItems, item, position, relative);
 		// @ts-ignore
-		updatedItems = updatedItems.map((r, i) => ({ Id: r.Id, position: i }));
+		updatedItems = updatedItems.map((r, i) => ({ id: r.id, position: i }));
 		return route.patch({ data: updatedItems, reason }).then(() => updatedItems);
 	}
 

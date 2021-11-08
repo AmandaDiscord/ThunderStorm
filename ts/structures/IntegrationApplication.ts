@@ -14,7 +14,7 @@ class IntegrationApplication extends Application {
 		super._patch(data as import("discord-typings").ApplicationData);
 		const User: typeof import("./User") = require("./User");
 
-		this.bot = data.bot ? (data.bot.id === this.client.user?.Id ? this.client.user : new User(this.client, data.bot)) : this.bot ?? null;
+		this.bot = data.bot ? (data.bot.id === this.client.user?.id ? this.client.user : new User(this.client, data.bot)) : this.bot ?? null;
 		this.termsOfServiceURL = (data as import("discord-typings").ApplicationData).terms_of_service_url ?? this.termsOfServiceURL ?? null;
 		this.privacyPolicyURL = (data as import("discord-typings").ApplicationData).privacy_policy_url ?? this.privacyPolicyURL ?? null;
 		this.rpcOrigins = (data as import("discord-typings").ApplicationData).rpc_origins ?? this.rpcOrigins ?? [];

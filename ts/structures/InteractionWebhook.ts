@@ -18,12 +18,12 @@ class InteractionWebhook implements Webhook {
 	public sourceChannel!: Webhook["sourceChannel"];
 
 	public client: import("../client/Client");
-	public Id: string;
+	public id: string;
 	public token: string;
 
-	public constructor(client: import("../client/Client"), Id: string, token: string) {
+	public constructor(client: import("../client/Client"), id: string, token: string) {
 		this.client = client;
-		this.Id = Id;
+		this.id = id;
 		this.token = token;
 	}
 }

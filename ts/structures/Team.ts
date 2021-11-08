@@ -17,7 +17,7 @@ class Team extends Base {
 	}
 
 	public get createdTimestamp() {
-		return SnowflakeUtil.deconstruct(this.Id).timestamp;
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
 	}
 
 	public get createdAt() {
@@ -30,7 +30,7 @@ class Team extends Base {
 
 	public iconURL(options: import("../Types").ImageURLOptions = { size: 128, format: "png" }) {
 		if (!this.icon) return null;
-		return this.client.rest.cdn.TeamIcon(this.Id, this.icon, options);
+		return this.client.rest.cdn.TeamIcon(this.id, this.icon, options);
 	}
 
 	public toString() {
@@ -39,7 +39,7 @@ class Team extends Base {
 
 	public toJSON() {
 		return {
-			id: this.Id,
+			id: this.id,
 			icon: this.icon,
 			name: this.name,
 			owner_user_id: this.ownerId,
@@ -48,7 +48,7 @@ class Team extends Base {
 	}
 
 	public _patch(data: import("discord-typings").TeamData) {
-		if (data.id) this.Id = data.id;
+		if (data.id) this.id = data.id;
 		if (!this.name || data.name !== undefined) this.name = data.name || "";
 		if (!this.icon || data.icon !== undefined) this.icon = data.icon || null;
 		if (data.owner_user_id !== undefined) this.ownerId = data.owner_user_id;

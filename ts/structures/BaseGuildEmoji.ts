@@ -1,7 +1,7 @@
 import Emoji from "./Emoji";
 
 abstract class BaseGuildEmoji extends Emoji {
-	public Id!: string;
+	public id!: string;
 	public guild: import("./Guild") | import("./Partial/PartialGuild") | import("./GuildPreview");
 	public requiresColons: boolean | null;
 	public managed: boolean | null;

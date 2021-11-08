@@ -21,20 +21,20 @@ class MessageReaction {
 		const Guild: typeof import("./Guild") = require("./Guild");
 		let userId: string;
 		if (typeof user === "string") userId = user;
-		else if (user instanceof Message) userId = user.author!.Id;
+		else if (user instanceof Message) userId = user.author!.id;
 		else if (user instanceof Guild) userId = user.ownerId;
-		else userId = user.Id;
+		else userId = user.id;
 
 		if (!userId) return Promise.reject(new Error("Couldn't resolve the user ID to remove from the reaction."));
-		await this.message.client._snow.channel.deleteReaction(this.message.channel.Id, this.message.Id, this.emoji.identifier, userId);
-		if (this.message instanceof Message) this.message.reactions.get(this.emoji.Id || this.emoji.name)?.users.delete(userId);
+		await this.message.client._snow.channel.deleteReaction(this.message.channel.id, this.message.id, this.emoji.identifier, userId);
+		if (this.message instanceof Message) this.message.reactions.get(this.emoji.id || this.emoji.name)?.users.delete(userId);
 		return this;
 	}
 
 	public async removeAll(): Promise<MessageReaction> {
 		const Message: typeof import("./Message") = require("./Message");
-		await this.message.client._snow.channel.deleteReaction(this.message.channel.Id, this.message.Id, this.emoji.identifier);
-		if (this.message instanceof Message) this.message.reactions.delete(this.emoji.Id || this.emoji.name);
+		await this.message.client._snow.channel.deleteReaction(this.message.channel.id, this.message.id, this.emoji.identifier);
+		if (this.message instanceof Message) this.message.reactions.delete(this.emoji.id || this.emoji.name);
 		this.count = 0;
 		this.me = false;
 		return this;
@@ -43,16 +43,16 @@ class MessageReaction {
 	public async fetchUsers(): Promise<Collection<string, import("./User")>> {
 		const message = this.message;
 		const User: typeof import("./User") = require("./User");
-		const data = await this.message.client._snow.channel.getReactions(message.channel.Id, message.Id, this.emoji.identifier);
+		const data = await this.message.client._snow.channel.getReactions(message.channel.id, message.id, this.emoji.identifier);
 		const users: Collection<string, import("./User")> = new Collection();
 		for (const rawUser of data) {
-			if (rawUser.id === message.client.user?.Id) {
+			if (rawUser.id === message.client.user?.id) {
 				message.client.user._patch(rawUser);
 				this.me = true;
 			}
-			const user = rawUser.id === message.client.user?.Id ? message.client.user : new User(message.client, rawUser);
-			this.users.set(user.Id, user);
-			users.set(user.Id, user);
+			const user = rawUser.id === message.client.user?.id ? message.client.user : new User(message.client, rawUser);
+			this.users.set(user.id, user);
+			users.set(user.id, user);
 		}
 		return users;
 	}

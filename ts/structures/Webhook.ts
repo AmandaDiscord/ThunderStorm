@@ -11,7 +11,7 @@ class Webhook {
 	public name: string | null = null;
 	public token: string | null = null;
 	public avatar: string | null = null;
-	public Id!: string;
+	public id!: string;
 	public type!: typeof WebhookTypes[import("discord-typings").WebhookData["type"]];
 	public guildId!: string;
 	public channelId!: string;
@@ -33,7 +33,7 @@ class Webhook {
 		if (data.name !== undefined) this.name = data.name;
 		if (data.token !== undefined) this.token = data.token || null;
 		if (data.avatar !== undefined) this.avatar = data.avatar;
-		if (data.id !== undefined) this.Id = data.id;
+		if (data.id !== undefined) this.id = data.id;
 		if (data.type !== undefined) this.type = WebhookTypes[data.type];
 		if (data.guild_id !== undefined) this.guildId = data.guild_id;
 		if (data.channel_id !== undefined) this.channelId = data.channel_id;
@@ -57,7 +57,7 @@ class Webhook {
 		}
 
 		const { data, files } = await messagePayload.resolveFiles();
-		return this.client._snow.webhook.executeWebhook(this.Id, this.token as string, Object.assign({}, data || {}, { files }), { wait: true }).then((d: any) => {
+		return this.client._snow.webhook.executeWebhook(this.id, this.token as string, Object.assign({}, data || {}, { files }), { wait: true }).then((d: any) => {
 			const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: ChannelTypes[0] });
 			return new Message(this.client, d, channel);
 		});
@@ -81,7 +81,7 @@ class Webhook {
 	 */
 	public async sendSlackMessage(body: any): Promise<boolean> {
 		try {
-			await this.client._snow.webhook.executeWebhookSlack(this.Id, this.token as string, body, { wait: true });
+			await this.client._snow.webhook.executeWebhookSlack(this.id, this.token as string, body, { wait: true });
 			return true;
 		} catch (e) {
 			return false;
@@ -94,8 +94,8 @@ class Webhook {
 		if (options.avatar && typeof options.avatar === "string" && !options.avatar.startsWith("data:")) {
 			avatar = await DataResolver.resolveImage(options.avatar);
 		}
-		if (options.channel) channel = options.channel instanceof Channel ? options.channel.Id : options.channel;
-		const data = await this.client._snow.webhook.updateWebhook(this.Id, channel ? undefined : this.token as string, { name: options.name, avatar: avatar as string, channel_id: channel });
+		if (options.channel) channel = options.channel instanceof Channel ? options.channel.id : options.channel;
+		const data = await this.client._snow.webhook.updateWebhook(this.id, channel ? undefined : this.token as string, { name: options.name, avatar: avatar as string, channel_id: channel });
 
 		this.name = data.name;
 		this.avatar = data.avatar;
@@ -106,7 +106,7 @@ class Webhook {
 	public async fetchMessage(message: string | "@original"): Promise<import("./Message")> {
 		const Message: typeof import("./Message") = require("./Message");
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
-		const data = await this.client._snow.webhook.getWebhookMessage(this.Id, this.token as string, message);
+		const data = await this.client._snow.webhook.getWebhookMessage(this.id, this.token as string, message);
 		const channel = new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id, type: ChannelTypes[0] });
 		return new Message(this.client, data, channel);
 	}
@@ -123,21 +123,21 @@ class Webhook {
 
 		const { data, files } = await messagePayload.resolveData().resolveFiles();
 
-		const d = await this.client._snow.webhook.editWebhookMessage(this.Id, this.token as string, typeof message === "string" ? message : message.Id, Object.assign({}, data, { files }));
+		const d = await this.client._snow.webhook.editWebhookMessage(this.id, this.token as string, typeof message === "string" ? message : message.id, Object.assign({}, data, { files }));
 		const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: ChannelTypes[0] });
 		return new Message(this.client, d, channel);
 	}
 
 	public delete() {
-		return this.client._snow.webhook.deleteWebhook(this.Id, this.token as string);
+		return this.client._snow.webhook.deleteWebhook(this.id, this.token as string);
 	}
 
 	public deleteMessage(message: import("../Types").MessageResolvable | "@original") {
-		return this.client._snow.webhook.deleteWebhookMessage(this.Id, this.token as string, typeof message === "string" ? message : message.Id);
+		return this.client._snow.webhook.deleteWebhookMessage(this.id, this.token as string, typeof message === "string" ? message : message.id);
 	}
 
 	public get createdTimestamp() {
-		return SnowflakeUtil.deconstruct(this.Id).timestamp;
+		return SnowflakeUtil.deconstruct(this.id).timestamp;
 	}
 
 	public get createdAt() {
@@ -145,12 +145,12 @@ class Webhook {
 	}
 
 	public get url() {
-		return Endpoints.WEBHOOK_TOKEN(this.Id, this.token as string);
+		return Endpoints.WEBHOOK_TOKEN(this.id, this.token as string);
 	}
 
 	public avatarURL({ format, size }: import("../Types").ImageURLOptions = {}): string | null {
 		if (!this.avatar) return null;
-		return this.client.rest.cdn.Avatar(this.Id, this.avatar, format, size);
+		return this.client.rest.cdn.Avatar(this.id, this.avatar, format, size);
 	}
 
 	static applyToClass(structure: any, ignore: Array<keyof Webhook> = []) {

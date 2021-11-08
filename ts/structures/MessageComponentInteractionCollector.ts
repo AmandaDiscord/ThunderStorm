@@ -65,7 +65,7 @@ class MessageComponentInteractionCollector extends Collector<import("./MessageCo
 
 		this.on("collect", interaction => {
 			this.total++;
-			this.users.set(interaction.user.Id, interaction.user);
+			this.users.set(interaction.user.id, interaction.user);
 		});
 	}
 
@@ -73,20 +73,20 @@ class MessageComponentInteractionCollector extends Collector<import("./MessageCo
 		if (!interaction.isMessageComponent()) return null;
 
 		if (this.message) {
-			return interaction.message?.Id === this.message.Id ? interaction.Id : null;
+			return interaction.message?.id === this.message.id ? interaction.id : null;
 		}
 
-		return interaction.channel?.Id === this.channel?.Id ? interaction.Id : null;
+		return interaction.channel?.id === this.channel?.id ? interaction.id : null;
 	}
 
 	public dispose(interaction: import("./MessageComponentInteraction")): string | null {
 		if (!interaction.isMessageComponent()) return null;
 
 		if (this.message) {
-			return interaction.message?.Id === this.message.Id ? interaction.Id : null;
+			return interaction.message?.id === this.message.id ? interaction.id : null;
 		}
 
-		return interaction.channel?.Id === this.channel.Id ? interaction.Id : null;
+		return interaction.channel?.id === this.channel.id ? interaction.id : null;
 	}
 
 	public empty() {
@@ -104,19 +104,19 @@ class MessageComponentInteractionCollector extends Collector<import("./MessageCo
 	}
 
 	private _handleMessageDeletion(message: import("./Partial/PartialMessage")): void {
-		if (message.Id === this.message?.Id) {
+		if (message.id === this.message?.id) {
 			this.stop("messageDelete");
 		}
 	}
 
 	private _handleChannelDeletion(channel: import("./GuildChannel") | import("./Partial/PartialChannel")): void {
-		if (channel.Id === this.channel.Id) {
+		if (channel.id === this.channel.id) {
 			this.stop("channelDelete");
 		}
 	}
 
 	private _handleGuildDeletion(guild: import("./Guild") | import("./Partial/PartialGuild")): void {
-		if (guild.Id === (this.channel as import("./GuildChannel")).guild?.Id) {
+		if (guild.id === (this.channel as import("./GuildChannel")).guild?.id) {
 			this.stop("guildDelete");
 		}
 	}
