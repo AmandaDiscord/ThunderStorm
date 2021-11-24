@@ -1,4 +1,5 @@
-import Collection from "../util/Collection";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+import { Collection } from "@discordjs/collection";
 
 abstract class BaseManager<T, C extends Collection<string, T>> {
 	public client: import("../client/Client");
@@ -6,10 +7,14 @@ abstract class BaseManager<T, C extends Collection<string, T>> {
 	public cacheType: C["constructor"];
 	public cache: C;
 
-	public constructor(client: import("../client/Client"), iterable: IterableIterator<T> | undefined, holds: new (...args: Array<any>) => T, cacheType: C["constructor"] = Collection, ...cacheOptions: ConstructorParameters<C["constructor"]>) {
+	public static readonly default = BaseManager;
+
+	// @ts-ignore
+	public constructor(client: import("../client/Client"), iterable?: IterableIterator<T> | undefined, holds: new (...args: Array<any>) => T, cacheType?: C["constructor"] = Collection, ...cacheOptions?: ConstructorParameters<C["constructor"]>) {
 		this.holds = holds;
 		this.client = client;
 		this.cacheType = cacheType;
+		// @ts-ignore
 		this.cache = new cacheType(...cacheOptions) as C;
 		if (iterable) for (const i of iterable) this._add(i);
 	}

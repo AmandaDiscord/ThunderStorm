@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Application from "./interfaces/Application";
 
 class IntegrationApplication extends Application {
@@ -9,6 +10,8 @@ class IntegrationApplication extends Application {
 	public hook!: boolean | null;
 	public cover!: string | null;
 	public verifyKey!: string | null;
+
+	public static readonly default = IntegrationApplication;
 
 	public _patch(data: import("discord-typings").IntegrationApplicationData) {
 		super._patch(data as import("discord-typings").ApplicationData);

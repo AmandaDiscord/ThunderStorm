@@ -1,9 +1,11 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import STEndpoints from "snowtransfer/dist/Endpoints";
 
 import Base from "./Base";
 import { Events } from "../util/Constants";
 import DataResolver from "../util/DataResolver";
 
+// @ts-ignore
 class GuildTemplate extends Base {
 	public static GUILD_TEMPLATES_PATTERN = /discord(?:app)?\.(?:com\/template|new)\/([\w-]{2,255})/gi;
 
@@ -19,6 +21,8 @@ class GuildTemplate extends Base {
 	public serializedGuild!: Partial<import("discord-typings").GuildData>;
 	public unSynced!: boolean | null;
 	public guild!: import("./Partial/PartialGuild");
+
+	public static readonly default = GuildTemplate;
 
 	public constructor(client: import("../client/Client"), data: any) {
 		super(client);

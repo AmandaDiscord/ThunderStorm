@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BaseMessageComponent from "./BaseMessageComponent";
 import MessageEmbed from "./MessageEmbed";
 import { RangeError } from "../errors";
@@ -20,6 +21,8 @@ class MessagePayload {
 	public options: import("../Types").MessageOptions | import("../Types").WebhookMessageOptions | import("../Types").MessageEditOptions | import("../Types").ReplyMessageOptions;
 	public data: any | null = null;
 	public files: Array<any> | null = null;
+
+	public static readonly default = MessagePayload;
 
 	public constructor(target: import("../Types").MessageTarget, options: import("../Types").MessageOptions | import("../Types").WebhookMessageOptions | import("../Types").MessageEditOptions | import("../Types").ReplyMessageOptions) {
 		this.target = target;

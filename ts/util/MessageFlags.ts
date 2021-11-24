@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BitField from "./BitField";
 
 const FLAGS = {
@@ -20,7 +21,7 @@ interface MessageFlagsConstructor {
 class MessageFlags extends BitField<typeof FLAGS> {
 	// @ts-ignore
 	public ["constructor"]: typeof MessageFlags;
-	public static readonly default: typeof MessageFlags = MessageFlags;
+	public static readonly default = MessageFlags;
 	// @ts-ignore
 	readonly [Symbol.species]: MessageFlagsConstructor;
 

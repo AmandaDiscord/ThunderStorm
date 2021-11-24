@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Util from "../util/Util";
 
 class MessageAttachment {
@@ -9,6 +10,8 @@ class MessageAttachment {
 	public proxyURL = "";
 	public height: number | null = null;
 	public width: number | null = null;
+
+	public static readonly default = MessageAttachment;
 
 	public constructor(attachment: import("../Types").BufferResolvable | import("stream").Stream, name: string | null = null, data?: import("discord-typings").AttachmentData) {
 		this.attachment = attachment;

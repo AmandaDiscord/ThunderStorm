@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 interface BitFieldConstructor {
 	new<T>(bits: import("../Types").BitFieldResolvable<T>): BitField<T>;
 	readonly prototype: BitField<unknown>;
@@ -6,7 +7,7 @@ interface BitFieldConstructor {
 
 class BitField<T> {
 	public ["constructor"]: typeof BitField;
-	public static readonly default: typeof BitField = BitField;
+	public static readonly default = BitField;
 	readonly [Symbol.species]: BitFieldConstructor;
 
 	public static FLAGS: { [flag: string]: bigint } = {};

@@ -1,14 +1,18 @@
-import Collection from "../util/Collection";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+import { Collection } from "@discordjs/collection";
 import SnowflakeUtil from "../util/SnowflakeUtil";
 
 import Base from "./Base";
 import TeamMember from "./TeamMember";
 
+// @ts-ignore
 class Team extends Base {
 	public name!: string;
 	public icon: string | null = null;
 	public ownerId!: string;
-	public members: Collection<string, TeamMember> = new Collection();
+	public members = new Collection<string, TeamMember>();
+
+	public static readonly default = Team;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").TeamData) {
 		super(client);

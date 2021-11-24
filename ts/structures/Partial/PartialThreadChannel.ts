@@ -4,6 +4,7 @@ import PartialBase from "./PartialBase";
 
 import Constants from "../../util/Constants";
 
+// @ts-ignore
 class PartialThreadChannel extends PartialBase<import("../ThreadTextChannel") | import("../ThreadNewsChannel")> implements TextBasedChannel {
 	public readonly lastPinAt!: TextBasedChannel["lastPinAt"];
 	public lastPinTimestamp!: TextBasedChannel["lastPinTimestamp"];
@@ -28,6 +29,8 @@ class PartialThreadChannel extends PartialBase<import("../ThreadTextChannel") | 
 	public guild: import("./PartialGuild") | null;
 	public parent: import("./PartialChannel");
 	public memberCount = 0;
+
+	public static readonly default = PartialThreadChannel;
 
 	public constructor(guild: import("./PartialGuild"), data: import("../../internal").PartialData) {
 		super(guild.client, data);

@@ -11,6 +11,7 @@ import User from "../User";
 import VoiceChannel from "../VoiceChannel";
 
 import SnowflakeUtil from "../../util/SnowflakeUtil";
+import Util from "../../util/Util";
 
 interface FetchData {
 	"Base": PartialBase<any>;
@@ -30,6 +31,8 @@ class PartialBase<Type extends FetchData[keyof FetchData]> {
 	public guild?: import("./PartialGuild") | null;
 	public channel?: import("./PartialChannel");
 	public parent?: import("./PartialChannel");
+
+	public static readonly default = PartialBase;
 
 	public constructor(client: import("../../client/Client"), data: import("../../internal").PartialData) {
 		this.client = client;
@@ -57,14 +60,7 @@ class PartialBase<Type extends FetchData[keyof FetchData]> {
 		if (this.partialType === "Channel") {
 			const channeldata = await this.client._snow.channel.getChannel(this.id);
 
-			if (channeldata.type === 0 && this.guild) data = new TextChannel(this.guild, channeldata as any);
-			else if (channeldata.type === 1) data = new DMChannel(this.client, channeldata as any);
-			else if (channeldata.type === 2 && this.guild) data = new VoiceChannel(this.guild, channeldata as any);
-			else if (channeldata.type === 4 && this.guild) data = new CategoryChannel(this.guild, channeldata as any);
-			else if (channeldata.type === 5 && this.guild) data = new NewsChannel(this.guild, channeldata as any);
-			else if (channeldata.type === 6 && this.guild) data = new StageChannel(this.guild, channeldata as any);
-			else if (channeldata.type === 13 && this.guild) data = new StageChannel(this.guild, channeldata as any);
-			else data = channeldata;
+			data = Util.createChannelFromData(this.client, channeldata as import("discord-typings").TextChannelData);
 		} else if (this.partialType === "Guild") {
 			const guilddata = await this.client._snow.guild.getGuild(this.id);
 			if (!guilddata) return null;

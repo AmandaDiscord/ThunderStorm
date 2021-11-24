@@ -1,8 +1,10 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 import IntegrationApplication from "./IntegrationApplication";
 
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 
+// @ts-ignore
 class Integration extends Base {
 	public guild: import("./Guild") | import("./Partial/PartialGuild");
 	public name: string;
@@ -13,10 +15,12 @@ class Integration extends Base {
 	public user: import("./User") | null;
 	public account: import("../Types").IntegrationAccount;
 	public syncedAt: number;
-	public roles: Collection<string, import("./Role")> = new Collection();
+	public roles = new Collection<string, import("./Role")>();
 	public expireBehavior!: number;
 	public expireGracePeriod!: number;
 	public application!: IntegrationApplication | null;
+
+	public static readonly default = Integration;
 
 	public constructor(client: import("../client/Client"), data: any, guild: import("./Guild") | import("./Partial/PartialGuild")) {
 		super(client);
@@ -62,25 +66,6 @@ class Integration extends Base {
 			.then(() => {
 				this.syncing = false;
 				this.syncedAt = Date.now();
-				return this;
-			});
-	}
-
-	public edit(data: import("../Types").IntegrationEditData, reason?: string): Promise<this> {
-		const payload: { expire_behavior?: number; expire_grace_period?: number; } = {};
-		if ("expireBehavior" in data) {
-			payload.expire_behavior = data.expireBehavior;
-		}
-		if ("expireGracePeriod" in data) {
-			payload.expire_grace_period = data.expireGracePeriod;
-		}
-		// The option enable_emoticons is only available for Twitch at this moment
-		return this.client.api
-			.guilds(this.guild.id)
-			.integrations(this.id)
-			.patch({ payload, reason })
-			.then(() => {
-				this._patch(data);
 				return this;
 			});
 	}

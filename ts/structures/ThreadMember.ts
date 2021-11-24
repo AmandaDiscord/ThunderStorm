@@ -1,5 +1,7 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 
+// @ts-ignore
 class ThreadMember extends Base {
 	public flags = 0;
 	public threadId!: string;
@@ -7,6 +9,8 @@ class ThreadMember extends Base {
 	public joinedAt!: Date;
 	public joinedTimestamp!: number;
 	public user!: import("./Partial/PartialUser");
+
+	public static readonly default = ThreadMember;
 
 	public constructor(thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel") | import("./Partial/PartialThreadChannel"), data: import("discord-typings").ThreadMemberData) {
 		super(thread.client);

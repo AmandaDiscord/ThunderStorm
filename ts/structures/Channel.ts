@@ -1,13 +1,17 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 import { ChannelTypes } from "../util/Constants";
 
 import SnowflakeUtil from "../util/SnowflakeUtil";
 
+// @ts-ignore
 class Channel extends Base {
 	public partial: false = false;
 	public id!: string;
 	public name!: string;
 	public type: import("../Types").ChannelType = "UNKNOWN";
+
+	public static readonly default = Channel;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").ChannelData) {
 		super(client);

@@ -1,6 +1,7 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Integration from "./Integration";
 import Webhook from "./Webhook";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import { OverwriteTypes, ChannelTypes } from "../util/Constants";
 import SnowflakeUtil from "../util/SnowflakeUtil";
 import Util from "../util/Util";
@@ -72,9 +73,11 @@ class GuildAuditLogs {
 	public static Targets = Targets;
 	public static Entry: typeof GuildAuditLogsEntry;
 
-	public webhooks: Collection<string, Webhook> = new Collection();
-	public integrations: Collection<string, Integration> = new Collection();
-	public entries: Collection<string, GuildAuditLogsEntry> = new Collection();
+	public webhooks = new Collection<string, Webhook>();
+	public integrations = new Collection<string, Integration>();
+	public entries = new Collection<string, GuildAuditLogsEntry>();
+
+	public static readonly default = GuildAuditLogs;
 
 	public constructor(guild: import("./Guild") | import("./Partial/PartialGuild"), data: import("discord-typings").AuditLogObject) {
 		if (data.webhooks) {

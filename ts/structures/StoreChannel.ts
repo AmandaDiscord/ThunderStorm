@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import GuildChannel from "./GuildChannel";
 
 import Constants from "../util/Constants";
@@ -5,6 +6,8 @@ import Constants from "../util/Constants";
 class StoreChannel extends GuildChannel {
 	public nsfw: boolean;
 	public type: typeof Constants.ChannelTypes[6] = Constants.ChannelTypes[6];
+
+	public static readonly default = StoreChannel;
 
 	public constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").StoreChannelData) {
 		super(guild, data);

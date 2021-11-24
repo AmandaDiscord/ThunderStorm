@@ -1,10 +1,14 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import GuildChannel from "./GuildChannel";
 
 import Constants from "../util/Constants";
 
+// @ts-ignore
 class CategoryChannel extends GuildChannel {
 	public nsfw!: boolean;
 	public type: typeof Constants.ChannelTypes[4] = Constants.ChannelTypes[4];
+
+	public static readonly default = CategoryChannel;
 
 	public constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").CategoryChannelData) {
 		super(guild, data);

@@ -1,6 +1,10 @@
 # ThunderStorm
 ThunderStorm is a compatibility layer between modular Discord interfaces such as DasWolke's WeatherStack libs and bot codebases which are based off of or directly coming from Discord.js.
 
+# Legal
+This lib uses a lot of code by Discord.js, thus their license has been included.
+Please don't sue me.
+
 # Why?
 Let's be honest, Discord.js takes a lot of memory which is the price it pays for being user friendly. But what if I told you it doesn't have to be that way?
 

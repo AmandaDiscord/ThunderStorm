@@ -1,6 +1,4 @@
-/**
- * I'm sorry for being lazy, discord.js
- */
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import { RangeError } from "../errors";
 import Util from "../util/Util";
 
@@ -19,6 +17,8 @@ class MessageEmbed {
 	public footer!: import("../Types").MessageEmbedFooter | null;
 	public files!: Array<import("../Types").FileOptions | string | import("./MessageAttachment")>;
 	public video!: import("../Types").MessageEmbedVideo | null;
+
+	public static readonly default = MessageEmbed;
 
 	public constructor(data: import("discord-typings").EmbedData = {}, skipValidation = false) {
 		this.setup(data, skipValidation);

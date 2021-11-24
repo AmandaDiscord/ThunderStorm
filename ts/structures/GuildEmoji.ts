@@ -1,10 +1,13 @@
-import Collection from "../util/Collection";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+import { Collection } from "@discordjs/collection";
 import BaseGuildEmoji from "./BaseGuildEmoji";
 import { Error } from "../errors";
 import PartialRole from "./Partial/PartialRole";
 
 class GuildEmoji extends BaseGuildEmoji {
 	public author: import("./User") | null = null;
+
+	public static readonly default = GuildEmoji;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").EmojiData, guild: import("./Guild") | import("./Partial/PartialGuild")) {
 		super(client, data, guild);

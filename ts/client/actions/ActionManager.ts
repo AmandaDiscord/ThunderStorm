@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 class ActionsManager {
 	public client: import("../Client");
 
@@ -16,6 +17,7 @@ class ActionsManager {
 	public GuildRoleDelete!: import("./GuildRoleDelete");
 	public GuildRoleUpdate!: import("./GuildRoleUpdate");
 	public GuildUpdate!: import("./GuildUpdate");
+	public InteractionCreate!: import("./InviteCreate");
 	public InviteCreate!: import("./InviteCreate");
 	public InviteDelete!: import("./InviteDelete");
 	public MessageCreate!: import("./MessageCreate");
@@ -27,10 +29,15 @@ class ActionsManager {
 	public MessageReactionRemoveEmoji!: import("./MessageReactionRemoveEmoji");
 	public MessageUpdate!: import("./MessageUpdate");
 	public PresenceUpdate!: import("./PresenceUpdate");
+	public ThreadCreate!: import("./ThreadCreate");
+	public ThreadDelete!: import("./ThreadDelete");
+	public ThreadListSync!: import("./ThreadListSync");
 	public TypingStart!: import("./TypingStart");
 	public UserUpdate!: import("./UserUpdate");
 	public VoiceStateUpdate!: import("./VoiceStateUpdate");
 	public WebhooksUpdate!: import("./WebhooksUpdate");
+
+	public static readonly default = ActionsManager;
 
 	public constructor(client: import("../Client")) {
 		this.client = client;
@@ -48,6 +55,7 @@ class ActionsManager {
 		this.register(require("./ChannelUpdate"));
 		this.register(require("./GuildDelete"));
 		this.register(require("./GuildUpdate"));
+		this.register(require("./InteractionCreate"));
 		this.register(require("./InviteCreate"));
 		this.register(require("./InviteDelete"));
 		this.register(require("./GuildMemberRemove"));
@@ -58,6 +66,9 @@ class ActionsManager {
 		this.register(require("./GuildRoleDelete"));
 		this.register(require("./GuildRoleUpdate"));
 		this.register(require("./PresenceUpdate"));
+		this.register(require("./ThreadCreate"));
+		this.register(require("./ThreadDelete"));
+		this.register(require("./ThreadListSync"));
 		this.register(require("./UserUpdate"));
 		this.register(require("./VoiceStateUpdate"));
 		this.register(require("./GuildEmojisUpdate"));

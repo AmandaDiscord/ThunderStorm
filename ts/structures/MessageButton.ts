@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BaseMessageComponent from "./BaseMessageComponent";
 import { RangeError } from "../errors";
 import { MessageButtonStyles, MessageComponentTypes } from "../util/Constants";
@@ -10,6 +11,8 @@ class MessageButton extends BaseMessageComponent {
 	public emoji!: { id: string | null; name?: string; animated?: boolean } | null;
 	public url!: string | null;
 	public disabled!: boolean;
+
+	public static readonly default = MessageButton;
 
 	public constructor(data: import("discord-typings").MessageComponentData | import("../Types").MessageButtonOptions) {
 		super({ type: "BUTTON" });

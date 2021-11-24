@@ -1,42 +1,32 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import APIRequest from "./APIRequest";
 import routeBuilder from "./APIRouter";
 import RequestHandler from "./RequestHandler";
 import { Error } from "../errors";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import { Endpoints } from "../util/Constants";
 import STEndpoints from "snowtransfer/dist/Endpoints";
 
 type HTTPMethod = Parameters<import("snowtransfer/dist/RequestHandler")["request"]>[1];
-type Options = {
-	route: string;
-	data?: any;
-	auth?: boolean;
-	versioned?: boolean;
-	query?: any;
-	reason?: string;
-	headers?: any;
-	files?: Array<any>;
-}
 
 class RESTManager {
 	public client: import("../client/BaseClient");
-	public handlers: Collection<string, RequestHandler> = new Collection();
+	public handlers = new Collection<string, RequestHandler>();
 	public tokenPrefix: "Bot";
-	public versioned: boolean;
+	public versioned = true;
 	public globalLimit: number;
 	public globalRemaining: number;
 	public globalReset: number | null = null;
 	public globalDelay: Promise<void> | null = null;
 
+	public static readonly default = RESTManager;
+
 	public constructor(client: import("../client/BaseClient"), tokenPrefix: RESTManager["tokenPrefix"] = "Bot") {
 		this.client = client;
-		this.handlers = new Collection();
 		this.tokenPrefix = tokenPrefix;
 		this.versioned = true;
 		this.globalLimit = (client.options.restGlobalRateLimit || 0) > 0 ? client.options.restGlobalRateLimit || 0 : Infinity;
 		this.globalRemaining = this.globalLimit;
-		this.globalReset = null;
-		this.globalDelay = null;
 		if ((client.options.restSweepInterval || 0) > 0) {
 			const interval = client.setInterval(() => {
 				this.handlers.sweep(handler => handler._inactive);
@@ -45,9 +35,6 @@ class RESTManager {
 		}
 	}
 
-	/**
-	 * I don't think you could feasibly type this.
-	 */
 	public get api() {
 		return routeBuilder(this);
 	}
@@ -62,7 +49,7 @@ class RESTManager {
 		return Endpoints.CDN(STEndpoints.CDN_URL);
 	}
 
-	public request(method: HTTPMethod, url: string, options: Options) {
+	public request(method: HTTPMethod, url: string, options: import("../internal").RestOptions) {
 		const apiRequest = new APIRequest(this, method, url, options);
 		let handler = this.handlers.get(apiRequest.route);
 

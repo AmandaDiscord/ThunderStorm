@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import SnowflakeUtil from "../util/SnowflakeUtil";
 
 class ThreadMetaData {
@@ -9,6 +10,8 @@ class ThreadMetaData {
 	public archiveStatusChangedAt!: Date;
 	public archiveStatusChangedTimestamp!: number;
 	private _archived = false;
+
+	public static readonly default = ThreadMetaData;
 
 	public constructor(thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel"), data: import("discord-typings").ThreadMetaData) {
 		this.client = thread.client;

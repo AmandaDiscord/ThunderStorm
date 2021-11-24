@@ -1,9 +1,12 @@
 import PartialBase from "./PartialBase";
 
+// @ts-ignore
 class PartialRole extends PartialBase<import("../Role")> {
 	public partialType: "Role" = "Role";
 	public guild: import("./PartialGuild") | null;
 	public name: string;
+
+	public static readonly default = PartialRole;
 
 	public constructor(client: import("../../client/Client"), data: import("../../internal").PartialData) {
 		super(client, data);

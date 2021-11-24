@@ -9,9 +9,12 @@ import MessageFlags from "../../util/MessageFlags";
 
 import { ChannelTypes } from "../../util/Constants";
 
+// @ts-ignore
 class PartialMessage extends PartialBase<import("../Message")> {
 	public channel: import("./PartialChannel");
 	public partialType: "Message" = "Message";
+
+	public static readonly default = PartialMessage;
 
 	public constructor(client: import("../../client/Client"), data: import("../../internal").PartialData) {
 		super(client, data);
@@ -113,7 +116,7 @@ class PartialMessage extends PartialBase<import("../Message")> {
 		return new ReactionCollector(this, filter, options);
 	}
 
-	public awaitReactions(filter: import("../../Types").CollectorFilter<import("../MessageReaction")>, options: import("../../Types").AwaitReactionsOptions = {}): Promise<import("../../util/Collection")<string, import("../MessageReaction")>> {
+	public awaitReactions(filter: import("../../Types").CollectorFilter<import("../MessageReaction")>, options: import("../../Types").AwaitReactionsOptions = {}): Promise<import("@discordjs/collection").Collection<string, import("../MessageReaction")>> {
 		return new Promise((resolve, reject) => {
 			const collector = this.createReactionCollector(filter, options);
 			collector.once("end", (reactions, reason) => {

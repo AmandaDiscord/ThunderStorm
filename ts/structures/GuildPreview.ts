@@ -1,7 +1,9 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 import GuildPreviewEmoji from "./GuildPreviewEmoji";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 
+// @ts-ignore
 class GuildPreview extends Base {
 	public name!: string;
 	public icon!: string | null;
@@ -12,6 +14,8 @@ class GuildPreview extends Base {
 	public approximatePresenceCount!: number;
 	public description!: string | null;
 	public emojis!: Collection<string, GuildPreviewEmoji>;
+
+	public static readonly default = GuildPreview;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").GuildPreviewData) {
 		super(client);

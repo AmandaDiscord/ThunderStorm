@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import TextChannel from "./TextChannel";
 
 import Constants from "../util/Constants";
@@ -5,6 +6,8 @@ import Constants from "../util/Constants";
 class NewsChannel extends TextChannel {
 	// @ts-ignore
 	public type: typeof Constants.ChannelTypes[5] = Constants.ChannelTypes[5];
+
+	public static readonly default = NewsChannel;
 
 	public constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").NewsChannelData) {
 		super(guild, data as unknown as import("discord-typings").TextChannelData);

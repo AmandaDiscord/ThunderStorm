@@ -1,7 +1,10 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Action from "./Action";
 import { Events } from "../../util/Constants";
 
 class GuildBanAdd extends Action {
+	public static readonly default = GuildBanAdd;
+
 	public handle(data: import("discord-typings").GuildBanAddData) {
 		const GuildBan: typeof import("../../structures/GuildBan") = require("../../structures/GuildBan");
 		const PartialGuild: typeof import("../../structures/Partial/PartialGuild") = require("../../structures/Partial/PartialGuild");

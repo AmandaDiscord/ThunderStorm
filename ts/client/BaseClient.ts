@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import EventEmitter from "events";
 import RESTManager from "../rest/RESTManager";
 import Util from "../util/Util";
@@ -11,6 +12,8 @@ class BaseClient extends EventEmitter {
 	public _snow: import("snowtransfer").SnowTransfer;
 	public token: string;
 	public accessToken: string | null = null;
+
+	public static readonly default = BaseClient;
 
 	public constructor(options: import("../Types").ClientOptions) {
 		super();

@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import GuildMember from "./GuildMember";
 
 class VoiceState {
@@ -13,6 +14,8 @@ class VoiceState {
 	public sessionId = "";
 	public streaming = false;
 	public supress = false;
+
+	public static readonly default = VoiceState;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").VoiceStateData) {
 		this.client = client;

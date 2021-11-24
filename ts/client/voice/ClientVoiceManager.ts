@@ -1,6 +1,9 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 class ClientVoiceManager {
 	public client: import("../Client");
 	public adapters: Map<string, any> = new Map();
+
+	public static readonly default = ClientVoiceManager;
 
 	public constructor(client: import("../Client")) {
 		this.client = client;

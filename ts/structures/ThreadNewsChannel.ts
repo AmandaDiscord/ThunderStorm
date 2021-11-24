@@ -1,4 +1,5 @@
-import Collection from "../util/Collection";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+import { Collection } from "@discordjs/collection";
 
 import NewsChannel from "./NewsChannel";
 import ThreadMetaData from "./ThreadMetadata";
@@ -14,9 +15,11 @@ class ThreadNewsChannel extends NewsChannel {
 	public memberCount = 0;
 	public messageCount = 0;
 	public meta!: import("./ThreadMetadata");
-	public members: Collection<string, ThreadMember> = new Collection();
+	public members = new Collection<string, ThreadMember>();
 	public parent!: import("./Partial/PartialChannel");
 	public defaultAutoArchiveDuration = 0;
+
+	public static readonly default = ThreadNewsChannel;
 
 	public constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").ThreadChannelData) {
 		super(guild, data as unknown as import("discord-typings").NewsChannelData);

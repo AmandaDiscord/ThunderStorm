@@ -1,11 +1,15 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 import Emoji from "./Emoji";
 
+// @ts-ignore
 class WelcomeChannel extends Base {
 	public guild: import("./Guild") | import("./Partial/PartialGuild") | import("./InviteGuild");
 	public description: string;
 	private _emoji: { name: string, id: string | null };
 	public channelId: string;
+
+	public static readonly default = WelcomeChannel;
 
 	public constructor(guild: import("./Guild") | import("./Partial/PartialGuild") | import("./InviteGuild"), data: import("discord-typings").WelcomeScreenChannelData) {
 		super(guild.client);

@@ -1,6 +1,7 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import EventEmitter from "events";
 import { TypeError } from "../../errors";
-import Collection from "../../util/Collection";
+import { Collection } from "@discordjs/collection";
 import Util from "../../util/Util";
 
 interface CollectorEvents<T> {
@@ -29,10 +30,12 @@ abstract class Collector<T> extends EventEmitter {
 	public client: import("../../client/Client");
 	public filter: import("../../Types").CollectorFilter<T>;
 	public options: import("../../Types").CollectorOptions;
-	public collected: Collection<string, T> = new Collection();
+	public collected = new Collection<string, T>();
 	public ended = false;
 	private _timeout: NodeJS.Timeout | null = null;
 	private _idletimeout: NodeJS.Timeout | null = null;
+
+	public static readonly default = Collector;
 
 	public constructor(client: import("../../client/Client"), filter: import("../../Types").CollectorFilter<T>, options: import("../../Types").CollectorOptions = {}) {
 		super();

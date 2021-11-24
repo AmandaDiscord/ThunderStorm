@@ -1,9 +1,13 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BaseMessageComponent from "./BaseMessageComponent";
 import { MessageComponentTypes } from "../util/Constants";
 
+// @ts-ignore
 class MessageActionRow extends BaseMessageComponent {
 	public type!: "ACTION_ROW";
 	public components: Array<import("../Types").MessageActionRowComponent>;
+
+	public static readonly default = MessageActionRow;
 
 	public constructor(data?: MessageActionRow | import("../Types").MessageActionRowOptions) {
 		super({ type: "ACTION_ROW" });

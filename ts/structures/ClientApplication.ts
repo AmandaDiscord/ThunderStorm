@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Team from "./Team";
 import Application from "./interfaces/Application";
 import ApplicationCommandManager from "../managers/ApplicationCommandManager";
@@ -10,6 +11,8 @@ class ClientApplication extends Application {
 	public botRequireCodeGrant!: boolean | null;
 	public botPublic!: boolean | null;
 	public owner!: import("./User") | import("./Team") | null;
+
+	public static readonly default = ClientApplication;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").ApplicationData) {
 		super(client, data);

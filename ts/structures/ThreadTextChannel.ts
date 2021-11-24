@@ -1,4 +1,5 @@
-import Collection from "../util/Collection";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+import { Collection } from "@discordjs/collection";
 
 import TextChannel from "./TextChannel";
 import ThreadMetaData from "./ThreadMetadata";
@@ -15,9 +16,11 @@ class ThreadTextChannel extends TextChannel {
 	public memberCount = 0;
 	public messageCount = 0;
 	public meta!: import("./ThreadMetadata");
-	public members: Collection<string, ThreadMember> = new Collection();
+	public members = new Collection<string, ThreadMember>();
 	public parent!: import("./Partial/PartialChannel");
 	public guild!: import("./Partial/PartialGuild");
+
+	public static readonly default = ThreadTextChannel;
 
 	public constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").ThreadChannelData) {
 		super(guild, data as unknown as import("discord-typings").TextChannelData);

@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 import Emoji from "./Emoji";
 import ActivityFlags from "../util/ActivityFlags";
@@ -199,4 +200,4 @@ export class RichPresenceAssets {
 	}
 }
 
-export default { Presence, Activity, RichPresenceAssets };
+export default exports as typeof import("./Presence");

@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import MessagePayload from "./MessagePayload";
 import Base from "./Base";
 import BaseMessageComponent from "./BaseMessageComponent";
@@ -9,12 +10,13 @@ import Mentions from "./MessageMentions";
 import ReactionCollector from "./ReactionCollector";
 import Sticker from "./Sticker";
 import { Error } from "../errors";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import { ChannelTypes, InteractionTypes, MessageTypes, SystemMessageTypes } from "../util/Constants";
 import MessageFlags from "../util/MessageFlags";
 import SnowflakeUtil from "../util/SnowflakeUtil";
 import Util from "../util/Util";
 
+// @ts-ignore
 class Message extends Base {
 	public partial: false = false;
 
@@ -29,8 +31,8 @@ class Message extends Base {
 	public nonce!: string | null;
 	public embeds!: Array<import("./MessageEmbed")>;
 	public components!: Array<import("./MessageActionRow")>;
-	public attachments: Collection<string, MessageAttachment> = new Collection();
-	public stickers: Collection<string, Sticker> = new Collection();
+	public attachments = new Collection<string, MessageAttachment>();
+	public stickers = new Collection<string, Sticker>();
 	public createdTimestamp!: number;
 	public editedTimestamp!: number | null;
 	public reactions!: Collection<string, import("./MessageReaction")>;
@@ -43,6 +45,8 @@ class Message extends Base {
 	public flags!: Readonly<MessageFlags>;
 	public reference!: import("../Types").MessageReference | null;
 	public interaction!: import("../Types").MessageInteraction | null;
+
+	public static readonly default = Message;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").MessageData, channel: import("./interfaces/TextBasedChannel")) {
 		super(client);
@@ -373,7 +377,7 @@ class Message extends Base {
 			this.tts === message.tts &&
 			this.nonce === message.nonce &&
 			this.embeds.length === message.embeds.length &&
-			this.attachments.length === message.attachments.length;
+			this.attachments.size === message.attachments.size;
 
 		if (equal && rawData) {
 			equal =

@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BitField from "./BitField";
 
 interface PermissionsConstructor {
@@ -52,7 +53,7 @@ const FLAGS = {
 class Permissions extends BitField<typeof FLAGS> {
 	// @ts-ignore
 	public ["constructor"]: typeof Permissions;
-	public static readonly default: typeof Permissions = Permissions;
+	public static readonly default = Permissions;
 	// @ts-ignore
 	readonly [Symbol.species]: PermissionsConstructor;
 

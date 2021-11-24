@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 import { ApplicationCommandOptionTypes } from "../util/Constants";
 import SnowflakeUtil from "../util/SnowflakeUtil";
@@ -8,9 +9,10 @@ interface ApplicationCommandConstructor {
 	readonly [Symbol.species]: ApplicationCommandConstructor;
 }
 
+// @ts-ignore
 class ApplicationCommand extends Base {
 	public ["constructor"]: typeof ApplicationCommand;
-	public static readonly default: typeof ApplicationCommand = ApplicationCommand;
+	public static readonly default = ApplicationCommand;
 	readonly [Symbol.species]: ApplicationCommandConstructor;
 
 	public guild: import("./Guild") | import("./Partial/PartialGuild") | null;

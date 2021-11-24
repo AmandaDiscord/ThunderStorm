@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import TextBasedChannel from "./interfaces/TextBasedChannel";
 
 import GuildChannel from "./GuildChannel";
@@ -27,6 +28,8 @@ class TextChannel extends GuildChannel implements TextBasedChannel {
 	public rateLimitPerUser = 0;
 	public topic = "";
 	public type: typeof Constants.ChannelTypes[0] = Constants.ChannelTypes[0];
+
+	public static readonly default = TextChannel;
 
 	public constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").TextChannelData) {
 		super(guild, data);

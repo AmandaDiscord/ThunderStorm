@@ -1,12 +1,16 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 
 import User from "./User";
 
+// @ts-ignore
 class TeamMember extends Base {
 	public team: import("./Team");
 	public permissions: ["*"] = ["*"];
 	public membershipState!: "INVITED" | "ACCEPTED";
 	public user!: User;
+
+	public static readonly default = TeamMember;
 
 	public constructor(team: import("./Team"), data: import("discord-typings").TeamMemberData) {
 		super(team.client);

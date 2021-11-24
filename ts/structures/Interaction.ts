@@ -1,9 +1,11 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 import { InteractionTypes, ChannelTypes } from "../util/Constants";
 import SnowflakeUtil from "../util/SnowflakeUtil";
 
 import Permissions from "../util/Permissions";
 
+// @ts-ignore
 class Interaction extends Base {
 	public type: import("../Types").InteractionType;
 	public token: string;
@@ -17,6 +19,8 @@ class Interaction extends Base {
 
 	public channel: import("./Partial/PartialChannel") | null;
 	public guild: import("./Partial/PartialGuild") | null;
+
+	public static readonly default = Interaction;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").InteractionData) {
 		super(client);

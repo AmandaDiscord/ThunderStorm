@@ -1,11 +1,12 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Collector from "./interfaces/Collector";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import { Events } from "../util/Constants";
 
 interface CollectorEvents {
 	collect: [import("./MessageComponentInteraction")];
 	dispose: [import("./MessageComponentInteraction")];
-	end: [import("../util/Collection")<string, import("./MessageComponentInteraction")>, string];
+	end: [import("@discordjs/collection").Collection<string, import("./MessageComponentInteraction")>, string];
 }
 
 interface MessageComponentInteractionCollector {
@@ -24,12 +25,15 @@ interface MessageComponentInteractionCollector {
 	removeListener<E extends keyof CollectorEvents>(event: E, listener: (...args: CollectorEvents[E]) => any): this;
 }
 
+// @ts-ignore
 class MessageComponentInteractionCollector extends Collector<import("./MessageComponentInteraction")> {
 	public message: import("./Message") | import("./Partial/PartialMessage") | null;
 	public channel: import("./Partial/PartialChannel") | import("./TextChannel") | import("./DMChannel") | import("./NewsChannel") | import("./interfaces/TextBasedChannel");
-	public users: Collection<string, import("./User")> = new Collection();
+	public users = new Collection<string, import("./User")>();
 	public total = 0;
 	public options!: import("../Types").MessageComponentInteractionCollectorOptions;
+
+	public static readonly default = MessageComponentInteractionCollector;
 
 	public constructor(source: import("./Message") | import("./Partial/PartialMessage") | import("./TextChannel") | import("./DMChannel") | import("./NewsChannel") | import("./interfaces/TextBasedChannel"), filter: import("../Types").CollectorFilter<import("./MessageComponentInteraction")>, options: import("../Types").MessageComponentInteractionCollectorOptions = {}) {
 		super(source.client, filter, options);

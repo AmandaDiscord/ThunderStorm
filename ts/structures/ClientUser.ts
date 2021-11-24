@@ -1,10 +1,14 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import centra from "centra";
 import fs from "fs";
 import path from "path";
 import User from "./User";
 
+// @ts-ignore
 class ClientUser extends User {
 	public mfaEnabled = false;
+
+	public static readonly default = ClientUser;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").UserData) {
 		super(client, data);

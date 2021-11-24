@@ -1,7 +1,10 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Action from "./Action";
 import { Events, ChannelTypes } from "../../util/Constants";
 
 class MessageCreateAction extends Action {
+	public static readonly default = MessageCreateAction;
+
 	handle(data: import("discord-typings").MessageData) {
 		const Message: typeof import("../../structures/Message") = require("../../structures/Message");
 		const PartialChannel: typeof import("../../structures/Partial/PartialChannel") = require("../../structures/Partial/PartialChannel");

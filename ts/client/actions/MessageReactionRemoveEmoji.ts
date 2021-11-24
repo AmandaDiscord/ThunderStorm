@@ -1,7 +1,10 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Action from "./Action";
 import { Events } from "../../util/Constants";
 
 class MessageReactionRemoveEmoji extends Action {
+	public static readonly default = MessageReactionRemoveEmoji;
+
 	public handle(data: import("discord-typings").MessageReactionRemoveEmojiData) {
 		const PartialMessage: typeof import("../../structures/Partial/PartialMessage") = require("../../structures/Partial/PartialMessage");
 		const MessageReaction: typeof import("../../structures/MessageReaction") = require("../../structures/MessageReaction");

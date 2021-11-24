@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Webhook from "./Webhook";
 
 // @ts-ignore
@@ -20,6 +21,8 @@ class InteractionWebhook implements Webhook {
 	public client: import("../client/Client");
 	public id: string;
 	public token: string;
+
+	public static readonly default = InteractionWebhook;
 
 	public constructor(client: import("../client/Client"), id: string, token: string) {
 		this.client = client;

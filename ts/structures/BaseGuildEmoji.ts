@@ -1,5 +1,7 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Emoji from "./Emoji";
 
+// @ts-ignore
 abstract class BaseGuildEmoji extends Emoji {
 	public id!: string;
 	public guild: import("./Guild") | import("./Partial/PartialGuild") | import("./GuildPreview");
@@ -7,6 +9,8 @@ abstract class BaseGuildEmoji extends Emoji {
 	public managed: boolean | null;
 	public available: boolean | null;
 	public _roles: Array<string>;
+
+	public static readonly default = BaseGuildEmoji;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").EmojiData, guild: import("./Guild") | import("./Partial/PartialGuild") | import("./GuildPreview")) {
 		super(client, data);

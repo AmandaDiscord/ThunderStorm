@@ -1,6 +1,6 @@
 import Discord from "discord-typings";
 
-type ChannelDatas = Discord.DMChannelData | Discord.TextChannelData | Discord.CategoryChannelData | Discord.NewsChannelData | Discord.VoiceChannelData | Discord.StageChannelData;
+type ChannelDatas = Discord.DMChannelData | Discord.TextChannelData | Discord.CategoryChannelData | Discord.NewsChannelData | Discord.VoiceChannelData | Discord.StageChannelData | Discord.StoreChannelData;
 export interface GatewayEventDataTable {
 	CHANNEL_CREATE: ChannelDatas;
 	CHANNEL_DELETE: ChannelDatas;
@@ -64,4 +64,25 @@ export interface PartialData {
 	name?: string;
 	permissions?: string;
 	topic?: string;
+}
+
+export type HTTPMethodSignature = (data?: RestOptions) => Promise<any>;
+
+export type HTTPMethodsObject = { get: HTTPMethodSignature; post: HTTPMethodSignature; delete: HTTPMethodSignature; patch: HTTPMethodSignature; put: HTTPMethodSignature; };
+
+export type Route = ((...routeParams: Array<any>) => Route) & RouteObject;
+
+export type RouteObject = HTTPMethodsObject & {
+	[route: string]: Route;
+};
+
+export type RestOptions = {
+	route?: string;
+	data?: any;
+	auth?: boolean;
+	versioned?: boolean;
+	query?: { [qs: string]: any };
+	reason?: string;
+	headers?: { [header: string]: any };
+	files?: Array<any>;
 }

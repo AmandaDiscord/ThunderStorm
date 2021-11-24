@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Constants from "./util/Constants";
 
 import MessageAttachment from "./structures/MessageAttachment";
@@ -12,26 +13,27 @@ export interface ClientEvents {
 	channelDelete: [import("./structures/Partial/PartialChannel")];
 	channelPinsUpdate: [import("./structures/Partial/PartialChannel"), Date];
 	channelUpdate: [AnyChannel];
+	debug: [string];
 	guildBanAdd: [import("./structures/GuildBan")];
 	guildBanRemove: [import("./structures/GuildBan")];
 	guildCreate: [import("./structures/Guild")];
 	guildDelete: [import("./structures/Partial/PartialGuild")];
 	emojiCreate: [import("./structures/Emoji")];
-	emojisUpdate: [import("./structures/Partial/PartialGuild"), import("./util/Collection")<string, import("./structures/Emoji")>];
+	emojisUpdate: [import("./structures/Partial/PartialGuild"), import("@discordjs/Collection").Collection<string, import("./structures/Emoji")>];
 	guildIntegrationsUpdate: [import("./structures/Partial/PartialGuild")];
 	guildMemberAdd: [import("./structures/GuildMember")];
 	guildMemberRemove: [import("./structures/GuildMember")];
-	guildMembersChunk: [import("./util/Collection")<string, import("./structures/GuildMember")>, import("./structures/Partial/PartialGuild"), { index: number, count: number, nonce: string | null }];
+	guildMembersChunk: [import("@discordjs/Collection").Collection<string, import("./structures/GuildMember")>, import("./structures/Partial/PartialGuild"), { index: number, count: number, nonce: string | null }];
 	guildMemberUpdate: [import("./structures/GuildMember")];
 	guildUnavailable: [import("./structures/Partial/PartialGuild")];
 	guildUpdate: [import("./structures/Guild")];
-	interaction: [import("./structures/Interaction")];
+	interactionCreate: [import("./structures/Interaction")];
 	invalidated: [];
 	inviteCreate: [import("./structures/Invite")];
 	inviteDelete: [import("./structures/Invite")];
-	message: [import("./structures/Message")];
+	messageCreate: [import("./structures/Message")];
 	messageDelete: [import("./structures/Partial/PartialMessage")];
-	messageDeleteBulk: [import("./util/Collection")<string, import("./structures/Partial/PartialMessage")>];
+	messageDeleteBulk: [import("@discordjs/Collection").Collection<string, import("./structures/Partial/PartialMessage")>];
 	messageReactionAdd: [import("./structures/MessageReaction"), import("./structures/Partial/PartialUser")];
 	messageReactionRemove: [import("./structures/MessageReaction"), import("./structures/Partial/PartialUser")];
 	messageReactionRemoveAll: [import("./structures/Partial/PartialMessage")];
@@ -49,9 +51,9 @@ export interface ClientEvents {
 	shardResume: [number];
 	threadCreate: [import("./structures/ThreadTextChannel") | import("./structures/ThreadNewsChannel")];
 	threadDelete: [import("./structures/ThreadTextChannel") | import("./structures/ThreadNewsChannel")];
-	threadListSync: [import("./structures/Partial/PartialGuild"), import("./util/Collection")<string, import("./structures/Partial/PartialChannel")>, import("./util/Collection")<string, import("./structures/ThreadTextChannel") | import("./structures/ThreadNewsChannel")>];
+	threadListSync: [import("@discordjs/Collection").Collection<string, import("./structures/ThreadTextChannel") | import("./structures/ThreadNewsChannel")>];
 	threadMemberUpdate: [import("./structures/ThreadMember")];
-	threadMembersUpdate: [import("./structures/Partial/PartialThreadChannel"), { added: import("./util/Collection")<string, import("./structures/ThreadMember")>; removed: import("./util/Collection")<string, import("./structures/Partial/PartialUser")>; }];
+	threadMembersUpdate: [import("./structures/Partial/PartialThreadChannel"), { added: import("@discordjs/Collection").Collection<string, import("./structures/ThreadMember")>; removed: import("@discordjs/Collection").Collection<string, import("./structures/Partial/PartialUser")>; }];
 	threadUpdate: [import("./structures/ThreadTextChannel") | import("./structures/ThreadNewsChannel")];
 	typingStart: [import("./structures/Partial/PartialChannel"), import("./structures/Partial/PartialUser")];
 	userUpdate: [import("./structures/User")];
@@ -262,6 +264,8 @@ export type ActivityType = FlattenIfReadonlyArray<typeof Constants.ActivityTypes
 
 export type StickerFormatType = Exclude<keyof typeof Constants.StickerFormatTypes, number>;
 
+export type ApplicationCommandType = Exclude<keyof typeof Constants.ApplicationCommandTypes, number>;
+
 export type ApplicationCommandOptionType = Exclude<keyof typeof Constants.ApplicationCommandOptionTypes, number>;
 
 export type ApplicationCommandPermissionType = Exclude<keyof typeof Constants.ApplicationCommandPermissionTypes, number>;
@@ -277,7 +281,7 @@ export type MessageButtonStyle = Exclude<keyof typeof Constants.MessageButtonSty
 export type MessageTarget = import("./structures/interfaces/TextBasedChannel") | import("./structures/TextChannel") | import("./structures/DMChannel") | import("./structures/User") | import("./structures/GuildMember") | import("./structures/Webhook") | import("./client/WebhookClient") | import("./structures/Interaction") | import("./structures/Message") | import("./structures/Partial/PartialMessage") | import("./structures/interfaces/InteractionResponses");
 
 // @ts-ignore
-export type CollectorFilter<T> = (...args: Array<any>, collection: import("./util/Collection")<string, T>) => boolean | Promise<boolean>;
+export type CollectorFilter<T> = (...args: Array<any>, collection: import("@discordjs/Collection").Collection<string, T>) => boolean | Promise<boolean>;
 
 export type CollectorOptions = {
 	time?: number;
@@ -296,7 +300,7 @@ export interface AwaitMessagesOptions extends MessageCollectorOptions {
 
 export type GuildEmojiEditData = {
 	name?: string;
-	roles?: import("./util/Collection")<string, import("./structures/Role") | import("./structures/Partial/PartialRole")> | Array<RoleResolvable>;
+	roles?: import("@discordjs/Collection").Collection<string, import("./structures/Role") | import("./structures/Partial/PartialRole")> | Array<RoleResolvable>;
 }
 
 export type RoleResolvable = string | import("./structures/Role") | import("./structures/Partial/PartialRole");
@@ -443,13 +447,15 @@ export type AuditLogChange = {
 
 export type CommandInteractionOption = {
 	name: string;
-	type: ApplicationCommandOptionType;
+	type: ApplicationCommandOptionType | "_MESSAGE";
 	value?: string | number | boolean;
-	options?: import("./util/Collection")<string, CommandInteractionOption>;
+	focused?: boolean;
+	options?: Array<CommandInteractionOption>;
 	user?: import("./structures/User");
 	member?: import("./structures/GuildMember");
-	channel?: import("./structures/GuildChannel");
+	channel?: import("./structures/Channel");
 	role?: import("./structures/Role");
+	message?: import("./structures/Message");
 }
 
 export interface ReactionCollectorOptions extends CollectorOptions {
@@ -506,3 +512,27 @@ export type ChannelLogsQueryOptions = {
 }
 
 export type NSFWLevel = Exclude<keyof typeof Constants.NSFWLevels, number>;
+
+// eslint-disable-next-line no-shadow
+export type SweepFilter<K, V> = (collection: import("./util/LimitedCollection")<K, V>) => null | ((value: V, key: K, collection: import ("./util/LimitedCollection")<K, V>) => boolean);
+
+export type LimitedCollectionOptions<K, V> = {
+	maxSize?: number | null;
+	keepOverLimit?: ((value: V, key: K, col: import("./util/LimitedCollection")<K, V>) => boolean) | null;
+	sweepFilter?: SweepFilter<K, V> | null;
+	sweepInterval?: number | null;
+}
+
+export type LifetimeFilterOptions<K, V> = {
+	lifetime?: number;
+	getComparisonTimestamp?: (value: V, key: K, col: import("./util/LimitedCollection")<K, V>) => number;
+	excludeFromSweep?: (value: V, key: K, col: import("./util/LimitedCollection")<K, V>) => boolean;
+}
+
+export type CommandInteractionResolvedData = {
+	users?: import("@discordjs/collection").Collection<string, import("./structures/User")>;
+	members?: import("@discordjs/collection").Collection<string, import("./structures/GuildMember")>;
+	roles?: import("@discordjs/collection").Collection<string, import("./structures/Role")>;
+	channels?: import("@discordjs/collection").Collection<string, import("./structures/Channel")>;
+	messages?: import("@discordjs/collection").Collection<string, import("./structures/Message")>;
+}

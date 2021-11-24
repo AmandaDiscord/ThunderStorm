@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const noop = () => { void 0; };
 const methods = ["get", "post", "delete", "patch", "put"];
 const reflectors = [
@@ -11,10 +12,10 @@ const reflectors = [
 
 type HTTPMethod = Parameters<import("snowtransfer/dist/RequestHandler")["request"]>[1];
 
-function buildRoute(manager: import("./RESTManager")): any {
+function buildRoute(manager: import("./RESTManager")): import("../internal").Route {
 	const route = [""];
 	const handler = {
-		get(target: (...args: Array<any>) => any, name: HTTPMethod): (options: any) => Promise<any> {
+		get(target: (...args: Array<any>) => any, name: HTTPMethod): (options: import("../internal").RestOptions) => Promise<any> {
 			if (reflectors.includes(name)) return () => Promise.resolve(route.join("/"));
 			if (methods.includes(name)) {
 				const routeBucket: Array<string> = [];
@@ -26,7 +27,7 @@ function buildRoute(manager: import("./RESTManager")): any {
 					// All other parts of the route should be considered as part of the bucket identifier
 					else routeBucket.push(route[i]);
 				}
-				return (options: any) =>
+				return (options: import("../internal").RestOptions) =>
 					manager.request(
 						name,
 						route.join("/"),
@@ -47,7 +48,8 @@ function buildRoute(manager: import("./RESTManager")): any {
 			return new Proxy(noop, handler);
 		}
 	};
-	return new Proxy(noop, handler);
+	return new Proxy(noop, handler) as unknown as import("../internal").Route;
 }
 
 export = buildRoute;
+exports.default = buildRoute;

@@ -1,17 +1,13 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Constants from "../util/Constants";
+import Util from "../util/Util";
 
 import AnonymousGuild from "./AnonymousGuild";
-import CategoryChannel from "./CategoryChannel";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import Emoji from "./Emoji";
 import GuildMember from "./GuildMember";
-import NewsChannel from "./NewsChannel";
 import Role from "./Role";
-import StoreChannel from "./StoreChannel";
-import StageChannel from "./StageChannel";
 import SystemChannelFlags from "../util/SystemChannelFlags";
-import TextChannel from "./TextChannel";
-import VoiceChannel from "./VoiceChannel";
 import VoiceState from "./VoiceState";
 import WelcomeScreen from "./WelcomeScreen";
 
@@ -40,20 +36,22 @@ class Guild extends AnonymousGuild {
 	public rulesChannelId: string | null = null;
 	public publicUpdatesChannelId: string | null = null;
 	public preferredLocale = "en-US";
-	public members: Collection<string, GuildMember> = new Collection();
-	public channels: Collection<string, import("./GuildChannel")> = new Collection();
-	public roles: Collection<string, Role> = new Collection();
-	public voiceStates: Collection<string, VoiceState> = new Collection();
-	public emojis: Collection<string, Emoji> = new Collection;
+	public members = new Collection<string, GuildMember>();
+	public channels = new Collection<string, import("./GuildChannel")>();
+	public roles = new Collection<string, Role>();
+	public voiceStates = new Collection<string, VoiceState>();
+	public emojis = new Collection<string, Emoji>();
 	public defaultMessageNotifications: "ALL" | "MENTIONS" = "ALL";
 	public mfaLevel: 0 | 1 = 0;
 	public maximumMembers = 100000;
 	public maximumPresences = 25000;
 	public shardId = 0;
-	public threads: Collection<string, import("./ThreadNewsChannel") | import("./ThreadTextChannel")> = new Collection();
-	public stageInstances: Collection<string, import("./Partial/PartialChannel")> = new Collection();
+	public threads = new Collection<string, import("./ThreadNewsChannel") | import("./ThreadTextChannel")>();
+	public stageInstances = new Collection<string, import("./Partial/PartialChannel")>();
 	public joinedTimestamp!: number;
 	public commands: GuildApplicationCommandManager;
+
+	public static readonly default = Guild;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").GuildData) {
 		super(client, data);
@@ -134,7 +132,7 @@ class Guild extends AnonymousGuild {
 	public async fetchInvites() {
 		const Invite: typeof import("./Invite") = require("./Invite");
 		const inviteItems = await this.client._snow.guild.getGuildInvites(this.id);
-		const invites: Collection<string, import("./Invite")> = new Collection();
+		const invites = new Collection<string, import("./Invite")>();
 		for (const inviteItem of inviteItems) {
 			const invite = new Invite(this.client, inviteItem);
 			invites.set(invite.code, invite);
@@ -181,13 +179,7 @@ class Guild extends AnonymousGuild {
 		if (data.channels && Array.isArray(data.channels)) {
 			this.channels.clear();
 			for (const channel of data.channels) {
-				let chan;
-				if (channel.type === 2) chan = new VoiceChannel(this as any, channel);
-				else if (channel.type === 4) chan = new CategoryChannel(this as any, channel);
-				else if (channel.type === 5) chan = new NewsChannel(this as any, channel);
-				else if (channel.type === 6) chan = new StoreChannel(this as any, channel);
-				else if (channel.type === 13) chan = new StageChannel(this as any, channel);
-				else chan = new TextChannel(this as any, channel);
+				const chan = Util.createChannelFromData(this.client, channel) as import("./GuildChannel");
 				this.channels.set(chan.id, chan);
 			}
 		}

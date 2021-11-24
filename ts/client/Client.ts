@@ -1,4 +1,5 @@
-import Collection from "../util/Collection";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+import { Collection } from "@discordjs/collection";
 import Constants from "../util/Constants";
 
 import BaseClient from "./BaseClient";
@@ -32,6 +33,8 @@ class Client extends BaseClient {
 	public actions: ActionsManager;
 	public voice: ClientVoiceManager;
 	public application: ClientApplication | null = null;
+
+	public static readonly default = Client;
 
 	public constructor(options: import("../Types").ClientOptions) {
 		super(options);

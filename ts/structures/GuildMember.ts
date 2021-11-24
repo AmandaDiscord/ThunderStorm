@@ -1,6 +1,7 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import TextBasedChannel from "./interfaces/TextBasedChannel";
 
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 
 import User from "./User";
 
@@ -20,12 +21,14 @@ class GuildMember implements TextBasedChannel {
 	public joinedTimestamp!: number;
 	public premiumSince: Date | null = null;
 	public premiumSinceTimestamp: number | null = null;
-	public roles: Collection<string, import("./Partial/PartialRole")> = new Collection();
+	public roles = new Collection<string, import("./Partial/PartialRole")>();
 	public guild!: import("./Partial/PartialGuild");
 	public avatar: string | null = null;
 	public hoistRole: import("./Partial/PartialRole") | null = null;
 	public presence: import("./Presence").Presence | null = null;
 	public lastMessageChannelId: string | null = null;
+
+	public static readonly default = GuildMember;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").MemberData & { user: import("discord-typings").UserData; guild_id?: string }) {
 		this.client = client;

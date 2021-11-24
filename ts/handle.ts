@@ -1,14 +1,11 @@
 import Constants from "./util/Constants";
 
-import Collection from "./util/Collection";
+import { Collection } from "@discordjs/collection";
 
 import ClientApplication from "./structures/ClientApplication";
 import ClientUser from "./structures/ClientUser";
-import CommandInteraction from "./structures/CommandInteraction";
 import Guild from "./structures/Guild";
 import GuildMember from "./structures/GuildMember";
-import Interaction from "./structures/Interaction";
-import MessageComponentInteraction from "./structures/MessageComponentInteraction";
 import ThreadMember from "./structures/ThreadMember";
 import ThreadNewsChannel from "./structures/ThreadNewsChannel";
 import ThreadTextChannel from "./structures/ThreadTextChannel";
@@ -18,35 +15,25 @@ import PartialGuild from "./structures/Partial/PartialGuild";
 import PartialThreadChannel from "./structures/Partial/PartialThreadChannel";
 import PartialUser from "./structures/Partial/PartialUser";
 
-let guildInboundTimeout: NodeJS.Timeout | null = null;
-
 function setReady(client: import("./client/Client")) {
 	client.readyTimestamp = Date.now();
-	client.emit("ready", client.user as import("./structures/ClientUser"));
-	if (guildInboundTimeout) clearTimeout(guildInboundTimeout);
-	guildInboundTimeout = null;
+	client.emit(Constants.Events.CLIENT_READY, client.user as import("./structures/ClientUser"));
 }
 
 function handle(packet: any, client: import("./client/Client")) {
 	const data = packet;
+	client.emit(Constants.Events.RAW, data);
 	if (data.t === "READY") {
-
-		client.emit(Constants.Events.RAW, data);
 		const typed: Required<import("./internal").InboundDataType<"READY">> = data;
-		if (guildInboundTimeout) {
-			clearTimeout(guildInboundTimeout);
-			guildInboundTimeout = null;
-		}
 		if (!client.user) client.user = new ClientUser(client, typed.d.user);
 		else client.user._patch(typed.d.user);
 		if (client.application) client.application._patch(typed.d.application as any);
 		else client.application = new ClientApplication(client, typed.d.application as any);
-		if (client.readyAt === null && !guildInboundTimeout) guildInboundTimeout = setTimeout(() => setReady(client), client.options.connectTimeout || 5000);
+		if (!client.readyTimestamp) setReady(client);
 		client.emit(Constants.Events.SHARD_READY, data.shard_id, new Set(typed.d.guilds.filter(g => g.unavailable).map(g => g.id) || []));
 	}
 
 	if (!client.user) return;
-	if (data.t !== "READY") client.emit(Constants.Events.RAW, data);
 	if (data.t === "CHANNEL_CREATE") {
 		client.actions.ChannelCreate.handle(data.d);
 	} else if (data.t === "CHANNEL_DELETE") {
@@ -61,11 +48,6 @@ function handle(packet: any, client: import("./client/Client")) {
 	} else if (data.t === "GUILD_BAN_REMOVE") {
 		client.actions.GuildBanRemove.handle(data.d);
 	} else if (data.t === "GUILD_CREATE") {
-		if (guildInboundTimeout) {
-			clearTimeout(guildInboundTimeout);
-			guildInboundTimeout = null;
-		}
-		if (client.readyAt === null) guildInboundTimeout = setTimeout(() => setReady(client), client.options.connectTimeout || 5000);
 		const typed: Required<import("./internal").InboundDataType<"GUILD_CREATE">> = data;
 		const guild = new Guild(client, typed.d);
 		client.emit(Constants.Events.GUILD_CREATE, guild);
@@ -92,17 +74,7 @@ function handle(packet: any, client: import("./client/Client")) {
 	} else if (data.t === "GUILD_UPDATE") {
 		client.actions.GuildUpdate.handle(data.d);
 	} else if (data.t === "INTERACTION_CREATE") {
-
-		const typed: Required<import("./internal").InboundDataType<"INTERACTION_CREATE">> = data;
-		let interaction;
-		if (typed.d.type === 2) interaction = new CommandInteraction(client, typed.d);
-		else if (typed.d.type === 3 as number) interaction = new MessageComponentInteraction(client, typed.d);
-		else interaction = new Interaction(client, typed.d);
-
-		client.emit(Constants.Events.INTERACTION_CREATE, interaction);
-	} else if (data.op === 9) {
-
-		client.emit(Constants.Events.INVALID_SESSION);
+		client.actions.InteractionCreate.handle(data.d);
 	} else if (data.t === "INVITE_CREATE") {
 		client.actions.InviteCreate.handle(data.d);
 	} else if (data.t === "INVITE_DELETE") {
@@ -125,22 +97,12 @@ function handle(packet: any, client: import("./client/Client")) {
 		client.actions.MessageUpdate.handle(data.d);
 	} else if (data.t === "RECONNECT") {
 		client.emit(Constants.Events.SHARD_DISCONNECT, { code: 1001, reason: "Server is going away", wasClean: true }, data.shard_id);
-	} else if (data.t === "RESUMED") {
-		client.emit(Constants.Events.RESUMED, data.shard_id);
 	} else if (data.t === "THREAD_CREATE") {
-		const typed: Required<import("./internal").InboundDataType<"THREAD_CREATE">> = data;
-		client.emit(Constants.Events.THREAD_CREATE, typed.d.type === 10 ? new ThreadNewsChannel(new PartialGuild(client, { id: typed.d.guild_id }), typed.d) : new ThreadTextChannel(new PartialGuild(client, { id: typed.d.guild_id }), typed.d));
+		client.actions.ThreadCreate.handle(data.d);
 	} else if (data.t === "THREAD_DELETE") {
-		const typed: Required<import("./internal").InboundDataType<"THREAD_DELETE">> = data;
-		client.emit(Constants.Events.THREAD_DELETE, typed.d.type === 10 ? new ThreadNewsChannel(new PartialGuild(client, { id: typed.d.guild_id }), typed.d) : new ThreadTextChannel(new PartialGuild(client, { id: typed.d.guild_id }), typed.d));
+		client.actions.ThreadDelete.handle(data.d);
 	} else if (data.t === "THREAD_LIST_SYNC") {
-		const typed: Required<import("./internal").InboundDataType<"THREAD_LIST_SYNC">> = data;
-		client.emit(Constants.Events.THREAD_LIST_SYNC, new PartialGuild(client, { id: typed.d.guild_id }), new Collection((typed.d.channel_ids || []).map(id => [id, new PartialChannel(client, { id: id, guild_id: typed.d.guild_id })])), new Collection(typed.d.threads.map(thread => {
-			const channel = thread.type === 10 ? new ThreadNewsChannel(new PartialGuild(client, { id: typed.d.guild_id }), thread) : new ThreadTextChannel(new PartialGuild(client, { id: typed.d.guild_id }), thread);
-			const members = typed.d.members.filter(m => m.id === channel.id);
-			for (const member of members) channel.members.set(member.user_id as string, new ThreadMember(channel, member));
-			return [channel.id, channel];
-		})));
+		client.actions.ThreadListSync.handle(data.d);
 	} else if (data.t === "THREAD_UPDATE") {
 		const typed: Required<import("./internal").InboundDataType<"THREAD_UPDATE">> = data;
 		client.emit(Constants.Events.THREAD_UPDATE, typed.d.type === 10 ? new ThreadNewsChannel(new PartialGuild(client, { id: typed.d.guild_id }), typed.d) : new ThreadTextChannel(new PartialGuild(client, { id: typed.d.guild_id }), typed.d));
@@ -161,3 +123,5 @@ function handle(packet: any, client: import("./client/Client")) {
 }
 
 export = handle;
+
+exports.default = handle;

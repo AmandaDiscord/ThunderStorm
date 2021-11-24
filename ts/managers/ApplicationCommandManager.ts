@@ -1,7 +1,8 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BaseManager from "./BaseManager";
 import { TypeError } from "../errors";
 import ApplicationCommand from "../structures/ApplicationCommand";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 
 import PartialGuild from "../structures/Partial/PartialGuild";
 
@@ -11,12 +12,14 @@ interface ApplicationCommandManagerConstructor {
 	readonly [Symbol.species]: ApplicationCommandManagerConstructor;
 }
 
+// @ts-ignore
 class ApplicationCommandManager extends BaseManager<import("../structures/ApplicationCommand"), Collection<string, import("../structures/ApplicationCommand")>> {
 	public ["constructor"]: typeof ApplicationCommandManager;
-	public static readonly default: typeof ApplicationCommandManager = ApplicationCommandManager;
+	public static readonly default = ApplicationCommandManager;
 	readonly [Symbol.species]: ApplicationCommandManagerConstructor;
 
 	public constructor(client: import("../client/Client"), iterable?: IterableIterator<import("../structures/ApplicationCommand")>) {
+		// @ts-ignore
 		super(client, iterable, ApplicationCommand);
 	}
 

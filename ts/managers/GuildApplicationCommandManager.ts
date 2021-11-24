@@ -1,6 +1,7 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import ApplicationCommandManager from "./ApplicationCommandManager";
 import { TypeError } from "../errors";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import { ApplicationCommandPermissionTypes } from "../util/Constants";
 
 interface GuildApplicationCommandManagerConstructor {
@@ -12,7 +13,7 @@ interface GuildApplicationCommandManagerConstructor {
 class GuildApplicationCommandManager extends ApplicationCommandManager {
 	// @ts-ignore
 	public ["constructor"]: typeof GuildApplicationCommandManager;
-	public static readonly default: typeof GuildApplicationCommandManager = GuildApplicationCommandManager;
+	public static readonly default = GuildApplicationCommandManager;
 	// @ts-ignore
 	readonly [Symbol.species]: GuildApplicationCommandManagerConstructor;
 

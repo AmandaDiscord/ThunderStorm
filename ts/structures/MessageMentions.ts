@@ -1,4 +1,6 @@
-import Collection from "../util/Collection";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+import { Collection } from "@discordjs/collection";
+import Util from "../util/Util";
 import Constants from "../util/Constants";
 
 import GuildMember from "./GuildMember";
@@ -15,11 +17,13 @@ class MessageMentions {
 	private _content: string | null;
 
 	public everyone: boolean;
-	public users: Collection<string, import("./User")> = new Collection();
-	public members: Collection<string, import("./GuildMember")> = new Collection();
-	public channels: Collection<string, import("./Partial/PartialChannel")> = new Collection();
-	public roles: Collection<string, import("./Partial/PartialRole")> = new Collection();
-	public crosspostedChannels: Collection<string, import("./GuildChannel")> = new Collection();
+	public users = new Collection<string, import("./User")>();
+	public members = new Collection<string, import("./GuildMember")>();
+	public channels = new Collection<string, import("./Partial/PartialChannel")>();
+	public roles = new Collection<string, import("./Partial/PartialRole")>();
+	public crosspostedChannels = new Collection<string, import("./GuildChannel")>();
+
+	public static readonly default = MessageMentions;
 
 	public constructor(message: import("./Message"), users: Array<import("discord-typings").UserData & { member?: import("discord-typings").MemberData }> | undefined, roles: Array<string> | undefined, everyone: boolean, crosspostedChannels: Array<import("discord-typings").ChannelMentionData> | undefined) {
 		this.client = message.client;
@@ -51,24 +55,8 @@ class MessageMentions {
 		}
 
 		if (crosspostedChannels) {
-			const TextChannel: typeof import("./TextChannel") = require("./TextChannel");
-			const VoiceChannel: typeof import("./VoiceChannel") = require("./VoiceChannel");
-			const CategoryChannel: typeof import("./CategoryChannel") = require("./CategoryChannel");
-			const NewsChannel: typeof import("./NewsChannel") = require("./NewsChannel");
-			const StoreChannel: typeof import("./StoreChannel") = require("./StoreChannel");
-			const StageChannel: typeof import("./StageChannel") = require("./StageChannel");
-			const GuildChannel: typeof import("./GuildChannel") = require("./GuildChannel");
-			const Channel: typeof import("./Channel") = require("./Channel");
 			for (const channel of crosspostedChannels) {
-				let data;
-				if (channel.type === 0 && this.guild) data = new TextChannel(this.guild, channel as any);
-				else if (channel.type === 2 && this.guild) data = new VoiceChannel(this.guild, channel as any);
-				else if (channel.type === 4 && this.guild) data = new CategoryChannel(this.guild, channel as any);
-				else if (channel.type === 5 && this.guild) data = new NewsChannel(this.guild, channel as any);
-				else if (channel.type === 6 && this.guild) data = new StoreChannel(this.guild, channel as any);
-				else if (channel.type === 13 && this.guild) data = new StageChannel(this.guild, channel as any);
-				else if (this.guild) data = new GuildChannel(this.guild, channel as any);
-				else data = new Channel(this.client, channel as any);
+				const data = Util.createChannelFromData(this.client, channel as import("discord-typings").TextChannelData);
 				this.crosspostedChannels.set(data.id, data as any);
 			}
 		}

@@ -10,6 +10,8 @@ class PartialUser extends PartialBase<import("../User")> implements TextBasedCha
 
 	public partialType: "User" = "User";
 
+	public static readonly default = PartialUser;
+
 	public constructor(client: import("../../client/Client"), data: import("../../internal").PartialData) {
 		super(client, data);
 	}

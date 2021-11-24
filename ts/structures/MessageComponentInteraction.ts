@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Interaction from "./Interaction";
 import InteractionWebhook from "./InteractionWebhook";
 import InteractionResponses from "./interfaces/InteractionResponses";
@@ -19,6 +20,8 @@ class MessageComponentInteraction extends Interaction implements InteractionResp
 	public deferred: boolean;
 	public replied: boolean;
 	public webhook: InteractionWebhook;
+
+	public static readonly default = MessageComponentInteraction;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").InteractionData) {
 		super(client, data);

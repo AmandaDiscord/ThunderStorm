@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 /* eslint-disable no-shadow */
 
 import STEndpoints from "snowtransfer/dist/Endpoints";
@@ -61,55 +62,72 @@ export const Endpoints = {
 };
 
 export const Events = {
-	CHANNEL_CREATE: "channelCreate" as const,
-	CHANNEL_DELETE: "channelDelete" as const,
-	CHANNEL_PINS_UPDATE: "channelPinsUpdate" as const,
-	CHANNEL_UPDATE: "channelUpdate" as const,
-	GUILD_BAN_ADD: "guildBanAdd" as const,
-	GUILD_BAN_REMOVE: "guildBanRemove" as const,
+	RATE_LIMIT: "rateLimit" as const,
+	INVALID_REQUEST_WARNING: "invalidRequestWarning" as const,
+	API_RESPONSE: "apiResponse" as const,
+	API_REQUEST: "apiRequest" as const,
+	CLIENT_READY: "ready" as const,
 	GUILD_CREATE: "guildCreate" as const,
 	GUILD_DELETE: "guildDelete" as const,
-	GUILD_EMOJI_CREATE: "emojiCreate" as const,
-	GUILD_EMOJIS_UPDATE: "emojisUpdate" as const,
-	GUILD_INTEGRATIONS_UPDATE: "guildIntegrationsUpdate" as const,
-	GUILD_MEMBERS_CHUNK: "guildMembersChunk" as const,
+	GUILD_UPDATE: "guildUpdate" as const,
+	GUILD_UNAVAILABLE: "guildUnavailable" as const,
 	GUILD_MEMBER_ADD: "guildMemberAdd" as const,
 	GUILD_MEMBER_REMOVE: "guildMemberRemove" as const,
 	GUILD_MEMBER_UPDATE: "guildMemberUpdate" as const,
+	GUILD_MEMBER_AVAILABLE: "guildMemberAvailable" as const,
+	GUILD_MEMBERS_CHUNK: "guildMembersChunk" as const,
+	GUILD_INTEGRATIONS_UPDATE: "guildIntegrationsUpdate" as const,
 	GUILD_ROLE_CREATE: "roleCreate" as const,
 	GUILD_ROLE_DELETE: "roleDelete" as const,
-	GUILD_ROLE_UPDATE: "roleUpdate" as const,
-	GUILD_UNAVAILABLE: "guildUnavailable" as const,
-	GUILD_UPDATE: "guildUpdate" as const,
-	INTERACTION_CREATE: "interaction" as const,
-	INVALID_SESSION: "invalidated" as const,
 	INVITE_CREATE: "inviteCreate" as const,
 	INVITE_DELETE: "inviteDelete" as const,
-	MESSAGE_BULK_DELETE: "messageDeleteBulk" as const,
-	MESSAGE_CREATE: "message" as const,
+	GUILD_ROLE_UPDATE: "roleUpdate" as const,
+	GUILD_EMOJI_CREATE: "emojiCreate" as const,
+	GUILD_EMOJI_DELETE: "emojiDelete" as const,
+	GUILD_EMOJIS_UPDATE: "emojisUpdate" as const,
+	GUILD_BAN_ADD: "guildBanAdd" as const,
+	GUILD_BAN_REMOVE: "guildBanRemove" as const,
+	CHANNEL_CREATE: "channelCreate" as const,
+	CHANNEL_DELETE: "channelDelete" as const,
+	CHANNEL_UPDATE: "channelUpdate" as const,
+	CHANNEL_PINS_UPDATE: "channelPinsUpdate" as const,
+	MESSAGE_CREATE: "messageCreate" as const,
 	MESSAGE_DELETE: "messageDelete" as const,
 	MESSAGE_UPDATE: "messageUpdate" as const,
+	MESSAGE_BULK_DELETE: "messageDeleteBulk" as const,
 	MESSAGE_REACTION_ADD: "messageReactionAdd" as const,
 	MESSAGE_REACTION_REMOVE: "messageReactionRemove" as const,
 	MESSAGE_REACTION_REMOVE_ALL: "messageReactionRemoveAll" as const,
 	MESSAGE_REACTION_REMOVE_EMOJI: "messageReactionRemoveEmoji" as const,
-	PRESENCE_UPDATE: "presenceUpdate" as const,
-	RATE_LIMIT: "rateLimit" as const,
-	RAW: "raw" as const,
-	READY: "ready" as const,
-	RESUMED: "shardResume" as const,
-	SHARD_DISCONNECT: "shardDisconnect" as const,
-	SHARD_READY: "shardReady" as const,
 	THREAD_CREATE: "threadCreate" as const,
 	THREAD_DELETE: "threadDelete" as const,
+	THREAD_UPDATE: "threadUpdate" as const,
 	THREAD_LIST_SYNC: "threadListSync" as const,
 	THREAD_MEMBER_UPDATE: "threadMemberUpdate" as const,
 	THREAD_MEMBERS_UPDATE: "threadMembersUpdate" as const,
-	THREAD_UPDATE: "threadUpdate" as const,
-	TYPING_START: "typingStart" as const,
 	USER_UPDATE: "userUpdate" as const,
+	PRESENCE_UPDATE: "presenceUpdate" as const,
+	VOICE_SERVER_UPDATE: "voiceServerUpdate" as const,
 	VOICE_STATE_UPDATE: "voiceStateUpdate" as const,
-	WEBHOOKS_UPDATE: "webhookUpdate" as const
+	TYPING_START: "typingStart" as const,
+	WEBHOOKS_UPDATE: "webhookUpdate" as const,
+	INTERACTION_CREATE: "interactionCreate" as const,
+	ERROR: "error" as const,
+	WARN: "warn" as const,
+	DEBUG: "debug" as const,
+	SHARD_DISCONNECT: "shardDisconnect" as const,
+	SHARD_ERROR: "shardError" as const,
+	SHARD_RECONNECTING: "shardReconnecting" as const,
+	SHARD_READY: "shardReady" as const,
+	SHARD_RESUME: "shardResume" as const,
+	INVALIDATED: "invalidated" as const,
+	RAW: "raw" as const,
+	STAGE_INSTANCE_CREATE: "stageInstanceCreate" as const,
+	STAGE_INSTANCE_UPDATE: "stageInstanceUpdate" as const,
+	STAGE_INSTANCE_DELETE: "stageInstanceDelete" as const,
+	GUILD_STICKER_CREATE: "stickerCreate" as const,
+	GUILD_STICKER_DELETE: "stickerDelete" as const,
+	GUILD_STICKER_UPDATE: "stickerUpdate" as const
 };
 
 export const PartialTypes = {
@@ -321,6 +339,12 @@ export const OverwriteTypes = enumerate({
 	member: 1 as const
 });
 
+export const ApplicationCommandTypes = enumerate({
+	CHAT_INPUT: 1 as const,
+	USER: 2 as const,
+	MESSAGE: 3 as const
+});
+
 export const ApplicationCommandOptionTypes = enumerate({
 	SUB_COMMAND: 1 as const,
 	SUB_COMMAND_GROUP: 2 as const,
@@ -351,7 +375,8 @@ export const InteractionResponseTypes = enumerate({
 	CHANNEL_MESSAGE_WITH_SOURCE: 4 as const,
 	DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE: 5 as const,
 	DEFERRED_MESSAGE_UPDATE: 6 as const,
-	UPDATE_MESSAGE: 7 as const
+	UPDATE_MESSAGE: 7 as const,
+	APPLICATION_COMMAND_AUTOCOMPLETE_RESULT: 8 as const
 });
 
 export const MessageComponentTypes = enumerate({
@@ -391,6 +416,8 @@ export const PremiumTiers = enumerate({
 	TIER_2: 2 as const,
 	TIER_3: 3 as const
 });
+
+export const _cleanupSymbol = Symbol("djsCleanup");
 
 export const SYSTEM_USER_ID = "643945264868098049";
 

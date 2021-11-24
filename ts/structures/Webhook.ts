@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Endpoints from "snowtransfer/dist/Endpoints";
 
 import MessagePayload from "./MessagePayload";
@@ -18,6 +19,8 @@ class Webhook {
 	public owner: import("./User") | null = null;
 	public sourceGuild: import("./Guild") | null = null;
 	public sourceChannel: import("./NewsChannel") | null = null;
+
+	public static readonly default = Webhook;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").WebhookData) {
 		this.client = client;

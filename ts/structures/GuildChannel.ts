@@ -1,12 +1,16 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Channel from "./Channel";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import PermissionOverwrites from "./PermissionOverwrites";
 
+// @ts-ignore
 class GuildChannel extends Channel {
 	public parentId: string | null = null;
 	public rawPosition = 0;
 	public guild!: import("./Partial/PartialGuild");
 	public permissionOverwrites!: Collection<string, PermissionOverwrites>;
+
+	public static readonly default = GuildChannel;
 
 	public constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").GuildChannelData) {
 		super(guild.client, data);

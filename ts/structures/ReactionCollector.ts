@@ -1,11 +1,12 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Collector from "./interfaces/Collector";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import { Events } from "../util/Constants";
 
 interface CollectorEvents {
 	collect: [import("./MessageReaction"), import("./Partial/PartialUser")];
 	dispose: [import("./MessageReaction"), import("./Partial/PartialUser")];
-	end: [import("../util/Collection")<string, import("./MessageReaction")>, string];
+	end: [import("@discordjs/collection").Collection<string, import("./MessageReaction")>, string];
 	remove: [import("./MessageReaction"), import("./Partial/PartialUser")];
 	create: [import("./MessageReaction"), import("./Partial/PartialUser")];
 }
@@ -30,9 +31,11 @@ interface ReactionCollector {
 // @ts-ignore
 class ReactionCollector extends Collector<import("./MessageReaction")> {
 	public message: import("./Message") | import("./Partial/PartialMessage");
-	public users: Collection<string, import("./Partial/PartialUser")> = new Collection();
+	public users = new Collection<string, import("./Partial/PartialUser")>();
 	public total = 0;
 	public options!: import("../Types").ReactionCollectorOptions;
+
+	public static readonly default = ReactionCollector;
 
 	public constructor(message: import("./Message") | import("./Partial/PartialMessage"), filter: import("../Types").CollectorFilter<import("./MessageReaction")>, options: import("../Types").ReactionCollectorOptions = {}) {
 		super(message.client, filter, options);

@@ -1,8 +1,11 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Action from "./Action";
-import Collection from "../../util/Collection";
+import { Collection } from "@discordjs/collection";
 import { Events, ChannelTypes } from "../../util/Constants";
 
 class MessageDeleteBulkAction extends Action {
+	public static readonly default = MessageDeleteBulkAction;
+
 	public handle(data: import("discord-typings").MessageBulkDeleteData) {
 		const PartialChannel: typeof import("../../structures/Partial/PartialChannel") = require("../../structures/Partial/PartialChannel");
 		const PartialMessage: typeof import("../../structures/Partial/PartialMessage") = require("../../structures/Partial/PartialMessage");

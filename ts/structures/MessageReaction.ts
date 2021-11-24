@@ -1,4 +1,5 @@
-import Collection from "../util/Collection";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+import { Collection } from "@discordjs/collection";
 
 import ReactionEmoji from "./ReactionEmoji";
 
@@ -6,8 +7,10 @@ class MessageReaction {
 	public message: import("./Message") | import("./Partial/PartialMessage");
 	public me: boolean;
 	public count = 0;
-	public users: Collection<string, import("./User")> = new Collection();
+	public users = new Collection<string, import("./User")>();
 	public emoji: import("./ReactionEmoji");
+
+	public static readonly default = MessageReaction;
 
 	public constructor(message: import("./Message") | import("./Partial/PartialMessage"), emoji: import("discord-typings").ReactionData["emoji"], count: number, me: boolean) {
 		this.message = message;
@@ -44,7 +47,7 @@ class MessageReaction {
 		const message = this.message;
 		const User: typeof import("./User") = require("./User");
 		const data = await this.message.client._snow.channel.getReactions(message.channel.id, message.id, this.emoji.identifier);
-		const users: Collection<string, import("./User")> = new Collection();
+		const users = new Collection<string, import("./User")>();
 		for (const rawUser of data) {
 			if (rawUser.id === message.client.user?.id) {
 				message.client.user._patch(rawUser);

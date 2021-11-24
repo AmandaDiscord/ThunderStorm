@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 class VoiceRegion {
 	public id: string;
 	public name: string;
@@ -6,6 +7,8 @@ class VoiceRegion {
 	public optimal: boolean;
 	public custom: boolean;
 	public sampleHostname: string;
+
+	public static readonly default = VoiceRegion;
 
 	public constructor(data: { id: string; name: string; vip: boolean; deprecated: boolean; optimal: boolean; custom: boolean; sample_hostname?: string }) {
 		this.id = data.id;

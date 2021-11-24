@@ -1,14 +1,17 @@
-import Collection from "../../util/Collection";
+import { Collection } from "@discordjs/collection";
 import PartialBase from "./PartialBase";
 
 import GuildApplicationCommandManager from "../../managers/GuildApplicationCommandManager";
 
+// @ts-ignore
 class PartialGuild extends PartialBase<import("../Guild")> {
 	public partialType: "Guild" = "Guild";
 	public memberCount: number;
 	public available: boolean;
 	public name: string;
 	public commands: GuildApplicationCommandManager;
+
+	public static readonly default = PartialGuild;
 
 	public constructor(client: import("../../client/Client"), data: import("../../internal").PartialData & { unavailable?: boolean }) {
 		super(client, data);
@@ -57,7 +60,7 @@ class PartialGuild extends PartialBase<import("../Guild")> {
 	public async fetchInvites() {
 		const Invite: typeof import("../Invite") = require("../Invite");
 		const inviteItems = await this.client._snow.guild.getGuildInvites(this.id);
-		const invites: Collection<string, import("../Invite")> = new Collection();
+		const invites = new Collection<string, import("../Invite")>();
 		for (const inviteItem of inviteItems) {
 			const invite = new Invite(this.client, inviteItem);
 			invites.set(invite.code, invite);

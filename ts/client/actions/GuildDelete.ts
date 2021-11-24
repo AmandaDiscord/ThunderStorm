@@ -1,8 +1,11 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Action from "./Action";
 import { Events } from "../../util/Constants";
 
 class GuildDeleteAction extends Action {
 	public deleted: Map<any, any>;
+
+	public static readonly default = GuildDeleteAction;
 
 	public constructor(client: import("../Client")) {
 		super(client);

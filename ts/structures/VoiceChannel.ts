@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BaseGuildVoiceChannel from "./BaseGuildVoiceChannel";
 
 import Constants from "../util/Constants";
@@ -7,6 +8,8 @@ class VoiceChannel extends BaseGuildVoiceChannel {
 	public userLimit = 0;
 	public rtcRegion: string | null = null;
 	public type: typeof Constants.ChannelTypes[2] = Constants.ChannelTypes[2];
+
+	public static readonly default = VoiceChannel;
 
 	public constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").VoiceChannelData) {
 		super(guild, data);

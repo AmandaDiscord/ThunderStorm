@@ -1,11 +1,15 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import SnowflakeUtil from "../../util/SnowflakeUtil";
 import Base from "../Base";
 
+// @ts-ignore
 abstract class Application extends Base {
 	public name!: string | null;
 	public description!: string | null;
 	public icon!: string | null;
 	public cover!: string | null;
+
+	public static readonly default = Application;
 
 	public constructor(client: import("../../client/Client"), data: import("discord-typings").ApplicationData) {
 		super(client);

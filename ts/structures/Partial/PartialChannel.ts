@@ -4,6 +4,7 @@ import TextBasedChannel from "../interfaces/TextBasedChannel";
 
 import PartialBase from "./PartialBase";
 
+// @ts-ignore
 class PartialChannel extends PartialBase<import("../Channel")> implements TextBasedChannel {
 	public readonly lastPinAt!: TextBasedChannel["lastPinAt"];
 	public lastPinTimestamp!: TextBasedChannel["lastPinTimestamp"];
@@ -29,6 +30,8 @@ class PartialChannel extends PartialBase<import("../Channel")> implements TextBa
 	public name: string;
 	public permissions: Readonly<import("../../util/Permissions")>;
 	public topic: string | null;
+
+	public static readonly default = PartialChannel;
 
 	public constructor(client: import("../../client/Client"), data: import("../../internal").PartialData) {
 		super(client, data);

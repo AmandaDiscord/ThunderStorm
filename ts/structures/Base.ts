@@ -1,8 +1,11 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Util from "../util/Util";
 
 abstract class Base {
 	public client: import("../client/Client");
 	public id!: string;
+
+	public static readonly default = Base;
 
 	public constructor(client: import("../client/Client")) {
 		this.client = client;

@@ -1,9 +1,13 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 
+// @ts-ignore
 class GuildBan extends Base {
 	public guild: import("./Partial/PartialGuild");
 	public user!: import("./User");
 	public reason: string | null = null;
+
+	public static readonly default = GuildBan;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").GuildBanAddData & { reason?: string }, guild: import("./Partial/PartialGuild")) {
 		super(client);

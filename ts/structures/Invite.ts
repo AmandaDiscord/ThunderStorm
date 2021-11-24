@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Constants from "../util/Constants";
 
 class Invite {
@@ -18,6 +19,8 @@ class Invite {
 	public targetUserType: 1 | 2 | null = null;
 	public targetUser: import("./User") | null = null;
 	private _expiresAt: string | null = null;
+
+	public static readonly default = Invite;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").InviteData & { channel_id?: string; created_at?: string; guild_id?: string; temporary?: boolean; max_age?: number; max_uses?: number; uses?: number }) {
 		this.client = client;

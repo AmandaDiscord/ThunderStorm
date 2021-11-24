@@ -1,9 +1,12 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 class RequestHandler {
 	public manager: import("./RESTManager");
 	public queue: Record<string, never>;
 	public reset = -1;
 	public remaining = -1;
 	public limit = -1;
+
+	public static readonly default = RequestHandler;
 
 	public constructor(manager: import("./RESTManager")) {
 		this.manager = manager;

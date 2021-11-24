@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import TextBasedChannel from "./interfaces/TextBasedChannel";
 
 import Base from "./Base";
@@ -21,6 +22,8 @@ class User extends Base implements TextBasedChannel {
 	public dmChannel: import("./DMChannel") | null = null;
 	public presence: import("./Presence").Presence | null = null;
 	public lastMessageChannelId: string | null = null;
+
+	public static readonly default = User;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").UserData) {
 		super(client);

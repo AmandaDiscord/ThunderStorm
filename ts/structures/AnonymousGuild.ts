@@ -1,9 +1,8 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BaseGuild from "./BaseGuild";
 import { VerificationLevels, NSFWLevels } from "../util/Constants";
 
-/**
- * Bundles common attributes and methods between {@link Guild} and {@link InviteGuild}
- */
+// @ts-ignore
 abstract class AnonymousGuild extends BaseGuild {
 	public splash!: string | null;
 	public banner!: string | null;
@@ -11,6 +10,8 @@ abstract class AnonymousGuild extends BaseGuild {
 	public verificationLevel!: import("../Types").VerificationLevel;
 	public vanityURLCode!: string | null;
 	public nsfwLevel!: import("../Types").NSFWLevel;
+
+	public static readonly default = AnonymousGuild;
 
 	public constructor(client: import("../client/Client"), data: any) {
 		super(client, data);

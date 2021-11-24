@@ -1,12 +1,16 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import SnowflakeUtil from "../util/SnowflakeUtil";
 
 import Base from "./Base";
 
+// @ts-ignore
 class Emoji extends Base {
 	public animated = false;
 	public name!: string;
 	public id: string;
 	public deleted = false;
+
+	public static readonly default = Emoji;
 
 	public constructor(client: import("../client/Client"), data: import("discord-typings").EmojiData) {
 		super(client);

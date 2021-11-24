@@ -1,7 +1,8 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import MessageCollector from "../MessageCollector";
 import MessagePayload from "../MessagePayload";
 import SnowflakeUtil from "../../util/SnowflakeUtil";
-import Collection from "../../util/Collection";
+import { Collection } from "@discordjs/collection";
 import { TypeError } from "../../errors";
 import MessageComponentInteractionCollector from "../MessageComponentInteractionCollector";
 
@@ -12,9 +13,7 @@ abstract class TextBasedChannel {
 	public client!: import("../../client/Client");
 	public type!: import("../../Types").ChannelType;
 
-	public constructor() {
-		void 0;
-	}
+	public static readonly default = TextBasedChannel;
 
 	public get lastMessage() {
 		const PartialMessage: typeof import("../Partial/PartialMessage") = require("../Partial/PartialMessage");
@@ -114,7 +113,7 @@ abstract class TextBasedChannel {
 	public async bulkDelete(messages: Collection<string, import("../Message")> | Array<import("../../Types").MessageResolvable> | number, filterOld = false): Promise<Collection<string, import("../Partial/PartialMessage")>> {
 		const PartialMessage: typeof import("../Partial/PartialMessage") = require("../Partial/PartialMessage");
 		if (Array.isArray(messages) || messages instanceof Collection) {
-			let messageIds: Array<string> = messages instanceof Collection ? messages.keyArray() : messages.map(m => typeof m === "string" ? m : m.id);
+			let messageIds: Array<string> = messages instanceof Collection ? Array.from(messages.keys()) : messages.map(m => typeof m === "string" ? m : m.id);
 			if (filterOld) {
 				messageIds = messageIds.filter(id => Date.now() - SnowflakeUtil.deconstruct(id).timestamp < 1209600000);
 			}
@@ -124,7 +123,7 @@ abstract class TextBasedChannel {
 				return new Collection([[messageIds[0], new PartialMessage(this.client, { id: messageIds[0], channel_id: this.id, guild_id: (this as unknown as import("../TextChannel")).guild ? (this as unknown as import("../TextChannel")).guild.id : undefined })]]);
 			}
 			await this.client._snow.channel.bulkDeleteMessages(this.id, messageIds);
-			const collection: Collection<string, import("../Partial/PartialMessage")> = new Collection();
+			const collection = new Collection<string, import("../Partial/PartialMessage")>();
 			return messageIds.reduce(
 				(col, id) =>
 					col.set(

@@ -1,8 +1,11 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Action from "./Action";
 import { Events, ChannelTypes } from "../../util/Constants";
 
 class ChannelDeleteAction extends Action {
 	public deleted: Map<any, any>;
+
+	public static readonly default = ChannelDeleteAction;
 
 	public constructor(client: import("../Client")) {
 		super(client);

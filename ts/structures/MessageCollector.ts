@@ -1,10 +1,11 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Collector from "./interfaces/Collector";
 import { Events } from "../util/Constants";
 
 interface CollectorEvents {
 	collect: [import("./Message")];
 	dispose: [import("./Message")];
-	end: [import("../util/Collection")<string, import("./Message")>, string];
+	end: [import("@discordjs/collection").Collection<string, import("./Message")>, string];
 }
 
 interface MessageCollector {
@@ -23,10 +24,13 @@ interface MessageCollector {
 	removeListener<E extends keyof CollectorEvents>(event: E, listener: (...args: CollectorEvents[E]) => any): this;
 }
 
+// @ts-ignore
 class MessageCollector extends Collector<import("./Message")> {
 	public channel: import("./interfaces/TextBasedChannel");
 	public received: number;
 	public options!: import("../Types").MessageCollectorOptions;
+
+	public static readonly default = MessageCollector;
 
 	public constructor(channel: import("./interfaces/TextBasedChannel"), filter: import("../Types").CollectorFilter<import("./Message")>, options: import("../Types").MessageCollectorOptions = {}) {
 		super(channel.client, filter, options);

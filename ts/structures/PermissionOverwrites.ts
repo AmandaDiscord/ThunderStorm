@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Permissions from "../util/Permissions";
 
 class PermissionOverwrites {
@@ -6,6 +7,8 @@ class PermissionOverwrites {
 	public type: "member" | "role";
 	public deny: Readonly<Permissions>;
 	public allow: Readonly<Permissions>;
+
+	public static readonly default = PermissionOverwrites;
 
 	public constructor(guildChannel: import("./GuildChannel"), data: import("discord-typings").PermissionOverwriteData) {
 		this.channel = guildChannel;
