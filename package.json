@@ -15,7 +15,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@discordjs/collection": "^0.3.2",
-    "@sapphire/snowflake": "^2.1.4",
     "snowtransfer": "0.3.x"
   },
   "devDependencies": {
