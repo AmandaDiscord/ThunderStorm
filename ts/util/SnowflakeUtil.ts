@@ -3,7 +3,7 @@ import Util from "./Util";
 
 // Discord epoch (2015-01-01T00:00:00.000Z)
 const EPOCH = 1_420_070_400_000;
-let INCREMENT = 0;
+let INCREMENT = BigInt(0);
 
 class SnowflakeUtil {
 	public static readonly default = SnowflakeUtil;
@@ -19,25 +19,22 @@ class SnowflakeUtil {
 				`"timestamp" argument must be a number (received ${isNaN(timestamp) ? "NaN" : typeof timestamp})`
 			);
 		}
-		if (INCREMENT >= 4095) INCREMENT = 0;
-		const BINARY = `${(timestamp - EPOCH).toString(2).padStart(42, "0")}0000100000${(INCREMENT++)
-			.toString(2)
-			.padStart(12, "0")}`;
-		return Util.binaryToId(BINARY);
+		if (INCREMENT >= BigInt(4095)) INCREMENT = BigInt(0);
+
+		return ((BigInt(timestamp - EPOCH) << BigInt(22)) | (BigInt(1) << BigInt(17)) | INCREMENT++).toString();
 	}
 
 	static deconstruct(snowflake: string) {
-		// @ts-ignore
-		const BINARY = Util.idToBinary(snowflake).toString(2).padStart(64, "0");
+		const bigIntSnowflake = BigInt(snowflake);
 		return {
-			timestamp: parseInt(BINARY.substring(0, 42), 2) + EPOCH,
+			timestamp: Number(bigIntSnowflake >> BigInt(22)) + EPOCH,
 			get date() {
 				return new Date(this.timestamp);
 			},
-			workerId: parseInt(BINARY.substring(42, 47), 2),
-			processId: parseInt(BINARY.substring(47, 52), 2),
-			increment: parseInt(BINARY.substring(52, 64), 2),
-			binary: BINARY
+			workerId: Number((bigIntSnowflake >> BigInt(17)) & BigInt(0b11111)),
+			processId: Number((bigIntSnowflake >> BigInt(12)) & BigInt(0b11111)),
+			increment: Number(bigIntSnowflake & BigInt(0b111111111111)),
+			binary: bigIntSnowflake.toString(2).padStart(64, "0")
 		} as import("../Types").DeconstructedSnowflake;
 	}
 

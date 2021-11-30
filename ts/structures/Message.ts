@@ -270,7 +270,7 @@ class Message extends Base {
 		return this.channel.type === ChannelTypes[5] && !this.flags.has(MessageFlags.FLAGS.CROSSPOSTED) && this.type === "DEFAULT" && (this.author && this.author.id === this.client.user!.id);
 	}
 
-	public async edit(options: import("../Types").MessageEditOptions) {
+	public async edit(options: string | import("../Types").MessageEditOptions) {
 		const opts = options instanceof MessagePayload ? options : MessagePayload.create(this, options);
 		const { data, files } = opts.resolveData();
 		const d = await this.client._snow.channel.editMessage(this.channel.id, this.id, Object.assign({}, data, { files: files }), { disableEveryone: (options as import("../Types").MessageEditOptions).disableEveryone ? (options as import("../Types").MessageEditOptions).disableEveryone : this.client.options.disableEveryone || false });

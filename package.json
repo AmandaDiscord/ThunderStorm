@@ -20,10 +20,10 @@
   "devDependencies": {
     "@types/centra": "2.2.0",
     "@types/node": "^16.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
     "discord-typings": "9.x",
-    "eslint": "^8.2.0",
+    "eslint": "^8.3.0",
     "typescript": "^4.5.2"
   },
   "files": [
