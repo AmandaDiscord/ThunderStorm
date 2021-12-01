@@ -4,8 +4,6 @@ import { TypeError } from "../errors";
 import ApplicationCommand from "../structures/ApplicationCommand";
 import { Collection } from "@discordjs/collection";
 
-import PartialGuild from "../structures/Partial/PartialGuild";
-
 interface ApplicationCommandManagerConstructor {
 	new(client: import("../client/Client"), iterable?: IterableIterator<import("../structures/ApplicationCommand")>): ApplicationCommandManager;
 	readonly prototype: ApplicationCommandManager;
@@ -37,6 +35,7 @@ class ApplicationCommandManager extends BaseManager<import("../structures/Applic
 	public async fetch(id: undefined, cache?: boolean, force?: boolean): Promise<Collection<string, import("../structures/ApplicationCommand")>>;
 	public async fetch(id: string, cache?: boolean, force?: boolean): Promise<import("../structures/ApplicationCommand")>;
 	public async fetch(id?: string, cache = true, force = false): Promise<Collection<string, import("../structures/ApplicationCommand")> | import("../structures/ApplicationCommand")> {
+		const PartialGuild = require("../structures/Partial/PartialGuild") as typeof import("../structures/Partial/PartialGuild");
 		if (id) {
 			if (!force) {
 				const existing = this.cache.get(id);
@@ -58,6 +57,7 @@ class ApplicationCommandManager extends BaseManager<import("../structures/Applic
 	}
 
 	public async set(commands: Array<import("../Types").ApplicationCommandData>): Promise<Collection<string, import("../structures/ApplicationCommand")>> {
+		const PartialGuild = require("../structures/Partial/PartialGuild") as typeof import("../structures/Partial/PartialGuild");
 		const data = await this.commandPath.put({
 			data: commands.map(c => this.constructor.transformCommand(c))
 		}) as Array<import("discord-typings").ApplicationCommand>;
