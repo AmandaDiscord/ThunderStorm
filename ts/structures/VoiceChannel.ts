@@ -15,6 +15,7 @@ class VoiceChannel extends BaseGuildVoiceChannel {
 		super(guild, data);
 	}
 
+	// @ts-ignore
 	public toJSON(): import("discord-typings").VoiceChannelData {
 		return Object.assign(super.toJSON(), {
 			bitrate: this.bitrate,

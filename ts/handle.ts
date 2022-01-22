@@ -22,7 +22,6 @@ function setReady(client: import("./client/Client")) {
 
 function handle(packet: any, client: import("./client/Client")) {
 	const data = packet;
-	client.emit(Constants.Events.RAW, data);
 	if (data.t === "READY") {
 		const typed: Required<import("./internal").InboundDataType<"READY">> = data;
 		if (!client.user) client.user = new ClientUser(client, typed.d.user);
@@ -40,7 +39,7 @@ function handle(packet: any, client: import("./client/Client")) {
 		client.actions.ChannelDelete.handle(data.d);
 	} else if (data.t === "CHANNEL_PINS_UPDATE") {
 		const typed: Required<import("./internal").InboundDataType<"CHANNEL_PINS_UPDATE">> = data;
-		client.emit(Constants.Events.CHANNEL_PINS_UPDATE, new PartialChannel(client, { id: typed.d.channel_id, guild_id: typed.d.guild_id, type: typed.d.guild_id ? Constants.ChannelTypes[0] : Constants.ChannelTypes[1] }), new Date(typed.d.last_pin_timestamp));
+		client.emit(Constants.Events.CHANNEL_PINS_UPDATE, new PartialChannel(client, { id: typed.d.channel_id, guild_id: typed.d.guild_id, type: typed.d.guild_id ? Constants.ChannelTypes[0] : Constants.ChannelTypes[1] }), new Date(typed.d.last_pin_timestamp || 0));
 	} else if (data.t === "CHANNEL_UPDATE") {
 		client.actions.ChannelDelete.handle(data.d);
 	} else if (data.t === "GUILD_BAN_ADD") {
@@ -120,6 +119,7 @@ function handle(packet: any, client: import("./client/Client")) {
 	} else if (data.t === "VOICE_STATE_UPDATE") {
 		client.actions.VoiceStateUpdate.handle(data.d);
 	}
+	client.emit(Constants.Events.RAW, data);
 }
 
 export = handle;

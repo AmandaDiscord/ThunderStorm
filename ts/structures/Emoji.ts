@@ -16,7 +16,7 @@ class Emoji extends Base {
 		super(client);
 
 		this.id = data.id || "";
-		this.name = data.name;
+		this.name = data.name || "";
 		this.animated = data.animated || false;
 	}
 

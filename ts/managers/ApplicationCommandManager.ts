@@ -26,7 +26,7 @@ class ApplicationCommandManager extends BaseManager<import("../structures/Applic
 	}
 
 	public get commandPath() {
-		let path = this.client.api.applications(this.client.application?.id);
+		let path = this.client.api.applications(this.client.application!.id);
 		if ((this as unknown as import("./GuildApplicationCommandManager")).guild) path = path.guilds((this as unknown as import("./GuildApplicationCommandManager")).guild.id);
 		return path.commands;
 	}

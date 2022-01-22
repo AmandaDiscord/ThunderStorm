@@ -66,7 +66,7 @@ class RESTManager {
 	}
 
 	public set endpoint(endpoint) {
-		void 0;
+		void endpoint;
 	}
 }
 

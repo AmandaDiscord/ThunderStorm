@@ -103,7 +103,7 @@ class GuildMember implements TextBasedChannel {
 			this.joinedTimestamp = this.joinedAt.getTime();
 		}
 		if (data.premium_since !== undefined) {
-			this.premiumSince = new Date(data.premium_since);
+			this.premiumSince = new Date(data.premium_since!);
 			this.premiumSinceTimestamp = this.premiumSince.getTime();
 		}
 		if (!this.guild || data.guild_id) {

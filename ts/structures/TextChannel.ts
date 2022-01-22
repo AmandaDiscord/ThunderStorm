@@ -35,6 +35,7 @@ class TextChannel extends GuildChannel implements TextBasedChannel {
 		super(guild, data);
 	}
 
+	// @ts-ignore
 	public toJSON() {
 		const d: import("discord-typings").TextChannelData = Object.assign(super.toJSON(), {
 			last_message_id: this.lastMessageId,

@@ -152,7 +152,7 @@ class Guild extends AnonymousGuild {
 		if (data.approximate_member_count !== undefined) this.approximateMemberCount = data.approximate_member_count;
 		if (data.approximate_presence_count !== undefined) this.approximatePresenceCount = data.approximate_presence_count;
 		if (data.max_members !== undefined) this.maximumMembers = data.max_members;
-		if (data.max_presences !== undefined) this.maximumPresences = data.max_presences;
+		if (data.max_presences !== undefined) this.maximumPresences = data.max_presences || 0;
 		if (data.owner_id) this.ownerId = data.owner_id;
 		if (data.discovery_splash !== undefined) this.discoverySplash = data.discovery_splash;
 		if (data.large !== undefined) this.large = data.large;
@@ -199,7 +199,7 @@ class Guild extends AnonymousGuild {
 		if (!this.emojis) this.emojis = new Collection();
 		if (data.emojis && Array.isArray(data.emojis)) {
 			this.emojis.clear();
-			for (const emoji of data.emojis) this.emojis.set(emoji.id || emoji.name, new Emoji(this.client, emoji));
+			for (const emoji of data.emojis) this.emojis.set(emoji.id || emoji.name!, new Emoji(this.client, emoji));
 		}
 
 		if (!this.threads) this.threads = new Collection();

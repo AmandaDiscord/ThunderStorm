@@ -25,6 +25,7 @@ class MessageButton extends BaseMessageComponent {
 		this.customId = (data as import("discord-typings").MessageComponentData).custom_id ?? (data as import("../Types").MessageButtonOptions).customId ?? null;
 		this.style = data.style ? MessageButton.resolveStyle(data.style) : null;
 		if (!data.emoji) this.emoji = null;
+		// @ts-ignore
 		else this.setEmoji(data.emoji);
 		this.url = data.url ?? null;
 		this.disabled = data.disabled ?? false;

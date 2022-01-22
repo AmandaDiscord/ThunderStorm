@@ -18,23 +18,16 @@ function buildRoute(manager: import("./RESTManager")): import("../internal").Rou
 		get(target: (...args: Array<any>) => any, name: HTTPMethod): (options: import("../internal").RestOptions) => Promise<any> {
 			if (reflectors.includes(name)) return () => Promise.resolve(route.join("/"));
 			if (methods.includes(name)) {
-				const routeBucket: Array<string> = [];
-				for (let i = 0; i < route.length; i++) {
-					// Reactions routes and sub-routes all share the same bucket
-					if (route[i - 1] === "reactions") break;
-					// Literal IDs should only be taken account if they are the Major ID (the Channel/Guild ID)
-					if (/\d{16,19}/g.test(route[i]) && !/channels|guilds/.test(route[i - 1])) routeBucket.push(":id");
-					// All other parts of the route should be considered as part of the bucket identifier
-					else routeBucket.push(route[i]);
-				}
+				const rt = route.join("/");
+				// Bucketing is handled by SnowTransfer.
 				return (options: import("../internal").RestOptions) =>
 					manager.request(
 						name,
-						route.join("/"),
+						rt,
 						Object.assign(
 							{
 								versioned: manager.versioned,
-								route: routeBucket.join("/")
+								route: rt
 							},
 							options
 						)

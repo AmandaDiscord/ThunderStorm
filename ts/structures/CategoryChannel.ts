@@ -14,6 +14,7 @@ class CategoryChannel extends GuildChannel {
 		super(guild, data);
 	}
 
+	// @ts-ignore
 	public toJSON(): import("discord-typings").CategoryChannelData {
 		return Object.assign(super.toJSON(), { type: 4 as const, nsfw: this.nsfw });
 	}

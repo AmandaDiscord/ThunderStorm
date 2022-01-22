@@ -19,14 +19,15 @@ class GuildChannel extends Channel {
 		this.permissionOverwrites = this.permissionOverwrites || new Collection();
 	}
 
-	public toJSON(): import("discord-typings").GuildChannelData {
+	// @ts-ignore
+	public toJSON(): import("discord-typings").GuildChannelData & { name: string } {
 		return {
 			guild_id: this.guild.id,
 			parent_id: this.parentId,
 			position: this.rawPosition,
 			permission_overwrites: [...this.permissionOverwrites.values()].map(i => i.toJSON()),
 			...super.toJSON()
-		} as import("discord-typings").GuildChannelData;
+		} as import("discord-typings").GuildChannelData & { name: string };
 	}
 
 	public _patch(data: import("discord-typings").GuildChannelData) {

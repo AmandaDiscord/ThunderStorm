@@ -17,7 +17,7 @@ class Channel extends Base {
 		super(client);
 
 		this.id = data.id;
-		this.name = data.name;
+		this.name = data.name || "Unknown";
 		if (data) this._patch(data);
 	}
 

@@ -96,7 +96,7 @@ class Message extends Base {
 			this.tts = null;
 		}
 
-		this.nonce = "nonce" in data ? data.nonce : null;
+		this.nonce = "nonce" in data ? String(data.nonce) : null;
 		this.embeds = (data.embeds || []).map(e => new Embed(e, true));
 		this.components = (data.components ?? []).map(c => BaseMessageComponent.create(c as any, this.client)) as Array<import("./MessageActionRow")>;
 

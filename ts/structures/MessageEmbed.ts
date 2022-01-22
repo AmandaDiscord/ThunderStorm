@@ -61,7 +61,9 @@ class MessageEmbed {
 			? {
 				name: data.author.name || "",
 				url: data.author.url || "",
+				// @ts-ignore
 				iconURL: (data.author.iconURL || data.author.icon_url) || "",
+				// @ts-ignore
 				proxyIconURL: (data.author.proxyIconURL || data.author.proxy_icon_url) || ""
 			}
 			: null;

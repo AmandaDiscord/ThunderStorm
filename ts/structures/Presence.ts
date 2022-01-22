@@ -29,7 +29,7 @@ export class Presence extends Base {
 		else this.activities = [];
 		this.clientStatus = data.client_status || null;
 		if (data.user && data.guild_id) {
-			this.member = new GuildMember(this.client, Object.assign({}, data as import("discord-typings").PresenceData, { mute: false, deaf: false, hoisted_role: data.guild_id, joined_at: new Date().toISOString(), nick: (data as import("discord-typings").PresenceData).nick || null }));
+			this.member = new GuildMember(this.client, Object.assign({}, data as import("discord-typings").PresenceData, { mute: false, deaf: false, hoisted_role: data.guild_id, joined_at: new Date().toISOString(), nick: (data as import("discord-typings").PresenceData).nick || null, roles: [] }));
 			this.user = this.member.user;
 			this.member.presence = this;
 			this.user.presence = this;
