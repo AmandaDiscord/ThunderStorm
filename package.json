@@ -14,7 +14,7 @@
   "author": "PapiOphidian",
   "license": "Apache-2.0",
   "dependencies": {
-    "@discordjs/collection": "^0.3.2",
+    "@discordjs/collection": "^0.5.0",
     "snowtransfer": "0.3.x"
   },
   "devDependencies": {

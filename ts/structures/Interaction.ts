@@ -16,6 +16,8 @@ class Interaction extends Base {
 	public member: import("./GuildMember") | null;
 	public version: number;
 	public memberPermissions: Readonly<import("../util/Permissions")> | null;
+	public locale: string | null;
+	public guildLocale: string | null;
 
 	public channel: import("./Partial/PartialChannel") | null;
 	public guild: import("./Partial/PartialGuild") | null;
@@ -48,6 +50,8 @@ class Interaction extends Base {
 		this.channel = data.channel_id ? new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id, type: data.guild_id ? ChannelTypes[0] : ChannelTypes[1] }) : null;
 		this.guild = this.channel && this.channel.guild ? this.channel.guild : (data.guild_id ? new PartialGuild(this.client, { id: data.guild_id }) : null);
 		this.memberPermissions = data.member ? new Permissions(BigInt(data.member.permissions || 0)).freeze() : null;
+		this.locale = data.locale || null;
+		this.guildLocale = data.guild_locale || null;
 	}
 
 	public get createdTimestamp() {
