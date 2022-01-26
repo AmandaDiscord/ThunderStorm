@@ -1,9 +1,9 @@
 import Collector from "./interfaces/Collector";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 interface CollectorEvents {
     collect: [import("./MessageReaction"), import("./Partial/PartialUser")];
     dispose: [import("./MessageReaction"), import("./Partial/PartialUser")];
-    end: [import("../util/Collection")<string, import("./MessageReaction")>, string];
+    end: [import("@discordjs/collection").Collection<string, import("./MessageReaction")>, string];
     remove: [import("./MessageReaction"), import("./Partial/PartialUser")];
     create: [import("./MessageReaction"), import("./Partial/PartialUser")];
 }
@@ -27,6 +27,7 @@ declare class ReactionCollector extends Collector<import("./MessageReaction")> {
     users: Collection<string, import("./Partial/PartialUser")>;
     total: number;
     options: import("../Types").ReactionCollectorOptions;
+    static readonly default: typeof ReactionCollector;
     constructor(message: import("./Message") | import("./Partial/PartialMessage"), filter: import("../Types").CollectorFilter<import("./MessageReaction")>, options?: import("../Types").ReactionCollectorOptions);
     collect(reaction: import("./MessageReaction"), user: import("./Partial/PartialUser")): string | null;
     dispose(reaction: import("./MessageReaction"), user: import("./Partial/PartialUser")): string | null;

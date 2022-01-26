@@ -2,7 +2,8 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const Collection_1 = __importDefault(require("../util/Collection"));
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+const collection_1 = require("@discordjs/collection");
 const Constants_1 = __importDefault(require("../util/Constants"));
 const BaseClient_1 = __importDefault(require("./BaseClient"));
 const ActionManager_1 = __importDefault(require("./actions/ActionManager"));
@@ -30,10 +31,10 @@ class Client extends BaseClient_1.default {
     toString() {
         return this.user ? `<@${this.user.id}>` : "Client";
     }
-    async fetchUser(userID) {
+    async fetchUser(userId) {
         var _a, _b;
         const User = require("../structures/User");
-        const user = await this._snow.user.getUser(userID);
+        const user = await this._snow.user.getUser(userId);
         if (user.id === ((_a = this.user) === null || _a === void 0 ? void 0 : _a.id))
             this.user._patch(user);
         return user.id === ((_b = this.user) === null || _b === void 0 ? void 0 : _b.id) ? this.user : new User(this, user);
@@ -55,7 +56,8 @@ class Client extends BaseClient_1.default {
     }
     async fetchVoiceRegions() {
         const data = await this._snow.voice.getVoiceRegions();
-        return new Collection_1.default(data.map(item => [item.id, new VoiceRegion_1.default(item)]));
+        return new collection_1.Collection(data.map(item => [item.id, new VoiceRegion_1.default(item)]));
     }
 }
+Client.default = Client;
 module.exports = Client;

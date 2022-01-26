@@ -2,12 +2,13 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const Collection_1 = __importDefault(require("../util/Collection"));
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+const collection_1 = require("@discordjs/collection");
 const ReactionEmoji_1 = __importDefault(require("./ReactionEmoji"));
 class MessageReaction {
     constructor(message, emoji, count, me) {
         this.count = 0;
-        this.users = new Collection_1.default();
+        this.users = new collection_1.Collection();
         this.message = message;
         this.me = me;
         this.count = count || 0;
@@ -17,20 +18,20 @@ class MessageReaction {
         var _a;
         const Message = require("./Message");
         const Guild = require("./Guild");
-        let userID;
+        let userId;
         if (typeof user === "string")
-            userID = user;
+            userId = user;
         else if (user instanceof Message)
-            userID = user.author.id;
+            userId = user.author.id;
         else if (user instanceof Guild)
-            userID = user.ownerID;
+            userId = user.ownerId;
         else
-            userID = user.id;
-        if (!userID)
+            userId = user.id;
+        if (!userId)
             return Promise.reject(new Error("Couldn't resolve the user ID to remove from the reaction."));
-        await this.message.client._snow.channel.deleteReaction(this.message.channel.id, this.message.id, this.emoji.identifier, userID);
+        await this.message.client._snow.channel.deleteReaction(this.message.channel.id, this.message.id, this.emoji.identifier, userId);
         if (this.message instanceof Message)
-            (_a = this.message.reactions.get(this.emoji.id || this.emoji.name)) === null || _a === void 0 ? void 0 : _a.users.delete(userID);
+            (_a = this.message.reactions.get(this.emoji.id || this.emoji.name)) === null || _a === void 0 ? void 0 : _a.users.delete(userId);
         return this;
     }
     async removeAll() {
@@ -47,7 +48,7 @@ class MessageReaction {
         const message = this.message;
         const User = require("./User");
         const data = await this.message.client._snow.channel.getReactions(message.channel.id, message.id, this.emoji.identifier);
-        const users = new Collection_1.default();
+        const users = new collection_1.Collection();
         for (const rawUser of data) {
             if (rawUser.id === ((_a = message.client.user) === null || _a === void 0 ? void 0 : _a.id)) {
                 message.client.user._patch(rawUser);
@@ -60,4 +61,5 @@ class MessageReaction {
         return users;
     }
 }
+MessageReaction.default = MessageReaction;
 module.exports = MessageReaction;

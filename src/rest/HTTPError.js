@@ -8,4 +8,5 @@ class HTTPError extends Error {
         this.path = path;
     }
 }
+HTTPError.default = HTTPError;
 module.exports = HTTPError;

@@ -1,7 +1,7 @@
 import ApplicationCommandManager from "./ApplicationCommandManager";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 interface GuildApplicationCommandManagerConstructor {
-    new (client: import("../client/Client"), iterable?: IterableIterator<import("../structures/ApplicationCommand")>): GuildApplicationCommandManager;
+    new (guild: import("../structures/Partial/PartialGuild") | import("../structures/Guild"), iterable?: IterableIterator<import("../structures/ApplicationCommand")>): GuildApplicationCommandManager;
     readonly prototype: GuildApplicationCommandManager;
     readonly [Symbol.species]: GuildApplicationCommandManagerConstructor;
 }
@@ -18,7 +18,7 @@ declare class GuildApplicationCommandManager extends ApplicationCommandManager {
     static transformPermissions(permissions: import("../Types").ApplicationCommandPermissionData, received?: boolean): {
         id: string;
         permission: boolean;
-        type: 2 | 1 | "USER" | "ROLE";
+        type: 1 | 2 | "USER" | "ROLE";
     };
 }
 export = GuildApplicationCommandManager;

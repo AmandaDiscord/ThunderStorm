@@ -1,6 +1,7 @@
 import Action from "./Action";
 declare class MessageReactionRemoveEmoji extends Action {
-    handle(data: import("@amanda/discordtypings").MessageReactionRemoveEmojiData): {
+    static readonly default: typeof MessageReactionRemoveEmoji;
+    handle(data: import("discord-typings").MessageReactionRemoveEmojiData): {
         reaction: import("../../structures/MessageReaction");
     };
 }

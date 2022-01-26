@@ -7,7 +7,8 @@ declare class ThreadMetaData {
     archiveStatusChangedAt: Date;
     archiveStatusChangedTimestamp: number;
     private _archived;
-    constructor(thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel"), data: import("@amanda/discordtypings").ThreadMetaData);
+    static readonly default: typeof ThreadMetaData;
+    constructor(thread: import("./ThreadTextChannel") | import("./ThreadNewsChannel"), data: import("discord-typings").ThreadMetaData);
     get archived(): boolean;
     toJSON(): {
         locked: boolean;
@@ -16,6 +17,6 @@ declare class ThreadMetaData {
         archive_timestamp: string;
         archiver_id?: string | undefined;
     };
-    _patch(data: import("@amanda/discordtypings").ThreadMetaData): void;
+    _patch(data: import("discord-typings").ThreadMetaData): void;
 }
 export = ThreadMetaData;

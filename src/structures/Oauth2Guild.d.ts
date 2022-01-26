@@ -3,6 +3,7 @@ import Permissions from "../util/Permissions";
 declare class OAuth2Guild extends BaseGuild {
     owner: boolean;
     permissions: Readonly<Permissions>;
-    constructor(client: import("../client/Client"), data: Partial<import("@amanda/discordtypings").GuildData>);
+    static readonly default: typeof OAuth2Guild;
+    constructor(client: import("../client/Client"), data: Partial<import("discord-typings").GuildData>);
 }
 export = OAuth2Guild;

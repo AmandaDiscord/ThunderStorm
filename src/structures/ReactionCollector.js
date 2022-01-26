@@ -2,14 +2,15 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Collector_1 = __importDefault(require("./interfaces/Collector"));
-const Collection_1 = __importDefault(require("../util/Collection"));
+const collection_1 = require("@discordjs/collection");
 const Constants_1 = require("../util/Constants");
 // @ts-ignore
 class ReactionCollector extends Collector_1.default {
     constructor(message, filter, options = {}) {
         super(message.client, filter, options);
-        this.users = new Collection_1.default();
+        this.users = new collection_1.Collection();
         this.total = 0;
         this.message = message;
         this.empty = this.empty.bind(this);
@@ -93,4 +94,5 @@ class ReactionCollector extends Collector_1.default {
         return reaction.emoji.id || reaction.emoji.name;
     }
 }
+ReactionCollector.default = ReactionCollector;
 module.exports = ReactionCollector;

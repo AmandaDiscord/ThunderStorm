@@ -6,11 +6,12 @@ declare class BaseClient extends EventEmitter {
     private _immediates;
     options: import("../Types").ClientOptions;
     rest: import("../rest/RESTManager");
-    _snow: import("snowtransfer");
+    _snow: import("snowtransfer").SnowTransfer;
     token: string;
     accessToken: string | null;
+    static readonly default: typeof BaseClient;
     constructor(options: import("../Types").ClientOptions);
-    get api(): any;
+    get api(): import("../internal").Route;
     destroy(): void;
     setTimeout(fn: (...args: Array<any>) => any, delay: number, ...args: any[]): NodeJS.Timeout;
     clearTimeout(timeout: NodeJS.Timeout): void;

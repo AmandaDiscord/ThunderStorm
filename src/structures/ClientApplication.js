@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Team_1 = __importDefault(require("./Team"));
 const Application_1 = __importDefault(require("./interfaces/Application"));
 const ApplicationCommandManager_1 = __importDefault(require("../managers/ApplicationCommandManager"));
@@ -37,4 +38,5 @@ class ClientApplication extends Application_1.default {
         return this;
     }
 }
+ClientApplication.default = ClientApplication;
 module.exports = ClientApplication;

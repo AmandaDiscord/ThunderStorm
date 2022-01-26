@@ -1,5 +1,6 @@
 import Action from "./Action";
 declare class PresenceUpdateAction extends Action {
-    handle(data: import("@amanda/discordtypings").PresenceUpdateData): void;
+    static readonly default: typeof PresenceUpdateAction;
+    handle(data: import("discord-typings").PresenceUpdateData): void;
 }
 export = PresenceUpdateAction;

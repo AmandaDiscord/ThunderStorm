@@ -2,7 +2,9 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Emoji_1 = __importDefault(require("./Emoji"));
+// @ts-ignore
 class BaseGuildEmoji extends Emoji_1.default {
     constructor(client, data, guild) {
         super(client, data);
@@ -26,4 +28,5 @@ class BaseGuildEmoji extends Emoji_1.default {
             this._roles = data.roles;
     }
 }
+BaseGuildEmoji.default = BaseGuildEmoji;
 module.exports = BaseGuildEmoji;

@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Endpoints_1 = __importDefault(require("snowtransfer/dist/Endpoints"));
 const MessagePayload_1 = __importDefault(require("./MessagePayload"));
 const Channel_1 = __importDefault(require("./Channel"));
@@ -36,9 +37,9 @@ class Webhook {
         if (data.type !== undefined)
             this.type = Constants_1.WebhookTypes[data.type];
         if (data.guild_id !== undefined)
-            this.guildID = data.guild_id;
+            this.guildId = data.guild_id;
         if (data.channel_id !== undefined)
-            this.channelID = data.channel_id;
+            this.channelId = data.channel_id;
         if (data.user !== undefined)
             this.owner = data.user ? new User(this.client, data.user) : null;
         if (data.source_guild !== undefined)
@@ -52,6 +53,7 @@ class Webhook {
         let messagePayload;
         const Message = require("./Message");
         const PartialChannel = require("./Partial/PartialChannel");
+        const InteractionWebhook = require("./InteractionWebhook");
         if (options instanceof MessagePayload_1.default) {
             messagePayload = options.resolveData();
         }
@@ -59,8 +61,12 @@ class Webhook {
             messagePayload = MessagePayload_1.default.create(this, options).resolveData();
         }
         const { data, files } = await messagePayload.resolveFiles();
-        return this.client._snow.webhook.executeWebhook(this.id, this.token, Object.assign({}, data || {}, { files }), { wait: true }).then((d) => {
-            const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: "text" });
+        let wait = true;
+        if (this instanceof InteractionWebhook)
+            wait = false;
+        // @ts-ignore Wait is mean
+        return this.client._snow.webhook.executeWebhook(this.id, this.token, Object.assign({}, data || {}, { files }), { wait }).then((d) => {
+            const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: Constants_1.ChannelTypes[0] });
             return new Message(this.client, d, channel);
         });
     }
@@ -100,14 +106,15 @@ class Webhook {
         const data = await this.client._snow.webhook.updateWebhook(this.id, channel ? undefined : this.token, { name: options.name, avatar: avatar, channel_id: channel });
         this.name = data.name;
         this.avatar = data.avatar;
-        this.channelID = data.channel_id;
+        if (data.channel_id)
+            this.channelId = data.channel_id;
         return this;
     }
     async fetchMessage(message) {
         const Message = require("./Message");
         const PartialChannel = require("./Partial/PartialChannel");
         const data = await this.client._snow.webhook.getWebhookMessage(this.id, this.token, message);
-        const channel = new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id, type: "text" });
+        const channel = new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id, type: Constants_1.ChannelTypes[0] });
         return new Message(this.client, data, channel);
     }
     async editMessage(message, options) {
@@ -122,7 +129,7 @@ class Webhook {
             messagePayload = MessagePayload_1.default.create(this, options);
         const { data, files } = await messagePayload.resolveData().resolveFiles();
         const d = await this.client._snow.webhook.editWebhookMessage(this.id, this.token, typeof message === "string" ? message : message.id, Object.assign({}, data, { files }));
-        const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: "text" });
+        const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: Constants_1.ChannelTypes[0] });
         return new Message(this.client, d, channel);
     }
     delete() {
@@ -164,4 +171,5 @@ class Webhook {
         }
     }
 }
+Webhook.default = Webhook;
 module.exports = Webhook;

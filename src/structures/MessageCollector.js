@@ -2,8 +2,10 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Collector_1 = __importDefault(require("./interfaces/Collector"));
 const Constants_1 = require("../util/Constants");
+// @ts-ignore
 class MessageCollector extends Collector_1.default {
     constructor(channel, filter, options = {}) {
         super(channel.client, filter, options);
@@ -51,9 +53,9 @@ class MessageCollector extends Collector_1.default {
             this.stop("channelDelete");
     }
     _handleGuildDeletion(guild) {
-        // @ts-ignore
         if (this.channel.guild && guild.id === this.channel.guild.id)
             this.stop("guildDelete");
     }
 }
+MessageCollector.default = MessageCollector;
 module.exports = MessageCollector;

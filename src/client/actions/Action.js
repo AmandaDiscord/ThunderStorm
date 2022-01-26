@@ -1,11 +1,12 @@
 "use strict";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Constants_1 = require("../../util/Constants");
 class GenericAction {
     constructor(client) {
         this.client = client;
     }
-    handle(data) {
-        return data;
+    handle(...args) {
+        return args;
     }
     getPayload(data, manager, id, partialType) {
         return data;
@@ -48,4 +49,5 @@ class GenericAction {
         return this.getUser(data);
     }
 }
+GenericAction.default = GenericAction;
 module.exports = GenericAction;

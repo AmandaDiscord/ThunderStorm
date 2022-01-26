@@ -1,4 +1,5 @@
 "use strict";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const kCode = Symbol("code");
 const messages = new Map();
 function makeDiscordjsError(Base) {
@@ -37,13 +38,13 @@ function message(key, args) {
 function register(sym, val) {
     messages.set(sym, typeof val === "function" ? val : String(val));
 }
-// @ts-ignore
 const DJSError = {
     register,
     Error: makeDiscordjsError(Error),
-    // @ts-ignore
     TypeError: makeDiscordjsError(TypeError),
-    // @ts-ignore
-    RangeError: makeDiscordjsError(RangeError)
+    RangeError: makeDiscordjsError(RangeError),
+    Messages: undefined,
+    default: undefined
 };
+DJSError.default = DJSError;
 module.exports = DJSError;

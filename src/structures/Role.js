@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const SnowflakeUtil_1 = __importDefault(require("../util/SnowflakeUtil"));
 class Role {
     constructor(client, data) {
@@ -44,4 +45,5 @@ class Role {
         };
     }
 }
+Role.default = Role;
 module.exports = Role;

@@ -1,12 +1,13 @@
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import Base from "./Base";
 import TeamMember from "./TeamMember";
 declare class Team extends Base {
     name: string;
     icon: string | null;
-    ownerID: string;
+    ownerId: string;
     members: Collection<string, TeamMember>;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").TeamData);
+    static readonly default: typeof Team;
+    constructor(client: import("../client/Client"), data: import("discord-typings").TeamData);
     get createdTimestamp(): number;
     get createdAt(): Date;
     get owner(): TeamMember | null | undefined;
@@ -20,7 +21,7 @@ declare class Team extends Base {
         members: {
             id: string;
             team_id: string;
-            membership_state: 2 | 1;
+            membership_state: 1 | 2;
             permissions: ["*"];
             user: {
                 username: string;
@@ -32,6 +33,6 @@ declare class Team extends Base {
             };
         }[];
     };
-    _patch(data: import("@amanda/discordtypings").TeamData): void;
+    _patch(data: import("discord-typings").TeamData): void;
 }
 export = Team;

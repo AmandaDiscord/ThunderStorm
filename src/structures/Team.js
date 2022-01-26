@@ -2,15 +2,17 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const Collection_1 = __importDefault(require("../util/Collection"));
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+const collection_1 = require("@discordjs/collection");
 const SnowflakeUtil_1 = __importDefault(require("../util/SnowflakeUtil"));
 const Base_1 = __importDefault(require("./Base"));
 const TeamMember_1 = __importDefault(require("./TeamMember"));
+// @ts-ignore
 class Team extends Base_1.default {
     constructor(client, data) {
         super(client);
         this.icon = null;
-        this.members = new Collection_1.default();
+        this.members = new collection_1.Collection();
         if (data)
             this._patch(data);
     }
@@ -21,7 +23,7 @@ class Team extends Base_1.default {
         return new Date(this.createdTimestamp);
     }
     get owner() {
-        return this.ownerID ? this.members.get(this.ownerID) : null;
+        return this.ownerId ? this.members.get(this.ownerId) : null;
     }
     iconURL(options = { size: 128, format: "png" }) {
         if (!this.icon)
@@ -36,7 +38,7 @@ class Team extends Base_1.default {
             id: this.id,
             icon: this.icon,
             name: this.name,
-            owner_user_id: this.ownerID,
+            owner_user_id: this.ownerId,
             members: [...this.members.values()].map(member => member.toJSON())
         };
     }
@@ -48,7 +50,7 @@ class Team extends Base_1.default {
         if (!this.icon || data.icon !== undefined)
             this.icon = data.icon || null;
         if (data.owner_user_id !== undefined)
-            this.ownerID = data.owner_user_id;
+            this.ownerId = data.owner_user_id;
         if (data.members && Array.isArray(data.members)) {
             this.members.clear();
             for (const member of data.members)
@@ -57,4 +59,5 @@ class Team extends Base_1.default {
         super._patch(data);
     }
 }
+Team.default = Team;
 module.exports = Team;

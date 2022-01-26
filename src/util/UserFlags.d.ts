@@ -15,6 +15,7 @@ declare const FLAGS: {
     VERIFIED_BOT: bigint;
     EARLY_VERIFIED_BOT_DEVELOPER: bigint;
     CERTIFIED_MODERATOR: bigint;
+    BOT_HTTP_INTERACTIONS: bigint;
 };
 interface UserFlagsConstructor {
     new (bits?: import("../Types").BitFieldResolvable<typeof FLAGS>): UserFlags;
@@ -41,6 +42,7 @@ declare class UserFlags extends BitField<typeof FLAGS> {
         VERIFIED_BOT: bigint;
         EARLY_VERIFIED_BOT_DEVELOPER: bigint;
         CERTIFIED_MODERATOR: bigint;
+        BOT_HTTP_INTERACTIONS: bigint;
     };
     FLAGS: {
         DISCORD_EMPLOYEE: bigint;
@@ -58,6 +60,7 @@ declare class UserFlags extends BitField<typeof FLAGS> {
         VERIFIED_BOT: bigint;
         EARLY_VERIFIED_BOT_DEVELOPER: bigint;
         CERTIFIED_MODERATOR: bigint;
+        BOT_HTTP_INTERACTIONS: bigint;
     };
     constructor(bits?: import("../Types").BitFieldResolvable<typeof FLAGS>);
 }

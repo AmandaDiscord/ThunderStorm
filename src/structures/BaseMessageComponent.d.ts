@@ -1,5 +1,6 @@
 declare class BaseMessageComponent {
     type: import("../Types").MessageComponentType | null;
+    static readonly default: typeof BaseMessageComponent;
     constructor(data: BaseMessageComponent | import("../Types").BaseMessageComponentOptions);
     static create(data: import("../Types").MessageComponentOptions, client?: import("../client/Client") | import("../client/WebhookClient") | null, skipValidation?: boolean): import("../Types").MessageComponent;
     static resolveType(type: import("../Types").MessageComponentTypeResolvable): import("../Types").MessageComponentType;

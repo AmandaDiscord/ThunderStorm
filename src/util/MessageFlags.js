@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const BitField_1 = __importDefault(require("./BitField"));
 const FLAGS = {
     CROSSPOSTED: BigInt(1) << BigInt(0),

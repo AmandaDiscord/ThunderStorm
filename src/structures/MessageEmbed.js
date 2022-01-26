@@ -2,9 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-/**
- * I'm sorry for being lazy, discord.js
- */
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const errors_1 = require("../errors");
 const Util_1 = __importDefault(require("../util/Util"));
 class MessageEmbed {
@@ -19,13 +17,12 @@ class MessageEmbed {
         this.color = Util_1.default.resolveColor(data.color);
         this.timestamp = data.timestamp ? new Date(data.timestamp).getTime() : null;
         this.fields = [];
-        if (data.fields) {
+        if (data.fields)
             this.fields = skipValidation ? data.fields.map(Util_1.default.cloneObject) : MessageEmbed.normalizeFields(data.fields);
-        }
         this.thumbnail = data.thumbnail
             ? {
                 url: data.thumbnail.url || "",
-                proxyURL: (data.thumbnail.proxyURL || data.thumbnail.proxy_url) || "",
+                proxyURL: data.thumbnail.proxy_url || "",
                 height: data.thumbnail.height || 0,
                 width: data.thumbnail.width || 0
             }
@@ -33,7 +30,7 @@ class MessageEmbed {
         this.image = data.image
             ? {
                 url: data.image.url || "",
-                proxyURL: (data.image.proxyURL || data.image.proxy_url) || "",
+                proxyURL: data.image.proxy_url || "",
                 height: data.image.height || 0,
                 width: data.image.width || 0
             }
@@ -41,7 +38,7 @@ class MessageEmbed {
         this.video = data.video
             ? {
                 url: data.video.url || "",
-                proxyURL: (data.video.proxyURL || data.video.proxy_url) || "",
+                proxyURL: data.video.proxy_url || "",
                 height: data.video.height || 0,
                 width: data.video.width || 0
             }
@@ -50,7 +47,9 @@ class MessageEmbed {
             ? {
                 name: data.author.name || "",
                 url: data.author.url || "",
+                // @ts-ignore
                 iconURL: (data.author.iconURL || data.author.icon_url) || "",
+                // @ts-ignore
                 proxyIconURL: (data.author.proxyIconURL || data.author.proxy_icon_url) || ""
             }
             : null;
@@ -63,8 +62,8 @@ class MessageEmbed {
         this.footer = data.footer
             ? {
                 text: data.footer.text || "",
-                iconURL: (data.footer.iconURL || data.footer.icon_url) || "",
-                proxyIconURL: (data.footer.proxyIconURL || data.footer.proxy_icon_url) || ""
+                iconURL: data.footer.icon_url || "",
+                proxyIconURL: data.footer.proxy_icon_url || ""
             }
             : null;
         // @ts-ignore
@@ -88,8 +87,7 @@ class MessageEmbed {
         return this.addFields({ name, value, inline });
     }
     addFields(...fields) {
-        // @ts-ignore
-        this.fields.push(...MessageEmbed.normalizeFields(fields));
+        this.fields.push(...MessageEmbed.normalizeFields(...fields));
         return this;
     }
     spliceFields(index, deleteCount, ...fields) {
@@ -101,8 +99,7 @@ class MessageEmbed {
         return this;
     }
     setAuthor(name, iconURL, url) {
-        // @ts-ignore
-        this.author = { name: Util_1.default.verifyString(name, errors_1.RangeError, "EMBED_AUTHOR_TEXT"), iconURL, url };
+        this.author = { name: Util_1.default.verifyString(name, errors_1.RangeError, "EMBED_AUTHOR_TEXT"), iconURL: iconURL, url: url, proxyIconURL: "" };
         return this;
     }
     setColor(color) {
@@ -110,23 +107,19 @@ class MessageEmbed {
         return this;
     }
     setDescription(description) {
-        // @ts-ignore
         this.description = Util_1.default.verifyString(description, errors_1.RangeError, "EMBED_DESCRIPTION");
         return this;
     }
     setFooter(text, iconURL) {
-        // @ts-ignore
-        this.footer = { text: Util_1.default.verifyString(text, errors_1.RangeError, "EMBED_FOOTER_TEXT"), iconURL };
+        this.footer = { text: Util_1.default.verifyString(text, errors_1.RangeError, "EMBED_FOOTER_TEXT"), iconURL: iconURL, proxyIconURL: "" };
         return this;
     }
     setImage(url) {
-        // @ts-ignore
-        this.image = { url };
+        this.image = { url, proxyURL: "", height: 0, width: 0 };
         return this;
     }
     setThumbnail(url) {
-        // @ts-ignore
-        this.thumbnail = { url };
+        this.thumbnail = { url, proxyURL: "", height: 0, width: 0 };
         return this;
     }
     setTimestamp(timestamp = Date.now()) {
@@ -136,7 +129,6 @@ class MessageEmbed {
         return this;
     }
     setTitle(title) {
-        // @ts-ignore
         this.title = Util_1.default.verifyString(title, errors_1.RangeError, "EMBED_TITLE");
         return this;
     }
@@ -172,9 +164,7 @@ class MessageEmbed {
     }
     static normalizeField(name, value, inline = false) {
         return {
-            // @ts-ignore
             name: Util_1.default.verifyString(name, errors_1.RangeError, "EMBED_FIELD_NAME", false),
-            // @ts-ignore
             value: Util_1.default.verifyString(value, errors_1.RangeError, "EMBED_FIELD_VALUE", false),
             inline
         };
@@ -185,4 +175,5 @@ class MessageEmbed {
             .map(field => this.normalizeField(field && field.name, field && field.value, field && typeof field.inline === "boolean" ? field.inline : false));
     }
 }
+MessageEmbed.default = MessageEmbed;
 module.exports = MessageEmbed;

@@ -2,8 +2,10 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Base_1 = __importDefault(require("./Base"));
 const User_1 = __importDefault(require("./User"));
+// @ts-ignore
 class TeamMember extends Base_1.default {
     constructor(team, data) {
         super(team.client);
@@ -38,4 +40,5 @@ class TeamMember extends Base_1.default {
         }
     }
 }
+TeamMember.default = TeamMember;
 module.exports = TeamMember;

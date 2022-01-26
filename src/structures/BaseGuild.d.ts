@@ -3,7 +3,8 @@ declare class BaseGuild extends Base {
     name: string;
     icon: string | null;
     features: Array<import("../Types").Feature>;
-    constructor(client: import("../client/Client"), data: Partial<import("@amanda/discordtypings").GuildData>);
+    static readonly default: typeof BaseGuild;
+    constructor(client: import("../client/Client"), data: Partial<import("discord-typings").GuildData>);
     get createdTimestamp(): number;
     get createdAt(): Date;
     get nameAcronym(): string;

@@ -2,9 +2,11 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Base_1 = __importDefault(require("./Base"));
 const GuildPreviewEmoji_1 = __importDefault(require("./GuildPreviewEmoji"));
-const Collection_1 = __importDefault(require("../util/Collection"));
+const collection_1 = require("@discordjs/collection");
+// @ts-ignore
 class GuildPreview extends Base_1.default {
     constructor(client, data) {
         super(client);
@@ -22,7 +24,7 @@ class GuildPreview extends Base_1.default {
         this.approximatePresenceCount = data.approximate_presence_count;
         this.description = data.description || null;
         if (!this.emojis) {
-            this.emojis = new Collection_1.default();
+            this.emojis = new collection_1.Collection();
         }
         else {
             this.emojis.clear();
@@ -61,4 +63,5 @@ class GuildPreview extends Base_1.default {
         return json;
     }
 }
+GuildPreview.default = GuildPreview;
 module.exports = GuildPreview;

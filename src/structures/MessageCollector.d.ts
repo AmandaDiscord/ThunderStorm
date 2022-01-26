@@ -2,7 +2,7 @@ import Collector from "./interfaces/Collector";
 interface CollectorEvents {
     collect: [import("./Message")];
     dispose: [import("./Message")];
-    end: [import("../util/Collection")<string, import("./Message")>, string];
+    end: [import("@discordjs/collection").Collection<string, import("./Message")>, string];
 }
 interface MessageCollector {
     addListener<E extends keyof CollectorEvents>(event: E, listener: (...args: CollectorEvents[E]) => any): this;
@@ -23,6 +23,7 @@ declare class MessageCollector extends Collector<import("./Message")> {
     channel: import("./interfaces/TextBasedChannel");
     received: number;
     options: import("../Types").MessageCollectorOptions;
+    static readonly default: typeof MessageCollector;
     constructor(channel: import("./interfaces/TextBasedChannel"), filter: import("../Types").CollectorFilter<import("./Message")>, options?: import("../Types").MessageCollectorOptions);
     collect(message: import("./Message")): string | null;
     dispose(message: import("./Message")): string | null;

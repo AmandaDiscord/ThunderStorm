@@ -2,9 +2,11 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Base_1 = __importDefault(require("./Base"));
 const Constants_1 = require("../util/Constants");
 const SnowflakeUtil_1 = __importDefault(require("../util/SnowflakeUtil"));
+// @ts-ignore
 class ApplicationCommand extends Base_1.default {
     constructor(client, data, guild) {
         super(client);

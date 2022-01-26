@@ -1,5 +1,6 @@
 declare type FlattenIfArray<T> = T extends Array<infer R> ? R : T;
 declare class Util {
+    static readonly default: typeof Util;
     constructor();
     static flatten(obj: any, ...props: Array<{
         [s: string]: boolean | string;
@@ -54,14 +55,17 @@ declare class Util {
     static moveElementInArray<T extends Array<any>>(array: T, element: FlattenIfArray<T>, newIndex: number, offset?: boolean): number;
     static verifyString(data: string, error?: ErrorConstructor, errorMessage?: string, allowEmpty?: boolean): string;
     static resolveColor(color: import("../Types").ColorResolvable | undefined): number;
-    static discordSort<T extends import("./Collection")<any, any>>(collection: T): T;
-    static setPosition(item: import("../structures/Channel") | import("../structures/Role"), position: number, relative: boolean, sorted: import("./Collection")<string, import("../structures/Channel") | import("../structures/Role")>, route: any, reason?: string): Promise<Array<any>>;
+    static discordSort<T extends import("@discordjs/collection").Collection<any, any>>(collection: T): import("@discordjs/collection").Collection<any, any>;
+    static setPosition<T extends import("../structures/Channel") | import("../structures/ROle")>(item: T, position: number, relative: boolean, sorted: import("@discordjs/collection").Collection<string, T>, route: import("../internal").Route, reason?: string): Promise<T[]>;
     static basename(path: string, ext?: string): string;
-    static idToBinary(num: string): string;
-    static binaryToID(num: string): string;
     static removeMentions(str: string): string;
     static cleanContent(str: string, message: import("../structures/Message")): string;
     static cleanCodeBlockContent(text: string): string;
     static delayFor(ms: number): Promise<void>;
+    static createChannelFromData(client: import("../client/Client"), data: import("../internal").ChannelDatas | {
+        id: string;
+        guild_id?: string;
+        type: undefined;
+    }): import("../structures/Channel") | import("../structures/CategoryChannel") | import("../structures/DMChannel") | import("../structures/NewsChannel") | import("../structures/TextChannel") | import("../structures/StageChannel") | import("../structures/VoiceChannel") | import("../structures/Partial/PartialChannel");
 }
 export = Util;

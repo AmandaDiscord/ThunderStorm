@@ -2,10 +2,12 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Endpoints_1 = __importDefault(require("snowtransfer/dist/Endpoints"));
 const Base_1 = __importDefault(require("./Base"));
 const Constants_1 = require("../util/Constants");
 const SnowflakeUtil_1 = __importDefault(require("../util/SnowflakeUtil"));
+// @ts-ignore
 class Sticker extends Base_1.default {
     constructor(client, sticker) {
         super(client);
@@ -23,4 +25,5 @@ class Sticker extends Base_1.default {
         return `${Endpoints_1.default.CDN_URL}/stickers/${this.id}.${this.format === "LOTTIE" ? "json" : "png"}`;
     }
 }
+Sticker.default = Sticker;
 module.exports = Sticker;

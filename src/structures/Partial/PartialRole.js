@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const PartialBase_1 = __importDefault(require("./PartialBase"));
+// @ts-ignore
 class PartialRole extends PartialBase_1.default {
     constructor(client, data) {
         super(client, data);
@@ -21,4 +22,5 @@ class PartialRole extends PartialBase_1.default {
         };
     }
 }
+PartialRole.default = PartialRole;
 module.exports = PartialRole;

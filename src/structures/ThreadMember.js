@@ -2,7 +2,9 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Base_1 = __importDefault(require("./Base"));
+// @ts-ignore
 class ThreadMember extends Base_1.default {
     constructor(thread, data) {
         super(thread.client);
@@ -14,7 +16,7 @@ class ThreadMember extends Base_1.default {
     toJSON() {
         return {
             flags: this.flags,
-            id: this.threadID,
+            id: this.threadId,
             join_timestamp: this.joinedAt.toISOString(),
             user_id: this.user.id
         };
@@ -23,8 +25,8 @@ class ThreadMember extends Base_1.default {
         const PartialUser = require("./Partial/PartialUser");
         if (data.flags !== undefined)
             this.flags = data.flags;
-        if (!this.threadID || data.id)
-            this.threadID = data.id || this.thread.id;
+        if (!this.threadId || data.id)
+            this.threadId = data.id || this.thread.id;
         if (data.join_timestamp) {
             this.joinedAt = new Date(data.join_timestamp);
             this.joinedTimestamp = this.joinedAt.getTime();
@@ -35,4 +37,5 @@ class ThreadMember extends Base_1.default {
         }
     }
 }
+ThreadMember.default = ThreadMember;
 module.exports = ThreadMember;

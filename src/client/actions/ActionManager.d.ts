@@ -15,6 +15,7 @@ declare class ActionsManager {
     GuildRoleDelete: import("./GuildRoleDelete");
     GuildRoleUpdate: import("./GuildRoleUpdate");
     GuildUpdate: import("./GuildUpdate");
+    InteractionCreate: import("./InviteCreate");
     InviteCreate: import("./InviteCreate");
     InviteDelete: import("./InviteDelete");
     MessageCreate: import("./MessageCreate");
@@ -26,10 +27,14 @@ declare class ActionsManager {
     MessageReactionRemoveEmoji: import("./MessageReactionRemoveEmoji");
     MessageUpdate: import("./MessageUpdate");
     PresenceUpdate: import("./PresenceUpdate");
+    ThreadCreate: import("./ThreadCreate");
+    ThreadDelete: import("./ThreadDelete");
+    ThreadListSync: import("./ThreadListSync");
     TypingStart: import("./TypingStart");
     UserUpdate: import("./UserUpdate");
     VoiceStateUpdate: import("./VoiceStateUpdate");
     WebhooksUpdate: import("./WebhooksUpdate");
+    static readonly default: typeof ActionsManager;
     constructor(client: import("../Client"));
     register(Action: typeof import("./Action")): void;
 }

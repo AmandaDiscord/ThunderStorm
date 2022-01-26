@@ -13,7 +13,8 @@ declare class MessageEmbed {
     footer: import("../Types").MessageEmbedFooter | null;
     files: Array<import("../Types").FileOptions | string | import("./MessageAttachment")>;
     video: import("../Types").MessageEmbedVideo | null;
-    constructor(data?: import("@amanda/discordtypings").EmbedData, skipValidation?: boolean);
+    static readonly default: typeof MessageEmbed;
+    constructor(data?: import("discord-typings").EmbedData, skipValidation?: boolean);
     private setup;
     get createdAt(): Date | null;
     get hexColor(): string | null;

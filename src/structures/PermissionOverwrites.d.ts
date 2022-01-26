@@ -5,7 +5,8 @@ declare class PermissionOverwrites {
     type: "member" | "role";
     deny: Readonly<Permissions>;
     allow: Readonly<Permissions>;
-    constructor(guildChannel: import("./GuildChannel"), data: import("@amanda/discordtypings").PermissionOverwriteData);
-    toJSON(): import("@amanda/discordtypings").PermissionOverwriteData;
+    static readonly default: typeof PermissionOverwrites;
+    constructor(guildChannel: import("./GuildChannel"), data: import("discord-typings").PermissionOverwriteData);
+    toJSON(): import("discord-typings").PermissionOverwriteData;
 }
 export = PermissionOverwrites;

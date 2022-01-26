@@ -1,4 +1,5 @@
 "use strict";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 class VoiceRegion {
     constructor(data) {
         this.id = data.id;
@@ -24,4 +25,5 @@ class VoiceRegion {
         };
     }
 }
+VoiceRegion.default = VoiceRegion;
 module.exports = VoiceRegion;

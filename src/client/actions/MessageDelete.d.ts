@@ -1,6 +1,7 @@
 import Action from "./Action";
 declare class MessageDeleteAction extends Action {
-    handle(data: import("@amanda/discordtypings").MessageDeleteData): {
+    static readonly default: typeof MessageDeleteAction;
+    handle(data: import("discord-typings").MessageDeleteData): {
         message: import("../../structures/Partial/PartialMessage");
     };
 }

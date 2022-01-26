@@ -1,6 +1,6 @@
 import Integration from "./Integration";
 import Webhook from "./Webhook";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 declare class GuildAuditLogs {
     static Actions: {
         ALL: null;
@@ -42,6 +42,15 @@ declare class GuildAuditLogs {
         STAGE_INSTANCE_CREATE: 83;
         STAGE_INSTANCE_UPDATE: 84;
         STAGE_INSTANCE_DELETE: 85;
+        STICKER_CREATE: 90;
+        STICKER_UPDATE: 91;
+        STICKER_DELETE: 92;
+        GUILD_SCHEDULED_EVENT_CREATE: 100;
+        GUILD_SCHEDULED_EVENT_UPDATE: 101;
+        GUILD_SCHEDULED_EVENT_DELETE: 102;
+        THREAD_CREATE: 110;
+        THREAD_UPDATE: 111;
+        THREAD_DELETE: 112;
     };
     static Targets: {
         ALL: "ALL";
@@ -60,7 +69,8 @@ declare class GuildAuditLogs {
     webhooks: Collection<string, Webhook>;
     integrations: Collection<string, Integration>;
     entries: Collection<string, GuildAuditLogsEntry>;
-    constructor(guild: import("./Guild") | import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").AuditLogObject);
+    static readonly default: typeof GuildAuditLogs;
+    constructor(guild: import("./Guild") | import("./Partial/PartialGuild"), data: import("discord-typings").AuditLogObject);
     static build(...args: ConstructorParameters<typeof GuildAuditLogs>): Promise<GuildAuditLogs>;
     static targetType(target: import("../Types").AuditLogAction): import("../Types").AuditLogTargetType;
     static actionType(action: import("../Types").AuditLogAction): import("../Types").AuditLogActionType;
@@ -79,10 +89,10 @@ declare class GuildAuditLogsEntry {
         days?: number;
         channel?: import("./Partial/PartialChannel");
         count?: number;
-        messageID?: string;
+        messageId?: string;
     } | null;
     target: import("../Types").AuditLogEntryTarget | null;
-    constructor(logs: GuildAuditLogs, guild: import("./Guild") | import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").AuditLogEntry);
+    constructor(logs: GuildAuditLogs, guild: import("./Guild") | import("./Partial/PartialGuild"), data: import("discord-typings").AuditLogEntry);
     get createdTimestamp(): number;
     get createdAt(): Date;
     toJSON(): any;

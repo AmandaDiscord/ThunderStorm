@@ -2,13 +2,15 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Collector_1 = __importDefault(require("./interfaces/Collector"));
-const Collection_1 = __importDefault(require("../util/Collection"));
+const collection_1 = require("@discordjs/collection");
 const Constants_1 = require("../util/Constants");
+// @ts-ignore
 class MessageComponentInteractionCollector extends Collector_1.default {
     constructor(source, filter, options = {}) {
         super(source.client, filter, options);
-        this.users = new Collection_1.default();
+        this.users = new collection_1.Collection();
         this.total = 0;
         const Message = require("./Message");
         const PartialMessage = require("./Partial/PartialMessage");
@@ -83,10 +85,10 @@ class MessageComponentInteractionCollector extends Collector_1.default {
     }
     _handleGuildDeletion(guild) {
         var _a;
-        // @ts-ignore
         if (guild.id === ((_a = this.channel.guild) === null || _a === void 0 ? void 0 : _a.id)) {
             this.stop("guildDelete");
         }
     }
 }
+MessageComponentInteractionCollector.default = MessageComponentInteractionCollector;
 module.exports = MessageComponentInteractionCollector;

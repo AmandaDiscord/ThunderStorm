@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const MessagePayload_1 = __importDefault(require("./MessagePayload"));
 const Base_1 = __importDefault(require("./Base"));
 const BaseMessageComponent_1 = __importDefault(require("./BaseMessageComponent"));
@@ -13,18 +14,19 @@ const MessageMentions_1 = __importDefault(require("./MessageMentions"));
 const ReactionCollector_1 = __importDefault(require("./ReactionCollector"));
 const Sticker_1 = __importDefault(require("./Sticker"));
 const errors_1 = require("../errors");
-const Collection_1 = __importDefault(require("../util/Collection"));
+const collection_1 = require("@discordjs/collection");
 const Constants_1 = require("../util/Constants");
 const MessageFlags_1 = __importDefault(require("../util/MessageFlags"));
 const SnowflakeUtil_1 = __importDefault(require("../util/SnowflakeUtil"));
 const Util_1 = __importDefault(require("../util/Util"));
+// @ts-ignore
 class Message extends Base_1.default {
     constructor(client, data, channel) {
         super(client);
         this.partial = false;
         this.deleted = false;
-        this.attachments = new Collection_1.default();
-        this.stickers = new Collection_1.default();
+        this.attachments = new collection_1.Collection();
+        this.stickers = new collection_1.Collection();
         this.channel = channel;
         if (data)
             this._patch(data);
@@ -69,7 +71,7 @@ class Message extends Base_1.default {
         else if (typeof this.tts !== "boolean") {
             this.tts = null;
         }
-        this.nonce = "nonce" in data ? data.nonce : null;
+        this.nonce = "nonce" in data ? String(data.nonce) : null;
         this.embeds = (data.embeds || []).map(e => new MessageEmbed_1.default(e, true));
         this.components = ((_a = data.components) !== null && _a !== void 0 ? _a : []).map(c => BaseMessageComponent_1.default.create(c, this.client));
         if (data.attachments) {
@@ -77,7 +79,7 @@ class Message extends Base_1.default {
                 this.attachments.set(attachment.id, new MessageAttachment_1.default(attachment.url, attachment.filename, attachment));
             }
         }
-        this.stickers = new Collection_1.default();
+        this.stickers = new collection_1.Collection();
         if (data.sticker_items) {
             for (const sticker of data.sticker_items) {
                 this.stickers.set(sticker.id, new Sticker_1.default(this.client, sticker));
@@ -92,12 +94,12 @@ class Message extends Base_1.default {
             }
         }
         this.mentions = new MessageMentions_1.default(this, data.mentions, data.mention_roles, data.mention_everyone, data.mention_channels);
-        this.webhookID = data.webhook_id || null;
+        this.webhookId = data.webhook_id || null;
         this.groupActivityApplication = data.application ? new ClientApplication_1.default(this.client, data.application) : null;
-        this.applicationID = (_b = data.application_id) !== null && _b !== void 0 ? _b : null;
+        this.applicationId = (_b = data.application_id) !== null && _b !== void 0 ? _b : null;
         this.activity = data.activity
             ? {
-                partyID: data.activity.party_id,
+                partyId: data.activity.party_id,
                 type: data.activity.type
             }
             : null;
@@ -110,9 +112,9 @@ class Message extends Base_1.default {
         this.flags = new MessageFlags_1.default(data.flags).freeze();
         this.reference = data.message_reference
             ? {
-                channelID: data.message_reference.channel_id,
-                guildID: data.message_reference.guild_id || null,
-                messageID: data.message_reference.message_id || null
+                channelId: data.message_reference.channel_id,
+                guildId: data.message_reference.guild_id || null,
+                messageId: data.message_reference.message_id || null
             }
             : null;
         if (data.interaction) {
@@ -146,13 +148,13 @@ class Message extends Base_1.default {
         else
             this.components = this.components.slice();
         if ("attachments" in data) {
-            this.attachments = new Collection_1.default();
+            this.attachments = new collection_1.Collection();
             for (const attachment of data.attachments) {
                 this.attachments.set(attachment.id, new MessageAttachment_1.default(attachment.url, attachment.filename, attachment));
             }
         }
         else {
-            this.attachments = new Collection_1.default(this.attachments.map(i => [i.id, i]));
+            this.attachments = new collection_1.Collection(this.attachments.map(i => [i.id, i]));
         }
         this.mentions = new MessageMentions_1.default(this, "mentions" in data ? data.mentions : this.mentions.users.map(u => u.toJSON()), "mention_roles" in data ? data.mention_roles : this.mentions.roles.map(r => r.id), "mention_everyone" in data ? data.mention_everyone : this.mentions.everyone, "mention_channels" in data ? data.mention_channels : this.mentions.crosspostedChannels.map(i => i.toJSON()));
         this.flags = new MessageFlags_1.default("flags" in data ? data.flags : 0).freeze();
@@ -165,7 +167,6 @@ class Message extends Base_1.default {
         return this.editedTimestamp ? new Date(this.editedTimestamp) : null;
     }
     get guild() {
-        // @ts-ignore
         return this.channel.guild;
     }
     get url() {
@@ -219,14 +220,14 @@ class Message extends Base_1.default {
         const PartialChannel = require("./Partial/PartialChannel");
         if (!this.reference)
             throw new errors_1.Error("MESSAGE_REFERENCE_MISSING");
-        const { channelID, messageID } = this.reference;
-        const channel = new PartialChannel(this.client, { id: channelID, guild_id: (_a = this.guild) === null || _a === void 0 ? void 0 : _a.id, type: ((_b = this.guild) === null || _b === void 0 ? void 0 : _b.id) ? "text" : "dm" });
+        const { channelId, messageId } = this.reference;
+        const channel = new PartialChannel(this.client, { id: channelId, guild_id: (_a = this.guild) === null || _a === void 0 ? void 0 : _a.id, type: ((_b = this.guild) === null || _b === void 0 ? void 0 : _b.id) ? Constants_1.ChannelTypes[0] : Constants_1.ChannelTypes[1] });
         if (!channel)
             throw new errors_1.Error("GUILD_CHANNEL_RESOLVE");
-        return channel.fetchMessage(messageID);
+        return channel.fetchMessage(messageId);
     }
     get crosspostable() {
-        return this.channel.type === "news" && !this.flags.has(MessageFlags_1.default.FLAGS.CROSSPOSTED) && this.type === "DEFAULT" && (this.author && this.author.id === this.client.user.id);
+        return this.channel.type === Constants_1.ChannelTypes[5] && !this.flags.has(MessageFlags_1.default.FLAGS.CROSSPOSTED) && this.type === "DEFAULT" && (this.author && this.author.id === this.client.user.id);
     }
     async edit(options) {
         const opts = options instanceof MessagePayload_1.default ? options : MessagePayload_1.default.create(this, options);
@@ -302,9 +303,9 @@ class Message extends Base_1.default {
         return this;
     }
     fetchWebhook() {
-        if (!this.webhookID)
+        if (!this.webhookId)
             return Promise.reject(new errors_1.Error("WEBHOOK_MESSAGE"));
-        return this.client.fetchWebhook(this.webhookID);
+        return this.client.fetchWebhook(this.webhookId);
     }
     suppressEmbeds(suppress = true) {
         const flags = new MessageFlags_1.default(this.flags.bitfield);
@@ -332,7 +333,7 @@ class Message extends Base_1.default {
             this.tts === message.tts &&
             this.nonce === message.nonce &&
             this.embeds.length === message.embeds.length &&
-            this.attachments.length === message.attachments.length;
+            this.attachments.size === message.attachments.size;
         if (equal && rawData) {
             equal =
                 this.mentions.everyone === message.mentions.everyone &&
@@ -345,16 +346,16 @@ class Message extends Base_1.default {
         return this.content;
     }
     toJSON() {
-        // @ts-ignore
         return super.toJSON({
-            channel: "channelID",
-            author: "authorID",
-            groupActivityApplication: "groupActivityApplicationID",
-            guild: "guildID",
+            channel: "channelId",
+            author: "authorId",
+            groupActivityApplication: "groupActivityApplicationId",
+            guild: "guildId",
             cleanContent: true,
             member: false,
             reactions: false
         });
     }
 }
+Message.default = Message;
 module.exports = Message;

@@ -1,7 +1,8 @@
 import Action from "./Action";
 declare class ChannelCreateAction extends Action {
-    handle(data: import("@amanda/discordtypings").ChannelData): {
-        channel: import("../../structures/Channel");
+    static readonly default: typeof ChannelCreateAction;
+    handle(data: import("../../internal").ChannelDatas): {
+        channel: import("../../Types").AnyChannel;
     };
 }
 export = ChannelCreateAction;

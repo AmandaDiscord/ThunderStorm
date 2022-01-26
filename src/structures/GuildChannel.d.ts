@@ -1,13 +1,16 @@
 import Channel from "./Channel";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import PermissionOverwrites from "./PermissionOverwrites";
 declare class GuildChannel extends Channel {
-    parentID: string | null;
+    parentId: string | null;
     rawPosition: number;
     guild: import("./Partial/PartialGuild");
     permissionOverwrites: Collection<string, PermissionOverwrites>;
-    constructor(guild: import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").GuildChannelData);
-    toJSON(): import("@amanda/discordtypings").GuildChannelData;
-    _patch(data: import("@amanda/discordtypings").GuildChannelData): void;
+    static readonly default: typeof GuildChannel;
+    constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").GuildChannelData);
+    toJSON(): import("discord-typings").GuildChannelData & {
+        name: string;
+    };
+    _patch(data: import("discord-typings").GuildChannelData): void;
 }
 export = GuildChannel;

@@ -1,4 +1,4 @@
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import BaseClient from "./BaseClient";
 import ActionsManager from "./actions/ActionManager";
 import ClientVoiceManager from "./voice/ClientVoiceManager";
@@ -26,11 +26,12 @@ declare class Client extends BaseClient {
     actions: ActionsManager;
     voice: ClientVoiceManager;
     application: ClientApplication | null;
+    static readonly default: typeof Client;
     constructor(options: import("../Types").ClientOptions);
     get readyAt(): Date | null;
     get uptime(): number;
     toString(): string;
-    fetchUser(userID: string): Promise<import("../structures/User")>;
+    fetchUser(userId: string): Promise<import("../structures/User")>;
     fetchInvite(id: string): Promise<import("../structures/Invite") | null>;
     fetchWebhook(id: string, token?: string): Promise<Webhook>;
     fetchVoiceRegions(): Promise<Collection<string, VoiceRegion>>;

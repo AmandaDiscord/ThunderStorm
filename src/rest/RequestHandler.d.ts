@@ -4,6 +4,7 @@ declare class RequestHandler {
     reset: number;
     remaining: number;
     limit: number;
+    static readonly default: typeof RequestHandler;
     constructor(manager: import("./RESTManager"));
     push(request: import("./APIRequest")): Promise<any>;
     get globalLimited(): boolean;

@@ -1,6 +1,6 @@
 import Base from "./Base";
 import GuildPreviewEmoji from "./GuildPreviewEmoji";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 declare class GuildPreview extends Base {
     name: string;
     icon: string | null;
@@ -11,8 +11,9 @@ declare class GuildPreview extends Base {
     approximatePresenceCount: number;
     description: string | null;
     emojis: Collection<string, GuildPreviewEmoji>;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").GuildPreviewData);
-    _patch(data: import("@amanda/discordtypings").GuildPreviewData): void;
+    static readonly default: typeof GuildPreview;
+    constructor(client: import("../client/Client"), data: import("discord-typings").GuildPreviewData);
+    _patch(data: import("discord-typings").GuildPreviewData): void;
     splashURL(options?: import("../Types").ImageURLOptions): string | null;
     discoverySplashURL(options?: import("../Types").ImageURLOptions): string | null;
     iconURL(options?: import("../Types").ImageURLOptions & {

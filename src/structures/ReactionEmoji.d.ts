@@ -4,6 +4,7 @@ declare class ReactionEmoji {
     name: string;
     id: string | null;
     animated: boolean;
+    static readonly default: typeof ReactionEmoji;
     constructor(reaction: import("./MessageReaction"), emoji: {
         name: string;
         id: string | null;

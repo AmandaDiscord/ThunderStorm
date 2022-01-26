@@ -1,4 +1,5 @@
 "use strict";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 class ActionsManager {
     constructor(client) {
         this.client = client;
@@ -15,6 +16,7 @@ class ActionsManager {
         this.register(require("./ChannelUpdate"));
         this.register(require("./GuildDelete"));
         this.register(require("./GuildUpdate"));
+        this.register(require("./InteractionCreate"));
         this.register(require("./InviteCreate"));
         this.register(require("./InviteDelete"));
         this.register(require("./GuildMemberRemove"));
@@ -25,6 +27,9 @@ class ActionsManager {
         this.register(require("./GuildRoleDelete"));
         this.register(require("./GuildRoleUpdate"));
         this.register(require("./PresenceUpdate"));
+        this.register(require("./ThreadCreate"));
+        this.register(require("./ThreadDelete"));
+        this.register(require("./ThreadListSync"));
         this.register(require("./UserUpdate"));
         this.register(require("./VoiceStateUpdate"));
         this.register(require("./GuildEmojisUpdate"));
@@ -33,8 +38,8 @@ class ActionsManager {
         this.register(require("./TypingStart"));
     }
     register(Action) {
-        // @ts-ignore
         this[Action.name.replace(/Action$/, "")] = new Action(this.client);
     }
 }
+ActionsManager.default = ActionsManager;
 module.exports = ActionsManager;

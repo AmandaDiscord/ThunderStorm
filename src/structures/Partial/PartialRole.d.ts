@@ -3,6 +3,7 @@ declare class PartialRole extends PartialBase<import("../Role")> {
     partialType: "Role";
     guild: import("./PartialGuild") | null;
     name: string;
+    static readonly default: typeof PartialRole;
     constructor(client: import("../../client/Client"), data: import("../../internal").PartialData);
     toString(): string;
     toJSON(): {

@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const TextBasedChannel_1 = __importDefault(require("./interfaces/TextBasedChannel"));
 const Base_1 = __importDefault(require("./Base"));
 const UserFlags_1 = __importDefault(require("../util/UserFlags"));
@@ -10,12 +11,12 @@ const SnowflakeUtil_1 = __importDefault(require("../util/SnowflakeUtil"));
 class User extends Base_1.default {
     constructor(client, data) {
         super(client);
-        this.lastMessageID = null;
+        this.lastMessageId = null;
         this.lastMessage = null;
         this.partial = false;
         this.dmChannel = null;
         this.presence = null;
-        this.lastMessageChannelID = null;
+        this.lastMessageChannelId = null;
         if (data.username)
             this.username = data.username;
         if (data.discriminator)
@@ -116,5 +117,6 @@ class User extends Base_1.default {
             this.system = data.system || false;
     }
 }
+User.default = User;
 TextBasedChannel_1.default.applyToClass(User);
 module.exports = User;

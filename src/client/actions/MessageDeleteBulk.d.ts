@@ -1,7 +1,8 @@
 import Action from "./Action";
-import Collection from "../../util/Collection";
+import { Collection } from "@discordjs/collection";
 declare class MessageDeleteBulkAction extends Action {
-    handle(data: import("@amanda/discordtypings").MessageBulkDeleteData): {
+    static readonly default: typeof MessageDeleteBulkAction;
+    handle(data: import("discord-typings").MessageBulkDeleteData): {
         messages: Collection<string, import("../../structures/Partial/PartialMessage")>;
     };
 }

@@ -1,7 +1,7 @@
 import TextBasedChannel from "./interfaces/TextBasedChannel";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 declare class GuildMember implements TextBasedChannel {
-    lastMessageID: TextBasedChannel["lastMessageID"];
+    lastMessageId: TextBasedChannel["lastMessageId"];
     lastMessage: TextBasedChannel["lastMessage"];
     send: TextBasedChannel["send"];
     client: import("../client/Client");
@@ -19,9 +19,10 @@ declare class GuildMember implements TextBasedChannel {
     avatar: string | null;
     hoistRole: import("./Partial/PartialRole") | null;
     presence: import("./Presence").Presence | null;
-    lastMessageChannelID: string | null;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").MemberData & {
-        user: import("@amanda/discordtypings").UserData;
+    lastMessageChannelId: string | null;
+    static readonly default: typeof GuildMember;
+    constructor(client: import("../client/Client"), data: import("discord-typings").MemberData & {
+        user: import("discord-typings").UserData;
         guild_id?: string;
     });
     get displayName(): string;
@@ -57,8 +58,8 @@ declare class GuildMember implements TextBasedChannel {
         guild_id: string | null;
         hoisted_role: string | null;
     };
-    _patch(data: import("@amanda/discordtypings").MemberData & {
-        user: import("@amanda/discordtypings").UserData;
+    _patch(data: import("discord-typings").MemberData & {
+        user: import("discord-typings").UserData;
         guild_id?: string;
     }): void;
 }

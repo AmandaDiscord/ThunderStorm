@@ -4,10 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const TextBasedChannel_1 = __importDefault(require("../interfaces/TextBasedChannel"));
 const PartialBase_1 = __importDefault(require("./PartialBase"));
+const Constants_1 = __importDefault(require("../../util/Constants"));
+// @ts-ignore
 class PartialThreadChannel extends PartialBase_1.default {
     constructor(guild, data) {
         super(guild.client, data);
-        this.type = "public-thread";
+        this.type = Constants_1.default.ChannelTypes[11];
         this.partialType = "Thread";
         this.memberCount = 0;
         const PartialChannel = require("./PartialChannel");
@@ -29,5 +31,6 @@ class PartialThreadChannel extends PartialBase_1.default {
         };
     }
 }
+PartialThreadChannel.default = PartialThreadChannel;
 TextBasedChannel_1.default.applyToClass(PartialThreadChannel, true);
 module.exports = PartialThreadChannel;

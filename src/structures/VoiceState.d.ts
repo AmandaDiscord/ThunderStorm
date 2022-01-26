@@ -2,17 +2,18 @@ import GuildMember from "./GuildMember";
 declare class VoiceState {
     client: import("../client/Client");
     id: string;
-    channelID: string | null;
-    guildID: string | null;
+    channelId: string | null;
+    guildId: string | null;
     member: GuildMember | null;
     serverDeaf: boolean;
     selfDeaf: boolean;
     serverMute: boolean;
     selfMute: boolean;
-    sessionID: string;
+    sessionId: string;
     streaming: boolean;
     supress: boolean;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").VoiceStateData);
+    static readonly default: typeof VoiceState;
+    constructor(client: import("../client/Client"), data: import("discord-typings").VoiceStateData);
     toJSON(): {
         channel_id: string | null;
         guild_id: string | null;
@@ -43,6 +44,6 @@ declare class VoiceState {
         suppress: boolean;
         user_id: string;
     };
-    _patch(data: import("@amanda/discordtypings").VoiceStateData): void;
+    _patch(data: import("discord-typings").VoiceStateData): void;
 }
 export = VoiceState;

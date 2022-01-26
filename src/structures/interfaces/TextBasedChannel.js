@@ -2,24 +2,23 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const MessageCollector_1 = __importDefault(require("../MessageCollector"));
 const MessagePayload_1 = __importDefault(require("../MessagePayload"));
 const SnowflakeUtil_1 = __importDefault(require("../../util/SnowflakeUtil"));
-const Collection_1 = __importDefault(require("../../util/Collection"));
+const collection_1 = require("@discordjs/collection");
 const errors_1 = require("../../errors");
 const MessageComponentInteractionCollector_1 = __importDefault(require("../MessageComponentInteractionCollector"));
 class TextBasedChannel {
     constructor() {
-        this.lastMessageID = null;
+        this.lastMessageId = null;
         this.lastPinTimestamp = null;
-        void 0;
     }
     get lastMessage() {
         const PartialMessage = require("../Partial/PartialMessage");
         let message = null;
-        if (this.lastMessageID) {
-            message = new PartialMessage(this.client, { id: this.lastMessageID, channel_id: this.id });
-            // @ts-ignore
+        if (this.lastMessageId) {
+            message = new PartialMessage(this.client, { id: this.lastMessageId, channel_id: this.id });
             if (this.guild)
                 message.guild = this.guild;
         }
@@ -49,7 +48,7 @@ class TextBasedChannel {
         const { data, files } = await messagePayload.resolveFiles();
         const d = await this.client._snow.channel.createMessage(this.id, Object.assign({}, data, { files: files }));
         const message = new Message(this.client, d, this);
-        this.lastMessageID = message.id;
+        this.lastMessageId = message.id;
         return message;
     }
     startTyping() {
@@ -100,24 +99,20 @@ class TextBasedChannel {
     }
     async bulkDelete(messages, filterOld = false) {
         const PartialMessage = require("../Partial/PartialMessage");
-        if (Array.isArray(messages) || messages instanceof Collection_1.default) {
-            // @ts-ignore
-            let messageIDs = messages instanceof Collection_1.default ? messages.keyArray() : messages.map(m => m.id || m);
+        if (Array.isArray(messages) || messages instanceof collection_1.Collection) {
+            let messageIds = messages instanceof collection_1.Collection ? Array.from(messages.keys()) : messages.map(m => typeof m === "string" ? m : m.id);
             if (filterOld) {
-                messageIDs = messageIDs.filter(id => Date.now() - SnowflakeUtil_1.default.deconstruct(id).timestamp < 1209600000);
+                messageIds = messageIds.filter(id => Date.now() - SnowflakeUtil_1.default.deconstruct(id).timestamp < 1209600000);
             }
-            if (messageIDs.length === 0)
-                return new Collection_1.default();
-            if (messageIDs.length === 1) {
-                await this.client._snow.channel.deleteMessage(this.id, messageIDs[0]);
-                // @ts-ignore
-                return new Collection_1.default([[messageIDs[0], new PartialMessage(this.client, { id: messageIDs[0], channel_id: this.id, guild_id: this.guild ? this.guild.id : undefined })]]);
+            if (messageIds.length === 0)
+                return new collection_1.Collection();
+            if (messageIds.length === 1) {
+                await this.client._snow.channel.deleteMessage(this.id, messageIds[0]);
+                return new collection_1.Collection([[messageIds[0], new PartialMessage(this.client, { id: messageIds[0], channel_id: this.id, guild_id: this.guild ? this.guild.id : undefined })]]);
             }
-            await this.client._snow.channel.bulkDeleteMessages(this.id, messageIDs);
-            const collection = new Collection_1.default();
-            return messageIDs.reduce((col, id) => col.set(id, 
-            // @ts-ignore
-            new PartialMessage(this.client, { id: id, channel_id: this.id, guild_id: this.guild ? this.guild.id : undefined })), collection);
+            await this.client._snow.channel.bulkDeleteMessages(this.id, messageIds);
+            const collection = new collection_1.Collection();
+            return messageIds.reduce((col, id) => col.set(id, new PartialMessage(this.client, { id: id, channel_id: this.id, guild_id: this.guild ? this.guild.id : undefined })), collection);
         }
         if (!isNaN(messages)) {
             const msgs = await this.client._snow.channel.getChannelMessages(this.id, { limit: messages });
@@ -127,18 +122,18 @@ class TextBasedChannel {
     }
     async fetchMessage(message) {
         const Message = require("../Message");
-        let messageID;
+        let messageId;
         if (typeof message === "string")
-            messageID = message;
+            messageId = message;
         else
-            messageID = message.id;
-        const msg = await this.client._snow.channel.getChannelMessage(this.id, messageID);
+            messageId = message.id;
+        const msg = await this.client._snow.channel.getChannelMessage(this.id, messageId);
         return new Message(this.client, msg, this);
     }
     async fetchMessages(options) {
         const Message = require("../Message");
         const messages = await this.client._snow.channel.getChannelMessages(this.id, options);
-        return new Collection_1.default(messages.map(m => [m.id, new Message(this.client, m, this)]));
+        return new collection_1.Collection(messages.map(m => [m.id, new Message(this.client, m, this)]));
     }
     static applyToClass(structure, full = false, ignore = []) {
         const props = ["send"];
@@ -152,4 +147,5 @@ class TextBasedChannel {
         }
     }
 }
+TextBasedChannel.default = TextBasedChannel;
 module.exports = TextBasedChannel;

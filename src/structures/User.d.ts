@@ -2,7 +2,7 @@ import TextBasedChannel from "./interfaces/TextBasedChannel";
 import Base from "./Base";
 import UserFlags from "../util/UserFlags";
 declare class User extends Base implements TextBasedChannel {
-    lastMessageID: TextBasedChannel["lastMessageID"];
+    lastMessageId: TextBasedChannel["lastMessageId"];
     lastMessage: TextBasedChannel["lastMessage"];
     send: TextBasedChannel["send"];
     partial: false;
@@ -15,8 +15,9 @@ declare class User extends Base implements TextBasedChannel {
     system: boolean;
     dmChannel: import("./DMChannel") | null;
     presence: import("./Presence").Presence | null;
-    lastMessageChannelID: string | null;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").UserData);
+    lastMessageChannelId: string | null;
+    static readonly default: typeof User;
+    constructor(client: import("../client/Client"), data: import("discord-typings").UserData);
     get createdTimestamp(): number;
     get createdAt(): Date;
     get tag(): string;
@@ -41,6 +42,6 @@ declare class User extends Base implements TextBasedChannel {
     equals(user: User): boolean;
     fetchFlags(force?: boolean): Promise<Readonly<UserFlags>>;
     fetch(): Promise<this>;
-    _patch(data: import("@amanda/discordtypings").UserData): void;
+    _patch(data: import("discord-typings").UserData): void;
 }
 export = User;

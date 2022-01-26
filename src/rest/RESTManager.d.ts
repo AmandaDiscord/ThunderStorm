@@ -1,16 +1,6 @@
 import RequestHandler from "./RequestHandler";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 declare type HTTPMethod = Parameters<import("snowtransfer/dist/RequestHandler")["request"]>[1];
-declare type Options = {
-    route: string;
-    data?: any;
-    auth?: boolean;
-    versioned?: boolean;
-    query?: any;
-    reason?: string;
-    headers?: any;
-    files?: Array<any>;
-};
 declare class RESTManager {
     client: import("../client/BaseClient");
     handlers: Collection<string, RequestHandler>;
@@ -20,36 +10,38 @@ declare class RESTManager {
     globalRemaining: number;
     globalReset: number | null;
     globalDelay: Promise<void> | null;
+    static readonly default: typeof RESTManager;
     constructor(client: import("../client/BaseClient"), tokenPrefix?: RESTManager["tokenPrefix"]);
-    /**
-     * I don't think you could feasibly type this.
-     */
-    get api(): any;
+    get api(): import("../internal").Route;
     getAuth(): string;
     get cdn(): {
-        Emoji: (emojiID: string, format?: import("..").AllowedImageFormat) => string;
+        Emoji: (emojiId: string, format?: import("..").AllowedImageFormat) => string;
         Asset: (name: string) => string;
         DefaultAvatar: (discriminator: number) => string;
-        Avatar: (userID: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined, dynamic?: boolean) => string;
-        Banner: (guildID: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined) => string;
-        Icon: (guildID: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined, dynamic?: boolean) => string;
-        AppIcon: (clientID: string, hash: string, options?: {
+        Avatar: (userId: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined, dynamic?: boolean) => string;
+        GuildMemberAvatar: (guildId: string, memberId: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined, dynamic?: boolean) => string;
+        Banner: (id: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined, dynamic?: boolean) => void;
+        Icon: (guildId: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined, dynamic?: boolean) => string;
+        AppIcon: (clientId: string, hash: string, options?: {
             format?: import("..").AllowedImageFormat | undefined;
             size?: import("..").ImageSize | undefined;
         }) => string;
-        AppAsset: (clientID: string, hash: string, options?: {
+        AppAsset: (clientId: string, hash: string, options?: {
             format?: import("..").AllowedImageFormat | undefined;
             size?: import("..").ImageSize | undefined;
         }) => string;
-        GDMIcon: (channelID: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined) => string;
-        Splash: (guildID: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined) => string;
-        DiscoverySplash: (guildID: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined) => string;
-        TeamIcon: (teamID: string, hash: string, options?: {
+        StickerPackBanner: (bannerId: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined) => string;
+        GDMIcon: (channelId: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined) => string;
+        Splash: (guildId: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined) => string;
+        DiscoverySplash: (guildId: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined) => string;
+        TeamIcon: (teamId: string, hash: string, options?: {
             format?: import("..").AllowedImageFormat | undefined;
             size?: import("..").ImageSize | undefined;
         }) => string;
+        Sticker: (stickerId: string, stickerFormat: "png" | "LOTTIE") => string;
+        RoleIcon: (roleId: string, hash: string, format?: import("..").AllowedImageFormat, size?: import("..").ImageSize | undefined) => string;
     };
-    request(method: HTTPMethod, url: string, options: Options): Promise<any>;
+    request(method: HTTPMethod, url: string, options: import("../internal").RestOptions): Promise<any>;
     get endpoint(): string;
     set endpoint(endpoint: string);
 }

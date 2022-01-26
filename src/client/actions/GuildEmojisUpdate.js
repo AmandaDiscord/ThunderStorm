@@ -2,8 +2,9 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Action_1 = __importDefault(require("./Action"));
-const Collection_1 = __importDefault(require("../../util/Collection"));
+const collection_1 = require("@discordjs/collection");
 const Constants_1 = require("../../util/Constants");
 class GuildEmojisUpdateAction extends Action_1.default {
     handle(data) {
@@ -17,7 +18,8 @@ class GuildEmojisUpdateAction extends Action_1.default {
             if (emoji.createdTimestamp && emoji.createdTimestamp > Date.now() - 1000)
                 this.client.actions.GuildEmojiCreate.handle(guild, emoji);
         }
-        this.client.emit(Constants_1.Events.GUILD_EMOJIS_UPDATE, guild, new Collection_1.default(emojis.map(e => [e.id, e])));
+        this.client.emit(Constants_1.Events.GUILD_EMOJIS_UPDATE, guild, new collection_1.Collection(emojis.map(e => [e.id, e])));
     }
 }
+GuildEmojisUpdateAction.default = GuildEmojisUpdateAction;
 module.exports = GuildEmojisUpdateAction;

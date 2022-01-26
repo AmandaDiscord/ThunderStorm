@@ -20,4 +20,5 @@ class APIRequest {
         return this.client._snow.requestHandler.request(this.options.route, this.method, this.options.files && this.options.files.length ? "multipart" : "json", this.options.data, this.retries);
     }
 }
+APIRequest.default = APIRequest;
 module.exports = APIRequest;

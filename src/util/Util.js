@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const path_1 = require("path");
 const centra_1 = __importDefault(require("centra"));
 const Endpoints_1 = __importDefault(require("snowtransfer/dist/Endpoints"));
@@ -47,7 +48,6 @@ class Util {
         return out;
     }
     static splitMessage(text, { maxLength = 2000, char = "\n", prepend = "", append = "" } = {}) {
-        // @ts-ignore
         text = Util.verifyString(text, errors_1.RangeError, "MESSAGE_CONTENT_TYPE", false);
         if (text.length <= maxLength)
             return [text];
@@ -162,7 +162,7 @@ class Util {
     static async fetchRecommendedShards(token, guildsPerShard = 1000) {
         if (!token)
             throw new errors_1.Error("TOKEN_MISSING");
-        const res = await centra_1.default(Endpoints_1.default.BASE_HOST + Endpoints_1.default.BASE_URL + Constants_1.Endpoints.botGateway, "get").header("Authorization", `Bot ${token.replace(/^Bot\s*/i, "")}`).send();
+        const res = await (0, centra_1.default)(Endpoints_1.default.BASE_HOST + Endpoints_1.default.BASE_URL + Constants_1.Endpoints.botGateway, "get").header("Authorization", `Bot ${token.replace(/^Bot\s*/i, "")}`).send();
         if (res.statusCode === 200)
             return res.json().then(data => data.shards * (1000 / guildsPerShard));
         if (res.statusCode === 401)
@@ -257,52 +257,14 @@ class Util {
             parseInt(b.id.slice(10)) - parseInt(a.id.slice(10)));
     }
     static setPosition(item, position, relative, sorted, route, reason) {
-        let updatedItems = sorted.array();
+        let updatedItems = Array.from(sorted.values());
         Util.moveElementInArray(updatedItems, item, position, relative);
-        // @ts-ignore
         updatedItems = updatedItems.map((r, i) => ({ id: r.id, position: i }));
         return route.patch({ data: updatedItems, reason }).then(() => updatedItems);
     }
     static basename(path, ext) {
-        const res = path_1.parse(path);
+        const res = (0, path_1.parse)(path);
         return ext && res.ext.startsWith(ext) ? res.name : res.base.split("?")[0];
-    }
-    static idToBinary(num) {
-        let bin = "";
-        let high = parseInt(num.slice(0, -10)) || 0;
-        let low = parseInt(num.slice(-10));
-        while (low > 0 || high > 0) {
-            bin = String(low & 1) + bin;
-            low = Math.floor(low / 2);
-            if (high > 0) {
-                low += 5000000000 * (high % 2);
-                high = Math.floor(high / 2);
-            }
-        }
-        return bin;
-    }
-    static binaryToID(num) {
-        let dec = "";
-        while (num.length > 50) {
-            const high = parseInt(num.slice(0, -32), 2);
-            const low = parseInt((high % 10).toString(2) + num.slice(-32), 2);
-            dec = (low % 10).toString() + dec;
-            num =
-                Math.floor(high / 10).toString(2) +
-                    Math.floor(low / 10)
-                        .toString(2)
-                        .padStart(32, "0");
-        }
-        // @ts-ignore
-        num = parseInt(num, 2);
-        // @ts-ignore
-        while (num > 0) {
-            // @ts-ignore
-            dec = (num % 10).toString() + dec;
-            // @ts-ignore
-            num = Math.floor(num / 10);
-        }
-        return dec;
     }
     static removeMentions(str) {
         return str.replace(/@/g, "@\u200b");
@@ -349,5 +311,44 @@ class Util {
             setTimeout(resolve, ms);
         });
     }
+    static createChannelFromData(client, data) {
+        const Channel = require("../structures/Channel");
+        const GuildChannel = require("../structures/GuildChannel");
+        const DMChannel = require("../structures/DMChannel");
+        const TextChannel = require("../structures/TextChannel");
+        const CategoryChannel = require("../structures/CategoryChannel");
+        const NewsChannel = require("../structures/NewsChannel");
+        const VoiceChannel = require("../structures/VoiceChannel");
+        const StageChannel = require("../structures/StageChannel");
+        const StoreChannel = require("../structures/StoreChannel");
+        const PartialChannel = require("../structures/Partial/PartialChannel");
+        const PartialGuild = require("../structures/Partial/PartialGuild");
+        let guild;
+        if (data.guild_id)
+            guild = new PartialGuild(client, { id: data.guild_id });
+        let chan;
+        if (data.type === undefined)
+            return new PartialChannel(client, { id: data.id, guild_id: data.guild_id, type: data.guild_id ? Constants_1.ChannelTypes[0] : Constants_1.ChannelTypes[1] });
+        if (data.type === 0 && guild)
+            chan = new TextChannel(guild, data);
+        else if (data.type === 1)
+            chan = new DMChannel(client, data);
+        else if (data.type === 2 && guild)
+            chan = new VoiceChannel(guild, data);
+        else if (data.type === 4 && guild)
+            chan = new CategoryChannel(guild, data);
+        else if (data.type === 5 && guild)
+            chan = new NewsChannel(guild, data);
+        else if (data.type === 6 && guild)
+            chan = new StoreChannel(guild, data);
+        else if (data.type === 13 && guild)
+            chan = new StageChannel(guild, data);
+        else if (guild)
+            chan = new GuildChannel(guild, data);
+        else
+            chan = new Channel(client, data);
+        return chan;
+    }
 }
+Util.default = Util;
 module.exports = Util;

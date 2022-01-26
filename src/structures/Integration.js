@@ -2,13 +2,15 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Base_1 = __importDefault(require("./Base"));
 const IntegrationApplication_1 = __importDefault(require("./IntegrationApplication"));
-const Collection_1 = __importDefault(require("../util/Collection"));
+const collection_1 = require("@discordjs/collection");
+// @ts-ignore
 class Integration extends Base_1.default {
     constructor(client, data, guild) {
         super(client);
-        this.roles = new Collection_1.default();
+        this.roles = new collection_1.Collection();
         const PartialRole = require("./Partial/PartialRole");
         const User = require("./User");
         this.guild = guild;
@@ -50,24 +52,6 @@ class Integration extends Base_1.default {
             return this;
         });
     }
-    edit(data, reason) {
-        const payload = {};
-        if ("expireBehavior" in data) {
-            payload.expire_behavior = data.expireBehavior;
-        }
-        if ("expireGracePeriod" in data) {
-            payload.expire_grace_period = data.expireGracePeriod;
-        }
-        // The option enable_emoticons is only available for Twitch at this moment
-        return this.client.api
-            .guilds(this.guild.id)
-            .integrations(this.id)
-            .patch({ payload, reason })
-            .then(() => {
-            this._patch(data);
-            return this;
-        });
-    }
     delete(reason) {
         return this.client.api
             .guilds(this.guild.id)
@@ -76,8 +60,8 @@ class Integration extends Base_1.default {
             .then(() => this);
     }
     toJSON() {
-        // @ts-ignore
-        return super.toJSON({ role: "roleID", guild: "guildID", user: "userID" });
+        return super.toJSON({ role: "roleId", guild: "guildId", user: "userId" });
     }
 }
+Integration.default = Integration;
 module.exports = Integration;

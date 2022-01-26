@@ -1,6 +1,7 @@
 import Action from "./Action";
 declare class MessageReactionRemoveAll extends Action {
-    handle(data: import("@amanda/discordtypings").MessageReactionRemoveAllData): {
+    static readonly default: typeof MessageReactionRemoveAll;
+    handle(data: import("discord-typings").MessageReactionRemoveAllData): {
         message: import("../../structures/Partial/PartialMessage");
     };
 }

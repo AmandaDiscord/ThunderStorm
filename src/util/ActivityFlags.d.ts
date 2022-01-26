@@ -6,6 +6,9 @@ declare const FLAGS: {
     JOIN_REQUEST: bigint;
     SYNC: bigint;
     PLAY: bigint;
+    PARTY_PRIVACY_FRIENDS: bigint;
+    PARTY_PRIVACY_VOICE_CHANNEL: bigint;
+    EMBEDDED: bigint;
 };
 interface ActivityFlagsConstructor {
     new (bits?: import("../Types").BitFieldResolvable<typeof FLAGS>): ActivityFlags;
@@ -23,6 +26,9 @@ declare class ActivityFlags extends BitField<typeof FLAGS> {
         JOIN_REQUEST: bigint;
         SYNC: bigint;
         PLAY: bigint;
+        PARTY_PRIVACY_FRIENDS: bigint;
+        PARTY_PRIVACY_VOICE_CHANNEL: bigint;
+        EMBEDDED: bigint;
     };
     FLAGS: {
         INSTANCE: bigint;
@@ -31,6 +37,9 @@ declare class ActivityFlags extends BitField<typeof FLAGS> {
         JOIN_REQUEST: bigint;
         SYNC: bigint;
         PLAY: bigint;
+        PARTY_PRIVACY_FRIENDS: bigint;
+        PARTY_PRIVACY_VOICE_CHANNEL: bigint;
+        EMBEDDED: bigint;
     };
     constructor(bits?: import("../Types").BitFieldResolvable<typeof FLAGS>);
 }

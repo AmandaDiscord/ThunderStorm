@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const stream_1 = __importDefault(require("stream"));
@@ -38,7 +39,7 @@ class DataResolver {
             return resource;
         if (typeof resource === "string") {
             if (/^https?:\/\//.test(resource)) {
-                const res = await centra_1.default(resource).send();
+                const res = await (0, centra_1.default)(resource).send();
                 return res.body;
             }
             return new Promise((resolve, reject) => {
@@ -65,4 +66,5 @@ class DataResolver {
         return Buffer.concat(buffers);
     }
 }
+DataResolver.default = DataResolver;
 module.exports = DataResolver;

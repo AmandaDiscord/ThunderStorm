@@ -2,9 +2,10 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Integration_1 = __importDefault(require("./Integration"));
 const Webhook_1 = __importDefault(require("./Webhook"));
-const Collection_1 = __importDefault(require("../util/Collection"));
+const collection_1 = require("@discordjs/collection");
 const Constants_1 = require("../util/Constants");
 const SnowflakeUtil_1 = __importDefault(require("../util/SnowflakeUtil"));
 const Util_1 = __importDefault(require("../util/Util"));
@@ -60,21 +61,28 @@ const Actions = {
     INTEGRATION_DELETE: 82,
     STAGE_INSTANCE_CREATE: 83,
     STAGE_INSTANCE_UPDATE: 84,
-    STAGE_INSTANCE_DELETE: 85
+    STAGE_INSTANCE_DELETE: 85,
+    STICKER_CREATE: 90,
+    STICKER_UPDATE: 91,
+    STICKER_DELETE: 92,
+    GUILD_SCHEDULED_EVENT_CREATE: 100,
+    GUILD_SCHEDULED_EVENT_UPDATE: 101,
+    GUILD_SCHEDULED_EVENT_DELETE: 102,
+    THREAD_CREATE: 110,
+    THREAD_UPDATE: 111,
+    THREAD_DELETE: 112
 };
 class GuildAuditLogs {
     constructor(guild, data) {
-        this.webhooks = new Collection_1.default();
-        this.integrations = new Collection_1.default();
-        this.entries = new Collection_1.default();
+        this.webhooks = new collection_1.Collection();
+        this.integrations = new collection_1.Collection();
+        this.entries = new collection_1.Collection();
         if (data.webhooks) {
             for (const hook of data.webhooks) {
                 this.webhooks.set(hook.id, new Webhook_1.default(guild.client, hook));
             }
         }
-        // @ts-ignore
         if (data.integrations) {
-            // @ts-ignore
             for (const integration of data.integrations) {
                 this.integrations.set(integration.id, new Integration_1.default(guild.client, integration, guild));
             }
@@ -120,8 +128,10 @@ class GuildAuditLogs {
             Actions.WEBHOOK_CREATE,
             Actions.EMOJI_CREATE,
             Actions.MESSAGE_PIN,
-            Actions.INTEGRATION_CREATE
-            // @ts-ignore
+            Actions.INTEGRATION_CREATE,
+            Actions.STAGE_INSTANCE_CREATE,
+            Actions.STICKER_CREATE,
+            Actions.THREAD_CREATE
         ].includes(action)) {
             return "CREATE";
         }
@@ -139,8 +149,10 @@ class GuildAuditLogs {
             Actions.MESSAGE_DELETE,
             Actions.MESSAGE_BULK_DELETE,
             Actions.MESSAGE_UNPIN,
-            Actions.INTEGRATION_DELETE
-            // @ts-ignore
+            Actions.INTEGRATION_DELETE,
+            Actions.STAGE_INSTANCE_DELETE,
+            Actions.STICKER_DELETE,
+            Actions.THREAD_DELETE
         ].includes(action)) {
             return "DELETE";
         }
@@ -155,8 +167,10 @@ class GuildAuditLogs {
             Actions.INVITE_UPDATE,
             Actions.WEBHOOK_UPDATE,
             Actions.EMOJI_UPDATE,
-            Actions.INTEGRATION_UPDATE
-            // @ts-ignore
+            Actions.INTEGRATION_UPDATE,
+            Actions.STAGE_INSTANCE_UPDATE,
+            Actions.STICKER_UPDATE,
+            Actions.THREAD_UPDATE
         ].includes(action)) {
             return "UPDATE";
         }
@@ -168,6 +182,7 @@ class GuildAuditLogs {
 }
 GuildAuditLogs.Actions = Actions;
 GuildAuditLogs.Targets = Targets;
+GuildAuditLogs.default = GuildAuditLogs;
 class GuildAuditLogsEntry {
     constructor(logs, guild, data) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
@@ -195,15 +210,15 @@ class GuildAuditLogsEntry {
             case Actions.MESSAGE_DELETE:
             case Actions.MESSAGE_BULK_DELETE:
                 this.extra = {
-                    channel: new PartialChannel(guild.client, { id: (_c = data.options) === null || _c === void 0 ? void 0 : _c.channel_id, guild_id: guild.id, type: "text" }),
+                    channel: new PartialChannel(guild.client, { id: (_c = data.options) === null || _c === void 0 ? void 0 : _c.channel_id, guild_id: guild.id, type: Constants_1.ChannelTypes[0] }),
                     count: Number((_d = data.options) === null || _d === void 0 ? void 0 : _d.count)
                 };
                 break;
             case Actions.MESSAGE_PIN:
             case Actions.MESSAGE_UNPIN:
                 this.extra = {
-                    channel: new PartialChannel(guild.client, { id: (_e = data.options) === null || _e === void 0 ? void 0 : _e.channel_id, guild_id: guild.id, type: "text" }),
-                    messageID: (_f = data.options) === null || _f === void 0 ? void 0 : _f.message_id
+                    channel: new PartialChannel(guild.client, { id: (_e = data.options) === null || _e === void 0 ? void 0 : _e.channel_id, guild_id: guild.id, type: Constants_1.ChannelTypes[0] }),
+                    messageId: (_f = data.options) === null || _f === void 0 ? void 0 : _f.message_id
                 };
                 break;
             case Actions.MEMBER_DISCONNECT:
@@ -234,7 +249,6 @@ class GuildAuditLogsEntry {
                 o[c.key] = c.new || c.old;
                 return o;
             }, {});
-            // @ts-ignore
             this.target.id = data.target_id;
             // MEMBER_DISCONNECT and similar types do not provide a target_id.
         }
@@ -247,9 +261,7 @@ class GuildAuditLogsEntry {
         else if (targetType === Targets.WEBHOOK) {
             this.target =
                 logs.webhooks.get(data.target_id) ||
-                    new Webhook_1.default(guild.client, 
-                    // @ts-ignore
-                    this.changes.reduce((o, c) => {
+                    new Webhook_1.default(guild.client, this.changes.reduce((o, c) => {
                         o[c.key] = c.new || c.old;
                         return o;
                     }, {
@@ -277,7 +289,7 @@ class GuildAuditLogsEntry {
             // Discord sends a channel id for the MESSAGE_BULK_DELETE action type.
             this.target =
                 data.action_type === Actions.MESSAGE_BULK_DELETE
-                    ? new PartialChannel(guild.client, { id: data.target_id, guild_id: guild.id, type: "text" })
+                    ? new PartialChannel(guild.client, { id: data.target_id, guild_id: guild.id, type: Constants_1.ChannelTypes[0] })
                     : new PartialUser(guild.client, { id: data.target_id });
         }
         else if (targetType === Targets.INTEGRATION) {

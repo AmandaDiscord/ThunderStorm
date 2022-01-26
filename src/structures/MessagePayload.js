@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const BaseMessageComponent_1 = __importDefault(require("./BaseMessageComponent"));
 const MessageEmbed_1 = __importDefault(require("./MessageEmbed"));
 const errors_1 = require("../errors");
@@ -41,7 +42,6 @@ class MessagePayload {
             content = "";
         }
         else if (typeof this.options.content !== "undefined") {
-            // @ts-ignore
             content = Util_1.default.verifyString(this.options.content, errors_1.RangeError, "MESSAGE_CONTENT_TYPE", false);
         }
         if (typeof content !== "string")
@@ -79,7 +79,6 @@ class MessagePayload {
                 throw new errors_1.RangeError("MESSAGE_NONCE_TYPE");
             }
         }
-        // @ts-ignore Something about Union is not compatible
         const components = (this.options.components || []).map(c => BaseMessageComponent_1.default.create(Array.isArray(c) ? { type: Constants_1.MessageComponentTypes.ACTION_ROW, components: c } : c).toJSON());
         let username;
         let avatarURL;
@@ -98,14 +97,12 @@ class MessagePayload {
         let allowedMentions = this.options.allowedMentions;
         if (allowedMentions) {
             allowedMentions = Util_1.default.cloneObject(allowedMentions);
-            // @ts-ignore
-            allowedMentions.replied_user = allowedMentions.repliedUser;
+            allowedMentions.replied_user = allowedMentions.repliedUser || false;
             delete allowedMentions.repliedUser;
         }
         let message_reference;
         if (typeof this.options.reply === "object") {
-            // @ts-ignore
-            const message_id = (this.options.reply.messageReference).id || this.options.reply.messageReference;
+            const message_id = typeof this.options.reply.messageReference === "string" ? this.options.reply.messageReference : this.options.reply.messageReference.id;
             if (message_id) {
                 message_reference = {
                     message_id,
@@ -187,4 +184,5 @@ class MessagePayload {
     }
 }
 Symbol.species;
+MessagePayload.default = MessagePayload;
 module.exports = MessagePayload;

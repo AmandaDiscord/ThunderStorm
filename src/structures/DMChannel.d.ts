@@ -1,10 +1,11 @@
 import TextBasedChannel from "./interfaces/TextBasedChannel";
 import Channel from "./Channel";
+import Constants from "../util/Constants";
 import User from "./User";
 declare class DMChannel extends Channel implements TextBasedChannel {
     readonly lastPinAt: TextBasedChannel["lastPinAt"];
     lastPinTimestamp: TextBasedChannel["lastPinTimestamp"];
-    lastMessageID: TextBasedChannel["lastMessageID"];
+    lastMessageId: TextBasedChannel["lastMessageId"];
     readonly lastMessage: TextBasedChannel["lastMessage"];
     send: TextBasedChannel["send"];
     startTyping: TextBasedChannel["startTyping"];
@@ -19,10 +20,11 @@ declare class DMChannel extends Channel implements TextBasedChannel {
     fetchMessage: TextBasedChannel["fetchMessage"];
     fetchMessages: TextBasedChannel["fetchMessages"];
     recipient: User;
-    type: "dm";
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").DMChannelData);
-    toJSON(): import("@amanda/discordtypings").DMChannelData;
-    _patch(data: import("@amanda/discordtypings").DMChannelData & {
+    type: typeof Constants.ChannelTypes[1];
+    static readonly default: typeof DMChannel;
+    constructor(client: import("../client/Client"), data: import("discord-typings").DMChannelData);
+    toJSON(): import("discord-typings").DMChannelData;
+    _patch(data: import("discord-typings").DMChannelData & {
         name?: string;
     }): void;
 }

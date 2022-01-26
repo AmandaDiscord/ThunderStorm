@@ -1,28 +1,25 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-const Collection_1 = __importDefault(require("../util/Collection"));
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+const collection_1 = require("@discordjs/collection");
 class BaseManager {
-    constructor(client, iterable, holds, cacheType = Collection_1.default, ...cacheOptions) {
+    // @ts-ignore
+    constructor(client, iterable, holds, cacheType = collection_1.Collection, ...cacheOptions) {
         this.holds = holds;
         this.client = client;
         this.cacheType = cacheType;
+        // @ts-ignore
         this.cache = new cacheType(...cacheOptions);
         if (iterable)
             for (const i of iterable)
                 this._add(i);
     }
     _add(data, cache = true, options = { extras: [] }) {
-        // @ts-ignore
         const existing = this.cache.get(options.id || data.id);
-        // @ts-ignore
         if (existing && existing._patch && cache)
             existing._patch(data);
         if (existing)
             return existing;
         const entry = this.holds ? new this.holds(this.client, data, ...options.extras || []) : data;
-        // @ts-ignore
         if (cache)
             this.cache.set(options.id || entry.id, entry);
         return entry;
@@ -34,8 +31,7 @@ class BaseManager {
             return this.cache.get(idOrInstance) || null;
         return null;
     }
-    resolveID(idOrInstance) {
-        // @ts-ignore
+    resolveId(idOrInstance) {
         if (idOrInstance instanceof this.holds)
             return idOrInstance.id;
         if (typeof idOrInstance === "string")
@@ -46,4 +42,5 @@ class BaseManager {
         return this.cache;
     }
 }
+BaseManager.default = BaseManager;
 module.exports = BaseManager;

@@ -1,6 +1,7 @@
 import Action from "./Action";
 declare class MessageCreateAction extends Action {
-    handle(data: import("@amanda/discordtypings").MessageData): {
+    static readonly default: typeof MessageCreateAction;
+    handle(data: import("discord-typings").MessageData): {
         message: import("../../structures/Message");
     };
 }

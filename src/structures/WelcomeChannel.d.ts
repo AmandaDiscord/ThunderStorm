@@ -4,8 +4,9 @@ declare class WelcomeChannel extends Base {
     guild: import("./Guild") | import("./Partial/PartialGuild") | import("./InviteGuild");
     description: string;
     private _emoji;
-    channelID: string;
-    constructor(guild: import("./Guild") | import("./Partial/PartialGuild") | import("./InviteGuild"), data: import("@amanda/discordtypings").WelcomeScreenData);
+    channelId: string;
+    static readonly default: typeof WelcomeChannel;
+    constructor(guild: import("./Guild") | import("./Partial/PartialGuild") | import("./InviteGuild"), data: import("discord-typings").WelcomeScreenChannelData);
     get channel(): import("./Partial/PartialChannel");
     get emoji(): Emoji;
 }

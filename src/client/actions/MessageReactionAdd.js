@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Action_1 = __importDefault(require("./Action"));
 const Constants_1 = require("../../util/Constants");
 class MessageReactionAdd extends Action_1.default {
@@ -18,4 +19,5 @@ class MessageReactionAdd extends Action_1.default {
         return { message: reaction.message, reaction, user };
     }
 }
+MessageReactionAdd.default = MessageReactionAdd;
 module.exports = MessageReactionAdd;

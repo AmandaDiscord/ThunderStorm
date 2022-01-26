@@ -8,7 +8,7 @@ const PartialBase_1 = __importDefault(require("./PartialBase"));
 class PartialUser extends PartialBase_1.default {
     constructor(client, data) {
         super(client, data);
-        this.lastMessageID = null;
+        this.lastMessageId = null;
         this.lastMessage = null;
         this.partialType = "User";
     }
@@ -16,5 +16,6 @@ class PartialUser extends PartialBase_1.default {
         return `<@${this.id}>`;
     }
 }
+PartialUser.default = PartialUser;
 TextBasedChannel_1.default.applyToClass(PartialUser);
 module.exports = PartialUser;

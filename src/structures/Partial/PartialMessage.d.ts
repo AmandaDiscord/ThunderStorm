@@ -6,6 +6,7 @@ import ReactionCollector from "../ReactionCollector";
 declare class PartialMessage extends PartialBase<import("../Message")> {
     channel: import("./PartialChannel");
     partialType: "Message";
+    static readonly default: typeof PartialMessage;
     constructor(client: import("../../client/Client"), data: import("../../internal").PartialData);
     get url(): string;
     reply(options?: string | MessagePayload | import("../../Types").ReplyMessageOptions): Promise<Message>;
@@ -19,7 +20,7 @@ declare class PartialMessage extends PartialBase<import("../Message")> {
     suppressEmbeds(suppress?: boolean): Promise<Message>;
     removeAttachments(): Promise<Message>;
     createReactionCollector(filter: import("../../Types").CollectorFilter<import("../MessageReaction")>, options?: import("../../Types").ReactionCollectorOptions): ReactionCollector;
-    awaitReactions(filter: import("../../Types").CollectorFilter<import("../MessageReaction")>, options?: import("../../Types").AwaitReactionsOptions): Promise<import("../../util/Collection")<string, import("../MessageReaction")>>;
+    awaitReactions(filter: import("../../Types").CollectorFilter<import("../MessageReaction")>, options?: import("../../Types").AwaitReactionsOptions): Promise<import("@discordjs/collection").Collection<string, import("../MessageReaction")>>;
     createMessageComponentInteractionCollector(filter: import("../../Types").CollectorFilter<import("../MessageComponentInteraction")>, options?: import("../../Types").MessageComponentInteractionCollectorOptions): MessageComponentInteractionCollector;
     awaitMessageComponentInteraction(filter: import("../../Types").CollectorFilter<import("../MessageComponentInteraction")>, time?: number): Promise<import("../MessageComponentInteraction")>;
     toJSON(): {

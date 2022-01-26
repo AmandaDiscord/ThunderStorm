@@ -5,12 +5,13 @@ declare class Role {
     color: number;
     managed: boolean;
     hoisted: boolean;
-    permissions: number;
+    permissions: string;
     position: number;
     mentionable: boolean;
     guild: import("./Partial/PartialGuild");
     partial: false;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").RoleData & {
+    static readonly default: typeof Role;
+    constructor(client: import("../client/Client"), data: import("discord-typings").RoleData & {
         guild_id: string;
     });
     get createdTimestamp(): number;
@@ -23,7 +24,7 @@ declare class Role {
         color: number;
         managed: boolean;
         hoist: boolean;
-        permissions: number;
+        permissions: string;
         position: number;
         mentionable: boolean;
         guild_id: string | undefined;

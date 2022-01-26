@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const events_1 = __importDefault(require("events"));
 const RESTManager_1 = __importDefault(require("../rest/RESTManager"));
 const Util_1 = __importDefault(require("../util/Util"));
@@ -82,4 +83,5 @@ class BaseClient extends events_1.default {
         return Util_1.default.flatten(this, { domain: false }, ...props);
     }
 }
+BaseClient.default = BaseClient;
 module.exports = BaseClient;

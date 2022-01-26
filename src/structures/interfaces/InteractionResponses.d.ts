@@ -6,6 +6,7 @@ declare class InteractionResponses {
     id: string;
     token: string;
     webhook: import("../InteractionWebhook");
+    static readonly default: typeof InteractionResponses;
     defer({ ephemeral }?: import("../../Types").InteractionDeferOptions): Promise<void>;
     reply(options: string | MessagePayload | import("../../Types").InteractionReplyOptions): Promise<void>;
     fetchReply(): Promise<import("../Message")>;

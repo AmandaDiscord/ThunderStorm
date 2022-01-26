@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import EventEmitter from "events";
-import Collection from "../../util/Collection";
+import { Collection } from "@discordjs/collection";
 interface CollectorEvents<T> {
     collect: Array<any>;
     dispose: Array<any>;
@@ -29,6 +29,7 @@ declare abstract class Collector<T> extends EventEmitter {
     ended: boolean;
     private _timeout;
     private _idletimeout;
+    static readonly default: typeof Collector;
     constructor(client: import("../../client/Client"), filter: import("../../Types").CollectorFilter<T>, options?: import("../../Types").CollectorOptions);
     handleCollect(...args: Array<any>): Promise<void>;
     handleDispose(...args: Array<any>): void;

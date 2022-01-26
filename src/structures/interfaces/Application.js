@@ -2,8 +2,10 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const SnowflakeUtil_1 = __importDefault(require("../../util/SnowflakeUtil"));
 const Base_1 = __importDefault(require("../Base"));
+// @ts-ignore
 class Application extends Base_1.default {
     constructor(client, data) {
         super(client);
@@ -39,8 +41,8 @@ class Application extends Base_1.default {
         return this.name;
     }
     toJSON() {
-        // @ts-ignore
         return super.toJSON({ createdTimestamp: true });
     }
 }
+Application.default = Application;
 module.exports = Application;

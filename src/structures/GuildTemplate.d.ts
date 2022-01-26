@@ -5,14 +5,15 @@ declare class GuildTemplate extends Base {
     name: string;
     description: string | null;
     usageCount: number;
-    creatorID: string;
+    creatorId: string;
     creator: import("./User");
     createdAt: Date;
     updatedAt: Date;
-    guildID: string;
-    serializedGuild: Partial<import("@amanda/discordtypings").GuildData>;
+    guildId: string;
+    serializedGuild: Partial<import("discord-typings").GuildData>;
     unSynced: boolean | null;
     guild: import("./Partial/PartialGuild");
+    static readonly default: typeof GuildTemplate;
     constructor(client: import("../client/Client"), data: any);
     _patch(data: any): this;
     createGuild(name: string, icon?: import("../Types").BufferResolvable | import("../Types").Base64Resolvable): Promise<import("./Guild")>;

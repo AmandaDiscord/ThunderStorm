@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Action_1 = __importDefault(require("./Action"));
 const Constants_1 = require("../../util/Constants");
 class MessageReactionRemoveEmoji extends Action_1.default {
@@ -13,4 +14,5 @@ class MessageReactionRemoveEmoji extends Action_1.default {
         return { reaction };
     }
 }
+MessageReactionRemoveEmoji.default = MessageReactionRemoveEmoji;
 module.exports = MessageReactionRemoveEmoji;

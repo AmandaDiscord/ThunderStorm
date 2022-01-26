@@ -5,12 +5,13 @@ declare class TeamMember extends Base {
     permissions: ["*"];
     membershipState: "INVITED" | "ACCEPTED";
     user: User;
-    constructor(team: import("./Team"), data: import("@amanda/discordtypings").TeamMemberData);
+    static readonly default: typeof TeamMember;
+    constructor(team: import("./Team"), data: import("discord-typings").TeamMemberData);
     toString(): string;
     toJSON(): {
         id: string;
         team_id: string;
-        membership_state: 2 | 1;
+        membership_state: 1 | 2;
         permissions: ["*"];
         user: {
             username: string;
@@ -21,6 +22,6 @@ declare class TeamMember extends Base {
             public_flags: number;
         };
     };
-    _patch(data: import("@amanda/discordtypings").TeamMemberData): void;
+    _patch(data: import("discord-typings").TeamMemberData): void;
 }
 export = TeamMember;

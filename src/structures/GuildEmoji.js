@@ -2,7 +2,8 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const Collection_1 = __importDefault(require("../util/Collection"));
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+const collection_1 = require("@discordjs/collection");
 const BaseGuildEmoji_1 = __importDefault(require("./BaseGuildEmoji"));
 const errors_1 = require("../errors");
 const PartialRole_1 = __importDefault(require("./Partial/PartialRole"));
@@ -20,20 +21,19 @@ class GuildEmoji extends BaseGuildEmoji_1.default {
         super._patch(data);
     }
     get roles() {
-        return new Collection_1.default(this._roles.map(i => [i, new PartialRole_1.default(this.client, { id: i, guild_id: this.guild.id })]));
+        return new collection_1.Collection(this._roles.map(i => [i, new PartialRole_1.default(this.client, { id: i, guild_id: this.guild.id })]));
     }
     async fetchAuthor() {
         if (this.managed) {
             throw new errors_1.Error("EMOJI_MANAGED");
         }
-        const data = await this.client._snow.emoji.getEmoji(this.guild.id, this.id);
+        const data = await this.client._snow.guildAssets.getEmoji(this.guild.id, this.id);
         this._patch(data);
         return this.author;
     }
     async edit(data) {
-        // @ts-ignore
-        const roles = data.roles ? data.roles.map(r => r.id || r) : undefined;
-        const newData = await this.client._snow.emoji.updateEmoji(this.guild.id, this.id, { name: data.name, roles });
+        const roles = data.roles ? data.roles.map(r => typeof r === "string" ? r : r.id) : undefined;
+        const newData = await this.client._snow.guildAssets.updateEmoji(this.guild.id, this.id, { name: data.name, roles });
         const clone = this._clone();
         clone._patch(newData);
         return clone;
@@ -42,7 +42,7 @@ class GuildEmoji extends BaseGuildEmoji_1.default {
         return this.edit({ name });
     }
     async delete() {
-        await this.client._snow.emoji.deleteEmoji(this.guild.id, this.id);
+        await this.client._snow.guildAssets.deleteEmoji(this.guild.id, this.id);
         return this;
     }
     equals(other) {
@@ -64,4 +64,5 @@ class GuildEmoji extends BaseGuildEmoji_1.default {
         }
     }
 }
+GuildEmoji.default = GuildEmoji;
 module.exports = GuildEmoji;

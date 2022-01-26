@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const SnowflakeUtil_1 = __importDefault(require("../util/SnowflakeUtil"));
 class ReactionEmoji {
     constructor(reaction, emoji) {
@@ -44,4 +45,5 @@ class ReactionEmoji {
         return `<${this.animated ? "a" : ""}:${this.name}:${this.id}>`;
     }
 }
+ReactionEmoji.default = ReactionEmoji;
 module.exports = ReactionEmoji;

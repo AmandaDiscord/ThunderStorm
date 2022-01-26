@@ -1,4 +1,5 @@
 "use strict";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const errors_1 = require("../errors");
 const Constants_1 = require("../util/Constants");
 class BaseMessageComponent {
@@ -32,4 +33,5 @@ class BaseMessageComponent {
         return typeof type === "string" ? type : Constants_1.MessageComponentTypes[type];
     }
 }
+BaseMessageComponent.default = BaseMessageComponent;
 module.exports = BaseMessageComponent;

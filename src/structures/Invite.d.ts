@@ -15,7 +15,8 @@ declare class Invite {
     targetUserType: 1 | 2 | null;
     targetUser: import("./User") | null;
     private _expiresAt;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").InviteData & {
+    static readonly default: typeof Invite;
+    constructor(client: import("../client/Client"), data: import("discord-typings").InviteData & {
         channel_id?: string;
         created_at?: string;
         guild_id?: string;
@@ -42,7 +43,7 @@ declare class Invite {
         temporary: boolean;
         max_age: number;
         max_uses: number;
-        inviter?: import("@amanda/discordtypings").UserData | undefined;
+        inviter?: import("discord-typings").UserData | undefined;
         channel: {
             id: string;
             name: string;
@@ -53,7 +54,7 @@ declare class Invite {
         expires_at?: string | undefined;
     };
     valueOf(): string;
-    _patch(data: import("@amanda/discordtypings").InviteData & {
+    _patch(data: import("discord-typings").InviteData & {
         channel_id?: string;
         created_at?: string;
         guild_id?: string;

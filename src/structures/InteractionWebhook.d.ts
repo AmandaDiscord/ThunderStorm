@@ -9,14 +9,15 @@ declare class InteractionWebhook implements Webhook {
     avatar: Webhook["avatar"];
     name: Webhook["name"];
     type: Webhook["type"];
-    guildID: Webhook["guildID"];
-    channelID: Webhook["channelID"];
+    guildId: Webhook["guildId"];
+    channelId: Webhook["channelId"];
     owner: Webhook["owner"];
     sourceGuild: Webhook["sourceGuild"];
     sourceChannel: Webhook["sourceChannel"];
     client: import("../client/Client");
     id: string;
     token: string;
+    static readonly default: typeof InteractionWebhook;
     constructor(client: import("../client/Client"), id: string, token: string);
 }
 export = InteractionWebhook;

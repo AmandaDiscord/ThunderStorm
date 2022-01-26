@@ -3,8 +3,9 @@ declare class Channel extends Base {
     partial: false;
     id: string;
     name: string;
-    type: "category" | "dm" | "news" | "text" | "voice" | "stage" | "store" | "unknown";
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").ChannelData);
+    type: import("../Types").ChannelType;
+    static readonly default: typeof Channel;
+    constructor(client: import("../client/Client"), data: import("discord-typings").ChannelData);
     get createdTimestamp(): number;
     get createdAt(): Date;
     fetch(): Promise<this>;
@@ -12,8 +13,8 @@ declare class Channel extends Base {
     toJSON(): {
         id: string;
         name: string;
-        type: 0 | 2 | 1 | 4 | 11 | 6 | 5 | 10 | 12 | 13;
+        type: 0 | 1 | 2 | 12 | 4 | 5 | 6 | 10 | 11 | 13 | -1;
     };
-    _patch(data: import("@amanda/discordtypings").ChannelData): void;
+    _patch(data: import("discord-typings").ChannelData): void;
 }
 export = Channel;

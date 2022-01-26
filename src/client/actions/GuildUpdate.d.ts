@@ -1,6 +1,7 @@
 import Action from "./Action";
 declare class GuildUpdateAction extends Action {
-    handle(data: import("@amanda/discordtypings").GuildData): {
+    static readonly default: typeof GuildUpdateAction;
+    handle(data: import("discord-typings").GuildData): {
         old: null;
         updated: import("../../structures/Guild");
     };

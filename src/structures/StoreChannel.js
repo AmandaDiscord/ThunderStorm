@@ -2,11 +2,13 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const GuildChannel_1 = __importDefault(require("./GuildChannel"));
+const Constants_1 = __importDefault(require("../util/Constants"));
 class StoreChannel extends GuildChannel_1.default {
     constructor(guild, data) {
         super(guild, data);
-        this.type = "store";
+        this.type = Constants_1.default.ChannelTypes[6];
         this.nsfw = Boolean(data.nsfw);
     }
     _patch(data) {
@@ -16,4 +18,5 @@ class StoreChannel extends GuildChannel_1.default {
         }
     }
 }
+StoreChannel.default = StoreChannel;
 module.exports = StoreChannel;

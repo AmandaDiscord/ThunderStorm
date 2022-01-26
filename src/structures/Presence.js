@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RichPresenceAssets = exports.Activity = exports.Presence = void 0;
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Base_1 = __importDefault(require("./Base"));
 const Emoji_1 = __importDefault(require("./Emoji"));
 const ActivityFlags_1 = __importDefault(require("../util/ActivityFlags"));
@@ -13,29 +14,21 @@ class Presence extends Base_1.default {
         super(client);
         this.guild = null;
         this.member = null;
-        this.userID = data.user.id;
+        this.userId = data.user.id;
         this._patch(data);
     }
     _patch(data) {
         var _a;
         const GuildMember = require("./GuildMember");
         const User = require("./User");
-        // @ts-ignore
         this.status = data.status || this.status || "offline";
-        if (data.activities) {
+        if (data.activities)
             this.activities = data.activities.map(activity => new Activity(this, activity));
-            // @ts-ignore
-        }
-        else if (data.activity || data.game) {
-            // @ts-ignore
-            this.activities = [new Activity(this, data.game || data.activity)];
-        }
-        else {
+        else
             this.activities = [];
-        }
         this.clientStatus = data.client_status || null;
         if (data.user && data.guild_id) {
-            this.member = new GuildMember(this.client, Object.assign({}, data, { mute: false, deaf: false, hoisted_role: data.guild_id, joined_at: new Date().toISOString(), nick: data.nick || null }));
+            this.member = new GuildMember(this.client, Object.assign({}, data, { mute: false, deaf: false, hoisted_role: data.guild_id, joined_at: new Date().toISOString(), nick: data.nick || null, roles: [] }));
             this.user = this.member.user;
             this.member.presence = this;
             this.user.presence = this;
@@ -63,7 +56,6 @@ class Presence extends Base_1.default {
                 this.clientStatus.desktop === presence.clientStatus.desktop));
     }
     toJSON() {
-        // @ts-ignore
         const value = this.member ? this.member.toJSON() : { user: this.user.toJSON() };
         value["activities"] = this.activities.map(i => i.toJSON());
         value["client_status"] = this.clientStatus;
@@ -71,11 +63,9 @@ class Presence extends Base_1.default {
             value["guild_id"] = this.guild.id;
         // @ts-ignore
         delete value["joined_at"];
-        // @ts-ignore
         delete value["mute"];
         // @ts-ignore
         delete value["deaf"];
-        // @ts-ignore
         delete value["hoisted_role"];
         return value;
     }
@@ -89,7 +79,7 @@ class Activity {
         this.url = data.url || null;
         this.details = data.details || null;
         this.state = data.state || null;
-        this.applicationID = data.application_id || null;
+        this.applicationId = data.application_id || null;
         this.timestamps = data.timestamps
             ? {
                 start: data.timestamps.start ? new Date(Number(data.timestamps.start)) : null,
@@ -99,7 +89,7 @@ class Activity {
         this.party = data.party || null;
         this.assets = data.assets ? new RichPresenceAssets(this, data.assets) : null;
         // @ts-ignore
-        this.syncID = data.sync_id;
+        this.syncId = data.sync_id;
         this.flags = new ActivityFlags_1.default(data.flags).freeze();
         this.emoji = data.emoji ? new Emoji_1.default(presence.client, data.emoji) : null;
         this.createdTimestamp = new Date(data.created_at).getTime();
@@ -147,7 +137,7 @@ class RichPresenceAssets {
     smallImageURL(options = {}) {
         if (!this.smallImage)
             return null;
-        return this.activity.presence.client.rest.cdn.AppAsset(this.activity.applicationID, this.smallImage, {
+        return this.activity.presence.client.rest.cdn.AppAsset(this.activity.applicationId, this.smallImage, {
             format: options.format,
             size: options.size
         });
@@ -161,7 +151,7 @@ class RichPresenceAssets {
         else if (/^twitch:/.test(this.largeImage)) {
             return `https://static-cdn.jtvnw.net/previews-ttv/live_user_${this.largeImage.slice(7)}.png`;
         }
-        return this.activity.presence.client.rest.cdn.AppAsset(this.activity.applicationID, this.largeImage, {
+        return this.activity.presence.client.rest.cdn.AppAsset(this.activity.applicationId, this.largeImage, {
             format: options.format,
             size: options.size
         });
@@ -176,4 +166,4 @@ class RichPresenceAssets {
     }
 }
 exports.RichPresenceAssets = RichPresenceAssets;
-exports.default = { Presence, Activity, RichPresenceAssets };
+exports.default = exports;

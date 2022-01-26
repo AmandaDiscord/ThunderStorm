@@ -1,4 +1,5 @@
 "use strict";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const noop = () => { void 0; };
 const methods = ["get", "post", "delete", "patch", "put"];
 const reflectors = [
@@ -16,21 +17,11 @@ function buildRoute(manager) {
             if (reflectors.includes(name))
                 return () => Promise.resolve(route.join("/"));
             if (methods.includes(name)) {
-                const routeBucket = [];
-                for (let i = 0; i < route.length; i++) {
-                    // Reactions routes and sub-routes all share the same bucket
-                    if (route[i - 1] === "reactions")
-                        break;
-                    // Literal IDs should only be taken account if they are the Major ID (the Channel/Guild ID)
-                    if (/\d{16,19}/g.test(route[i]) && !/channels|guilds/.test(route[i - 1]))
-                        routeBucket.push(":id");
-                    // All other parts of the route should be considered as part of the bucket identifier
-                    else
-                        routeBucket.push(route[i]);
-                }
-                return (options) => manager.request(name, route.join("/"), Object.assign({
+                const rt = route.join("/");
+                // Bucketing is handled by SnowTransfer.
+                return (options) => manager.request(name, rt, Object.assign({
                     versioned: manager.versioned,
-                    route: routeBucket.join("/")
+                    route: rt
                 }, options));
             }
             route.push(name);
@@ -43,4 +34,5 @@ function buildRoute(manager) {
     };
     return new Proxy(noop, handler);
 }
+exports.default = buildRoute;
 module.exports = buildRoute;

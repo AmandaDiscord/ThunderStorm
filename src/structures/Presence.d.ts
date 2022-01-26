@@ -1,18 +1,18 @@
 import Base from "./Base";
 import ActivityFlags from "../util/ActivityFlags";
 export declare class Presence extends Base {
-    userID: string;
+    userId: string;
     guild: import("./Partial/PartialGuild") | null;
     status: import("../Types").PresenceStatus;
     activities: Array<Activity>;
-    clientStatus: import("@amanda/discordtypings").ClientStatusData;
+    clientStatus: import("discord-typings").ClientStatusData;
     user: import("./User");
     member: import("./GuildMember") | null;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").PresenceData);
-    _patch(data: import("@amanda/discordtypings").PresenceData): this;
+    constructor(client: import("../client/Client"), data: import("discord-typings").PresenceData);
+    _patch(data: import("discord-typings").PresenceData | import("discord-typings").PresenceUpdateData): this;
     _clone(): this;
     equals(presence: Presence): boolean;
-    toJSON(): import("@amanda/discordtypings").PresenceData;
+    toJSON(): import("discord-typings").PresenceData;
 }
 export declare class Activity {
     presence: Presence;
@@ -21,18 +21,18 @@ export declare class Activity {
     url: string | null;
     details: string | null;
     state: string | null;
-    applicationID: string | null;
+    applicationId: string | null;
     timestamps: {
         start: Date | null;
         end: Date | null;
     } | null;
-    party: Exclude<import("@amanda/discordtypings").ActivityData["party"], undefined> | null;
+    party: Exclude<import("discord-typings").ActivityData["party"], undefined> | null;
     assets: RichPresenceAssets | null;
-    syncID: string;
+    syncId: string;
     flags: Readonly<ActivityFlags>;
     emoji: import("./Emoji") | null;
     createdTimestamp: number;
-    constructor(presence: Presence, data: import("@amanda/discordtypings").ActivityData);
+    constructor(presence: Presence, data: import("discord-typings").ActivityData);
     equals(activity: Activity): boolean;
     get createdAt(): Date;
     toString(): string;
@@ -46,7 +46,7 @@ export declare class Activity {
             end: number | undefined;
         };
         emoji: {
-            id: string | null;
+            id: string;
             animated: boolean;
             name: string;
         } | undefined;
@@ -70,7 +70,7 @@ export declare class RichPresenceAssets {
     largeImage: string | null;
     smallImage: string | null;
     activity: Activity;
-    constructor(activity: Activity, assets: Exclude<import("@amanda/discordtypings").ActivityData["assets"], undefined>);
+    constructor(activity: Activity, assets: Exclude<import("discord-typings").ActivityData["assets"], undefined>);
     smallImageURL(options?: {
         format?: import("../Types").AllowedImageFormat;
         size?: import("../Types").ImageSize;
@@ -86,9 +86,5 @@ export declare class RichPresenceAssets {
         small_image: string | undefined;
     };
 }
-declare const _default: {
-    Presence: typeof Presence;
-    Activity: typeof Activity;
-    RichPresenceAssets: typeof RichPresenceAssets;
-};
+declare const _default: typeof import("./Presence");
 export default _default;

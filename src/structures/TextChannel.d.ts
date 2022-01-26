@@ -1,9 +1,10 @@
 import TextBasedChannel from "./interfaces/TextBasedChannel";
 import GuildChannel from "./GuildChannel";
+import Constants from "../util/Constants";
 declare class TextChannel extends GuildChannel implements TextBasedChannel {
     readonly lastPinAt: TextBasedChannel["lastPinAt"];
     lastPinTimestamp: TextBasedChannel["lastPinTimestamp"];
-    lastMessageID: TextBasedChannel["lastMessageID"];
+    lastMessageId: TextBasedChannel["lastMessageId"];
     readonly lastMessage: TextBasedChannel["lastMessage"];
     send: TextBasedChannel["send"];
     startTyping: TextBasedChannel["startTyping"];
@@ -21,9 +22,10 @@ declare class TextChannel extends GuildChannel implements TextBasedChannel {
     nsfw: boolean;
     rateLimitPerUser: number;
     topic: string;
-    type: "text";
-    constructor(guild: import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").TextChannelData);
-    toJSON(): import("@amanda/discordtypings").TextChannelData;
-    _patch(data: import("@amanda/discordtypings").TextChannelData): void;
+    type: typeof Constants.ChannelTypes[0];
+    static readonly default: typeof TextChannel;
+    constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").TextChannelData);
+    toJSON(): import("discord-typings").TextChannelData;
+    _patch(data: import("discord-typings").TextChannelData): void;
 }
 export = TextChannel;

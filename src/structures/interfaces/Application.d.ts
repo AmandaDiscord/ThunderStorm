@@ -4,8 +4,9 @@ declare abstract class Application extends Base {
     description: string | null;
     icon: string | null;
     cover: string | null;
-    constructor(client: import("../../client/Client"), data: import("@amanda/discordtypings").ApplicationData);
-    _patch(data: import("@amanda/discordtypings").ApplicationData): void;
+    static readonly default: typeof Application;
+    constructor(client: import("../../client/Client"), data: import("discord-typings").ApplicationData);
+    _patch(data: import("discord-typings").ApplicationData): void;
     get createdTimestamp(): number;
     get createdAt(): Date;
     iconURL(options?: import("../../Types").ImageURLOptions): string | null;

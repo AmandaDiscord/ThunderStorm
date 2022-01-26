@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Constants_1 = __importDefault(require("../util/Constants"));
 class Invite {
     constructor(client, data) {
@@ -89,7 +90,7 @@ class Invite {
         if (data.max_uses !== undefined)
             this.maxUses = data.max_uses;
         if (data.channel || data.channel_id)
-            this.channel = new PartialChannel(this.client, { id: data.channel ? data.channel.id : data.channel_id, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? Constants_1.default.ChannelTypes[data.channel.type] : (data.guild_id ? "text" : "dm") });
+            this.channel = new PartialChannel(this.client, { id: data.channel ? data.channel.id : data.channel_id, name: data.channel ? data.channel.name : undefined, guild_id: data.guild ? data.guild.id : data.guild_id, type: data.channel ? Constants_1.default.ChannelTypes[data.channel.type] : (data.guild_id ? Constants_1.default.ChannelTypes[0] : Constants_1.default.ChannelTypes[1]) });
         if (data.created_at)
             this.createdTimestamp = new Date(data.created_at).getTime();
         if (data.inviter) {
@@ -106,4 +107,5 @@ class Invite {
     }
 }
 Invite.INVITES_PATTERN = /discord(?:(?:app)?\.com\/invite|\.gg(?:\/invite)?)\/([\w-]{2,255})/gi;
+Invite.default = Invite;
 module.exports = Invite;

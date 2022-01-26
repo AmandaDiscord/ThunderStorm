@@ -1,5 +1,5 @@
 import AnonymousGuild from "./AnonymousGuild";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import Emoji from "./Emoji";
 import GuildMember from "./GuildMember";
 import Role from "./Role";
@@ -15,20 +15,20 @@ declare class Guild extends AnonymousGuild {
     memberCount: number;
     approximateMemberCount: number;
     approximatePresenceCount: number;
-    ownerID: string;
+    ownerId: string;
     owner: import("./Partial/PartialUser");
     icon: string | null;
     discoverySplash: string | null;
     large: boolean;
-    applicationID: string | null;
+    applicationId: string | null;
     afkTimeout: number;
-    afkChannelID: string | null;
-    systemChannelID: string | null;
+    afkChannelId: string | null;
+    systemChannelId: string | null;
     systemChannelFlags: Readonly<SystemChannelFlags>;
     premiumTier: number;
     premiumSubscriptionCount: number;
-    rulesChannelID: string | null;
-    publicUpdatesChannelID: string | null;
+    rulesChannelId: string | null;
+    publicUpdatesChannelId: string | null;
     preferredLocale: string;
     members: Collection<string, GuildMember>;
     channels: Collection<string, import("./GuildChannel")>;
@@ -39,16 +39,17 @@ declare class Guild extends AnonymousGuild {
     mfaLevel: 0 | 1;
     maximumMembers: number;
     maximumPresences: number;
-    shardID: number;
+    shardId: number;
     threads: Collection<string, import("./ThreadNewsChannel") | import("./ThreadTextChannel")>;
     stageInstances: Collection<string, import("./Partial/PartialChannel")>;
     joinedTimestamp: number;
     commands: GuildApplicationCommandManager;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").GuildData);
+    static readonly default: typeof Guild;
+    constructor(client: import("../client/Client"), data: import("discord-typings").GuildData);
     get joinedAt(): Date;
     get me(): GuildMember;
     fetchWelcomeScreen(): Promise<WelcomeScreen>;
-    bannerURL(options?: import("../Types").ImageURLOptions): string | null;
+    bannerURL(options?: import("../Types").ImageURLOptions): void | null;
     toJSON(): {
         name: string;
         id: string;
@@ -61,7 +62,7 @@ declare class Guild extends AnonymousGuild {
         banner: string | null;
         description: string | null;
         discovery_splash: string | null;
-        features: import("@amanda/discordtypings").GuildFeature[];
+        features: import("discord-typings").GuildFeature[];
         large: boolean;
         splash: string | null;
         application_id: string | null;
@@ -92,14 +93,16 @@ declare class Guild extends AnonymousGuild {
             guild_id: string | null;
             hoisted_role: string | null;
         }[];
-        channels: import("@amanda/discordtypings").GuildChannelData[];
+        channels: (import("discord-typings").GuildChannelData & {
+            name: string;
+        })[];
         roles: {
             name: string;
             id: string;
             color: number;
             managed: boolean;
             hoist: boolean;
-            permissions: number;
+            permissions: string;
             position: number;
             mentionable: boolean;
             guild_id: string | undefined;
@@ -135,7 +138,7 @@ declare class Guild extends AnonymousGuild {
             user_id: string;
         }[];
         emojis: {
-            id: string | null;
+            id: string;
             animated: boolean;
             name: string;
         }[];
@@ -143,6 +146,6 @@ declare class Guild extends AnonymousGuild {
     fetchMembers(options: string): Promise<import("./GuildMember") | null>;
     fetchMembers(options: import("../Types").FetchMemberOptions): Promise<Array<import("./GuildMember")> | null>;
     fetchInvites(): Promise<Collection<string, import("./Invite")>>;
-    _patch(data: import("@amanda/discordtypings").GuildData): void;
+    _patch(data: import("discord-typings").GuildData): void;
 }
 export = Guild;

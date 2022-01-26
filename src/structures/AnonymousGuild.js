@@ -2,12 +2,10 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const BaseGuild_1 = __importDefault(require("./BaseGuild"));
 const Constants_1 = require("../util/Constants");
-/**
- * Bundles common attributes and methods between {@link Guild} and {@link InviteGuild}
- * @abstract
- */
+// @ts-ignore
 class AnonymousGuild extends BaseGuild_1.default {
     constructor(client, data) {
         super(client, data);
@@ -35,4 +33,5 @@ class AnonymousGuild extends BaseGuild_1.default {
         return this.client.rest.cdn.Splash(this.id, this.splash, options.format, options.size);
     }
 }
+AnonymousGuild.default = AnonymousGuild;
 module.exports = AnonymousGuild;

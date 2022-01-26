@@ -2,19 +2,20 @@ import Base from "./Base";
 declare class Emoji extends Base {
     animated: boolean;
     name: string;
-    id: string | null;
+    id: string;
     deleted: boolean;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").EmojiData);
+    static readonly default: typeof Emoji;
+    constructor(client: import("../client/Client"), data: import("discord-typings").EmojiData);
     get identifier(): string;
     get url(): string;
     get createdTimestamp(): number | null;
     get createdAt(): Date | null;
     toJSON(): {
-        id: string | null;
+        id: string;
         animated: boolean;
         name: string;
     };
     toString(): string;
-    _patch(data: import("@amanda/discordtypings").EmojiData): void;
+    _patch(data: import("discord-typings").EmojiData): void;
 }
 export = Emoji;

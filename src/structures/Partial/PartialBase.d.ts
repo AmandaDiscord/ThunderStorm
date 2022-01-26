@@ -15,6 +15,7 @@ declare class PartialBase<Type extends FetchData[keyof FetchData]> {
     guild?: import("./PartialGuild") | null;
     channel?: import("./PartialChannel");
     parent?: import("./PartialChannel");
+    static readonly default: typeof PartialBase;
     constructor(client: import("../../client/Client"), data: import("../../internal").PartialData);
     get createdTimestamp(): number;
     get createdAt(): Date;

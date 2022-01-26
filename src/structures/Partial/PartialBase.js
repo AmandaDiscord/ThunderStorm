@@ -2,18 +2,13 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const CategoryChannel_1 = __importDefault(require("../CategoryChannel"));
-const DMChannel_1 = __importDefault(require("../DMChannel"));
 const Guild_1 = __importDefault(require("../Guild"));
 const Message_1 = __importDefault(require("../Message"));
-const NewsChannel_1 = __importDefault(require("../NewsChannel"));
-const StageChannel_1 = __importDefault(require("../StageChannel"));
-const TextChannel_1 = __importDefault(require("../TextChannel"));
 const ThreadNewsChannel_1 = __importDefault(require("../ThreadNewsChannel"));
 const ThreadTextChannel_1 = __importDefault(require("../ThreadTextChannel"));
 const User_1 = __importDefault(require("../User"));
-const VoiceChannel_1 = __importDefault(require("../VoiceChannel"));
 const SnowflakeUtil_1 = __importDefault(require("../../util/SnowflakeUtil"));
+const Util_1 = __importDefault(require("../../util/Util"));
 class PartialBase {
     constructor(client, data) {
         this.partial = true;
@@ -37,22 +32,7 @@ class PartialBase {
         let data = null;
         if (this.partialType === "Channel") {
             const channeldata = await this.client._snow.channel.getChannel(this.id);
-            if (channeldata.type === 0 && this.guild)
-                data = new TextChannel_1.default(this.guild, channeldata);
-            else if (channeldata.type === 1)
-                data = new DMChannel_1.default(this.client, channeldata);
-            else if (channeldata.type === 2 && this.guild)
-                data = new VoiceChannel_1.default(this.guild, channeldata);
-            else if (channeldata.type === 4 && this.guild)
-                data = new CategoryChannel_1.default(this.guild, channeldata);
-            else if (channeldata.type === 5 && this.guild)
-                data = new NewsChannel_1.default(this.guild, channeldata);
-            else if (channeldata.type === 6 && this.guild)
-                data = new StageChannel_1.default(this.guild, channeldata);
-            else if (channeldata.type === 13 && this.guild)
-                data = new StageChannel_1.default(this.guild, channeldata);
-            else
-                data = channeldata;
+            data = Util_1.default.createChannelFromData(this.client, channeldata);
         }
         else if (this.partialType === "Guild") {
             const guilddata = await this.client._snow.guild.getGuild(this.id);
@@ -72,15 +52,10 @@ class PartialBase {
                 data = new Role(this.client, roledata);
         }
         else if (this.partialType === "Thread") {
-            if (!this.parent)
-                return null;
-            const threaddata = await this.client._snow.channel.getChannelActiveThreads(this.parent.id);
+            const threaddata = await this.client._snow.channel.getChannel(this.id);
             if (!threaddata)
                 return null;
-            const current = threaddata.find(c => c.id === this.id);
-            if (!current)
-                return null;
-            data = current.type === 10 && this.guild ? new ThreadNewsChannel_1.default(this.guild, current) : (this.guild ? new ThreadTextChannel_1.default(this.guild, current) : null);
+            data = threaddata.type === 10 && this.guild ? new ThreadNewsChannel_1.default(this.guild, threaddata) : (this.guild ? new ThreadTextChannel_1.default(this.guild, threaddata) : null);
         }
         else if (this.partialType === "User") {
             const userdata = await this.client._snow.user.getUser(this.id);
@@ -103,4 +78,5 @@ class PartialBase {
         return data;
     }
 }
+PartialBase.default = PartialBase;
 module.exports = PartialBase;

@@ -8,8 +8,9 @@ declare class ClientApplication extends Application {
     botRequireCodeGrant: boolean | null;
     botPublic: boolean | null;
     owner: import("./User") | import("./Team") | null;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").ApplicationData);
-    _patch(data: import("@amanda/discordtypings").ApplicationData): void;
+    static readonly default: typeof ClientApplication;
+    constructor(client: import("../client/Client"), data: import("discord-typings").ApplicationData);
+    _patch(data: import("discord-typings").ApplicationData): void;
     get partial(): boolean;
     fetch(): Promise<this>;
 }

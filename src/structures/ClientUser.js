@@ -2,10 +2,12 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const centra_1 = __importDefault(require("centra"));
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const User_1 = __importDefault(require("./User"));
+// @ts-ignore
 class ClientUser extends User_1.default {
     constructor(client, data) {
         super(client, data);
@@ -19,7 +21,7 @@ class ClientUser extends User_1.default {
     async edit(data) {
         let buf;
         if (typeof data.avatar === "string" && data.avatar.startsWith("http"))
-            buf = await centra_1.default(data.avatar, "get").header("User-Agent", "").send().then(d => d.body ? d.body : undefined);
+            buf = await (0, centra_1.default)(data.avatar, "get").header("User-Agent", "").send().then(d => d.body ? d.body : undefined);
         else if (typeof data.avatar === "string")
             buf = await fs_1.default.promises.readFile(path_1.default.isAbsolute(data.avatar) ? data.avatar : path_1.default.join(process.cwd(), data.avatar));
         else
@@ -41,4 +43,5 @@ class ClientUser extends User_1.default {
         super._patch(data);
     }
 }
+ClientUser.default = ClientUser;
 module.exports = ClientUser;

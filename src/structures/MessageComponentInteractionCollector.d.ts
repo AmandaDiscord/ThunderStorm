@@ -1,9 +1,9 @@
 import Collector from "./interfaces/Collector";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 interface CollectorEvents {
     collect: [import("./MessageComponentInteraction")];
     dispose: [import("./MessageComponentInteraction")];
-    end: [import("../util/Collection")<string, import("./MessageComponentInteraction")>, string];
+    end: [import("@discordjs/collection").Collection<string, import("./MessageComponentInteraction")>, string];
 }
 interface MessageComponentInteractionCollector {
     addListener<E extends keyof CollectorEvents>(event: E, listener: (...args: CollectorEvents[E]) => any): this;
@@ -26,6 +26,7 @@ declare class MessageComponentInteractionCollector extends Collector<import("./M
     users: Collection<string, import("./User")>;
     total: number;
     options: import("../Types").MessageComponentInteractionCollectorOptions;
+    static readonly default: typeof MessageComponentInteractionCollector;
     constructor(source: import("./Message") | import("./Partial/PartialMessage") | import("./TextChannel") | import("./DMChannel") | import("./NewsChannel") | import("./interfaces/TextBasedChannel"), filter: import("../Types").CollectorFilter<import("./MessageComponentInteraction")>, options?: import("../Types").MessageComponentInteractionCollectorOptions);
     collect(interaction: import("./MessageComponentInteraction")): string | null;
     dispose(interaction: import("./MessageComponentInteraction")): string | null;

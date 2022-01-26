@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Util_1 = __importDefault(require("../util/Util"));
 class MessageAttachment {
     constructor(attachment, name = null, data) {
@@ -64,4 +65,5 @@ class MessageAttachment {
         };
     }
 }
+MessageAttachment.default = MessageAttachment;
 module.exports = MessageAttachment;

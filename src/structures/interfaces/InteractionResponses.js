@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Constants_1 = require("../../util/Constants");
 const MessageFlags_1 = __importDefault(require("../../util/MessageFlags"));
 const MessagePayload_1 = __importDefault(require("../MessagePayload"));
@@ -76,4 +77,5 @@ class InteractionResponses {
         }
     }
 }
+InteractionResponses.default = InteractionResponses;
 module.exports = InteractionResponses;

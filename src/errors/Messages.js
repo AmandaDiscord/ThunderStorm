@@ -1,4 +1,5 @@
 "use strict";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const DJSError_1 = require("./DJSError");
 const Messages = {
     CLIENT_INVALID_OPTION: (prop, must) => `The ${prop} option must be ${must}`,
@@ -81,5 +82,5 @@ const Messages = {
     INTERACTION_ALREADY_REPLIED: "This interaction has already been deferred or replied to."
 };
 for (const [name, message] of Object.entries(Messages))
-    DJSError_1.register(name, message);
+    (0, DJSError_1.register)(name, message);
 module.exports = Messages;

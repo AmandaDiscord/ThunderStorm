@@ -8,12 +8,14 @@ const Message_1 = __importDefault(require("../Message"));
 const MessageComponentInteractionCollector_1 = __importDefault(require("../MessageComponentInteractionCollector"));
 const ReactionCollector_1 = __importDefault(require("../ReactionCollector"));
 const MessageFlags_1 = __importDefault(require("../../util/MessageFlags"));
+const Constants_1 = require("../../util/Constants");
+// @ts-ignore
 class PartialMessage extends PartialBase_1.default {
     constructor(client, data) {
         super(client, data);
         this.partialType = "Message";
         const PartialChannel = require("./PartialChannel");
-        this.channel = new PartialChannel(client, { id: data.channel_id, guild_id: data.guild_id, type: data.guild_id ? "text" : "dm" });
+        this.channel = new PartialChannel(client, { id: data.channel_id, guild_id: data.guild_id, type: data.guild_id ? Constants_1.ChannelTypes[0] : Constants_1.ChannelTypes[1] });
         this.guild = this.channel.guild || null;
     }
     get url() {
@@ -135,4 +137,5 @@ class PartialMessage extends PartialBase_1.default {
         return Object.assign(super.toJSON(), value);
     }
 }
+PartialMessage.default = PartialMessage;
 module.exports = PartialMessage;

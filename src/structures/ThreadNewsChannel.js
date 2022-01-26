@@ -2,19 +2,19 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const Collection_1 = __importDefault(require("../util/Collection"));
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+const collection_1 = require("@discordjs/collection");
 const NewsChannel_1 = __importDefault(require("./NewsChannel"));
 const ThreadMetadata_1 = __importDefault(require("./ThreadMetadata"));
 const ThreadMember_1 = __importDefault(require("./ThreadMember"));
+const Constants_1 = __importDefault(require("../util/Constants"));
 class ThreadNewsChannel extends NewsChannel_1.default {
     constructor(guild, data) {
-        // @ts-ignore
         super(guild, data);
-        // @ts-ignore
-        this.type = "news-thread";
         this.memberCount = 0;
         this.messageCount = 0;
-        this.members = new Collection_1.default();
+        this.members = new collection_1.Collection();
+        this.defaultAutoArchiveDuration = 0;
     }
     async fetchMembers() {
         const ms = await this.client._snow.channel.getChannelThreadMembers(this.id);
@@ -28,26 +28,25 @@ class ThreadNewsChannel extends NewsChannel_1.default {
     }
     // @ts-ignore
     toJSON() {
-        // @ts-ignore
         return Object.assign(super.toJSON(), {
             type: 10,
-            owner_id: this.ownerID,
+            owner_id: this.ownerId,
             member_count: this.memberCount,
             message_count: this.messageCount,
             thread_metadata: this.meta.toJSON(),
             parent_id: this.parent.id,
-            guild_id: this.guild.id
+            guild_id: this.guild.id,
+            default_auto_archive_duration: this.defaultAutoArchiveDuration
         });
     }
     // @ts-ignore
     _patch(data) {
         const PartialChannel = require("./Partial/PartialChannel");
         const PartialUser = require("./Partial/PartialUser");
-        // @ts-ignore
         super._patch(data);
         if (data.owner_id) {
-            this.ownerID = data.owner_id;
-            this.owner = new PartialUser(this.client, { id: this.ownerID });
+            this.ownerId = data.owner_id;
+            this.owner = new PartialUser(this.client, { id: this.ownerId });
         }
         if (data.member_count !== undefined)
             this.memberCount = data.member_count;
@@ -56,7 +55,8 @@ class ThreadNewsChannel extends NewsChannel_1.default {
         if (!this.meta || data.thread_metadata)
             this.meta = new ThreadMetadata_1.default(this, data.thread_metadata);
         if (data.parent_id)
-            this.parent = new PartialChannel(this.client, { id: data.parent_id, guild_id: data.guild_id, type: "news" });
+            this.parent = new PartialChannel(this.client, { id: data.parent_id, guild_id: data.guild_id, type: Constants_1.default.ChannelTypes[10] });
     }
 }
+ThreadNewsChannel.default = ThreadNewsChannel;
 module.exports = ThreadNewsChannel;

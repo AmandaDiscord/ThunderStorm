@@ -1,6 +1,7 @@
 /// <reference types="node" />
 import stream from "stream";
 declare class DataResolver {
+    static readonly default: typeof DataResolver;
     constructor();
     static resolveCode(data: string, regex: RegExp): string;
     static resolveInviteCode(data: string): string;

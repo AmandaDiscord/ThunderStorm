@@ -8,6 +8,7 @@ declare class IntegrationApplication extends Application {
     hook: boolean | null;
     cover: string | null;
     verifyKey: string | null;
-    _patch(data: import("@amanda/discordtypings").ApplicationData): void;
+    static readonly default: typeof IntegrationApplication;
+    _patch(data: import("discord-typings").IntegrationApplicationData): void;
 }
 export = IntegrationApplication;

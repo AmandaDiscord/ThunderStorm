@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Permissions_1 = __importDefault(require("../util/Permissions"));
 class PermissionOverwrites {
     constructor(guildChannel, data) {
@@ -20,4 +21,5 @@ class PermissionOverwrites {
         };
     }
 }
+PermissionOverwrites.default = PermissionOverwrites;
 module.exports = PermissionOverwrites;

@@ -22,11 +22,13 @@ declare function makeDiscordjsError(Base: ErrorConstructor): {
     stackTraceLimit: number;
 };
 declare function register(sym: string, val: any): void;
-declare const DJSError: {
+declare type DJSErrorModule = {
     register: typeof register;
     Error: ReturnType<typeof makeDiscordjsError>;
     TypeError: ReturnType<typeof makeDiscordjsError>;
     RangeError: ReturnType<typeof makeDiscordjsError>;
     Messages: typeof import("./Messages");
+    default: DJSErrorModule;
 };
+declare const DJSError: DJSErrorModule;
 export = DJSError;

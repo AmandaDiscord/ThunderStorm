@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const SnowflakeUtil_1 = __importDefault(require("../util/SnowflakeUtil"));
 class ThreadMetaData {
     constructor(thread, data) {
@@ -17,8 +18,8 @@ class ThreadMetaData {
     get archived() {
         if (this._archived || this.archiver)
             return true;
-        if (this.thread.lastMessageID && this.autoArchiveDuration !== 0) {
-            const lastSendTimestamp = SnowflakeUtil_1.default.deconstruct(this.thread.lastMessageID).timestamp;
+        if (this.thread.lastMessageId && this.autoArchiveDuration !== 0) {
+            const lastSendTimestamp = SnowflakeUtil_1.default.deconstruct(this.thread.lastMessageId).timestamp;
             if (Date.now() >= lastSendTimestamp + (this.autoArchiveDuration * 1000 * 60))
                 return true;
         }
@@ -55,4 +56,5 @@ class ThreadMetaData {
         }
     }
 }
+ThreadMetaData.default = ThreadMetaData;
 module.exports = ThreadMetaData;

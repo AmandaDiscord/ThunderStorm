@@ -12,12 +12,13 @@ declare class MessageComponentInteraction extends Interaction implements Interac
     deferUpdate: InteractionResponses["deferUpdate"];
     update: InteractionResponses["update"];
     message: import("./Message") | null;
-    customID: string;
+    customId: string;
     componentType: string;
     deferred: boolean;
     replied: boolean;
     webhook: InteractionWebhook;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").InteractionData);
+    static readonly default: typeof MessageComponentInteraction;
+    constructor(client: import("../client/Client"), data: import("discord-typings").InteractionData);
     static resolveType(type: import("../Types").MessageComponentType | Exclude<keyof typeof MessageComponentTypes, string>): import("../Types").MessageComponentType;
 }
 export = MessageComponentInteraction;

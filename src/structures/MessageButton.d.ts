@@ -1,7 +1,7 @@
 import BaseMessageComponent from "./BaseMessageComponent";
 declare class MessageButton extends BaseMessageComponent {
     label: string | null;
-    customID: string | null;
+    customId: string | null;
     style: import("../Types").MessageButtonStyle | null;
     emoji: {
         id: string | null;
@@ -10,9 +10,10 @@ declare class MessageButton extends BaseMessageComponent {
     } | null;
     url: string | null;
     disabled: boolean;
-    constructor(data: MessageButton | import("../Types").MessageButtonOptions);
-    setup(data: MessageButton | import("../Types").MessageButtonOptions): void;
-    setCustomID(customID: string): this;
+    static readonly default: typeof MessageButton;
+    constructor(data: import("discord-typings").MessageComponentData | import("../Types").MessageButtonOptions);
+    setup(data: import("discord-typings").MessageComponentData | import("../Types").MessageButtonOptions): void;
+    setCustomId(customId: string): this;
     setDisabled(disabled: boolean): this;
     setEmoji(emoji: import("../Types").EmojiIdentifierResolvable): this;
     setLabel(label: string): this;
@@ -27,8 +28,8 @@ declare class MessageButton extends BaseMessageComponent {
             animated?: boolean | undefined;
         } | null;
         label: string | null;
-        style: 2 | 1 | 4 | 5 | 3;
-        type: 2 | 1;
+        style: 1 | 2 | 4 | 5 | 3;
+        type: 1 | 2 | 3;
         url: string | null;
     };
     static resolveStyle(style: import("../Types").MessageButtonStyleResolvable): import("../Types").MessageButtonStyle;

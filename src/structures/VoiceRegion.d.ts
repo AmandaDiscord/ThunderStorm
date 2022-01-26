@@ -6,6 +6,7 @@ declare class VoiceRegion {
     optimal: boolean;
     custom: boolean;
     sampleHostname: string;
+    static readonly default: typeof VoiceRegion;
     constructor(data: {
         id: string;
         name: string;

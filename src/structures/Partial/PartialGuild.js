@@ -2,9 +2,10 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const Collection_1 = __importDefault(require("../../util/Collection"));
+const collection_1 = require("@discordjs/collection");
 const PartialBase_1 = __importDefault(require("./PartialBase"));
 const GuildApplicationCommandManager_1 = __importDefault(require("../../managers/GuildApplicationCommandManager"));
+// @ts-ignore
 class PartialGuild extends PartialBase_1.default {
     constructor(client, data) {
         super(client, data);
@@ -44,8 +45,8 @@ class PartialGuild extends PartialBase_1.default {
                 return null;
             if (!options.query)
                 return data.map(d => new GuildMember(this.client, d));
-            else if (options.ids)
-                return data.filter(d => { var _a; return (d.user ? (_a = options.ids) === null || _a === void 0 ? void 0 : _a.includes(d.user.id) : false); }).map(d => new GuildMember(this.client, d));
+            else if (options.Ids)
+                return data.filter(d => { var _a; return (d.user ? (_a = options.Ids) === null || _a === void 0 ? void 0 : _a.includes(d.user.id) : false); }).map(d => new GuildMember(this.client, d));
             else
                 return data.filter(d => { var _a; return options.query && ((_a = d.nick) === null || _a === void 0 ? void 0 : _a.includes(options.query)) || (d.user ? options.query && d.user.username.includes(options.query) : false) || (d.user ? options.query && d.user.id.includes(options.query) : false) || (d.user ? options.query && `${d.user.username}#${d.user.discriminator}` === options.query : false); }).map(d => new GuildMember(this.client, d));
         }
@@ -53,7 +54,7 @@ class PartialGuild extends PartialBase_1.default {
     async fetchInvites() {
         const Invite = require("../Invite");
         const inviteItems = await this.client._snow.guild.getGuildInvites(this.id);
-        const invites = new Collection_1.default();
+        const invites = new collection_1.Collection();
         for (const inviteItem of inviteItems) {
             const invite = new Invite(this.client, inviteItem);
             invites.set(invite.code, invite);
@@ -61,4 +62,5 @@ class PartialGuild extends PartialBase_1.default {
         return invites;
     }
 }
+PartialGuild.default = PartialGuild;
 module.exports = PartialGuild;

@@ -1,4 +1,5 @@
 "use strict";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 class ClientVoiceManager {
     constructor(client) {
         this.adapters = new Map();
@@ -15,4 +16,5 @@ class ClientVoiceManager {
         }
     }
 }
+ClientVoiceManager.default = ClientVoiceManager;
 module.exports = ClientVoiceManager;

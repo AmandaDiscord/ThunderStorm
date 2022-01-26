@@ -164,8 +164,7 @@ class Collection extends BaseCollection {
         return results;
     }
     toJSON() {
-        // @ts-ignore
-        return this.map(e => (typeof (e === null || e === void 0 ? void 0 : e.toJSON) === "function" ? e.toJSON() : Util_1.default.flatten(e)));
+        return this.map(e => { var _a; return (typeof ((_a = e) === null || _a === void 0 ? void 0 : _a.toJSON) === "function" ? e.toJSON() : Util_1.default.flatten(e)); });
     }
     get length() {
         return this.size;

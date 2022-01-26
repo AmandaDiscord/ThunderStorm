@@ -2,15 +2,17 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const SnowflakeUtil_1 = __importDefault(require("../util/SnowflakeUtil"));
 const Base_1 = __importDefault(require("./Base"));
+// @ts-ignore
 class Emoji extends Base_1.default {
     constructor(client, data) {
         super(client);
         this.animated = false;
         this.deleted = false;
-        this.id = data.id || null;
-        this.name = data.name;
+        this.id = data.id || "";
+        this.name = data.name || "";
         this.animated = data.animated || false;
     }
     get identifier() {
@@ -43,11 +45,12 @@ class Emoji extends Base_1.default {
     }
     _patch(data) {
         if (data.id !== undefined)
-            this.id = data.id;
+            this.id = data.id || "";
         if (data.name)
             this.name = data.name;
         if (data.animated !== undefined)
             this.animated = !!data.animated;
     }
 }
+Emoji.default = Emoji;
 module.exports = Emoji;

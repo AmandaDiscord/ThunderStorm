@@ -8,10 +8,11 @@ declare class MessageAttachment {
     proxyURL: string;
     height: number | null;
     width: number | null;
-    constructor(attachment: import("../Types").BufferResolvable | import("stream").Stream, name?: string | null, data?: import("@amanda/discordtypings").AttachmentData);
+    static readonly default: typeof MessageAttachment;
+    constructor(attachment: import("../Types").BufferResolvable | import("stream").Stream, name?: string | null, data?: import("discord-typings").AttachmentData);
     setFile(attachment: import("../Types").BufferResolvable | import("stream").Stream, name?: string | null): this;
     setName(name: string): this;
-    _patch(data: import("@amanda/discordtypings").AttachmentData): void;
+    _patch(data: import("discord-typings").AttachmentData): void;
     get spoiler(): boolean;
     toJSON(): {
         id: string;
@@ -21,7 +22,7 @@ declare class MessageAttachment {
         height: number | null;
         width: number | null;
         name: string | null;
-        attachment: string | Buffer | import("stream").Stream;
+        attachment: string | import("stream").Stream | Buffer;
     };
 }
 export = MessageAttachment;

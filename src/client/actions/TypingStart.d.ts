@@ -1,6 +1,7 @@
 import Action from "./Action";
 declare class TypingStart extends Action {
-    handle(data: import("@amanda/discordtypings").TypingStartData): void;
+    static readonly default: typeof TypingStart;
+    handle(data: import("discord-typings").TypingStartData): void;
     tooLate(channel: any, user: any): void;
 }
 export = TypingStart;

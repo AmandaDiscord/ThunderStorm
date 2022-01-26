@@ -2,8 +2,9 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const TextBasedChannel_1 = __importDefault(require("./interfaces/TextBasedChannel"));
-const Collection_1 = __importDefault(require("../util/Collection"));
+const collection_1 = require("@discordjs/collection");
 const User_1 = __importDefault(require("./User"));
 // @ts-ignore
 class GuildMember {
@@ -14,11 +15,11 @@ class GuildMember {
         this.joinedAt = new Date();
         this.premiumSince = null;
         this.premiumSinceTimestamp = null;
-        this.roles = new Collection_1.default();
+        this.roles = new collection_1.Collection();
         this.avatar = null;
         this.hoistRole = null;
         this.presence = null;
-        this.lastMessageChannelID = null;
+        this.lastMessageChannelId = null;
         this.client = client;
         if (data)
             this._patch(data);
@@ -112,5 +113,6 @@ class GuildMember {
             this.hoistRole = data.hoisted_role ? this.roles.get(data.hoisted_role) || null : null;
     }
 }
+GuildMember.default = GuildMember;
 TextBasedChannel_1.default.applyToClass(GuildMember);
 module.exports = GuildMember;

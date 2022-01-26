@@ -3,7 +3,7 @@ import PartialBase from "./PartialBase";
 declare class PartialChannel extends PartialBase<import("../Channel")> implements TextBasedChannel {
     readonly lastPinAt: TextBasedChannel["lastPinAt"];
     lastPinTimestamp: TextBasedChannel["lastPinTimestamp"];
-    lastMessageID: TextBasedChannel["lastMessageID"];
+    lastMessageId: TextBasedChannel["lastMessageId"];
     readonly lastMessage: TextBasedChannel["lastMessage"];
     send: TextBasedChannel["send"];
     startTyping: TextBasedChannel["startTyping"];
@@ -18,12 +18,13 @@ declare class PartialChannel extends PartialBase<import("../Channel")> implement
     bulkDelete: TextBasedChannel["bulkDelete"];
     fetchMessage: TextBasedChannel["fetchMessage"];
     fetchMessages: TextBasedChannel["fetchMessages"];
-    type: import("../../Types").ChannelType | "unknown";
+    type: import("../../Types").ChannelType;
     partialType: "Channel";
     guild: import("./PartialGuild") | null;
     name: string;
-    permissions: import("../../util/Permissions");
+    permissions: Readonly<import("../../util/Permissions")>;
     topic: string | null;
+    static readonly default: typeof PartialChannel;
     constructor(client: import("../../client/Client"), data: import("../../internal").PartialData);
     toString(): string;
     toJSON(): {

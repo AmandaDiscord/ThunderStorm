@@ -4,7 +4,7 @@ import MessageAttachment from "./MessageAttachment";
 import MessageComponentInteractionCollector from "./MessageComponentInteractionCollector";
 import ReactionCollector from "./ReactionCollector";
 import Sticker from "./Sticker";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import MessageFlags from "../util/MessageFlags";
 declare class Message extends Base {
     partial: false;
@@ -25,17 +25,18 @@ declare class Message extends Base {
     editedTimestamp: number | null;
     reactions: Collection<string, import("./MessageReaction")>;
     mentions: import("./MessageMentions");
-    webhookID: string | null;
+    webhookId: string | null;
     groupActivityApplication: import("./ClientApplication") | null;
-    applicationID: string | null;
+    applicationId: string | null;
     activity: import("../Types").MessageActivity | null;
     member: import("./GuildMember");
     flags: Readonly<MessageFlags>;
     reference: import("../Types").MessageReference | null;
     interaction: import("../Types").MessageInteraction | null;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").MessageData, channel: import("./interfaces/TextBasedChannel"));
-    _patch(data: import("@amanda/discordtypings").MessageData): void;
-    patch(data: import("@amanda/discordtypings").MessageData): this;
+    static readonly default: typeof Message;
+    constructor(client: import("../client/Client"), data: import("discord-typings").MessageData, channel: import("./interfaces/TextBasedChannel"));
+    _patch(data: import("discord-typings").MessageData): void;
+    patch(data: import("discord-typings").MessageData): this;
     get createdAt(): Date;
     get editedAt(): Date | null;
     get guild(): import("./Partial/PartialGuild") | null;
@@ -50,7 +51,7 @@ declare class Message extends Base {
     get pinnable(): boolean;
     fetchReference(): Promise<Message>;
     get crosspostable(): boolean | null;
-    edit(options: import("../Types").MessageEditOptions): Promise<void>;
+    edit(options: string | import("../Types").MessageEditOptions): Promise<void>;
     crosspost(): Promise<this>;
     pin(): Promise<this>;
     unpin(): Promise<this>;
@@ -62,7 +63,7 @@ declare class Message extends Base {
     fetchWebhook(): Promise<import("./Webhook")>;
     suppressEmbeds(suppress?: boolean): Promise<void>;
     removeAttachments(): Promise<void>;
-    equals(message: Message, rawData: import("@amanda/discordtypings").MessageData): boolean;
+    equals(message: Message, rawData: import("discord-typings").MessageData): boolean;
     toString(): string | null;
     toJSON(): any;
 }

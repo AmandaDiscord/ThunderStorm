@@ -1,4 +1,4 @@
-import Discord = require("@amanda/discordtypings");
+import Discord from "discord-typings";
 declare type ChannelDatas = Discord.DMChannelData | Discord.TextChannelData | Discord.CategoryChannelData | Discord.NewsChannelData | Discord.VoiceChannelData | Discord.StageChannelData;
 export interface GatewayEventDataTable {
     CHANNEL_CREATE: ChannelDatas;
@@ -73,9 +73,35 @@ export interface PartialData {
     guild_id?: Discord.Snowflake;
     channel_id?: Discord.Snowflake;
     number?: number;
-    type?: import("./Types").ChannelType | "unknown";
+    type?: import("./Types").ChannelType;
     name?: string;
     permissions?: string;
     topic?: string;
 }
+export declare type HTTPMethodSignature = (data?: RestOptions) => Promise<any>;
+export declare type HTTPMethodsObject = {
+    get: HTTPMethodSignature;
+    post: HTTPMethodSignature;
+    delete: HTTPMethodSignature;
+    patch: HTTPMethodSignature;
+    put: HTTPMethodSignature;
+};
+export declare type Route = ((...routeParams: Array<any>) => Route) & RouteObject;
+export declare type RouteObject = HTTPMethodsObject & {
+    [route: string]: Route;
+};
+export declare type RestOptions = {
+    route?: string;
+    data?: any;
+    auth?: boolean;
+    versioned?: boolean;
+    query?: {
+        [qs: string]: any;
+    };
+    reason?: string;
+    headers?: {
+        [header: string]: any;
+    };
+    files?: Array<any>;
+};
 export {};

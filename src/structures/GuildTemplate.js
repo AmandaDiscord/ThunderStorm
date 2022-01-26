@@ -2,10 +2,12 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Endpoints_1 = __importDefault(require("snowtransfer/dist/Endpoints"));
 const Base_1 = __importDefault(require("./Base"));
 const Constants_1 = require("../util/Constants");
 const DataResolver_1 = __importDefault(require("../util/DataResolver"));
+// @ts-ignore
 class GuildTemplate extends Base_1.default {
     constructor(client, data) {
         super(client);
@@ -18,12 +20,12 @@ class GuildTemplate extends Base_1.default {
         this.name = data.name;
         this.description = data.description;
         this.usageCount = data.usage_count;
-        this.creatorID = data.creator_id;
+        this.creatorId = data.creator_id;
         this.creator = new User(this.client, data.creator);
         this.createdAt = new Date(data.created_at);
         this.updatedAt = new Date(data.updated_at);
-        this.guildID = data.source_guild_id;
-        this.guild = new PartialGuild(this.client, { id: this.guildID });
+        this.guildId = data.source_guild_id;
+        this.guild = new PartialGuild(this.client, { id: this.guildId });
         this.serializedGuild = data.serialized_source_guild;
         this.unSynced = "is_dirty" in data ? Boolean(data.is_dirty) : null;
         return this;
@@ -56,21 +58,21 @@ class GuildTemplate extends Base_1.default {
     }
     edit(options = {}) {
         return this.client.api
-            .guilds(this.guildID)
+            .guilds(this.guildId)
             .templates(this.code)
             .patch({ data: options })
             .then((data) => this._patch(data));
     }
     delete() {
         return this.client.api
-            .guilds(this.guildID)
+            .guilds(this.guildId)
             .templates(this.code)
             .delete()
             .then(() => this);
     }
     sync() {
         return this.client.api
-            .guilds(this.guildID)
+            .guilds(this.guildId)
             .templates(this.code)
             .put()
             .then((data) => this._patch(data));
@@ -89,4 +91,5 @@ class GuildTemplate extends Base_1.default {
     }
 }
 GuildTemplate.GUILD_TEMPLATES_PATTERN = /discord(?:app)?\.(?:com\/template|new)\/([\w-]{2,255})/gi;
+GuildTemplate.default = GuildTemplate;
 module.exports = GuildTemplate;

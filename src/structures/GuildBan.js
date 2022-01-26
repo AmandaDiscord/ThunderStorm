@@ -2,7 +2,9 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Base_1 = __importDefault(require("./Base"));
+// @ts-ignore
 class GuildBan extends Base_1.default {
     constructor(client, data, guild) {
         super(client);
@@ -26,4 +28,5 @@ class GuildBan extends Base_1.default {
         return (bans || []).find(ban => ban.user.id === this.user.id) || null;
     }
 }
+GuildBan.default = GuildBan;
 module.exports = GuildBan;

@@ -6,14 +6,15 @@ declare class Webhook {
     token: string | null;
     avatar: string | null;
     id: string;
-    type: typeof WebhookTypes[import("@amanda/discordtypings").WebhookData["type"]];
-    guildID: string;
-    channelID: string;
+    type: typeof WebhookTypes[import("discord-typings").WebhookData["type"]];
+    guildId: string;
+    channelId: string;
     owner: import("./User") | null;
     sourceGuild: import("./Guild") | null;
     sourceChannel: import("./NewsChannel") | null;
-    constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").WebhookData);
-    _patch(data: import("@amanda/discordtypings").WebhookData): void;
+    static readonly default: typeof Webhook;
+    constructor(client: import("../client/Client"), data: import("discord-typings").WebhookData);
+    _patch(data: import("discord-typings").WebhookData): void;
     send(options: string | MessagePayload | import("../Types").WebhookMessageOptions): Promise<import("./Message")>;
     /**
      * Sends a raw slack message with this webhook.

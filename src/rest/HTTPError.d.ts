@@ -3,6 +3,7 @@ declare class HTTPError extends Error {
     code: number;
     method: HTTPMethod;
     path: string;
+    static readonly default: typeof HTTPError;
     constructor(message: string, name: string, code: number, method: HTTPMethod, path: string);
 }
 export = HTTPError;

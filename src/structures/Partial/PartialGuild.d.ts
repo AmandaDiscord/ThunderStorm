@@ -1,4 +1,4 @@
-import Collection from "../../util/Collection";
+import { Collection } from "@discordjs/collection";
 import PartialBase from "./PartialBase";
 import GuildApplicationCommandManager from "../../managers/GuildApplicationCommandManager";
 declare class PartialGuild extends PartialBase<import("../Guild")> {
@@ -7,6 +7,7 @@ declare class PartialGuild extends PartialBase<import("../Guild")> {
     available: boolean;
     name: string;
     commands: GuildApplicationCommandManager;
+    static readonly default: typeof PartialGuild;
     constructor(client: import("../../client/Client"), data: import("../../internal").PartialData & {
         unavailable?: boolean;
     });

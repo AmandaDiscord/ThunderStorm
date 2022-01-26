@@ -1,4 +1,5 @@
 "use strict";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 class RequestHandler {
     constructor(manager) {
         this.reset = -1;
@@ -43,4 +44,5 @@ class RequestHandler {
         return request.make();
     }
 }
+RequestHandler.default = RequestHandler;
 module.exports = RequestHandler;

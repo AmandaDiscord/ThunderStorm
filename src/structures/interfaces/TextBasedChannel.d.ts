@@ -1,14 +1,14 @@
 import MessageCollector from "../MessageCollector";
 import MessagePayload from "../MessagePayload";
-import Collection from "../../util/Collection";
+import { Collection } from "@discordjs/collection";
 import MessageComponentInteractionCollector from "../MessageComponentInteractionCollector";
 declare abstract class TextBasedChannel {
     id: string;
-    lastMessageID: string | null;
+    lastMessageId: string | null;
     lastPinTimestamp: number | null;
     client: import("../../client/Client");
-    type: import("../../Types").ChannelType | "unknown";
-    constructor();
+    type: import("../../Types").ChannelType;
+    static readonly default: typeof TextBasedChannel;
     get lastMessage(): import("../Partial/PartialMessage") | null;
     get lastPinAt(): Date | null;
     send(options: string | MessagePayload | import("../../Types").MessageOptions): Promise<import("../Message")>;

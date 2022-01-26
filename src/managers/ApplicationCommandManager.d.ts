@@ -1,6 +1,6 @@
 import BaseManager from "./BaseManager";
 import ApplicationCommand from "../structures/ApplicationCommand";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 interface ApplicationCommandManagerConstructor {
     new (client: import("../client/Client"), iterable?: IterableIterator<import("../structures/ApplicationCommand")>): ApplicationCommandManager;
     readonly prototype: ApplicationCommandManager;
@@ -12,7 +12,7 @@ declare class ApplicationCommandManager extends BaseManager<import("../structure
     readonly [Symbol.species]: ApplicationCommandManagerConstructor;
     constructor(client: import("../client/Client"), iterable?: IterableIterator<import("../structures/ApplicationCommand")>);
     _add(data: import("../structures/ApplicationCommand"), cache?: boolean): ApplicationCommand;
-    get commandPath(): any;
+    get commandPath(): import("../internal").Route;
     fetch(): Promise<Collection<string, import("../structures/ApplicationCommand")>>;
     fetch(id: undefined, cache?: boolean, force?: boolean): Promise<Collection<string, import("../structures/ApplicationCommand")>>;
     fetch(id: string, cache?: boolean, force?: boolean): Promise<import("../structures/ApplicationCommand")>;
@@ -24,13 +24,13 @@ declare class ApplicationCommandManager extends BaseManager<import("../structure
         name: string;
         description: string;
         options: {
-            type: 2 | 1 | 9 | 4 | 6 | 5 | 3 | 7 | 8;
+            type: 1 | 2 | 4 | 5 | 6 | 10 | 8 | 3 | 7 | 9;
             name: string;
             description: string;
             required?: boolean | undefined;
             choices?: import("../Types").ApplicationCommandOptionChoice[] | undefined;
             options?: {
-                type: 2 | 1 | 9 | 4 | 6 | 5 | 3 | 7 | 8;
+                type: 1 | 2 | 4 | 5 | 6 | 10 | 8 | 3 | 7 | 9;
                 name: string;
                 description: string;
                 required?: boolean | undefined;

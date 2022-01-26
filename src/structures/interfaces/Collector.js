@@ -2,14 +2,15 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const events_1 = __importDefault(require("events"));
 const errors_1 = require("../../errors");
-const Collection_1 = __importDefault(require("../../util/Collection"));
+const collection_1 = require("@discordjs/collection");
 const Util_1 = __importDefault(require("../../util/Util"));
 class Collector extends events_1.default {
     constructor(client, filter, options = {}) {
         super();
-        this.collected = new Collection_1.default();
+        this.collected = new collection_1.Collection();
         this.ended = false;
         this._timeout = null;
         this._idletimeout = null;
@@ -131,4 +132,5 @@ class Collector extends events_1.default {
         return Util_1.default.flatten(this);
     }
 }
+Collector.default = Collector;
 module.exports = Collector;

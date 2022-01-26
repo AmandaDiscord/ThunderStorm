@@ -1,5 +1,6 @@
 import Action from "./Action";
 declare class GuildBanRemove extends Action {
-    handle(data: import("@amanda/discordtypings").GuildBanRemoveData): void;
+    static readonly default: typeof GuildBanRemove;
+    handle(data: import("discord-typings").GuildBanRemoveData): void;
 }
 export = GuildBanRemove;

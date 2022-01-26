@@ -3,6 +3,7 @@ declare class BaseGuildVoiceChannel extends GuildChannel {
     rtcRegion: string | null;
     bitrate: number;
     userLimit: number;
-    _patch(data: import("@amanda/discordtypings").VoiceChannelData): void;
+    static readonly default: typeof BaseGuildVoiceChannel;
+    _patch(data: import("discord-typings").VoiceChannelData): void;
 }
 export = BaseGuildVoiceChannel;

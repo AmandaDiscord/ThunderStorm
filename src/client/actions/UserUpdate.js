@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const Action_1 = __importDefault(require("./Action"));
 const Constants_1 = require("../../util/Constants");
 class UserUpdateAction extends Action_1.default {
@@ -18,4 +19,5 @@ class UserUpdateAction extends Action_1.default {
         };
     }
 }
+UserUpdateAction.default = UserUpdateAction;
 module.exports = UserUpdateAction;
