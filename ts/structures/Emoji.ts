@@ -1,19 +1,22 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import SnowflakeUtil from "../util/SnowflakeUtil";
 
 import Base from "./Base";
 
+// @ts-ignore
 class Emoji extends Base {
 	public animated = false;
 	public name!: string;
-	// @ts-ignore
-	public id: string | null;
+	public id: string;
 	public deleted = false;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").EmojiData) {
+	public static readonly default = Emoji;
+
+	public constructor(client: import("../client/Client"), data: import("discord-typings").EmojiData) {
 		super(client);
 
-		this.id = data.id || null;
-		this.name = data.name;
+		this.id = data.id || "";
+		this.name = data.name || "";
 		this.animated = data.animated || false;
 	}
 
@@ -48,8 +51,8 @@ class Emoji extends Base {
 		return this.id ? `<${this.animated ? "a" : ""}:${this.name}:${this.id}>` : this.name;
 	}
 
-	public _patch(data: import("@amanda/discordtypings").EmojiData) {
-		if (data.id !== undefined) this.id = data.id;
+	public _patch(data: import("discord-typings").EmojiData) {
+		if (data.id !== undefined) this.id = data.id || "";
 		if (data.name) this.name = data.name;
 		if (data.animated !== undefined) this.animated = !!data.animated;
 	}

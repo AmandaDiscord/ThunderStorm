@@ -1,14 +1,17 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import { PartialTypes } from "../../util/Constants";
 
 class GenericAction {
 	public client: import("../Client");
 
+	public static readonly default = GenericAction;
+
 	public constructor(client: import("../Client")) {
 		this.client = client;
 	}
 
-	public handle(data: any) {
-		return data;
+	public handle(...args: Array<any>) {
+		return args as any;
 	}
 
 	public getPayload(data: any, manager: any, id: string, partialType: keyof typeof PartialTypes) {

@@ -1,14 +1,17 @@
-import Collection from "../../util/Collection";
+import { Collection } from "@discordjs/collection";
 import PartialBase from "./PartialBase";
 
 import GuildApplicationCommandManager from "../../managers/GuildApplicationCommandManager";
 
+// @ts-ignore
 class PartialGuild extends PartialBase<import("../Guild")> {
 	public partialType: "Guild" = "Guild";
 	public memberCount: number;
 	public available: boolean;
 	public name: string;
 	public commands: GuildApplicationCommandManager;
+
+	public static readonly default = PartialGuild;
 
 	public constructor(client: import("../../client/Client"), data: import("../../internal").PartialData & { unavailable?: boolean }) {
 		super(client, data);
@@ -46,10 +49,10 @@ class PartialGuild extends PartialBase<import("../Guild")> {
 			const payload: { limit?: number; after?: string } = {};
 			if (options.limit) payload["limit"] = options.limit;
 			if (options.after) payload["after"] = options.after;
-			const data = await this.client._snow.guild.getGuildMembers(this.id, payload) as unknown as Array<import("@amanda/discordtypings").MemberData & { user: import("@amanda/discordtypings").UserData }>;
+			const data = await this.client._snow.guild.getGuildMembers(this.id, payload) as unknown as Array<import("discord-typings").MemberData & { user: import("discord-typings").UserData }>;
 			if (!data || data.length === 0) return null;
 			if (!options.query) return data.map(d => new GuildMember(this.client, d as any));
-			else if (options.ids) return data.filter(d => (d.user ? options.ids?.includes(d.user.id) : false)).map(d => new GuildMember(this.client, d));
+			else if (options.Ids) return data.filter(d => (d.user ? options.Ids?.includes(d.user.id) : false)).map(d => new GuildMember(this.client, d));
 			else return data.filter(d => options.query && d.nick?.includes(options.query) || (d.user ? options.query && d.user.username.includes(options.query) : false) || (d.user ? options.query && d.user.id.includes(options.query) : false) || (d.user ? options.query && `${d.user.username}#${d.user.discriminator}` === options.query : false)).map(d => new GuildMember(this.client, d));
 		}
 	}
@@ -57,7 +60,7 @@ class PartialGuild extends PartialBase<import("../Guild")> {
 	public async fetchInvites() {
 		const Invite: typeof import("../Invite") = require("../Invite");
 		const inviteItems = await this.client._snow.guild.getGuildInvites(this.id);
-		const invites: Collection<string, import("../Invite")> = new Collection();
+		const invites = new Collection<string, import("../Invite")>();
 		for (const inviteItem of inviteItems) {
 			const invite = new Invite(this.client, inviteItem);
 			invites.set(invite.code, invite);

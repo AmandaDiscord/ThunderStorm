@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Application from "./interfaces/Application";
 
 class IntegrationApplication extends Application {
@@ -10,20 +11,19 @@ class IntegrationApplication extends Application {
 	public cover!: string | null;
 	public verifyKey!: string | null;
 
-	public _patch(data: import("@amanda/discordtypings").ApplicationData) {
-		super._patch(data);
+	public static readonly default = IntegrationApplication;
+
+	public _patch(data: import("discord-typings").IntegrationApplicationData) {
+		super._patch(data as import("discord-typings").ApplicationData);
 		const User: typeof import("./User") = require("./User");
 
-		// @ts-ignore
 		this.bot = data.bot ? (data.bot.id === this.client.user?.id ? this.client.user : new User(this.client, data.bot)) : this.bot ?? null;
-		this.termsOfServiceURL = data.terms_of_service_url ?? this.termsOfServiceURL ?? null;
-		this.privacyPolicyURL = data.privacy_policy_url ?? this.privacyPolicyURL ?? null;
-		this.rpcOrigins = data.rpc_origins ?? this.rpcOrigins ?? [];
+		this.termsOfServiceURL = (data as import("discord-typings").ApplicationData).terms_of_service_url ?? this.termsOfServiceURL ?? null;
+		this.privacyPolicyURL = (data as import("discord-typings").ApplicationData).privacy_policy_url ?? this.privacyPolicyURL ?? null;
+		this.rpcOrigins = (data as import("discord-typings").ApplicationData).rpc_origins ?? this.rpcOrigins ?? [];
 		this.summary = data.summary ?? this.summary ?? null;
-		// @ts-ignore
-		this.hook = data.hook ?? this.hook ?? null;
-		this.cover = data.cover_image ?? this.cover ?? null;
-		this.verifyKey = data.verify_key ?? this.verifyKey ?? null;
+		this.cover = (data as import("discord-typings").ApplicationData).cover_image ?? this.cover ?? null;
+		this.verifyKey = (data as import("discord-typings").ApplicationData).verify_key ?? this.verifyKey ?? null;
 	}
 }
 

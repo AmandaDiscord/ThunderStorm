@@ -1,8 +1,11 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import { TypeError } from "../errors";
 import { MessageComponentTypes } from "../util/Constants";
 
 class BaseMessageComponent {
 	public type: import("../Types").MessageComponentType | null;
+
+	public static readonly default = BaseMessageComponent;
 
 	public constructor(data: BaseMessageComponent | import("../Types").BaseMessageComponentOptions) {
 		this.type = "type" in data ? BaseMessageComponent.resolveType(data.type as import("../Types").MessageComponentTypeResolvable) : null;

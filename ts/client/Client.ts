@@ -1,4 +1,5 @@
-import Collection from "../util/Collection";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+import { Collection } from "@discordjs/collection";
 import Constants from "../util/Constants";
 
 import BaseClient from "./BaseClient";
@@ -33,6 +34,8 @@ class Client extends BaseClient {
 	public voice: ClientVoiceManager;
 	public application: ClientApplication | null = null;
 
+	public static readonly default = Client;
+
 	public constructor(options: import("../Types").ClientOptions) {
 		super(options);
 
@@ -56,11 +59,11 @@ class Client extends BaseClient {
 		return this.user ? `<@${this.user.id}>` : "Client";
 	}
 
-	public async fetchUser(userID: string): Promise<import("../structures/User")> {
+	public async fetchUser(userId: string): Promise<import("../structures/User")> {
 		const User: typeof import("../structures/User") = require("../structures/User");
-		const user = await this._snow.user.getUser(userID);
-		if (user.id === this.user?.id) this.user._patch(user);
-		return user.id === this.user?.id ? this.user : new User(this, user);
+		const user = await this._snow.user.getUser(userId);
+		if (user.id === this.user?.id) this.user!._patch(user);
+		return user.id === this.user?.id ? this.user! : new User(this, user);
 	}
 
 	public async fetchInvite(id: string): Promise<import("../structures/Invite") | null> {

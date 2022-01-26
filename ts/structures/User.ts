@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import TextBasedChannel from "./interfaces/TextBasedChannel";
 
 import Base from "./Base";
@@ -6,7 +7,7 @@ import SnowflakeUtil from "../util/SnowflakeUtil";
 
 // @ts-ignore
 class User extends Base implements TextBasedChannel {
-	public lastMessageID: TextBasedChannel["lastMessageID"] = null;
+	public lastMessageId: TextBasedChannel["lastMessageId"] = null;
 	public lastMessage: TextBasedChannel["lastMessage"] = null;
 	public send!: TextBasedChannel["send"];
 
@@ -20,9 +21,11 @@ class User extends Base implements TextBasedChannel {
 	public system!: boolean;
 	public dmChannel: import("./DMChannel") | null = null;
 	public presence: import("./Presence").Presence | null = null;
-	public lastMessageChannelID: string | null = null;
+	public lastMessageChannelId: string | null = null;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").UserData) {
+	public static readonly default = User;
+
+	public constructor(client: import("../client/Client"), data: import("discord-typings").UserData) {
 		super(client);
 
 		if (data.username) this.username = data.username;
@@ -110,7 +113,7 @@ class User extends Base implements TextBasedChannel {
 		return Promise.resolve(this);
 	}
 
-	public _patch(data: import("@amanda/discordtypings").UserData) {
+	public _patch(data: import("discord-typings").UserData) {
 		if (data.username) this.username = data.username;
 		if (data.discriminator) this.discriminator = data.discriminator;
 		if (!this.bot || data.bot !== undefined) this.bot = data.bot || false;

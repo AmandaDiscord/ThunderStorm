@@ -1,27 +1,27 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 import { ApplicationCommandOptionTypes } from "../util/Constants";
 import SnowflakeUtil from "../util/SnowflakeUtil";
 
 interface ApplicationCommandConstructor {
-	new(client: import("../client/Client"), data: import("@amanda/discordtypings").ApplicationCommand, guild: import("./Guild") | import("./Partial/PartialGuild")): ApplicationCommand;
+	new(client: import("../client/Client"), data: import("discord-typings").ApplicationCommand, guild: import("./Guild") | import("./Partial/PartialGuild")): ApplicationCommand;
 	readonly prototype: ApplicationCommand;
 	readonly [Symbol.species]: ApplicationCommandConstructor;
 }
 
+// @ts-ignore
 class ApplicationCommand extends Base {
-	// @ts-ignore
 	public ["constructor"]: typeof ApplicationCommand;
-	public static readonly default: typeof ApplicationCommand = ApplicationCommand;
-	// @ts-ignore
+	public static readonly default = ApplicationCommand;
 	readonly [Symbol.species]: ApplicationCommandConstructor;
 
-	public guild: import("./Guild") | import("./Partial/PartialGuild");
+	public guild: import("./Guild") | import("./Partial/PartialGuild") | null;
 	public name!: string;
 	public description!: string;
 	public defaultPermission!: boolean;
 	public options!: Array<ReturnType<typeof ApplicationCommand["transformOption"]>>;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").ApplicationCommand, guild: import("./Guild") | import("./Partial/PartialGuild")) {
+	public constructor(client: import("../client/Client"), data: import("discord-typings").ApplicationCommand, guild?: import("./Guild") | import("./Partial/PartialGuild")) {
 		super(client);
 
 		this.id = data.id;
@@ -30,7 +30,7 @@ class ApplicationCommand extends Base {
 		this._patch(data);
 	}
 
-	public _patch(data: import("@amanda/discordtypings").ApplicationCommand) {
+	public _patch(data: import("discord-typings").ApplicationCommand) {
 		this.name = data.name;
 		this.description = data.description;
 		this.options = data.options?.map(o => this.constructor.transformOption(o, true)) ?? [];
@@ -46,7 +46,7 @@ class ApplicationCommand extends Base {
 	}
 
 	public get manager() {
-		return (this.guild ?? this.client.application).commands;
+		return (this.guild ?? this.client.application)!.commands;
 	}
 
 	public edit(data: import("../Types").ApplicationCommandData): Promise<ApplicationCommand> {
@@ -60,13 +60,13 @@ class ApplicationCommand extends Base {
 	public fetchPermissions(): Promise<import("../Types").ApplicationCommandPermissions[]> {
 		const { Error }: typeof import("../errors") = require("../errors");
 		if (!this.guild) throw new Error("GLOBAL_COMMAND_PERMISSIONS");
-		return this.manager.fetchPermissions(this);
+		return (this.manager as import("../managers/GuildApplicationCommandManager")).fetchPermissions(this);
 	}
 
 	public setPermissions(permissions: import("../Types").ApplicationCommandPermissionData[]): Promise<import("../Types").ApplicationCommandPermissions[]> {
 		const { Error }: typeof import("../errors") = require("../errors");
 		if (!this.guild) throw new Error("GLOBAL_COMMAND_PERMISSIONS");
-		return this.manager.setPermissions(this, permissions);
+		return (this.manager as import("../managers/GuildApplicationCommandManager")).setPermissions(this, permissions);
 	}
 
 	public static transformOption(option: import("../Types").ApplicationCommandOptionData, received?: boolean): { type: Exclude<keyof typeof import("../util/Constants").ApplicationCommandOptionTypes, string>; name: string; description: string; required?: boolean; choices?: Array<import("../Types").ApplicationCommandOptionChoice>; options?: Array<{ type: Exclude<keyof typeof import("../util/Constants").ApplicationCommandOptionTypes, string>; name: string; description: string; required?: boolean; }> } {

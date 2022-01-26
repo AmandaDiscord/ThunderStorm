@@ -1,14 +1,4 @@
-type Options = {
-	route: string;
-	data?: any;
-	auth?: boolean;
-	versioned?: boolean;
-	query?: any;
-	reason?: string;
-	headers?: any;
-	files?: Array<any>;
-}
-
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 type HTTPMethod = Parameters<import("snowtransfer/dist/RequestHandler")["request"]>[1];
 
 class APIRequest {
@@ -16,15 +6,17 @@ class APIRequest {
 	public client: import("../client/BaseClient");
 	public method: HTTPMethod;
 	public route: string;
-	public options: Options;
+	public options: import("../internal").RestOptions;
 	public retries: number;
 	public path: string;
 
-	public constructor(rest: import("./RESTManager"), method: HTTPMethod, path: string, options: Options) {
+	public static readonly default = APIRequest;
+
+	public constructor(rest: import("./RESTManager"), method: HTTPMethod, path: string, options: import("../internal").RestOptions) {
 		this.rest = rest;
 		this.client = rest.client;
 		this.method = method;
-		this.route = options.route;
+		this.route = options.route as string;
 		this.options = options;
 		this.retries = 0;
 
@@ -39,7 +31,7 @@ class APIRequest {
 	}
 
 	public make() {
-		return this.client._snow.requestHandler.request(this.options.route, this.method, this.options.files && this.options.files.length ? "multipart" : "json", this.options.data, this.retries);
+		return this.client._snow.requestHandler.request(this.options.route as string, this.method, this.options.files && this.options.files.length ? "multipart" : "json", this.options.data, this.retries);
 	}
 }
 

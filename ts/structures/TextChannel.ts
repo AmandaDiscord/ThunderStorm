@@ -1,11 +1,14 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import TextBasedChannel from "./interfaces/TextBasedChannel";
 
 import GuildChannel from "./GuildChannel";
 
+import Constants from "../util/Constants";
+
 class TextChannel extends GuildChannel implements TextBasedChannel {
 	public readonly lastPinAt!: TextBasedChannel["lastPinAt"];
 	public lastPinTimestamp!: TextBasedChannel["lastPinTimestamp"];
-	public lastMessageID!: TextBasedChannel["lastMessageID"];
+	public lastMessageId!: TextBasedChannel["lastMessageId"];
 	public readonly lastMessage!: TextBasedChannel["lastMessage"];
 	public send!: TextBasedChannel["send"];
 	public startTyping!: TextBasedChannel["startTyping"];
@@ -24,15 +27,18 @@ class TextChannel extends GuildChannel implements TextBasedChannel {
 	public nsfw = false;
 	public rateLimitPerUser = 0;
 	public topic = "";
-	public type: "text" = "text";
+	public type: typeof Constants.ChannelTypes[0] = Constants.ChannelTypes[0];
 
-	public constructor(guild: import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").TextChannelData) {
+	public static readonly default = TextChannel;
+
+	public constructor(guild: import("./Partial/PartialGuild"), data: import("discord-typings").TextChannelData) {
 		super(guild, data);
 	}
 
+	// @ts-ignore
 	public toJSON() {
-		const d: import("@amanda/discordtypings").TextChannelData = Object.assign(super.toJSON(), {
-			last_message_id: this.lastMessageID,
+		const d: import("discord-typings").TextChannelData = Object.assign(super.toJSON(), {
+			last_message_id: this.lastMessageId,
 			nsfw: this.nsfw,
 			rate_limit_per_user: this.rateLimitPerUser,
 			topic: this.topic,
@@ -42,9 +48,9 @@ class TextChannel extends GuildChannel implements TextBasedChannel {
 		return d;
 	}
 
-	public _patch(data: import("@amanda/discordtypings").TextChannelData) {
+	public _patch(data: import("discord-typings").TextChannelData) {
 		super._patch(data);
-		if (!this.lastMessageID || data.last_message_id !== undefined) this.lastMessageID = data.last_message_id || null;
+		if (!this.lastMessageId || data.last_message_id !== undefined) this.lastMessageId = data.last_message_id || null;
 		if (!this.lastPinAt || data.last_pin_timestamp !== undefined) {
 			this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
 		}

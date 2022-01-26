@@ -1,36 +1,39 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Constants from "./util/Constants";
 
 import MessageAttachment from "./structures/MessageAttachment";
 import MessageEmbed from "./structures/MessageEmbed";
 
 type AnyChannel = import("./structures/DMChannel") | import("./structures/TextChannel") | import("./structures/VoiceChannel") | import("./structures/CategoryChannel") | import("./structures/NewsChannel") | import("./structures/StoreChannel") | import("./structures/StageChannel");
-type FlattenIfArray<T> = T extends Array<infer R> ? R : T;
+export type FlattenIfArray<T> = T extends Array<infer R> ? R : T;
+export type FlattenIfReadonlyArray<T> = T extends ReadonlyArray<infer R> ? R : T;
 
 export interface ClientEvents {
 	channelCreate: [AnyChannel];
 	channelDelete: [import("./structures/Partial/PartialChannel")];
 	channelPinsUpdate: [import("./structures/Partial/PartialChannel"), Date];
 	channelUpdate: [AnyChannel];
+	debug: [string];
 	guildBanAdd: [import("./structures/GuildBan")];
 	guildBanRemove: [import("./structures/GuildBan")];
 	guildCreate: [import("./structures/Guild")];
 	guildDelete: [import("./structures/Partial/PartialGuild")];
 	emojiCreate: [import("./structures/Emoji")];
-	emojisUpdate: [import("./structures/Partial/PartialGuild"), import("./util/Collection")<string, import("./structures/Emoji")>];
+	emojisUpdate: [import("./structures/Partial/PartialGuild"), import("@discordjs/Collection").Collection<string, import("./structures/Emoji")>];
 	guildIntegrationsUpdate: [import("./structures/Partial/PartialGuild")];
 	guildMemberAdd: [import("./structures/GuildMember")];
 	guildMemberRemove: [import("./structures/GuildMember")];
-	guildMembersChunk: [import("./util/Collection")<string, import("./structures/GuildMember")>, import("./structures/Partial/PartialGuild"), { index: number, count: number, nonce: string | null }];
+	guildMembersChunk: [import("@discordjs/Collection").Collection<string, import("./structures/GuildMember")>, import("./structures/Partial/PartialGuild"), { index: number, count: number, nonce: string | null }];
 	guildMemberUpdate: [import("./structures/GuildMember")];
 	guildUnavailable: [import("./structures/Partial/PartialGuild")];
 	guildUpdate: [import("./structures/Guild")];
-	interaction: [import("./structures/Interaction")];
+	interactionCreate: [import("./structures/Interaction")];
 	invalidated: [];
 	inviteCreate: [import("./structures/Invite")];
 	inviteDelete: [import("./structures/Invite")];
-	message: [import("./structures/Message")];
+	messageCreate: [import("./structures/Message")];
 	messageDelete: [import("./structures/Partial/PartialMessage")];
-	messageDeleteBulk: [import("./util/Collection")<string, import("./structures/Partial/PartialMessage")>];
+	messageDeleteBulk: [import("@discordjs/Collection").Collection<string, import("./structures/Partial/PartialMessage")>];
 	messageReactionAdd: [import("./structures/MessageReaction"), import("./structures/Partial/PartialUser")];
 	messageReactionRemove: [import("./structures/MessageReaction"), import("./structures/Partial/PartialUser")];
 	messageReactionRemoveAll: [import("./structures/Partial/PartialMessage")];
@@ -48,9 +51,9 @@ export interface ClientEvents {
 	shardResume: [number];
 	threadCreate: [import("./structures/ThreadTextChannel") | import("./structures/ThreadNewsChannel")];
 	threadDelete: [import("./structures/ThreadTextChannel") | import("./structures/ThreadNewsChannel")];
-	threadListSync: [import("./structures/Partial/PartialGuild"), import("./util/Collection")<string, import("./structures/Partial/PartialChannel")>, import("./util/Collection")<string, import("./structures/ThreadTextChannel") | import("./structures/ThreadNewsChannel")>];
+	threadListSync: [import("@discordjs/Collection").Collection<string, import("./structures/ThreadTextChannel") | import("./structures/ThreadNewsChannel")>];
 	threadMemberUpdate: [import("./structures/ThreadMember")];
-	threadMembersUpdate: [import("./structures/Partial/PartialThreadChannel"), { added: import("./util/Collection")<string, import("./structures/ThreadMember")>; removed: import("./util/Collection")<string, import("./structures/Partial/PartialUser")>; }];
+	threadMembersUpdate: [import("./structures/Partial/PartialThreadChannel"), { added: import("@discordjs/Collection").Collection<string, import("./structures/ThreadMember")>; removed: import("@discordjs/Collection").Collection<string, import("./structures/Partial/PartialUser")>; }];
 	threadUpdate: [import("./structures/ThreadTextChannel") | import("./structures/ThreadNewsChannel")];
 	typingStart: [import("./structures/Partial/PartialChannel"), import("./structures/Partial/PartialUser")];
 	userUpdate: [import("./structures/User")];
@@ -58,7 +61,7 @@ export interface ClientEvents {
 	webhookUpdate: [import("./structures/Partial/PartialChannel")];
 }
 
-export type ChannelType = Exclude<keyof typeof Constants.ChannelTypes, number>;
+export type ChannelType = Exclude<keyof typeof Constants.ChannelTypes, number | "-1"> | "UNKNOWN";
 
 export type ChannelResolvable = import("./structures/Channel") | string;
 
@@ -146,18 +149,18 @@ export type MessageAdditions = MessageEmbed | MessageAttachment | Array<MessageE
 
 export interface ClientOptions {
 	disableEveryone?: boolean;
-	snowtransfer: import("snowtransfer");
+	snowtransfer: import("snowtransfer").SnowTransfer;
 	connectTimeout?: number;
 	restGlobalRateLimit?: number;
 	restSweepInterval?: number;
 }
 
-export type FetchMemberOptions = { ids?: Array<string>; query?: string; limit?: number; after?: string; };
+export type FetchMemberOptions = { Ids?: Array<string>; query?: string; limit?: number; after?: string; };
 
 export type EmbedField = {
 	name: string;
 	value: string;
-	inline: boolean;
+	inline?: boolean;
 }
 
 export type FileOptions = {
@@ -210,7 +213,7 @@ export type EmbedFieldData = {
 	inline?: boolean
 }
 
-export type Feature = import("@amanda/discordtypings").GuildFeature;
+export type Feature = import("discord-typings").GuildFeature;
 
 export type BitFieldResolvable<T> = number | bigint | keyof T | import("./util/BitField")<T> | Array<BitFieldResolvable<T>>;
 
@@ -234,31 +237,34 @@ export type ImageURLOptions = {
 }
 
 export type MessageActivity = {
-	partyID?: string;
+	partyId?: string;
 	type?: number;
 }
 
-export type InviteScope = FlattenIfArray<typeof Constants.InviteScopes>;
+export type InviteScope = FlattenIfReadonlyArray<typeof Constants.InviteScopes>;
 
-export type MessageType = Exclude<FlattenIfArray<typeof Constants.MessageTypes>, null>;
+export type MessageType = Exclude<FlattenIfReadonlyArray<typeof Constants.MessageTypes>, null>;
+export type SystemMessageType = Exclude<FlattenIfArray<typeof Constants.SystemMessageTypes>, null>
 
-export type ExplicitContentFilterLevel = FlattenIfArray<typeof Constants.ExplicitContentFilterLevels>;
+export type ExplicitContentFilterLevel = FlattenIfReadonlyArray<typeof Constants.ExplicitContentFilterLevels>;
 
-export type VerificationLevel = FlattenIfArray<typeof Constants.VerificationLevels>;
+export type VerificationLevel = FlattenIfReadonlyArray<typeof Constants.VerificationLevels>;
 
-export type DefaultMessageNotification = FlattenIfArray<typeof Constants.DefaultMessageNotifications>;
+export type DefaultMessageNotification = FlattenIfReadonlyArray<typeof Constants.DefaultMessageNotifications>;
 
-export type MembershipState = Exclude<FlattenIfArray<typeof Constants.MembershipStates>, null>;
+export type MembershipState = Exclude<FlattenIfReadonlyArray<typeof Constants.MembershipStates>, null>;
 
-export type WebhookType = Exclude<FlattenIfArray<typeof Constants.WebhookTypes>, null>;
+export type WebhookType = Exclude<FlattenIfReadonlyArray<typeof Constants.WebhookTypes>, null>;
 
-export type PresenceStatus = import("@amanda/discordtypings").PresenceUpdateData["status"];
+export type PresenceStatus = import("discord-typings").PresenceUpdateData["status"];
 
 export type ClientPresenceStatus = Exclude<PresenceStatus, "offline">;
 
-export type ActivityType = FlattenIfArray<typeof Constants.ActivityTypes>;
+export type ActivityType = FlattenIfReadonlyArray<typeof Constants.ActivityTypes>;
 
 export type StickerFormatType = Exclude<keyof typeof Constants.StickerFormatTypes, number>;
+
+export type ApplicationCommandType = Exclude<keyof typeof Constants.ApplicationCommandTypes, number>;
 
 export type ApplicationCommandOptionType = Exclude<keyof typeof Constants.ApplicationCommandOptionTypes, number>;
 
@@ -275,7 +281,7 @@ export type MessageButtonStyle = Exclude<keyof typeof Constants.MessageButtonSty
 export type MessageTarget = import("./structures/interfaces/TextBasedChannel") | import("./structures/TextChannel") | import("./structures/DMChannel") | import("./structures/User") | import("./structures/GuildMember") | import("./structures/Webhook") | import("./client/WebhookClient") | import("./structures/Interaction") | import("./structures/Message") | import("./structures/Partial/PartialMessage") | import("./structures/interfaces/InteractionResponses");
 
 // @ts-ignore
-export type CollectorFilter<T> = (...args: Array<any>, collection: import("./util/Collection")<string, T>) => boolean | Promise<boolean>;
+export type CollectorFilter<T> = (...args: Array<any>, collection: import("@discordjs/Collection").Collection<string, T>) => boolean | Promise<boolean>;
 
 export type CollectorOptions = {
 	time?: number;
@@ -294,7 +300,7 @@ export interface AwaitMessagesOptions extends MessageCollectorOptions {
 
 export type GuildEmojiEditData = {
 	name?: string;
-	roles?: import("./util/Collection")<string, import("./structures/Role") | import("./structures/Partial/PartialRole")> | Array<RoleResolvable>;
+	roles?: import("@discordjs/Collection").Collection<string, import("./structures/Role") | import("./structures/Partial/PartialRole")> | Array<RoleResolvable>;
 }
 
 export type RoleResolvable = string | import("./structures/Role") | import("./structures/Partial/PartialRole");
@@ -383,7 +389,7 @@ export interface MessageActionRowOptions extends BaseMessageComponentOptions {
 
 export interface MessageButtonOptions extends BaseMessageComponentOptions {
 	label?: string | null;
-	customID?: string | null;
+	customId?: string | null;
 	style?: MessageButtonStyleResolvable | null;
 	emoji?: EmojiResolvable | null;
 	url?: string | null;
@@ -405,8 +411,8 @@ export interface MessageComponentInteractionCollectorOptions extends CollectorOp
 export type DeconstructedSnowflake = {
 	timestamp: number;
 	date: Date;
-	workerID: number;
-	processID: number;
+	workerId: number;
+	processId: number;
 	increment: number;
 	binary: string;
 }
@@ -441,13 +447,15 @@ export type AuditLogChange = {
 
 export type CommandInteractionOption = {
 	name: string;
-	type: ApplicationCommandOptionType;
+	type: ApplicationCommandOptionType | "_MESSAGE";
 	value?: string | number | boolean;
-	options?: import("./util/Collection")<string, CommandInteractionOption>;
+	focused?: boolean;
+	options?: Array<CommandInteractionOption>;
 	user?: import("./structures/User");
 	member?: import("./structures/GuildMember");
-	channel?: import("./structures/GuildChannel");
+	channel?: import("./structures/Channel");
 	role?: import("./structures/Role");
+	message?: import("./structures/Message");
 }
 
 export interface ReactionCollectorOptions extends CollectorOptions {
@@ -480,9 +488,9 @@ export type MessageEditOptions = {
 }
 
 export type MessageReference = {
-	channelID: string;
-	guildID: string | null;
-	messageID: string | null;
+	channelId: string;
+	guildId: string | null;
+	messageId: string | null;
 }
 
 export type MessageInteraction = {
@@ -504,3 +512,27 @@ export type ChannelLogsQueryOptions = {
 }
 
 export type NSFWLevel = Exclude<keyof typeof Constants.NSFWLevels, number>;
+
+// eslint-disable-next-line no-shadow
+export type SweepFilter<K, V> = (collection: import("./util/LimitedCollection")<K, V>) => null | ((value: V, key: K, collection: import ("./util/LimitedCollection")<K, V>) => boolean);
+
+export type LimitedCollectionOptions<K, V> = {
+	maxSize?: number | null;
+	keepOverLimit?: ((value: V, key: K, col: import("./util/LimitedCollection")<K, V>) => boolean) | null;
+	sweepFilter?: SweepFilter<K, V> | null;
+	sweepInterval?: number | null;
+}
+
+export type LifetimeFilterOptions<K, V> = {
+	lifetime?: number;
+	getComparisonTimestamp?: (value: V, key: K, col: import("./util/LimitedCollection")<K, V>) => number;
+	excludeFromSweep?: (value: V, key: K, col: import("./util/LimitedCollection")<K, V>) => boolean;
+}
+
+export type CommandInteractionResolvedData = {
+	users?: import("@discordjs/collection").Collection<string, import("./structures/User")>;
+	members?: import("@discordjs/collection").Collection<string, import("./structures/GuildMember")>;
+	roles?: import("@discordjs/collection").Collection<string, import("./structures/Role")>;
+	channels?: import("@discordjs/collection").Collection<string, import("./structures/Channel")>;
+	messages?: import("@discordjs/collection").Collection<string, import("./structures/Message")>;
+}

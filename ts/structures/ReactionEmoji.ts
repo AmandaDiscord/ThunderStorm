@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import SnowflakeUtil from "../util/SnowflakeUtil";
 
 class ReactionEmoji {
@@ -6,6 +7,8 @@ class ReactionEmoji {
 	public name: string;
 	public id: string | null;
 	public animated: boolean;
+
+	public static readonly default = ReactionEmoji;
 
 	public constructor(reaction: import("./MessageReaction"), emoji: { name: string; id: string | null; animated?: boolean }) {
 		this.client = reaction.message.client;

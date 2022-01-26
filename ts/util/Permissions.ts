@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BitField from "./BitField";
 
 interface PermissionsConstructor {
@@ -39,14 +40,20 @@ const FLAGS = {
 	MANAGE_WEBHOOKS: BigInt(1) << BigInt(29),
 	MANAGE_EMOJIS: BigInt(1) << BigInt(30),
 	USE_APPLICATION_COMMANDS: BigInt(1) << BigInt(31),
-	REQUEST_TO_SPEAK: BigInt(1) << BigInt(32)
+	REQUEST_TO_SPEAK: BigInt(1) << BigInt(32),
+	MANAGE_THREADS: BigInt(1) << BigInt(34),
+	CREATE_PUBLIC_THREADS: BigInt(1) << BigInt(35),
+	CREATE_PRIVATE_THREADS: BigInt(1) << BigInt(36),
+	USE_EXTERNAL_STICKERS: BigInt(1) << BigInt(37),
+	SEND_MESSAGES_IN_THREADS: BigInt(1) << BigInt(38),
+	START_EMBEDDED_ACTIVITIES: BigInt(1) << BigInt(39)
 };
 
 
 class Permissions extends BitField<typeof FLAGS> {
 	// @ts-ignore
 	public ["constructor"]: typeof Permissions;
-	public static readonly default: typeof Permissions = Permissions;
+	public static readonly default = Permissions;
 	// @ts-ignore
 	readonly [Symbol.species]: PermissionsConstructor;
 

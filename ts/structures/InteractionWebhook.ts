@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Webhook from "./Webhook";
 
 // @ts-ignore
@@ -11,8 +12,8 @@ class InteractionWebhook implements Webhook {
 	public avatar!: Webhook["avatar"];
 	public name!: Webhook["name"];
 	public type!: Webhook["type"];
-	public guildID!: Webhook["guildID"];
-	public channelID!: Webhook["channelID"];
+	public guildId!: Webhook["guildId"];
+	public channelId!: Webhook["channelId"];
 	public owner!: Webhook["owner"];
 	public sourceGuild!: Webhook["sourceGuild"];
 	public sourceChannel!: Webhook["sourceChannel"];
@@ -20,6 +21,8 @@ class InteractionWebhook implements Webhook {
 	public client: import("../client/Client");
 	public id: string;
 	public token: string;
+
+	public static readonly default = InteractionWebhook;
 
 	public constructor(client: import("../client/Client"), id: string, token: string) {
 		this.client = client;

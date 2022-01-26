@@ -1,28 +1,26 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import MessageCollector from "../MessageCollector";
 import MessagePayload from "../MessagePayload";
 import SnowflakeUtil from "../../util/SnowflakeUtil";
-import Collection from "../../util/Collection";
+import { Collection } from "@discordjs/collection";
 import { TypeError } from "../../errors";
 import MessageComponentInteractionCollector from "../MessageComponentInteractionCollector";
 
 abstract class TextBasedChannel {
 	public id!: string;
-	public lastMessageID: string | null = null;
+	public lastMessageId: string | null = null;
 	public lastPinTimestamp: number | null = null;
 	public client!: import("../../client/Client");
-	public type!: import("../../Types").ChannelType | "unknown";
+	public type!: import("../../Types").ChannelType;
 
-	public constructor() {
-		void 0;
-	}
+	public static readonly default = TextBasedChannel;
 
 	public get lastMessage() {
 		const PartialMessage: typeof import("../Partial/PartialMessage") = require("../Partial/PartialMessage");
 		let message = null;
-		if (this.lastMessageID) {
-			message = new PartialMessage(this.client, { id: this.lastMessageID, channel_id: this.id });
-			// @ts-ignore
-			if (this.guild) message.guild = this.guild;
+		if (this.lastMessageId) {
+			message = new PartialMessage(this.client, { id: this.lastMessageId, channel_id: this.id });
+			if ((this as unknown as import("../TextChannel")).guild) message.guild = (this as unknown as import("../TextChannel")).guild;
 		}
 		return message;
 	}
@@ -56,7 +54,7 @@ abstract class TextBasedChannel {
 		const { data, files } = await messagePayload.resolveFiles();
 		const d = await this.client._snow.channel.createMessage(this.id, Object.assign({}, data, { files: files }));
 		const message = new Message(this.client, d, this);
-		this.lastMessageID = message.id;
+		this.lastMessageId = message.id;
 		return message;
 	}
 
@@ -115,25 +113,22 @@ abstract class TextBasedChannel {
 	public async bulkDelete(messages: Collection<string, import("../Message")> | Array<import("../../Types").MessageResolvable> | number, filterOld = false): Promise<Collection<string, import("../Partial/PartialMessage")>> {
 		const PartialMessage: typeof import("../Partial/PartialMessage") = require("../Partial/PartialMessage");
 		if (Array.isArray(messages) || messages instanceof Collection) {
-			// @ts-ignore
-			let messageIDs: Array<string> = messages instanceof Collection ? messages.keyArray() : messages.map(m => m.id || m);
+			let messageIds: Array<string> = messages instanceof Collection ? Array.from(messages.keys()) : messages.map(m => typeof m === "string" ? m : m.id);
 			if (filterOld) {
-				messageIDs = messageIDs.filter(id => Date.now() - SnowflakeUtil.deconstruct(id).timestamp < 1209600000);
+				messageIds = messageIds.filter(id => Date.now() - SnowflakeUtil.deconstruct(id).timestamp < 1209600000);
 			}
-			if (messageIDs.length === 0) return new Collection();
-			if (messageIDs.length === 1) {
-				await this.client._snow.channel.deleteMessage(this.id, messageIDs[0]);
-				// @ts-ignore
-				return new Collection([[messageIDs[0], new PartialMessage(this.client, { id: messageIDs[0], channel_id: this.id, guild_id: this.guild ? this.guild.id : undefined })]]);
+			if (messageIds.length === 0) return new Collection();
+			if (messageIds.length === 1) {
+				await this.client._snow.channel.deleteMessage(this.id, messageIds[0]);
+				return new Collection([[messageIds[0], new PartialMessage(this.client, { id: messageIds[0], channel_id: this.id, guild_id: (this as unknown as import("../TextChannel")).guild ? (this as unknown as import("../TextChannel")).guild.id : undefined })]]);
 			}
-			await this.client._snow.channel.bulkDeleteMessages(this.id, messageIDs);
-			const collection: Collection<string, import("../Partial/PartialMessage")> = new Collection();
-			return messageIDs.reduce(
+			await this.client._snow.channel.bulkDeleteMessages(this.id, messageIds);
+			const collection = new Collection<string, import("../Partial/PartialMessage")>();
+			return messageIds.reduce(
 				(col, id) =>
 					col.set(
 						id,
-						// @ts-ignore
-						new PartialMessage(this.client, { id: id, channel_id: this.id, guild_id: this.guild ? this.guild.id : undefined })
+						new PartialMessage(this.client, { id: id, channel_id: this.id, guild_id: (this as unknown as import("../TextChannel")).guild ? (this as unknown as import("../TextChannel")).guild.id : undefined })
 					),
 				collection
 			);
@@ -147,11 +142,11 @@ abstract class TextBasedChannel {
 
 	public async fetchMessage(message: import("../../Types").MessageResolvable) {
 		const Message: typeof import("../Message") = require("../Message");
-		let messageID;
-		if (typeof message === "string") messageID = message;
-		else messageID = message.id;
+		let messageId;
+		if (typeof message === "string") messageId = message;
+		else messageId = message.id;
 
-		const msg = await this.client._snow.channel.getChannelMessage(this.id, messageID);
+		const msg = await this.client._snow.channel.getChannelMessage(this.id, messageId);
 		return new Message(this.client, msg, this);
 	}
 

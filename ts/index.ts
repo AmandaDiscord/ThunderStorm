@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BaseClient from "./client/BaseClient";
 import Client from "./client/Client";
 import WebhookClient from "./client/WebhookClient";
@@ -5,7 +6,7 @@ import WebhookClient from "./client/WebhookClient";
 import ActivityFlags from "./util/ActivityFlags";
 import ApplicationFlags from "./util/ApplicationFlags";
 import BitField from "./util/BitField";
-import Collection from "./util/Collection";
+import { Collection } from "@discordjs/collection";
 import Constants from "./util/Constants";
 import DataResolver from "./util/DataResolver";
 import BaseManager from "./managers/BaseManager";
@@ -26,7 +27,9 @@ import GuildApplicationCommandManager from "./managers/GuildApplicationCommandMa
 import AnonymousGuild from "./structures/AnonymousGuild";
 import Application from "./structures/interfaces/Application";
 import ApplicationCommand from "./structures/ApplicationCommand";
+import AutocompleteInteraction from "./structures/AutocompleteInteraction";
 import Base from "./structures/Base";
+import BaseCommandInteraction from "./structures/BaseCommandInteraction";
 import { Activity } from "./structures/Presence";
 import BaseGuild from "./structures/BaseGuild";
 import BaseGuildEmoji from "./structures/BaseGuildEmoji";
@@ -39,6 +42,8 @@ import ClientApplication from "./structures/ClientApplication";
 import ClientUser from "./structures/ClientUser";
 import Collector from "./structures/interfaces/Collector";
 import CommandInteraction from "./structures/CommandInteraction";
+import CommandInteractionOptionResolver from "./structures/CommandInteractionOptionResolver";
+import ContextMenuInteraction from "./structures/ContextMenuInteraction";
 import DMChannel from "./structures/DMChannel";
 import Emoji from "./structures/Emoji";
 import Guild from "./structures/Guild";
@@ -144,7 +149,9 @@ export {
 	AnonymousGuild,
 	Application,
 	ApplicationCommand,
+	AutocompleteInteraction,
 	Base,
+	BaseCommandInteraction,
 	Activity,
 	MessagePayload,
 	BaseGuild,
@@ -158,6 +165,8 @@ export {
 	ClientUser,
 	Collector,
 	CommandInteraction,
+	CommandInteractionOptionResolver,
+	ContextMenuInteraction,
 	DMChannel,
 	Emoji,
 	Guild,
@@ -218,3 +227,5 @@ export {
 	PartialThreadChannel,
 	PartialUser
 };
+
+export default exports as typeof import("./index");

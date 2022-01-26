@@ -1,14 +1,18 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import STEndpoints from "snowtransfer/dist/Endpoints";
 
 import Base from "./Base";
 import { StickerFormatTypes } from "../util/Constants";
 import SnowflakeUtil from "../util/SnowflakeUtil";
 
+// @ts-ignore
 class Sticker extends Base {
 	public format: import("../Types").StickerFormatType;
 	public name: string;
 
-	constructor(client: import("../client/Client"), sticker: import("@amanda/discordtypings").StickerData) {
+	public static readonly default = Sticker;
+
+	constructor(client: import("../client/Client"), sticker: import("discord-typings").StickerItemData) {
 		super(client);
 
 		this.id = sticker.id;

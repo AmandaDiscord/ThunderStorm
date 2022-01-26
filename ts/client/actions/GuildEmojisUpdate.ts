@@ -1,9 +1,12 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Action from "./Action";
-import Collection from "../../util/Collection";
+import { Collection } from "@discordjs/collection";
 import { Events } from "../../util/Constants";
 
 class GuildEmojisUpdateAction extends Action {
-	public handle(data: import("@amanda/discordtypings").GuildEmojisUpdateData) {
+	public static default = GuildEmojisUpdateAction;
+
+	public handle(data: import("discord-typings").GuildEmojisUpdateData) {
 		const PartialGuild: typeof import("../../structures/Partial/PartialGuild") = require("../../structures/Partial/PartialGuild");
 		const Emoji: typeof import("../../structures/Emoji") = require("../../structures/Emoji");
 

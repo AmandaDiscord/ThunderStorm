@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import MessagePayload from "./MessagePayload";
 import Base from "./Base";
 import BaseMessageComponent from "./BaseMessageComponent";
@@ -9,12 +10,13 @@ import Mentions from "./MessageMentions";
 import ReactionCollector from "./ReactionCollector";
 import Sticker from "./Sticker";
 import { Error } from "../errors";
-import Collection from "../util/Collection";
-import { InteractionTypes, MessageTypes, SystemMessageTypes } from "../util/Constants";
+import { Collection } from "@discordjs/collection";
+import { ChannelTypes, InteractionTypes, MessageTypes, SystemMessageTypes } from "../util/Constants";
 import MessageFlags from "../util/MessageFlags";
 import SnowflakeUtil from "../util/SnowflakeUtil";
 import Util from "../util/Util";
 
+// @ts-ignore
 class Message extends Base {
 	public partial: false = false;
 
@@ -29,22 +31,24 @@ class Message extends Base {
 	public nonce!: string | null;
 	public embeds!: Array<import("./MessageEmbed")>;
 	public components!: Array<import("./MessageActionRow")>;
-	public attachments: Collection<string, MessageAttachment> = new Collection();
-	public stickers: Collection<string, Sticker> = new Collection();
+	public attachments = new Collection<string, MessageAttachment>();
+	public stickers = new Collection<string, Sticker>();
 	public createdTimestamp!: number;
 	public editedTimestamp!: number | null;
 	public reactions!: Collection<string, import("./MessageReaction")>;
 	public mentions!: import("./MessageMentions");
-	public webhookID!: string | null;
+	public webhookId!: string | null;
 	public groupActivityApplication!: import("./ClientApplication") | null;
-	public applicationID!: string | null;
+	public applicationId!: string | null;
 	public activity!: import("../Types").MessageActivity | null;
 	public member!: import("./GuildMember");
 	public flags!: Readonly<MessageFlags>;
 	public reference!: import("../Types").MessageReference | null;
 	public interaction!: import("../Types").MessageInteraction | null;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").MessageData, channel: import("./interfaces/TextBasedChannel")) {
+	public static readonly default = Message;
+
+	public constructor(client: import("../client/Client"), data: import("discord-typings").MessageData, channel: import("./interfaces/TextBasedChannel")) {
 		super(client);
 
 		this.channel = channel;
@@ -52,7 +56,7 @@ class Message extends Base {
 		if (data) this._patch(data);
 	}
 
-	public _patch(data: import("@amanda/discordtypings").MessageData) {
+	public _patch(data: import("discord-typings").MessageData) {
 		const User: typeof import("./User") = require("./User");
 		const MessageReaction: typeof import("./MessageReaction") = require("./MessageReaction");
 		const GuildMember: typeof import("./GuildMember") = require("./GuildMember");
@@ -61,7 +65,7 @@ class Message extends Base {
 
 		if ("type" in data) {
 			this.type = MessageTypes[data.type] as import("../Types").MessageType;
-			this.system = SystemMessageTypes.includes(this.type);
+			this.system = SystemMessageTypes.includes(this.type as import("../Types").SystemMessageType);
 		} else if (typeof this.type !== "string") {
 			this.system = null;
 			this.type = null;
@@ -92,7 +96,7 @@ class Message extends Base {
 			this.tts = null;
 		}
 
-		this.nonce = "nonce" in data ? data.nonce : null;
+		this.nonce = "nonce" in data ? String(data.nonce) : null;
 		this.embeds = (data.embeds || []).map(e => new Embed(e, true));
 		this.components = (data.components ?? []).map(c => BaseMessageComponent.create(c as any, this.client)) as Array<import("./MessageActionRow")>;
 
@@ -120,12 +124,12 @@ class Message extends Base {
 		}
 
 		this.mentions = new Mentions(this, data.mentions, data.mention_roles, data.mention_everyone, data.mention_channels);
-		this.webhookID = data.webhook_id || null;
+		this.webhookId = data.webhook_id || null;
 		this.groupActivityApplication = data.application ? new ClientApplication(this.client, data.application) : null;
-		this.applicationID = data.application_id ?? null;
+		this.applicationId = data.application_id ?? null;
 		this.activity = data.activity
 			? {
-				partyID: data.activity.party_id,
+				partyId: data.activity.party_id,
 				type: data.activity.type
 			}
 			: null;
@@ -140,9 +144,9 @@ class Message extends Base {
 
 		this.reference = data.message_reference
 			? {
-				channelID: data.message_reference.channel_id as string,
-				guildID: data.message_reference.guild_id || null,
-				messageID: data.message_reference.message_id || null
+				channelId: data.message_reference.channel_id as string,
+				guildId: data.message_reference.guild_id || null,
+				messageId: data.message_reference.message_id || null
 			}
 			: null;
 
@@ -158,7 +162,7 @@ class Message extends Base {
 		}
 	}
 
-	public patch(data: import("@amanda/discordtypings").MessageData) {
+	public patch(data: import("discord-typings").MessageData) {
 		const clone = this._clone();
 
 		if (data.edited_timestamp) this.editedTimestamp = new Date(data.edited_timestamp).getTime();
@@ -201,8 +205,7 @@ class Message extends Base {
 	}
 
 	public get guild(): import("./Partial/PartialGuild") | null {
-		// @ts-ignore
-		return this.channel.guild;
+		return (this.channel as import("./TextChannel")).guild;
 	}
 
 	public get url() {
@@ -257,17 +260,17 @@ class Message extends Base {
 	public fetchReference() {
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
 		if (!this.reference) throw new Error("MESSAGE_REFERENCE_MISSING");
-		const { channelID, messageID } = this.reference;
-		const channel = new PartialChannel(this.client, { id: channelID, guild_id: this.guild?.id, type: this.guild?.id ? "text" : "dm" });
+		const { channelId, messageId } = this.reference;
+		const channel = new PartialChannel(this.client, { id: channelId, guild_id: this.guild?.id, type: this.guild?.id ? ChannelTypes[0] : ChannelTypes[1] });
 		if (!channel) throw new Error("GUILD_CHANNEL_RESOLVE");
-		return channel.fetchMessage(messageID as string);
+		return channel.fetchMessage(messageId as string);
 	}
 
 	public get crosspostable() {
-		return this.channel.type === "news" && !this.flags.has(MessageFlags.FLAGS.CROSSPOSTED) && this.type === "DEFAULT" && (this.author && this.author.id === this.client.user!.id);
+		return this.channel.type === ChannelTypes[5] && !this.flags.has(MessageFlags.FLAGS.CROSSPOSTED) && this.type === "DEFAULT" && (this.author && this.author.id === this.client.user!.id);
 	}
 
-	public async edit(options: import("../Types").MessageEditOptions) {
+	public async edit(options: string | import("../Types").MessageEditOptions) {
 		const opts = options instanceof MessagePayload ? options : MessagePayload.create(this, options);
 		const { data, files } = opts.resolveData();
 		const d = await this.client._snow.channel.editMessage(this.channel.id, this.id, Object.assign({}, data, { files: files }), { disableEveryone: (options as import("../Types").MessageEditOptions).disableEveryone ? (options as import("../Types").MessageEditOptions).disableEveryone : this.client.options.disableEveryone || false });
@@ -342,8 +345,8 @@ class Message extends Base {
 	}
 
 	public fetchWebhook() {
-		if (!this.webhookID) return Promise.reject(new Error("WEBHOOK_MESSAGE"));
-		return this.client.fetchWebhook(this.webhookID);
+		if (!this.webhookId) return Promise.reject(new Error("WEBHOOK_MESSAGE"));
+		return this.client.fetchWebhook(this.webhookId);
 	}
 
 	public suppressEmbeds(suppress = true) {
@@ -362,7 +365,7 @@ class Message extends Base {
 		return this.edit({ attachments: [] });
 	}
 
-	public equals(message: Message, rawData: import("@amanda/discordtypings").MessageData) {
+	public equals(message: Message, rawData: import("discord-typings").MessageData) {
 		if (!message) return false;
 		const embedUpdate = !message.author && !message.attachments;
 		if (embedUpdate) return this.id === message.id && this.embeds.length === message.embeds.length;
@@ -374,7 +377,7 @@ class Message extends Base {
 			this.tts === message.tts &&
 			this.nonce === message.nonce &&
 			this.embeds.length === message.embeds.length &&
-			this.attachments.length === message.attachments.length;
+			this.attachments.size === message.attachments.size;
 
 		if (equal && rawData) {
 			equal =
@@ -391,12 +394,11 @@ class Message extends Base {
 	}
 
 	public toJSON() {
-		// @ts-ignore
 		return super.toJSON({
-			channel: "channelID",
-			author: "authorID",
-			groupActivityApplication: "groupActivityApplicationID",
-			guild: "guildID",
+			channel: "channelId",
+			author: "authorId",
+			groupActivityApplication: "groupActivityApplicationId",
+			guild: "guildId",
 			cleanContent: true,
 			member: false,
 			reactions: false

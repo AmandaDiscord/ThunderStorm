@@ -11,6 +11,7 @@ import User from "../User";
 import VoiceChannel from "../VoiceChannel";
 
 import SnowflakeUtil from "../../util/SnowflakeUtil";
+import Util from "../../util/Util";
 
 interface FetchData {
 	"Base": PartialBase<any>;
@@ -30,6 +31,8 @@ class PartialBase<Type extends FetchData[keyof FetchData]> {
 	public guild?: import("./PartialGuild") | null;
 	public channel?: import("./PartialChannel");
 	public parent?: import("./PartialChannel");
+
+	public static readonly default = PartialBase;
 
 	public constructor(client: import("../../client/Client"), data: import("../../internal").PartialData) {
 		this.client = client;
@@ -57,14 +60,7 @@ class PartialBase<Type extends FetchData[keyof FetchData]> {
 		if (this.partialType === "Channel") {
 			const channeldata = await this.client._snow.channel.getChannel(this.id);
 
-			if (channeldata.type === 0 && this.guild) data = new TextChannel(this.guild, channeldata as any);
-			else if (channeldata.type === 1) data = new DMChannel(this.client, channeldata as any);
-			else if (channeldata.type === 2 && this.guild) data = new VoiceChannel(this.guild, channeldata as any);
-			else if (channeldata.type === 4 && this.guild) data = new CategoryChannel(this.guild, channeldata as any);
-			else if (channeldata.type === 5 && this.guild) data = new NewsChannel(this.guild, channeldata as any);
-			else if (channeldata.type === 6 && this.guild) data = new StageChannel(this.guild, channeldata as any);
-			else if (channeldata.type === 13 && this.guild) data = new StageChannel(this.guild, channeldata as any);
-			else data = channeldata;
+			data = Util.createChannelFromData(this.client, channeldata as import("discord-typings").TextChannelData);
 		} else if (this.partialType === "Guild") {
 			const guilddata = await this.client._snow.guild.getGuild(this.id);
 			if (!guilddata) return null;
@@ -77,16 +73,13 @@ class PartialBase<Type extends FetchData[keyof FetchData]> {
 			const roledata = rolesdata.find(r => r.id === this.id);
 			if (roledata) data = new Role(this.client, roledata as any);
 		} else if (this.partialType === "Thread") {
-			if (!this.parent) return null;
-			const threaddata = await this.client._snow.channel.getChannelActiveThreads(this.parent.id);
+			const threaddata = await this.client._snow.channel.getChannel(this.id) as import("discord-typings").ThreadChannelData;
 			if (!threaddata) return null;
-			const current = threaddata.find(c => c.id === this.id);
-			if (!current) return null;
-			data = current.type === 10 && this.guild ? new ThreadNewsChannel(this.guild, current) : (this.guild ? new ThreadTextChannel(this.guild, current) : null);
+			data = threaddata.type === 10 && this.guild ? new ThreadNewsChannel(this.guild, threaddata) : (this.guild ? new ThreadTextChannel(this.guild, threaddata) : null);
 		} else if (this.partialType === "User") {
 			const userdata = await this.client._snow.user.getUser(this.id);
 			if (!userdata) return null;
-			if (userdata.id === this.client.user?.id) this.client.user._patch(userdata);
+			if (userdata.id === this.client.user?.id) this.client.user!._patch(userdata);
 			data = userdata.id === this.client.user?.id ? this.client.user : new User(this.client, userdata);
 		} else if (this.partialType === "Message") {
 			if (!this.channel) return null;

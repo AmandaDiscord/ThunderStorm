@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Util from "../util/Util";
 
 class MessageAttachment {
@@ -10,7 +11,9 @@ class MessageAttachment {
 	public height: number | null = null;
 	public width: number | null = null;
 
-	public constructor(attachment: import("../Types").BufferResolvable | import("stream").Stream, name: string | null = null, data?: import("@amanda/discordtypings").AttachmentData) {
+	public static readonly default = MessageAttachment;
+
+	public constructor(attachment: import("../Types").BufferResolvable | import("stream").Stream, name: string | null = null, data?: import("discord-typings").AttachmentData) {
 		this.attachment = attachment;
 		this.name = name;
 		if (data) {
@@ -34,7 +37,7 @@ class MessageAttachment {
 		return this;
 	}
 
-	public _patch(data: import("@amanda/discordtypings").AttachmentData) {
+	public _patch(data: import("discord-typings").AttachmentData) {
 		if (data.id) this.id = data.id;
 		if (data.size) this.size = data.size;
 		if (data.url) this.url = data.url;

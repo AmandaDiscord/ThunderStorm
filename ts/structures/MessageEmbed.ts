@@ -1,6 +1,4 @@
-/**
- * I'm sorry for being lazy, discord.js
- */
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import { RangeError } from "../errors";
 import Util from "../util/Util";
 
@@ -20,11 +18,13 @@ class MessageEmbed {
 	public files!: Array<import("../Types").FileOptions | string | import("./MessageAttachment")>;
 	public video!: import("../Types").MessageEmbedVideo | null;
 
-	public constructor(data: import("@amanda/discordtypings").EmbedData = {}, skipValidation = false) {
+	public static readonly default = MessageEmbed;
+
+	public constructor(data: import("discord-typings").EmbedData = {}, skipValidation = false) {
 		this.setup(data, skipValidation);
 	}
 
-	private setup(data: import("@amanda/discordtypings").EmbedData, skipValidation: boolean): void {
+	private setup(data: import("discord-typings").EmbedData, skipValidation: boolean): void {
 		this.type = data.type || "rich";
 		this.title = data.title || null;
 		this.description = data.description || null;
@@ -32,13 +32,11 @@ class MessageEmbed {
 		this.color = Util.resolveColor(data.color);
 		this.timestamp = data.timestamp ? new Date(data.timestamp).getTime() : null;
 		this.fields = [];
-		if (data.fields) {
-			this.fields = skipValidation ? data.fields.map(Util.cloneObject) : MessageEmbed.normalizeFields(data.fields);
-		}
+		if (data.fields) this.fields = skipValidation ? data.fields.map(Util.cloneObject) : MessageEmbed.normalizeFields(data.fields);
 		this.thumbnail = data.thumbnail
 			? {
 				url: data.thumbnail.url || "",
-				proxyURL: (data.thumbnail.proxyURL || data.thumbnail.proxy_url) || "",
+				proxyURL: data.thumbnail.proxy_url || "",
 				height: data.thumbnail.height || 0,
 				width: data.thumbnail.width || 0
 			}
@@ -46,7 +44,7 @@ class MessageEmbed {
 		this.image = data.image
 			? {
 				url: data.image.url || "",
-				proxyURL: (data.image.proxyURL || data.image.proxy_url) || "",
+				proxyURL: data.image.proxy_url || "",
 				height: data.image.height || 0,
 				width: data.image.width || 0
 			}
@@ -54,7 +52,7 @@ class MessageEmbed {
 		this.video = data.video
 			? {
 				url: data.video.url || "",
-				proxyURL: (data.video.proxyURL || data.video.proxy_url) || "",
+				proxyURL: data.video.proxy_url || "",
 				height: data.video.height || 0,
 				width: data.video.width || 0
 			}
@@ -63,7 +61,9 @@ class MessageEmbed {
 			? {
 				name: data.author.name || "",
 				url: data.author.url || "",
+				// @ts-ignore
 				iconURL: (data.author.iconURL || data.author.icon_url) || "",
+				// @ts-ignore
 				proxyIconURL: (data.author.proxyIconURL || data.author.proxy_icon_url) || ""
 			}
 			: null;
@@ -76,8 +76,8 @@ class MessageEmbed {
 		this.footer = data.footer
 			? {
 				text: data.footer.text || "",
-				iconURL: (data.footer.iconURL || data.footer.icon_url) || "",
-				proxyIconURL: (data.footer.proxyIconURL || data.footer.proxy_icon_url) || ""
+				iconURL: data.footer.icon_url || "",
+				proxyIconURL: data.footer.proxy_icon_url || ""
 			}
 			: null;
 		// @ts-ignore
@@ -108,8 +108,7 @@ class MessageEmbed {
 	}
 
 	public addFields(...fields: (import("../Types").EmbedFieldData | import("../Types").EmbedFieldData[])[]): this {
-		// @ts-ignore
-		this.fields.push(...MessageEmbed.normalizeFields(fields));
+		this.fields.push(...MessageEmbed.normalizeFields(...fields));
 		return this;
 	}
 
@@ -124,8 +123,7 @@ class MessageEmbed {
 	}
 
 	public setAuthor(name: import("../Types").StringResolvable, iconURL?: string, url?: string): this {
-		// @ts-ignore
-		this.author = { name: Util.verifyString(name, RangeError, "EMBED_AUTHOR_TEXT"), iconURL, url };
+		this.author = { name: Util.verifyString(name, RangeError as unknown as ErrorConstructor, "EMBED_AUTHOR_TEXT"), iconURL: iconURL as string, url: url as string, proxyIconURL: "" };
 		return this;
 	}
 
@@ -135,26 +133,22 @@ class MessageEmbed {
 	}
 
 	public setDescription(description: import("../Types").StringResolvable): this {
-		// @ts-ignore
-		this.description = Util.verifyString(description, RangeError, "EMBED_DESCRIPTION");
+		this.description = Util.verifyString(description, RangeError as unknown as ErrorConstructor, "EMBED_DESCRIPTION");
 		return this;
 	}
 
 	public setFooter(text: import("../Types").StringResolvable, iconURL?: string): this {
-		// @ts-ignore
-		this.footer = { text: Util.verifyString(text, RangeError, "EMBED_FOOTER_TEXT"), iconURL };
+		this.footer = { text: Util.verifyString(text, RangeError as unknown as ErrorConstructor, "EMBED_FOOTER_TEXT"), iconURL: iconURL as string, proxyIconURL: "" };
 		return this;
 	}
 
 	public setImage(url: string): this {
-		// @ts-ignore
-		this.image = { url };
+		this.image = { url, proxyURL: "", height: 0, width: 0 };
 		return this;
 	}
 
 	public setThumbnail(url: string): this {
-		// @ts-ignore
-		this.thumbnail = { url };
+		this.thumbnail = { url, proxyURL: "", height: 0, width: 0 };
 		return this;
 	}
 
@@ -165,8 +159,7 @@ class MessageEmbed {
 	}
 
 	public setTitle(title: import("../Types").StringResolvable): this {
-		// @ts-ignore
-		this.title = Util.verifyString(title, RangeError, "EMBED_TITLE");
+		this.title = Util.verifyString(title, RangeError as unknown as ErrorConstructor, "EMBED_TITLE");
 		return this;
 	}
 
@@ -204,10 +197,8 @@ class MessageEmbed {
 
 	public static normalizeField(name: import("../Types").StringResolvable, value: import("../Types").StringResolvable, inline = false): import("../Types").EmbedField {
 		return {
-			// @ts-ignore
-			name: Util.verifyString(name, RangeError, "EMBED_FIELD_NAME", false),
-			// @ts-ignore
-			value: Util.verifyString(value, RangeError, "EMBED_FIELD_VALUE", false),
+			name: Util.verifyString(name, RangeError as unknown as ErrorConstructor, "EMBED_FIELD_NAME", false),
+			value: Util.verifyString(value, RangeError as unknown as ErrorConstructor, "EMBED_FIELD_VALUE", false),
 			inline
 		};
 	}

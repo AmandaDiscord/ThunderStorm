@@ -1,8 +1,9 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Endpoints from "snowtransfer/dist/Endpoints";
 
 import MessagePayload from "./MessagePayload";
 import Channel from "./Channel";
-import { WebhookTypes } from "../util/Constants";
+import { WebhookTypes, ChannelTypes } from "../util/Constants";
 import DataResolver from "../util/DataResolver";
 import SnowflakeUtil from "../util/SnowflakeUtil";
 
@@ -12,19 +13,21 @@ class Webhook {
 	public token: string | null = null;
 	public avatar: string | null = null;
 	public id!: string;
-	public type!: typeof WebhookTypes[import("@amanda/discordtypings").WebhookData["type"]];
-	public guildID!: string;
-	public channelID!: string;
+	public type!: typeof WebhookTypes[import("discord-typings").WebhookData["type"]];
+	public guildId!: string;
+	public channelId!: string;
 	public owner: import("./User") | null = null;
 	public sourceGuild: import("./Guild") | null = null;
 	public sourceChannel: import("./NewsChannel") | null = null;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").WebhookData) {
+	public static readonly default = Webhook;
+
+	public constructor(client: import("../client/Client"), data: import("discord-typings").WebhookData) {
 		this.client = client;
 		if (data) this._patch(data);
 	}
 
-	public _patch(data: import("@amanda/discordtypings").WebhookData) {
+	public _patch(data: import("discord-typings").WebhookData) {
 		const Guild: typeof import("./Guild") = require("./Guild");
 		const NewsChannel: typeof import("./NewsChannel") = require("./NewsChannel");
 		const User: typeof import("./User") = require("./User");
@@ -35,8 +38,8 @@ class Webhook {
 		if (data.avatar !== undefined) this.avatar = data.avatar;
 		if (data.id !== undefined) this.id = data.id;
 		if (data.type !== undefined) this.type = WebhookTypes[data.type];
-		if (data.guild_id !== undefined) this.guildID = data.guild_id;
-		if (data.channel_id !== undefined) this.channelID = data.channel_id;
+		if (data.guild_id !== undefined) this.guildId = data.guild_id!;
+		if (data.channel_id !== undefined) this.channelId = data.channel_id!;
 		if (data.user !== undefined) this.owner = data.user ? new User(this.client, data.user) : null;
 		if (data.source_guild !== undefined) this.sourceGuild = data.source_guild ? new Guild(this.client, data.source_guild as any) : null;
 		if (data.source_channel !== undefined && ((data.source_guild !== undefined && !!data.source_guild.id) || data.guild_id !== undefined)) {
@@ -49,6 +52,7 @@ class Webhook {
 		let messagePayload: MessagePayload;
 		const Message: typeof import("./Message") = require("./Message");
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
+		const InteractionWebhook: typeof import("./InteractionWebhook") = require("./InteractionWebhook");
 
 		if (options instanceof MessagePayload) {
 			messagePayload = options.resolveData();
@@ -57,8 +61,11 @@ class Webhook {
 		}
 
 		const { data, files } = await messagePayload.resolveFiles();
-		return this.client._snow.webhook.executeWebhook(this.id, this.token as string, Object.assign({}, data || {}, { files }), { wait: true }).then((d: any) => {
-			const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: "text" });
+		let wait = true;
+		if (this instanceof InteractionWebhook) wait = false;
+		// @ts-ignore Wait is mean
+		return this.client._snow.webhook.executeWebhook(this.id, this.token as string, Object.assign({}, data || {}, { files }), { wait }).then((d: any) => {
+			const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: ChannelTypes[0] });
 			return new Message(this.client, d, channel);
 		});
 	}
@@ -99,7 +106,7 @@ class Webhook {
 
 		this.name = data.name;
 		this.avatar = data.avatar;
-		this.channelID = data.channel_id;
+		if (data.channel_id) this.channelId = data.channel_id;
 		return this;
 	}
 
@@ -107,7 +114,7 @@ class Webhook {
 		const Message: typeof import("./Message") = require("./Message");
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
 		const data = await this.client._snow.webhook.getWebhookMessage(this.id, this.token as string, message);
-		const channel = new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id, type: "text" });
+		const channel = new PartialChannel(this.client, { id: data.channel_id, guild_id: data.guild_id, type: ChannelTypes[0] });
 		return new Message(this.client, data, channel);
 	}
 
@@ -124,7 +131,7 @@ class Webhook {
 		const { data, files } = await messagePayload.resolveData().resolveFiles();
 
 		const d = await this.client._snow.webhook.editWebhookMessage(this.id, this.token as string, typeof message === "string" ? message : message.id, Object.assign({}, data, { files }));
-		const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: "text" });
+		const channel = new PartialChannel(this.client, { id: d.channel_id, guild_id: d.guild_id, type: ChannelTypes[0] });
 		return new Message(this.client, d, channel);
 	}
 

@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import SnowflakeUtil from "../util/SnowflakeUtil";
 
 class Role {
@@ -7,13 +8,15 @@ class Role {
 	public color: number;
 	public managed: boolean;
 	public hoisted: boolean;
-	public permissions: number;
+	public permissions: string;
 	public position: number;
 	public mentionable: boolean;
 	public guild: import("./Partial/PartialGuild");
 	public partial: false = false;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").RoleData & { guild_id: string; }) {
+	public static readonly default = Role;
+
+	public constructor(client: import("../client/Client"), data: import("discord-typings").RoleData & { guild_id: string; }) {
 		const PartialGuild: typeof import("./Partial/PartialGuild") = require("./Partial/PartialGuild"); // lazy load
 
 		this.client = client;

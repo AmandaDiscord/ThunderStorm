@@ -1,8 +1,11 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Action from "./Action";
 import { Events } from "../../util/Constants";
 
 class MessageReactionAdd extends Action {
-	public handle(data: import("@amanda/discordtypings").MessageReactionAddData) {
+	public static readonly default = MessageReactionAdd;
+
+	public handle(data: import("discord-typings").MessageReactionAddData) {
 		const PartialMessage: typeof import("../../structures/Partial/PartialMessage") = require("../../structures/Partial/PartialMessage");
 		const PartialUser: typeof import("../../structures/Partial/PartialUser") = require("../../structures/Partial/PartialUser");
 		const MessageReaction: typeof import("../../structures/MessageReaction") = require("../../structures/MessageReaction");

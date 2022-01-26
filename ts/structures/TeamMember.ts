@@ -1,14 +1,18 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 
 import User from "./User";
 
+// @ts-ignore
 class TeamMember extends Base {
 	public team: import("./Team");
 	public permissions: ["*"] = ["*"];
 	public membershipState!: "INVITED" | "ACCEPTED";
 	public user!: User;
 
-	public constructor(team: import("./Team"), data: import("@amanda/discordtypings").TeamMemberData) {
+	public static readonly default = TeamMember;
+
+	public constructor(team: import("./Team"), data: import("discord-typings").TeamMemberData) {
 		super(team.client);
 
 		this.team = team;
@@ -30,7 +34,7 @@ class TeamMember extends Base {
 		};
 	}
 
-	public _patch(data: import("@amanda/discordtypings").TeamMemberData) {
+	public _patch(data: import("discord-typings").TeamMemberData) {
 		if (data.permissions) this.permissions = data.permissions;
 		if (!this.membershipState || data.membership_state) this.membershipState = data.membership_state === 1 ? "INVITED" : "ACCEPTED";
 		if (data.user) {

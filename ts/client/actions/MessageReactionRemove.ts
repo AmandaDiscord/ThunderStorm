@@ -1,8 +1,11 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Action from "./Action";
 import { Events } from "../../util/Constants";
 
 class MessageReactionRemove extends Action {
-	public handle(data: import("@amanda/discordtypings").MessageReactionRemoveData) {
+	public static readonly default = MessageReactionRemove;
+
+	public handle(data: import("discord-typings").MessageReactionRemoveData) {
 		const PartialMessage: typeof import("../../structures/Partial/PartialMessage") = require("../../structures/Partial/PartialMessage");
 		const PartialUser: typeof import("../../structures/Partial/PartialUser") = require("../../structures/Partial/PartialUser");
 		const MessageReaction: typeof import("../../structures/MessageReaction") = require("../../structures/MessageReaction");

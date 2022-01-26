@@ -1,12 +1,16 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 import SnowflakeUtil from "../util/SnowflakeUtil";
 
+// @ts-ignore
 class BaseGuild extends Base {
 	public name: string;
 	public icon: string | null;
 	public features: Array<import("../Types").Feature>;
 
-	public constructor(client: import("../client/Client"), data: Partial<import("@amanda/discordtypings").GuildData>) {
+	public static readonly default = BaseGuild;
+
+	public constructor(client: import("../client/Client"), data: Partial<import("discord-typings").GuildData>) {
 		super(client);
 
 		this.id = data.id as string;

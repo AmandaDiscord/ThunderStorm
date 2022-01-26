@@ -1,12 +1,16 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import centra from "centra";
 import fs from "fs";
 import path from "path";
 import User from "./User";
 
+// @ts-ignore
 class ClientUser extends User {
 	public mfaEnabled = false;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").UserData) {
+	public static readonly default = ClientUser;
+
+	public constructor(client: import("../client/Client"), data: import("discord-typings").UserData) {
 		super(client, data);
 
 		if (data.mfa_enabled !== undefined) this.mfaEnabled = data.mfa_enabled;
@@ -34,7 +38,7 @@ class ClientUser extends User {
 		return this;
 	}
 
-	public _patch(data: import("@amanda/discordtypings").UserData) {
+	public _patch(data: import("discord-typings").UserData) {
 		if (data.mfa_enabled !== undefined) this.mfaEnabled = data.mfa_enabled;
 
 		super._patch(data);

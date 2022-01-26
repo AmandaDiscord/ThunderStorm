@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BitField from "./BitField";
 
 const FLAGS = {
@@ -6,7 +7,10 @@ const FLAGS = {
 	SPECTATE: BigInt(1) << BigInt(2),
 	JOIN_REQUEST: BigInt(1) << BigInt(3),
 	SYNC: BigInt(1) << BigInt(4),
-	PLAY: BigInt(1) << BigInt(5)
+	PLAY: BigInt(1) << BigInt(5),
+	PARTY_PRIVACY_FRIENDS: BigInt(1) << BigInt(6),
+	PARTY_PRIVACY_VOICE_CHANNEL: BigInt(1) << BigInt(7),
+	EMBEDDED: BigInt(1) << BigInt(8)
 };
 
 interface ActivityFlagsConstructor {
@@ -18,7 +22,7 @@ interface ActivityFlagsConstructor {
 class ActivityFlags extends BitField<typeof FLAGS> {
 	// @ts-ignore
 	public ["constructor"]: typeof ActivityFlags;
-	public static readonly default: typeof ActivityFlags = ActivityFlags;
+	public static readonly default = ActivityFlags;
 	// @ts-ignore
 	readonly [Symbol.species]: ActivityFlagsConstructor;
 

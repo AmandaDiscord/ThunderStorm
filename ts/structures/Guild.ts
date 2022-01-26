@@ -1,17 +1,13 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Constants from "../util/Constants";
+import Util from "../util/Util";
 
 import AnonymousGuild from "./AnonymousGuild";
-import CategoryChannel from "./CategoryChannel";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 import Emoji from "./Emoji";
 import GuildMember from "./GuildMember";
-import NewsChannel from "./NewsChannel";
 import Role from "./Role";
-import StoreChannel from "./StoreChannel";
-import StageChannel from "./StageChannel";
 import SystemChannelFlags from "../util/SystemChannelFlags";
-import TextChannel from "./TextChannel";
-import VoiceChannel from "./VoiceChannel";
 import VoiceState from "./VoiceState";
 import WelcomeScreen from "./WelcomeScreen";
 
@@ -25,37 +21,39 @@ class Guild extends AnonymousGuild {
 	public memberCount = 0;
 	public approximateMemberCount = 0;
 	public approximatePresenceCount = 0;
-	public ownerID = Constants.SYSTEM_USER_ID;
+	public ownerId = Constants.SYSTEM_USER_ID;
 	public owner!: import("./Partial/PartialUser");
 	public icon: string | null = null;
 	public discoverySplash: string | null = null;
 	public large = false;
-	public applicationID: string | null = null;
+	public applicationId: string | null = null;
 	public afkTimeout = 0;
-	public afkChannelID: string | null = null;
-	public systemChannelID: string | null = null;
+	public afkChannelId: string | null = null;
+	public systemChannelId: string | null = null;
 	public systemChannelFlags!: Readonly<SystemChannelFlags>;
 	public premiumTier = 0;
 	public premiumSubscriptionCount = 0;
-	public rulesChannelID: string | null = null;
-	public publicUpdatesChannelID: string | null = null;
+	public rulesChannelId: string | null = null;
+	public publicUpdatesChannelId: string | null = null;
 	public preferredLocale = "en-US";
-	public members: Collection<string, GuildMember> = new Collection();
-	public channels: Collection<string, import("./GuildChannel")> = new Collection();
-	public roles: Collection<string, Role> = new Collection();
-	public voiceStates: Collection<string, VoiceState> = new Collection();
-	public emojis: Collection<string, Emoji> = new Collection;
+	public members = new Collection<string, GuildMember>();
+	public channels = new Collection<string, import("./GuildChannel")>();
+	public roles = new Collection<string, Role>();
+	public voiceStates = new Collection<string, VoiceState>();
+	public emojis = new Collection<string, Emoji>();
 	public defaultMessageNotifications: "ALL" | "MENTIONS" = "ALL";
 	public mfaLevel: 0 | 1 = 0;
 	public maximumMembers = 100000;
 	public maximumPresences = 25000;
-	public shardID = 0;
-	public threads: Collection<string, import("./ThreadNewsChannel") | import("./ThreadTextChannel")> = new Collection();
-	public stageInstances: Collection<string, import("./Partial/PartialChannel")> = new Collection();
+	public shardId = 0;
+	public threads = new Collection<string, import("./ThreadNewsChannel") | import("./ThreadTextChannel")>();
+	public stageInstances = new Collection<string, import("./Partial/PartialChannel")>();
 	public joinedTimestamp!: number;
 	public commands: GuildApplicationCommandManager;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").GuildData) {
+	public static readonly default = Guild;
+
+	public constructor(client: import("../client/Client"), data: import("discord-typings").GuildData) {
 		super(client, data);
 
 		this.commands = new GuildApplicationCommandManager(this);
@@ -89,7 +87,7 @@ class Guild extends AnonymousGuild {
 			member_count: this.memberCount,
 			approximate_member_count: this.approximateMemberCount,
 			approximate_presence_count: this.approximatePresenceCount,
-			owner_id: this.ownerID,
+			owner_id: this.ownerId,
 			icon: this.icon,
 			banner: this.banner,
 			description: this.description,
@@ -97,15 +95,15 @@ class Guild extends AnonymousGuild {
 			features: this.features,
 			large: this.large,
 			splash: this.splash,
-			application_id: this.applicationID,
+			application_id: this.applicationId,
 			afk_timeout: this.afkTimeout,
-			afk_channel_id: this.afkChannelID,
-			system_channel_id: this.systemChannelID,
+			afk_channel_id: this.afkChannelId,
+			system_channel_id: this.systemChannelId,
 			premium_tier: this.premiumTier,
 			premium_subscription_count: this.premiumSubscriptionCount,
 			system_channel_flags: Number(this.systemChannelFlags.bitfield),
 			vanity_url_code: this.vanityURLCode,
-			rules_channel_id: this.rulesChannelID,
+			rules_channel_id: this.rulesChannelId,
 			preferred_locale: this.preferredLocale,
 			members: [...this.members.values()].map(mem => mem.toJSON()),
 			channels: [...this.channels.values()].map(chan => chan.toJSON()),
@@ -123,10 +121,10 @@ class Guild extends AnonymousGuild {
 			const payload: { limit?: number; after?: string; } = {};
 			if (options.limit) payload["limit"] = options.limit;
 			if (options.after) payload["after"] = options.after;
-			const data = await this.client._snow.guild.getGuildMembers(this.id, payload) as unknown as Array<import("@amanda/discordtypings").MemberData & { user: import("@amanda/discordtypings").UserData }>;
+			const data = await this.client._snow.guild.getGuildMembers(this.id, payload) as unknown as Array<import("discord-typings").MemberData & { user: import("discord-typings").UserData }>;
 			if (!data || data.length === 0) return null;
 			if (!options.query) return data.map(d => new GuildMember(this.client, d));
-			else if (options.ids) return data.filter(d => (d.user ? options.ids?.includes(d.user.id) : false)).map(d => new GuildMember(this.client, d));
+			else if (options.Ids) return data.filter(d => (d.user ? options.Ids?.includes(d.user.id) : false)).map(d => new GuildMember(this.client, d));
 			else return data.filter(d => options.query && d.nick && d.nick.includes(options.query) || (d.user ? options.query && d.user.username.includes(options.query) : false) || (d.user ? options.query && d.user.id.includes(options.query) : false) || (d.user ? `${d.user.username}#${d.user.discriminator}` === options.query : false)).map(d => new GuildMember(this.client, d));
 		}
 	}
@@ -134,7 +132,7 @@ class Guild extends AnonymousGuild {
 	public async fetchInvites() {
 		const Invite: typeof import("./Invite") = require("./Invite");
 		const inviteItems = await this.client._snow.guild.getGuildInvites(this.id);
-		const invites: Collection<string, import("./Invite")> = new Collection();
+		const invites = new Collection<string, import("./Invite")>();
 		for (const inviteItem of inviteItems) {
 			const invite = new Invite(this.client, inviteItem);
 			invites.set(invite.code, invite);
@@ -142,7 +140,7 @@ class Guild extends AnonymousGuild {
 		return invites;
 	}
 
-	public _patch(data: import("@amanda/discordtypings").GuildData) {
+	public _patch(data: import("discord-typings").GuildData) {
 		super._patch(data);
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
 		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
@@ -154,21 +152,21 @@ class Guild extends AnonymousGuild {
 		if (data.approximate_member_count !== undefined) this.approximateMemberCount = data.approximate_member_count;
 		if (data.approximate_presence_count !== undefined) this.approximatePresenceCount = data.approximate_presence_count;
 		if (data.max_members !== undefined) this.maximumMembers = data.max_members;
-		if (data.max_presences !== undefined) this.maximumPresences = data.max_presences;
-		if (data.owner_id) this.ownerID = data.owner_id;
+		if (data.max_presences !== undefined) this.maximumPresences = data.max_presences || 0;
+		if (data.owner_id) this.ownerId = data.owner_id;
 		if (data.discovery_splash !== undefined) this.discoverySplash = data.discovery_splash;
 		if (data.large !== undefined) this.large = data.large;
-		if (data.application_id !== undefined) this.applicationID = data.application_id;
+		if (data.application_id !== undefined) this.applicationId = data.application_id;
 		if (data.afk_timeout !== undefined) this.afkTimeout = data.afk_timeout;
-		if (data.afk_channel_id !== undefined) this.afkChannelID = data.afk_channel_id;
-		if (data.system_channel_id !== undefined) this.systemChannelID = data.system_channel_id;
+		if (data.afk_channel_id !== undefined) this.afkChannelId = data.afk_channel_id;
+		if (data.system_channel_id !== undefined) this.systemChannelId = data.system_channel_id;
 		if (data.premium_tier !== undefined) this.premiumTier = data.premium_tier;
 		if (data.premium_subscription_count !== undefined) this.premiumSubscriptionCount = data.premium_subscription_count;
 		if (!this.systemChannelFlags || data.system_channel_flags) this.systemChannelFlags = new SystemChannelFlags(data.system_channel_flags).freeze();
-		if (data.rules_channel_id !== undefined) this.rulesChannelID = data.rules_channel_id;
+		if (data.rules_channel_id !== undefined) this.rulesChannelId = data.rules_channel_id;
 		if (data.preferred_locale) this.preferredLocale = data.preferred_locale;
 		if (data.mfa_level !== undefined) this.mfaLevel = data.mfa_level;
-		this.owner = this.owner && data.owner_id === this.owner.id ? this.owner : new PartialUser(this.client, { id: this.ownerID });
+		this.owner = this.owner && data.owner_id === this.owner.id ? this.owner : new PartialUser(this.client, { id: this.ownerId });
 		this.icon = data.icon || (this.icon ? this.icon : null);
 
 		if (!this.members) this.members = new Collection();
@@ -181,14 +179,7 @@ class Guild extends AnonymousGuild {
 		if (data.channels && Array.isArray(data.channels)) {
 			this.channels.clear();
 			for (const channel of data.channels) {
-				let chan;
-				if (channel.type === 2) chan = new VoiceChannel(this as any, channel);
-				else if (channel.type === 4) chan = new CategoryChannel(this as any, channel);
-				else if (channel.type === 5) chan = new NewsChannel(this as any, channel);
-				// @ts-ignore
-				else if (channel.type === 6) chan = new StoreChannel(this as any, channel);
-				else if (channel.type === 13) chan = new StageChannel(this as any, channel);
-				else chan = new TextChannel(this as any, channel);
+				const chan = Util.createChannelFromData(this.client, channel) as import("./GuildChannel");
 				this.channels.set(chan.id, chan);
 			}
 		}
@@ -208,7 +199,7 @@ class Guild extends AnonymousGuild {
 		if (!this.emojis) this.emojis = new Collection();
 		if (data.emojis && Array.isArray(data.emojis)) {
 			this.emojis.clear();
-			for (const emoji of data.emojis) this.emojis.set(emoji.id || emoji.name, new Emoji(this.client, emoji));
+			for (const emoji of data.emojis) this.emojis.set(emoji.id || emoji.name!, new Emoji(this.client, emoji));
 		}
 
 		if (!this.threads) this.threads = new Collection();
@@ -223,7 +214,7 @@ class Guild extends AnonymousGuild {
 		if (!this.stageInstances) this.stageInstances = new Collection();
 		if (data.stage_instances && Array.isArray(data.stage_instances)) {
 			this.stageInstances.clear();
-			for (const instance of data.stage_instances) this.stageInstances.set(instance.id, new PartialChannel(this.client, { id: instance.channel_id, guild_id: instance.guild_id, type: "stage" }));
+			for (const instance of data.stage_instances) this.stageInstances.set(instance.id, new PartialChannel(this.client, { id: instance.channel_id, guild_id: instance.guild_id, type: Constants.ChannelTypes[13] }));
 		}
 	}
 }

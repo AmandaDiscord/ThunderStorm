@@ -1,3 +1,6 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+/* eslint-disable no-shadow */
+
 import STEndpoints from "snowtransfer/dist/Endpoints";
 
 import { Error, RangeError } from "../errors";
@@ -9,37 +12,49 @@ const AllowedImageSizes: Array<import("../Types").ImageSize> = Array.from({ leng
 function makeImageUrl(root: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = { format: "png" }) {
 	if (options.format && !AllowedImageFormats.includes(options.format)) throw new Error("IMAGE_FORMAT", options.format);
 	if (options.size && !AllowedImageSizes.includes(options.size)) throw new RangeError("IMAGE_SIZE", options.size);
-	return `${root}.${options.format}${options.size ? `?size=${options.size}` : ""}`;
+	return `${root}.${options.format || "png"}${options.size ? `?size=${options.size}` : ""}`;
 }
 
 export const Endpoints = {
 	CDN(root: string) {
 		return {
-			Emoji: (emojiID: string, format: import("../Types").AllowedImageFormat = "png") => `${root}/emojis/${emojiID}.${format}`,
+			Emoji: (emojiId: string, format: import("../Types").AllowedImageFormat = "png") => `${root}/emojis/${emojiId}.${format}`,
 			Asset: (name: string) => `${root}/assets/${name}`,
 			DefaultAvatar: (discriminator: number) => `${root}/embed/avatars/${discriminator}.png`,
-			Avatar: (userID: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
+			Avatar: (userId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
 				if (dynamic) format = hash.startsWith("a_") ? "gif" : format;
-				return makeImageUrl(`${root}/avatars/${userID}/${hash}`, { format, size });
+				return makeImageUrl(`${root}/avatars/${userId}/${hash}`, { format, size });
 			},
-			Banner: (guildID: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
-				makeImageUrl(`${root}/banners/${guildID}/${hash}`, { format, size }),
-			Icon: (guildID: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
+			GuildMemberAvatar: (guildId: string, memberId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
+				if (dynamic && hash.startsWith("a_")) format = "gif";
+				return makeImageUrl(`${root}/guilds/${guildId}/users/${memberId}/avatars/${hash}`, { format, size });
+			},
+			Banner: (id: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
+				if (dynamic && hash.startsWith("a_")) format = "gif";
+				makeImageUrl(`${root}/banners/${id}/${hash}`, { format, size });
+			},
+			Icon: (guildId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize, dynamic = false) => {
 				if (dynamic) format = hash.startsWith("a_") ? "gif" : format;
-				return makeImageUrl(`${root}/icons/${guildID}/${hash}`, { format, size });
+				return makeImageUrl(`${root}/icons/${guildId}/${hash}`, { format, size });
 			},
-			AppIcon: (clientID: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = {}) =>
-				makeImageUrl(`${root}/app-icons/${clientID}/${hash}`, { size: options.size, format: options.format }),
-			AppAsset: (clientID: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = { format: "png" }) =>
-				makeImageUrl(`${root}/app-assets/${clientID}/${hash}`, { size: options.size, format: options.format }),
-			GDMIcon: (channelID: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
-				makeImageUrl(`${root}/channel-icons/${channelID}/${hash}`, { size, format }),
-			Splash: (guildID: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
-				makeImageUrl(`${root}/splashes/${guildID}/${hash}`, { size, format }),
-			DiscoverySplash: (guildID: string, hash: string, format: import("../Types").AllowedImageFormat = "webp", size?: import("../Types").ImageSize) =>
-				makeImageUrl(`${root}/discovery-splashes/${guildID}/${hash}`, { size, format }),
-			TeamIcon: (teamID: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = { format: "png" }) =>
-				makeImageUrl(`${root}/team-icons/${teamID}/${hash}`, { size: options.size, format: options.format })
+			AppIcon: (clientId: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = {}) =>
+				makeImageUrl(`${root}/app-icons/${clientId}/${hash}`, { size: options.size, format: options.format }),
+			AppAsset: (clientId: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = { format: "png" }) =>
+				makeImageUrl(`${root}/app-assets/${clientId}/${hash}`, { size: options.size, format: options.format }),
+			StickerPackBanner: (bannerId: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
+				makeImageUrl(`${root}/app-assets/710982414301790216/store/${bannerId}`, { size, format }),
+			GDMIcon: (channelId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
+				makeImageUrl(`${root}/channel-icons/${channelId}/${hash}`, { size, format }),
+			Splash: (guildId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
+				makeImageUrl(`${root}/splashes/${guildId}/${hash}`, { size, format }),
+			DiscoverySplash: (guildId: string, hash: string, format: import("../Types").AllowedImageFormat = "webp", size?: import("../Types").ImageSize) =>
+				makeImageUrl(`${root}/discovery-splashes/${guildId}/${hash}`, { size, format }),
+			TeamIcon: (teamId: string, hash: string, options: { format?: import("../Types").AllowedImageFormat, size?: import("../Types").ImageSize } = { format: "png" }) =>
+				makeImageUrl(`${root}/team-icons/${teamId}/${hash}`, { size: options.size, format: options.format }),
+			Sticker: (stickerId: string, stickerFormat: "LOTTIE" | "png") =>
+				`${root}/stickers/${stickerId}.${stickerFormat === "LOTTIE" ? "json" : "png"}`,
+			RoleIcon: (roleId: string, hash: string, format: import("../Types").AllowedImageFormat = "png", size?: import("../Types").ImageSize) =>
+				makeImageUrl(`${root}/role-icons/${roleId}/${hash}`, { size, format })
 		};
 	},
 	invite: (root: string, code: string) => `${root}/${code}`,
@@ -47,55 +62,72 @@ export const Endpoints = {
 };
 
 export const Events = {
-	CHANNEL_CREATE: "channelCreate" as const,
-	CHANNEL_DELETE: "channelDelete" as const,
-	CHANNEL_PINS_UPDATE: "channelPinsUpdate" as const,
-	CHANNEL_UPDATE: "channelUpdate" as const,
-	GUILD_BAN_ADD: "guildBanAdd" as const,
-	GUILD_BAN_REMOVE: "guildBanRemove" as const,
+	RATE_LIMIT: "rateLimit" as const,
+	INVALID_REQUEST_WARNING: "invalidRequestWarning" as const,
+	API_RESPONSE: "apiResponse" as const,
+	API_REQUEST: "apiRequest" as const,
+	CLIENT_READY: "ready" as const,
 	GUILD_CREATE: "guildCreate" as const,
 	GUILD_DELETE: "guildDelete" as const,
-	GUILD_EMOJI_CREATE: "emojiCreate" as const,
-	GUILD_EMOJIS_UPDATE: "emojisUpdate" as const,
-	GUILD_INTEGRATIONS_UPDATE: "guildIntegrationsUpdate" as const,
-	GUILD_MEMBERS_CHUNK: "guildMembersChunk" as const,
+	GUILD_UPDATE: "guildUpdate" as const,
+	GUILD_UNAVAILABLE: "guildUnavailable" as const,
 	GUILD_MEMBER_ADD: "guildMemberAdd" as const,
 	GUILD_MEMBER_REMOVE: "guildMemberRemove" as const,
 	GUILD_MEMBER_UPDATE: "guildMemberUpdate" as const,
+	GUILD_MEMBER_AVAILABLE: "guildMemberAvailable" as const,
+	GUILD_MEMBERS_CHUNK: "guildMembersChunk" as const,
+	GUILD_INTEGRATIONS_UPDATE: "guildIntegrationsUpdate" as const,
 	GUILD_ROLE_CREATE: "roleCreate" as const,
 	GUILD_ROLE_DELETE: "roleDelete" as const,
-	GUILD_ROLE_UPDATE: "roleUpdate" as const,
-	GUILD_UNAVAILABLE: "guildUnavailable" as const,
-	GUILD_UPDATE: "guildUpdate" as const,
-	INTERACTION_CREATE: "interaction" as const,
-	INVALID_SESSION: "invalidated" as const,
 	INVITE_CREATE: "inviteCreate" as const,
 	INVITE_DELETE: "inviteDelete" as const,
-	MESSAGE_BULK_DELETE: "messageDeleteBulk" as const,
-	MESSAGE_CREATE: "message" as const,
+	GUILD_ROLE_UPDATE: "roleUpdate" as const,
+	GUILD_EMOJI_CREATE: "emojiCreate" as const,
+	GUILD_EMOJI_DELETE: "emojiDelete" as const,
+	GUILD_EMOJIS_UPDATE: "emojisUpdate" as const,
+	GUILD_BAN_ADD: "guildBanAdd" as const,
+	GUILD_BAN_REMOVE: "guildBanRemove" as const,
+	CHANNEL_CREATE: "channelCreate" as const,
+	CHANNEL_DELETE: "channelDelete" as const,
+	CHANNEL_UPDATE: "channelUpdate" as const,
+	CHANNEL_PINS_UPDATE: "channelPinsUpdate" as const,
+	MESSAGE_CREATE: "messageCreate" as const,
 	MESSAGE_DELETE: "messageDelete" as const,
 	MESSAGE_UPDATE: "messageUpdate" as const,
+	MESSAGE_BULK_DELETE: "messageDeleteBulk" as const,
 	MESSAGE_REACTION_ADD: "messageReactionAdd" as const,
 	MESSAGE_REACTION_REMOVE: "messageReactionRemove" as const,
 	MESSAGE_REACTION_REMOVE_ALL: "messageReactionRemoveAll" as const,
 	MESSAGE_REACTION_REMOVE_EMOJI: "messageReactionRemoveEmoji" as const,
-	PRESENCE_UPDATE: "presenceUpdate" as const,
-	RATE_LIMIT: "rateLimit" as const,
-	RAW: "raw" as const,
-	READY: "ready" as const,
-	RESUMED: "shardResume" as const,
-	SHARD_DISCONNECT: "shardDisconnect" as const,
-	SHARD_READY: "shardReady" as const,
 	THREAD_CREATE: "threadCreate" as const,
 	THREAD_DELETE: "threadDelete" as const,
+	THREAD_UPDATE: "threadUpdate" as const,
 	THREAD_LIST_SYNC: "threadListSync" as const,
 	THREAD_MEMBER_UPDATE: "threadMemberUpdate" as const,
 	THREAD_MEMBERS_UPDATE: "threadMembersUpdate" as const,
-	THREAD_UPDATE: "threadUpdate" as const,
-	TYPING_START: "typingStart" as const,
 	USER_UPDATE: "userUpdate" as const,
+	PRESENCE_UPDATE: "presenceUpdate" as const,
+	VOICE_SERVER_UPDATE: "voiceServerUpdate" as const,
 	VOICE_STATE_UPDATE: "voiceStateUpdate" as const,
-	WEBHOOKS_UPDATE: "webhookUpdate" as const
+	TYPING_START: "typingStart" as const,
+	WEBHOOKS_UPDATE: "webhookUpdate" as const,
+	INTERACTION_CREATE: "interactionCreate" as const,
+	ERROR: "error" as const,
+	WARN: "warn" as const,
+	DEBUG: "debug" as const,
+	SHARD_DISCONNECT: "shardDisconnect" as const,
+	SHARD_ERROR: "shardError" as const,
+	SHARD_RECONNECTING: "shardReconnecting" as const,
+	SHARD_READY: "shardReady" as const,
+	SHARD_RESUME: "shardResume" as const,
+	INVALIDATED: "invalidated" as const,
+	RAW: "raw" as const,
+	STAGE_INSTANCE_CREATE: "stageInstanceCreate" as const,
+	STAGE_INSTANCE_UPDATE: "stageInstanceUpdate" as const,
+	STAGE_INSTANCE_DELETE: "stageInstanceDelete" as const,
+	GUILD_STICKER_CREATE: "stickerCreate" as const,
+	GUILD_STICKER_DELETE: "stickerDelete" as const,
+	GUILD_STICKER_UPDATE: "stickerUpdate" as const
 };
 
 export const PartialTypes = {
@@ -106,7 +138,7 @@ export const PartialTypes = {
 	REACTION: "REACTION" as const
 };
 
-export const InviteScopes: [
+export const InviteScopes = [
 	"applications.builds.read",
 	"applications.commands",
 	"applications.entitlements",
@@ -118,21 +150,9 @@ export const InviteScopes: [
 	"guilds.join",
 	"gdm.join",
 	"webhook.incoming"
-] = [
-	"applications.builds.read",
-	"applications.commands",
-	"applications.entitlements",
-	"applications.store.update",
-	"connections",
-	"email",
-	"identity",
-	"guilds",
-	"guilds.join",
-	"gdm.join",
-	"webhook.incoming"
-];
+] as const;
 
-export const MessageTypes: [
+export const MessageTypes = [
 	"DEFAULT",
 	"RECIPIENT_ADD",
 	"RECIPIENT_REMOVE",
@@ -153,66 +173,39 @@ export const MessageTypes: [
 	"GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING",
 	null,
 	"REPLY",
-	"APPLICATION_COMMAND",
+	"CHAT_INPUT_COMMAND",
 	"THREAD_STARTER_MESSAGE",
-	"GUILD_INVITE_REMINDER"
-] = [
-	"DEFAULT",
-	"RECIPIENT_ADD",
-	"RECIPIENT_REMOVE",
-	"CALL",
-	"CHANNEL_NAME_CHANGE",
-	"CHANNEL_ICON_CHANGE",
-	"PINS_ADD",
-	"GUILD_MEMBER_JOIN",
-	"USER_PREMIUM_GUILD_SUBSCRIPTION",
-	"USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1",
-	"USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2",
-	"USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3",
-	"CHANNEL_FOLLOW_ADD",
-	null,
-	"GUILD_DISCOVERY_DISQUALIFIED",
-	"GUILD_DISCOVERY_REQUALIFIED",
-	"GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING",
-	"GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING",
-	null,
-	"REPLY",
-	"APPLICATION_COMMAND",
-	"THREAD_STARTER_MESSAGE",
-	"GUILD_INVITE_REMINDER"
-];
+	"GUILD_INVITE_REMINDER",
+	"CONTEXT_MENU_COMMAND"
+] as const;
 
-export const SystemMessageTypes: Exclude<typeof MessageTypes, null | "DEFAULT" | "REPLY" | "APPLICATION_COMMAND"> = MessageTypes.filter(type => type && !["DEFAULT", "REPLY", "APPLICATION_COMMAND"].includes(type)) as Exclude<typeof MessageTypes, null | "DEFAULT" | "REPLY" | "APPLICATION_COMMAND">;
+export const SystemMessageTypes = MessageTypes.filter(type => type && !["DEFAULT", "REPLY", "CHAT_INPUT_COMMAND", "CONTEXT_MENU_COMMAND"].includes(type)) as ["RECIPIENT_ADD", "RECIPIENT_REMOVE", "CALL", "CHANNEL_NAME_CHANGE", "CHANNEL_ICON_CHANGE", "PINS_ADD", "GUILD_MEMBER_JOIN", "USER_PREMIUM_GUILD_SUBSCRIPTION", "USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1", "USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2", "USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3", "CHANNEL_FOLLOW_ADD", null, "GUILD_DISCOVERY_DISQUALIFIED", "GUILD_DISCOVERY_REQUALIFIED", "GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING", "GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING", null, "THREAD_STARTER_MESSAGE", "GUILD_INVITE_REMINDER"];
 
-export const ActivityTypes: ["PLAYING", "STREAMING", "LISTENING", "WATCHING", "CUSTOM_STATUS", "COMPETING"] = ["PLAYING", "STREAMING", "LISTENING", "WATCHING", "CUSTOM_STATUS", "COMPETING"];
+export const ActivityTypes = ["PLAYING", "STREAMING", "LISTENING", "WATCHING", "CUSTOM_STATUS", "COMPETING"] as const;
 
 export const ClientApplicationAssetTypes = {
 	SMALL: 1 as const,
 	BIG: 2 as const
 };
 
-export const ChannelTypes = {
-	0: "text" as const,
-	text: 0 as const,
-	1: "dm" as const,
-	dm: 1 as const,
-	2: "voice" as const,
-	voice: 2 as const,
-	4: "category" as const,
-	category: 4 as const,
-	5: "news" as const,
-	news: 5 as const,
-	6: "store" as const,
-	store: 6 as const,
-	10: "news-thread" as const,
-	"news-thread": 10 as const,
-	11: "public-thread" as const,
-	"public-thread": 11 as const,
-	12: "private-thread" as const,
-	"private-thread": 12 as const,
-	13: "stage" as const,
-	stage: 13 as const
-};
+export const ChannelTypes = enumerate({
+	UNKNOWN: -1 as const,
+	GUILD_TEXT: 0 as const,
+	DM: 1 as const,
+	GUILD_VOICE: 2 as const,
+	GUILD_CATEGORY: 4 as const,
+	GUILD_NEWS: 5 as const,
+	GUILD_STORE: 6 as const,
+	GUILD_NEWS_THREAD: 10 as const,
+	GUILD_PUBLIC_THREAD: 11 as const,
+	GUILD_PRIVATE_THREAD: 12 as const,
+	GUILD_STAGE_VOICE: 13 as const
+});
+
+export const VoiceBasedChannelTypes = enumerate({
+	GUILD_VOICE: 2 as const,
+	GUILD_STAGE_VOICE: 13 as const
+});
 
 export const Colors = {
 	DEFAULT: 0x000000,
@@ -247,9 +240,9 @@ export const Colors = {
 	RANDOM: 0xD // XD. Replaced at runtime when used natively
 };
 
-export const ExplicitContentFilterLevels: ["DISABLED", "MEMBERS_WITHOUT_ROLES", "ALL_MEMBERS"] = ["DISABLED", "MEMBERS_WITHOUT_ROLES", "ALL_MEMBERS"];
+export const ExplicitContentFilterLevels = ["DISABLED", "MEMBERS_WITHOUT_ROLES", "ALL_MEMBERS"] as const;
 
-export const VerificationLevels: ["NONE", "LOW", "MEDIUM", "HIGH", "VERY_HIGH"] = ["NONE", "LOW", "MEDIUM", "HIGH", "VERY_HIGH"];
+export const VerificationLevels = ["NONE", "LOW", "MEDIUM", "HIGH", "VERY_HIGH"] as const;
 
 export const APIErrors = {
 	UNKNOWN_ACCOUNT: 10001 as const,
@@ -267,27 +260,69 @@ export const APIErrors = {
 	UNKNOWN_USER: 10013 as const,
 	UNKNOWN_EMOJI: 10014 as const,
 	UNKNOWN_WEBHOOK: 10015 as const,
+	UNKNOWN_WEBHOOK_SERVICE: 10016 as const,
+	UNKNOWN_SESSION: 10020 as const,
 	UNKNOWN_BAN: 10026 as const,
+	UNKNOWN_SKU: 10027 as const,
+	UNKNOWN_STORE_LISTING: 10028 as const,
+	UNKNOWN_ENTITLEMENT: 10029 as const,
+	UNKNOWN_BUILD: 10030 as const,
+	UNKNOWN_LOBBY: 10031 as const,
+	UNKNOWN_BRANCH: 10032 as const,
+	UNKNOWN_STORE_DIRECTORY_LAYOUT: 10033 as const,
+	UNKNOWN_REDISTRIBUTABLE: 10036 as const,
+	UNKNOWN_GIFT_CODE: 10038 as const,
+	UNKNOWN_STREAM: 10049 as const,
+	UNKNOWN_PREMIUM_SERVER_SUBSCRIBE_COOLDOWN: 10050 as const,
 	UNKNOWN_GUILD_TEMPLATE: 10057 as const,
+	UNKNOWN_DISCOVERABLE_SERVER_CATEGORY: 10059 as const,
+	UNKNOWN_STICKER: 10060 as const,
+	UNKNOWN_INTERACTION: 10062 as const,
+	UNKNOWN_APPLICATION_COMMAND: 10063 as const,
+	UNKNOWN_APPLICATION_COMMAND_PERMISSIONS: 10066 as const,
+	UNKNOWN_STAGE_INSTANCE: 10067 as const,
+	UNKNOWN_GUILD_MEMBER_VERIFICATION_FORM: 10068 as const,
+	UNKNOWN_GUILD_WELCOME_SCREEN: 10069 as const,
+	UNKNOWN_GUILD_SCHEDULED_EVENT: 10070 as const,
+	UNKNOWN_GUILD_SCHEDULED_EVENT_USER: 10071 as const,
 	BOT_PROHIBITED_ENDPOINT: 20001 as const,
 	BOT_ONLY_ENDPOINT: 20002 as const,
+	CANNOT_SEND_EXPLICIT_CONTENT: 20009 as const,
+	NOT_AUTHORIZED: 20012 as const,
+	SLOWMODE_RATE_LIMIT: 20016 as const,
+	ACCOUNT_OWNER_ONLY: 20018 as const,
 	ANNOUNCEMENT_EDIT_LIMIT_EXCEEDED: 20022 as const,
 	CHANNEL_HIT_WRITE_RATELIMIT: 20028 as const,
+	CONTENT_NOT_ALLOWED: 20031 as const,
+	GUILD_PREMIUM_LEVEL_TOO_LOW: 20035 as const,
 	MAXIMUM_GUILDS: 30001 as const,
 	MAXIMUM_FRIENDS: 30002 as const,
 	MAXIMUM_PINS: 30003 as const,
+	MAXIMUM_RECIPIENTS: 30004 as const,
 	MAXIMUM_ROLES: 30005 as const,
 	MAXIMUM_WEBHOOKS: 30007 as const,
+	MAXIMUM_EMOJIS: 30008 as const,
 	MAXIMUM_REACTIONS: 30010 as const,
 	MAXIMUM_CHANNELS: 30013 as const,
 	MAXIMUM_ATTACHMENTS: 30015 as const,
 	MAXIMUM_INVITES: 30016 as const,
+	MAXIMUM_ANIMATED_EMOJIS: 30018 as const,
+	MAXIMUM_SERVER_MEMBERS: 30019 as const,
+	MAXIMUM_NUMBER_OF_SERVER_CATEGORIES: 30030 as const,
 	GUILD_ALREADY_HAS_TEMPLATE: 30031 as const,
+	MAXIMUM_THREAD_PARTICIPANTS: 30033 as const,
+	MAXIMUM_NON_GUILD_MEMBERS_BANS: 30035 as const,
+	MAXIMUM_BAN_FETCHES: 30037 as const,
+	MAXIMUM_NUMBER_OF_STICKERS_REACHED: 30039 as const,
+	MAXIMUM_PRUNE_REQUESTS: 30040 as const,
+	MAXIMUM_GUILD_WIDGET_SETTINGS_UPDATE: 30042 as const,
 	UNAUTHORIZED: 40001 as const,
 	ACCOUNT_VERIFICATION_REQUIRED: 40002 as const,
+	DIRECT_MESSAGES_TOO_FAST: 40003 as const,
 	REQUEST_ENTITY_TOO_LARGE: 40005 as const,
 	FEATURE_TEMPORARILY_DISABLED: 40006 as const,
 	USER_BANNED: 40007 as const,
+	TARGET_USER_NOT_CONNECTED_TO_VOICE: 40032 as const,
 	ALREADY_CROSSPOSTED: 40033 as const,
 	MISSING_ACCESS: 50001 as const,
 	INVALID_ACCOUNT_TYPE: 50002 as const,
@@ -310,158 +345,168 @@ export const APIErrors = {
 	CANNOT_EXECUTE_ON_SYSTEM_MESSAGE: 50021 as const,
 	CANNOT_EXECUTE_ON_CHANNEL_TYPE: 50024 as const,
 	INVALID_OAUTH_TOKEN: 50025 as const,
+	MISSING_OAUTH_SCOPE: 50026 as const,
+	INVALID_WEBHOOK_TOKEN: 50027 as const,
+	INVALID_ROLE: 50028 as const,
 	INVALID_RECIPIENTS: 50033 as const,
 	BULK_DELETE_MESSAGE_TOO_OLD: 50034 as const,
 	INVALID_FORM_BODY: 50035 as const,
 	INVITE_ACCEPTED_TO_GUILD_NOT_CONTAINING_BOT: 50036 as const,
 	INVALID_API_VERSION: 50041 as const,
+	FILE_UPLOADED_EXCEEDS_MAXIMUM_SIZE: 50045 as const,
+	INVALID_FILE_UPLOADED: 50046 as const,
+	CANNOT_SELF_REDEEM_GIFT: 50054 as const,
+	PAYMENT_SOURCE_REQUIRED: 50070 as const,
 	CANNOT_DELETE_COMMUNITY_REQUIRED_CHANNEL: 50074 as const,
 	INVALID_STICKER_SENT: 50081 as const,
+	INVALID_OPERATION_ON_ARCHIVED_THREAD: 50083 as const,
+	INVALID_THREAD_NOTIFICATION_SETTINGS: 50084 as const,
+	PARAMETER_EARLIER_THAN_CREATION: 50085 as const,
+	GUILD_NOT_AVAILABLE_IN_LOCATION: 50095 as const,
+	GUILD_MONETIZATION_REQUIRED: 50097 as const,
+	INSUFFICIENT_BOOSTS: 50101 as const,
+	TWO_FACTOR_REQUIRED: 60003 as const,
+	NO_USERS_WITH_DISCORDTAG_EXIST: 80004 as const,
 	REACTION_BLOCKED: 90001 as const,
-	RESOURCE_OVERLOADED: 130000 as const
+	RESOURCE_OVERLOADED: 130000 as const,
+	STAGE_ALREADY_OPEN: 150006 as const,
+	CANNOT_REPLY_WITHOUT_READ_MESSAGE_HISTORY_PERMISSION: 160002 as const,
+	MESSAGE_ALREADY_HAS_THREAD: 160004 as const,
+	THREAD_LOCKED: 160005 as const,
+	MAXIMUM_ACTIVE_THREADS: 160006 as const,
+	MAXIMUM_ACTIVE_ANNOUNCEMENT_THREADS: 160007 as const,
+	INVALID_JSON_FOR_UPLOADED_LOTTIE_FILE: 170001 as const,
+	UPLOADED_LOTTIES_CANNOT_CONTAIN_RASTERIZED_IMAGES: 170002 as const,
+	STICKER_MAXIMUM_FRAMERATE_EXCEEDED: 170003 as const,
+	STICKER_FRAME_COUNT_EXCEEDS_MAXIMUM_OF_1000_FRAMES: 170004 as const,
+	LOTTIE_ANIMATION_MAXIMUM_DIMENSIONS_EXCEEDED: 170005 as const,
+	STICKER_FRAME_RATE_IS_TOO_SMALL_OR_TOO_LARGE: 170006 as const,
+	STICKER_ANIMATION_DURATION_EXCEEDS_MAXIMUM_OF_5_SECONDS: 170007 as const
 };
 
-export const DefaultMessageNotifications: ["ALL", "MENTIONS"] = ["ALL", "MENTIONS"];
+export const DefaultMessageNotifications = ["ALL", "MENTIONS"] as const;
 
-export const MembershipStates: [null, "INVITED", "ACCEPTED"] = [
+export const MembershipStates = [
 	null,
 	"INVITED",
 	"ACCEPTED"
-];
+] as const;
 
-export const WebhookTypes: [null, "Incoming", "Channel Follower", "Application"] = [
+export const WebhookTypes = [
 	null,
 	"Incoming",
 	"Channel Follower",
 	"Application"
-];
+] as const;
 
-export const StickerFormatTypes = {
-	1: "PNG" as const,
+export const StickerFormatTypes = enumerate({
 	PNG: 1 as const,
-	2: "APNG" as const,
 	APNG: 2 as const,
-	3: "LOTTIE" as const,
 	LOTTIE: 3 as const
-};
+});
 
-export const OverwriteTypes = {
-	0: "role" as const,
+export const OverwriteTypes = enumerate({
 	role: 0 as const,
-	1: "member" as const,
 	member: 1 as const
-};
+});
 
-export const ApplicationCommandOptionTypes = {
-	1: "SUB_COMMAND" as const,
+export const ApplicationCommandTypes = enumerate({
+	CHAT_INPUT: 1 as const,
+	USER: 2 as const,
+	MESSAGE: 3 as const
+});
+
+export const ApplicationCommandOptionTypes = enumerate({
 	SUB_COMMAND: 1 as const,
-	2: "SUB_COMMAND_GROUP" as const,
 	SUB_COMMAND_GROUP: 2 as const,
-	3: "STRING" as const,
 	STRING: 3 as const,
-	4: "INTEGER" as const,
 	INTEGER: 4 as const,
-	5: "BOOLEAN" as const,
 	BOOLEAN: 5 as const,
-	6: "USER" as const,
 	USER: 6 as const,
-	7: "CHANNEL" as const,
 	CHANNEL: 7 as const,
-	8: "ROLE" as const,
 	ROLE: 8 as const,
-	9: "MENTIONABLE" as const,
-	MENTIONABLE: 9 as const
-};
+	MENTIONABLE: 9 as const,
+	NUMBER: 10 as const
+});
 
-export const ApplicationCommandPermissionTypes = {
-	1: "ROLE" as const,
+export const ApplicationCommandPermissionTypes = enumerate({
 	ROLE: 1 as const,
-	2: "USER" as const,
 	USER: 2 as const
-};
+});
 
-export const InteractionTypes = {
-	1: "PING" as const,
+export const InteractionTypes = enumerate({
 	PING: 1 as const,
-	2: "APPLICATION_COMMAND" as const,
 	APPLICATION_COMMAND: 2 as const,
-	3: "MESSAGE_COMPONENT" as const,
-	MESSAGE_COMPONENT: 3 as const
-};
+	MESSAGE_COMPONENT: 3 as const,
+	APPLICATION_COMMAND_AUTOCOMPLETE: 4 as const
+});
 
-export const InteractionResponseTypes = {
-	1: "PONG" as const,
+export const InteractionResponseTypes = enumerate({
 	PONG: 1 as const,
-	4: "CHANNEL_MESSAGE_WITH_SOURCE" as const,
 	CHANNEL_MESSAGE_WITH_SOURCE: 4 as const,
-	5: "DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE" as const,
 	DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE: 5 as const,
-	6: "DEFERRED_MESSAGE_UPDATE" as const,
 	DEFERRED_MESSAGE_UPDATE: 6 as const,
-	7: "UPDATE_MESSAGE" as const,
-	UPDATE_MESSAGE: 7 as const
-};
+	UPDATE_MESSAGE: 7 as const,
+	APPLICATION_COMMAND_AUTOCOMPLETE_RESULT: 8 as const
+});
 
-export const MessageComponentTypes = {
-	1: "ACTION_ROW" as const,
+export const MessageComponentTypes = enumerate({
 	ACTION_ROW: 1 as const,
-	2: "BUTTON" as const,
-	BUTTON: 2 as const
-};
+	BUTTON: 2 as const,
+	SELECT_MENU: 3 as const
+});
 
-export const MessageButtonStyles = {
-	1: "PRIMARY" as const,
+export const MessageButtonStyles = enumerate({
 	PRIMARY: 1 as const,
-	2: "SECONDARY" as const,
 	SECONDARY: 2 as const,
-	3: "SUCCESS" as const,
 	SUCCESS: 3 as const,
-	4: "DANGER" as const,
 	DANGER: 4 as const,
-	5: "LINK" as const,
 	LINK: 5 as const
-};
+});
 
-export const NSFWLevels = {
-	0: "DEFAULT" as const,
+export const MFALevels = enumerate({
+	NONE: 0 as const,
+	ELEVATED: 1 as const
+});
+
+export const NSFWLevels = enumerate({
 	DEFAULT: 0 as const,
-	1: "EXPLICIT" as const,
 	EXPLICIT: 1 as const,
-	2: "SAFE" as const,
 	SAFE: 2 as const,
-	3: "AGE_RESTRICTED" as const,
 	AGE_RESTRICTED: 3 as const
-};
+});
+
+export const PrivacyLevels = enumerate({
+	PUBLIC: 1 as const,
+	GUILD_ONLY: 2 as const
+});
+
+export const PremiumTiers = enumerate({
+	NONE: 0 as const,
+	TIER_1: 1 as const,
+	TIER_2: 2 as const,
+	TIER_3: 3 as const
+});
+
+export const _cleanupSymbol = Symbol("djsCleanup");
 
 export const SYSTEM_USER_ID = "643945264868098049";
 
-const Constants = {
-	SYSTEM_USER_ID,
-	Endpoints,
-	Events,
-	PartialTypes,
-	InviteScopes,
-	MessageTypes,
-	SystemMessageTypes,
-	ActivityTypes,
-	ClientApplicationAssetTypes,
-	ChannelTypes,
-	Colors,
-	ExplicitContentFilterLevels,
-	VerificationLevels,
-	APIErrors,
-	DefaultMessageNotifications,
-	MembershipStates,
-	WebhookTypes,
-	StickerFormatTypes,
-	OverwriteTypes,
-	ApplicationCommandOptionTypes,
-	ApplicationCommandPermissionTypes,
-	InteractionTypes,
-	InteractionResponseTypes,
-	MessageComponentTypes,
-	MessageButtonStyles,
-	NSFWLevels
+type KeyFromVal<T, V> = {
+	[K in keyof T]: V extends T[K] ? K : never
+}[keyof T];
+
+type Inverse<M extends Record<string, number>> = {
+	[K in M[keyof M]]: KeyFromVal<M, K>
 };
 
-export default Constants;
+function enumerate<T extends Record<string, number>>(obj: T): T & Inverse<T> {
+	const entries = Object.entries(obj);
+	const mirror = {} as Record<number, string>;
+	for (const [key, value] of entries) {
+		mirror[value] = key;
+	}
+	return Object.assign(obj, mirror) as T & Inverse<T>;
+}
+
+export default exports as typeof import("./Constants");

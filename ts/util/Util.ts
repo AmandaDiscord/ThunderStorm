@@ -1,8 +1,9 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import { parse } from "path";
 import fetch from "centra";
 import STEndpoints from "snowtransfer/dist/Endpoints";
 
-import { Colors, Endpoints } from "./Constants";
+import { Colors, Endpoints, ChannelTypes } from "./Constants";
 import { Error as DiscordError, RangeError, TypeError } from "../errors";
 const has = <T>(o: T, k: keyof T) => Object.prototype.hasOwnProperty.call(o, k);
 const isObject = (d: any) => typeof d === "object" && d !== null;
@@ -10,6 +11,8 @@ const isObject = (d: any) => typeof d === "object" && d !== null;
 type FlattenIfArray<T> = T extends Array<infer R> ? R : T;
 
 class Util {
+	public static readonly default = Util;
+
 	public constructor() {
 		throw new Error(`The ${this.constructor.name} class may not be instantiated.`);
 	}
@@ -51,8 +54,7 @@ class Util {
 	}
 
 	public static splitMessage(text: string, { maxLength = 2000, char = "\n" as string | RegExp, prepend = "", append = "" } = {}) {
-		// @ts-ignore
-		text = Util.verifyString(text, RangeError, "MESSAGE_CONTENT_TYPE", false);
+		text = Util.verifyString(text, RangeError as unknown as ErrorConstructor, "MESSAGE_CONTENT_TYPE", false);
 		if (text.length <= maxLength) return [text];
 		const splitText = text.split(char);
 		if (splitText.some(elem => elem.length > maxLength)) throw new RangeError("SPLIT_MAX_LEN");
@@ -262,7 +264,7 @@ class Util {
 		return color || 0;
 	}
 
-	static discordSort<T extends import("./Collection")<any, any>>(collection: T) {
+	static discordSort<T extends import("@discordjs/collection").Collection<any, any>>(collection: T) {
 		return collection.sorted(
 			(a, b) =>
 				a.rawPosition - b.rawPosition ||
@@ -271,60 +273,17 @@ class Util {
 		);
 	}
 
-	static setPosition(item: import("../structures/Channel") | import("../structures/Role"), position: number, relative: boolean, sorted: import("./Collection")<string, import("../structures/Channel") | import("../structures/Role")>, route: any, reason?: string): Promise<Array<any>> {
-		let updatedItems = sorted.array();
+	static setPosition<T extends import("../structures/Channel") | import("../structures/ROle")>(item: T, position: number, relative: boolean, sorted: import("@discordjs/collection").Collection<string, T>, route: import("../internal").Route, reason?: string) {
+		let updatedItems = Array.from(sorted.values()) as Array<T>;
 		Util.moveElementInArray(updatedItems, item, position, relative);
-		// @ts-ignore
-		updatedItems = updatedItems.map((r, i) => ({ id: r.id, position: i }));
+
+		updatedItems = updatedItems.map((r, i) => ({ id: r.id, position: i }) as T);
 		return route.patch({ data: updatedItems, reason }).then(() => updatedItems);
 	}
 
 	static basename(path: string, ext?: string): string {
 		const res = parse(path);
 		return ext && res.ext.startsWith(ext) ? res.name : res.base.split("?")[0];
-	}
-
-	static idToBinary(num: string): string {
-		let bin = "";
-		let high = parseInt(num.slice(0, -10)) || 0;
-		let low = parseInt(num.slice(-10));
-		while (low > 0 || high > 0) {
-			bin = String(low & 1) + bin;
-			low = Math.floor(low / 2);
-			if (high > 0) {
-				low += 5000000000 * (high % 2);
-				high = Math.floor(high / 2);
-			}
-		}
-		return bin;
-	}
-
-	static binaryToID(num: string): string {
-		let dec = "";
-
-		while (num.length > 50) {
-			const high = parseInt(num.slice(0, -32), 2);
-			const low = parseInt((high % 10).toString(2) + num.slice(-32), 2);
-
-			dec = (low % 10).toString() + dec;
-			num =
-				Math.floor(high / 10).toString(2) +
-				Math.floor(low / 10)
-					.toString(2)
-					.padStart(32, "0");
-		}
-
-		// @ts-ignore
-		num = parseInt(num, 2);
-		// @ts-ignore
-		while (num > 0) {
-			// @ts-ignore
-			dec = (num % 10).toString() + dec;
-			// @ts-ignore
-			num = Math.floor(num / 10);
-		}
-
-		return dec;
 	}
 
 	static removeMentions(str: string) {
@@ -371,6 +330,37 @@ class Util {
 		return new Promise(resolve => {
 			setTimeout(resolve, ms);
 		});
+	}
+
+	static createChannelFromData(client: import("../client/Client"), data: import("../internal").ChannelDatas | { id: string; guild_id?: string; type: undefined }) {
+		const Channel = require("../structures/Channel") as typeof import("../structures/Channel");
+		const GuildChannel = require("../structures/GuildChannel") as typeof import("../structures/GuildChannel");
+		const DMChannel = require("../structures/DMChannel") as typeof import("../structures/DMChannel");
+		const TextChannel = require("../structures/TextChannel") as typeof import("../structures/TextChannel");
+		const CategoryChannel = require("../structures/CategoryChannel") as typeof import("../structures/CategoryChannel");
+		const NewsChannel = require("../structures/NewsChannel") as typeof import("../structures/NewsChannel");
+		const VoiceChannel = require("../structures/VoiceChannel") as typeof import("../structures/VoiceChannel");
+		const StageChannel = require("../structures/StageChannel") as typeof import("../structures/StageChannel");
+		const StoreChannel = require("../structures/StoreChannel") as typeof import("../structures/StoreChannel");
+		const PartialChannel = require("../structures/Partial/PartialChannel") as typeof import("../structures/Partial/PartialChannel");
+		const PartialGuild = require("../structures/Partial/PartialGuild") as typeof import("../structures/Partial/PartialGuild");
+
+		let guild;
+		if ((data as import("discord-typings").GuildChannelData).guild_id) guild = new PartialGuild(client, { id: (data as import("discord-typings").GuildChannelData).guild_id });
+
+		let chan;
+		if (data.type === undefined) return new PartialChannel(client, { id: data.id, guild_id: data.guild_id, type: data.guild_id ? ChannelTypes[0] : ChannelTypes[1] });
+		if (data.type === 0 && guild) chan = new TextChannel(guild, data);
+		else if (data.type === 1) chan = new DMChannel(client, data);
+		else if (data.type === 2 && guild) chan = new VoiceChannel(guild, data);
+		else if (data.type === 4 && guild) chan = new CategoryChannel(guild, data);
+		else if (data.type === 5 && guild) chan = new NewsChannel(guild, data);
+		else if (data.type === 6 && guild) chan = new StoreChannel(guild, data);
+		else if (data.type === 13 && guild) chan = new StageChannel(guild, data);
+		else if (guild) chan = new GuildChannel(guild, data);
+		else chan = new Channel(client, data);
+
+		return chan;
 	}
 }
 

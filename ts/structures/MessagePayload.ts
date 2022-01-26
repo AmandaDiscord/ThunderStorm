@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BaseMessageComponent from "./BaseMessageComponent";
 import MessageEmbed from "./MessageEmbed";
 import { RangeError } from "../errors";
@@ -13,15 +14,15 @@ interface MessagePayloadConstructor {
 }
 
 class MessagePayload {
-	// @ts-ignore
 	public ["constructor"]: typeof MessagePayload;
-	// @ts-ignore
 	readonly [Symbol.species]: MessagePayloadConstructor;
 
 	public target: import("../Types").MessageTarget;
 	public options: import("../Types").MessageOptions | import("../Types").WebhookMessageOptions | import("../Types").MessageEditOptions | import("../Types").ReplyMessageOptions;
 	public data: any | null = null;
 	public files: Array<any> | null = null;
+
+	public static readonly default = MessagePayload;
 
 	public constructor(target: import("../Types").MessageTarget, options: import("../Types").MessageOptions | import("../Types").WebhookMessageOptions | import("../Types").MessageEditOptions | import("../Types").ReplyMessageOptions) {
 		this.target = target;
@@ -56,8 +57,7 @@ class MessagePayload {
 		if ((this.options as import("../Types").MessageOptions).content === null) {
 			content = "";
 		} else if (typeof (this.options as import("../Types").MessageOptions).content !== "undefined") {
-			// @ts-ignore
-			content = Util.verifyString(this.options.content, RangeError, "MESSAGE_CONTENT_TYPE", false);
+			content = Util.verifyString(this.options.content as string, RangeError as unknown as ErrorConstructor, "MESSAGE_CONTENT_TYPE", false);
 		}
 
 		if (typeof content !== "string") return content;
@@ -100,7 +100,6 @@ class MessagePayload {
 			}
 		}
 
-		// @ts-ignore Something about Union is not compatible
 		const components = ((this.options as import("../Types").MessageOptions).components || []).map(c =>
 			(BaseMessageComponent.create(
 				Array.isArray(c) ? { type: MessageComponentTypes.ACTION_ROW, components: c } : c
@@ -125,15 +124,13 @@ class MessagePayload {
 
 		if (allowedMentions) {
 			allowedMentions = Util.cloneObject(allowedMentions);
-			// @ts-ignore
-			allowedMentions.replied_user = allowedMentions.repliedUser;
+			(allowedMentions as import("discord-typings").AllowedMentionsData).replied_user = allowedMentions.repliedUser || false;
 			delete allowedMentions.repliedUser;
 		}
 
 		let message_reference;
 		if (typeof (this.options as import("../Types").MessageOptions).reply === "object") {
-			// @ts-ignore
-			const message_id: string = (((this.options as import("../Types").MessageOptions).reply as import("../Types").ReplyOptions).messageReference).id || ((this.options as import("../Types").MessageOptions).reply as import("../Types").ReplyOptions).messageReference;
+			const message_id: string = typeof ((this.options as import("../Types").MessageOptions).reply as import("../Types").ReplyOptions).messageReference === "string" ? ((this.options as import("../Types").MessageOptions).reply as import("../Types").ReplyOptions).messageReference as string : (((this.options as import("../Types").MessageOptions).reply as import("../Types").ReplyOptions).messageReference as Exclude<import("../Types").MessageResolvable, string>).id;
 			if (message_id) {
 				message_reference = {
 					message_id,

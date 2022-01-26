@@ -1,14 +1,15 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import TextBasedChannel from "./interfaces/TextBasedChannel";
 
 import Channel from "./Channel";
-import Collection from "../util/Collection";
+import Constants from "../util/Constants";
 import User from "./User";
 
 // @ts-ignore
 class DMChannel extends Channel implements TextBasedChannel {
 	public readonly lastPinAt!: TextBasedChannel["lastPinAt"];
 	public lastPinTimestamp!: TextBasedChannel["lastPinTimestamp"];
-	public lastMessageID!: TextBasedChannel["lastMessageID"];
+	public lastMessageId!: TextBasedChannel["lastMessageId"];
 	public readonly lastMessage!: TextBasedChannel["lastMessage"];
 	public send!: TextBasedChannel["send"];
 	public startTyping!: TextBasedChannel["startTyping"];
@@ -24,15 +25,18 @@ class DMChannel extends Channel implements TextBasedChannel {
 	public fetchMessages!: TextBasedChannel["fetchMessages"];
 
 	public recipient!: User;
-	public type: "dm" = "dm";
+	public type: typeof Constants.ChannelTypes[1] = Constants.ChannelTypes[1];
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").DMChannelData) {
+	public static readonly default = DMChannel;
+
+	public constructor(client: import("../client/Client"), data: import("discord-typings").DMChannelData) {
 		super(client, Object.assign({}, data, { name: client.user?.username || data.recipients && data.recipients[0] ? data.recipients[0].id : "deleted-channel" }));
 	}
 
+	// @ts-ignore
 	public toJSON() {
-		const d: import("@amanda/discordtypings").DMChannelData = Object.assign(super.toJSON(), {
-			last_message_id: this.lastMessageID,
+		const d: import("discord-typings").DMChannelData = Object.assign(super.toJSON(), {
+			last_message_id: this.lastMessageId,
 			recipients: [this.recipient.toJSON()],
 			type: 1 as const
 		});
@@ -40,9 +44,9 @@ class DMChannel extends Channel implements TextBasedChannel {
 		return d;
 	}
 
-	public _patch(data: import("@amanda/discordtypings").DMChannelData & { name?: string }) {
+	public _patch(data: import("discord-typings").DMChannelData & { name?: string }) {
 		super._patch(data);
-		if (data.last_message_id !== undefined) this.lastMessageID = data.last_message_id || null;
+		if (data.last_message_id !== undefined) this.lastMessageId = data.last_message_id || null;
 		if (data.last_pin_timestamp !== undefined) {
 			this.lastPinTimestamp = this.lastPinAt ? this.lastPinAt.getTime() : null;
 		}

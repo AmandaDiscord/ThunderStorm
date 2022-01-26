@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import { InteractionResponseTypes } from "../../util/Constants";
 import MessageFlags from "../../util/MessageFlags";
 import MessagePayload from "../MessagePayload";
@@ -9,6 +10,8 @@ class InteractionResponses {
 	public id!: string;
 	public token!: string;
 	public webhook!: import("../InteractionWebhook");
+
+	public static readonly default = InteractionResponses;
 
 	public async defer({ ephemeral }: import("../../Types").InteractionDeferOptions = {}): Promise<void> {
 		if (this.deferred || this.replied) throw new Error("INTERACTION_ALREADY_REPLIED");

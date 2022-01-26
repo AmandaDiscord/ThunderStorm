@@ -1,7 +1,8 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Integration from "./Integration";
 import Webhook from "./Webhook";
-import Collection from "../util/Collection";
-import { OverwriteTypes } from "../util/Constants";
+import { Collection } from "@discordjs/collection";
+import { OverwriteTypes, ChannelTypes } from "../util/Constants";
 import SnowflakeUtil from "../util/SnowflakeUtil";
 import Util from "../util/Util";
 
@@ -58,7 +59,16 @@ const Actions = {
 	INTEGRATION_DELETE: 82 as const,
 	STAGE_INSTANCE_CREATE: 83 as const,
 	STAGE_INSTANCE_UPDATE: 84 as const,
-	STAGE_INSTANCE_DELETE: 85 as const
+	STAGE_INSTANCE_DELETE: 85 as const,
+	STICKER_CREATE: 90 as const,
+	STICKER_UPDATE: 91 as const,
+	STICKER_DELETE: 92 as const,
+	GUILD_SCHEDULED_EVENT_CREATE: 100 as const,
+	GUILD_SCHEDULED_EVENT_UPDATE: 101 as const,
+	GUILD_SCHEDULED_EVENT_DELETE: 102 as const,
+	THREAD_CREATE: 110 as const,
+	THREAD_UPDATE: 111 as const,
+	THREAD_DELETE: 112 as const
 };
 
 class GuildAuditLogs {
@@ -66,20 +76,20 @@ class GuildAuditLogs {
 	public static Targets = Targets;
 	public static Entry: typeof GuildAuditLogsEntry;
 
-	public webhooks: Collection<string, Webhook> = new Collection();
-	public integrations: Collection<string, Integration> = new Collection();
-	public entries: Collection<string, GuildAuditLogsEntry> = new Collection();
+	public webhooks = new Collection<string, Webhook>();
+	public integrations = new Collection<string, Integration>();
+	public entries = new Collection<string, GuildAuditLogsEntry>();
 
-	public constructor(guild: import("./Guild") | import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").AuditLogObject) {
+	public static readonly default = GuildAuditLogs;
+
+	public constructor(guild: import("./Guild") | import("./Partial/PartialGuild"), data: import("discord-typings").AuditLogObject) {
 		if (data.webhooks) {
 			for (const hook of data.webhooks) {
 				this.webhooks.set(hook.id, new Webhook(guild.client, hook));
 			}
 		}
 
-		// @ts-ignore
 		if (data.integrations) {
-			// @ts-ignore
 			for (const integration of data.integrations) {
 				this.integrations.set(integration.id, new Integration(guild.client, integration, guild));
 			}
@@ -121,9 +131,11 @@ class GuildAuditLogs {
 				Actions.WEBHOOK_CREATE,
 				Actions.EMOJI_CREATE,
 				Actions.MESSAGE_PIN,
-				Actions.INTEGRATION_CREATE
-				// @ts-ignore
-			].includes(action)
+				Actions.INTEGRATION_CREATE,
+				Actions.STAGE_INSTANCE_CREATE,
+				Actions.STICKER_CREATE,
+				Actions.THREAD_CREATE
+			].includes(action as any)
 		) {
 			return "CREATE";
 		}
@@ -143,9 +155,11 @@ class GuildAuditLogs {
 				Actions.MESSAGE_DELETE,
 				Actions.MESSAGE_BULK_DELETE,
 				Actions.MESSAGE_UNPIN,
-				Actions.INTEGRATION_DELETE
-				// @ts-ignore
-			].includes(action)
+				Actions.INTEGRATION_DELETE,
+				Actions.STAGE_INSTANCE_DELETE,
+				Actions.STICKER_DELETE,
+				Actions.THREAD_DELETE
+			].includes(action as any)
 		) {
 			return "DELETE";
 		}
@@ -162,9 +176,11 @@ class GuildAuditLogs {
 				Actions.INVITE_UPDATE,
 				Actions.WEBHOOK_UPDATE,
 				Actions.EMOJI_UPDATE,
-				Actions.INTEGRATION_UPDATE
-				// @ts-ignore
-			].includes(action)
+				Actions.INTEGRATION_UPDATE,
+				Actions.STAGE_INSTANCE_UPDATE,
+				Actions.STICKER_UPDATE,
+				Actions.THREAD_UPDATE
+			].includes(action as any)
 		) {
 			return "UPDATE";
 		}
@@ -185,10 +201,10 @@ class GuildAuditLogsEntry {
 	public executor: import("./Partial/PartialUser") | null;
 	public changes: Array<import("../Types").AuditLogChange>;
 	public id: string;
-	public extra: import("./Partial/PartialUser") | import("./Partial/PartialRole") | import("./Role") | { removed?: number; days?: number; channel?: import("./Partial/PartialChannel"); count?: number; messageID?: string; } | null;
+	public extra: import("./Partial/PartialUser") | import("./Partial/PartialRole") | import("./Role") | { removed?: number; days?: number; channel?: import("./Partial/PartialChannel"); count?: number; messageId?: string; } | null;
 	public target: import("../Types").AuditLogEntryTarget | null;
 
-	public constructor(logs: GuildAuditLogs, guild: import("./Guild") | import("./Partial/PartialGuild"), data: import("@amanda/discordtypings").AuditLogEntry) {
+	public constructor(logs: GuildAuditLogs, guild: import("./Guild") | import("./Partial/PartialGuild"), data: import("discord-typings").AuditLogEntry) {
 		const targetType = GuildAuditLogs.targetType(data.action_type);
 		const PartialUser: typeof import("./Partial/PartialUser") = require("./Partial/PartialUser");
 		const PartialChannel: typeof import("./Partial/PartialChannel") = require("./Partial/PartialChannel");
@@ -216,7 +232,7 @@ class GuildAuditLogsEntry {
 		case Actions.MESSAGE_DELETE:
 		case Actions.MESSAGE_BULK_DELETE:
 			this.extra = {
-				channel: new PartialChannel(guild.client, { id: data.options?.channel_id as string, guild_id: guild.id, type: "text" }),
+				channel: new PartialChannel(guild.client, { id: data.options?.channel_id as string, guild_id: guild.id, type: ChannelTypes[0] }),
 				count: Number(data.options?.count)
 			};
 			break;
@@ -224,8 +240,8 @@ class GuildAuditLogsEntry {
 		case Actions.MESSAGE_PIN:
 		case Actions.MESSAGE_UNPIN:
 			this.extra = {
-				channel: new PartialChannel(guild.client, { id: data.options?.channel_id as string, guild_id: guild.id, type: "text" }),
-				messageID: data.options?.message_id
+				channel: new PartialChannel(guild.client, { id: data.options?.channel_id as string, guild_id: guild.id, type: ChannelTypes[0] }),
+				messageId: data.options?.message_id
 			};
 			break;
 
@@ -262,8 +278,7 @@ class GuildAuditLogsEntry {
 				o[c.key] = c.new || c.old;
 				return o;
 			}, {} as { [key: string]: any }) as import("../Types").AuditLogEntryTarget;
-			// @ts-ignore
-			this.target.id = data.target_id;
+			(this.target as Exclude<import("../Types").AuditLogEntryTarget, import("./Invite")>).id = data.target_id;
 			// MEMBER_DISCONNECT and similar types do not provide a target_id.
 		} else if (targetType === Targets.USER && data.target_id) {
 			this.target = new PartialUser(guild.client, { id: data.target_id });
@@ -274,7 +289,6 @@ class GuildAuditLogsEntry {
 				logs.webhooks.get(data.target_id as string) ||
 				new Webhook(
 					guild.client,
-					// @ts-ignore
 					this.changes.reduce(
 						(o, c) => {
 							o[c.key] = c.new || c.old;
@@ -303,7 +317,7 @@ class GuildAuditLogsEntry {
 			// Discord sends a channel id for the MESSAGE_BULK_DELETE action type.
 			this.target =
 				data.action_type === Actions.MESSAGE_BULK_DELETE
-					? new PartialChannel(guild.client, { id: data.target_id as string, guild_id: guild.id, type: "text" })
+					? new PartialChannel(guild.client, { id: data.target_id as string, guild_id: guild.id, type: ChannelTypes[0] })
 					: new PartialUser(guild.client, { id: data.target_id as string });
 		} else if (targetType === Targets.INTEGRATION) {
 			this.target =

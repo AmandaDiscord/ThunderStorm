@@ -1,18 +1,22 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import SnowflakeUtil from "../../util/SnowflakeUtil";
 import Base from "../Base";
 
+// @ts-ignore
 abstract class Application extends Base {
 	public name!: string | null;
 	public description!: string | null;
 	public icon!: string | null;
 	public cover!: string | null;
 
-	public constructor(client: import("../../client/Client"), data: import("@amanda/discordtypings").ApplicationData) {
+	public static readonly default = Application;
+
+	public constructor(client: import("../../client/Client"), data: import("discord-typings").ApplicationData) {
 		super(client);
 		this._patch(data);
 	}
 
-	public _patch(data: import("@amanda/discordtypings").ApplicationData) {
+	public _patch(data: import("discord-typings").ApplicationData) {
 		this.id = data.id;
 		this.name = data.name ?? this.name ?? null;
 		this.description = data.description ?? this.description ?? null;
@@ -46,7 +50,6 @@ abstract class Application extends Base {
 	}
 
 	public toJSON() {
-		// @ts-ignore
 		return super.toJSON({ createdTimestamp: true });
 	}
 }

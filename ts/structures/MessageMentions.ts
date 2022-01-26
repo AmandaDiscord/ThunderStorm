@@ -1,4 +1,7 @@
-import Collection from "../util/Collection";
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
+import { Collection } from "@discordjs/collection";
+import Util from "../util/Util";
+import Constants from "../util/Constants";
 
 import GuildMember from "./GuildMember";
 import User from "./User";
@@ -14,13 +17,15 @@ class MessageMentions {
 	private _content: string | null;
 
 	public everyone: boolean;
-	public users: Collection<string, import("./User")> = new Collection();
-	public members: Collection<string, import("./GuildMember")> = new Collection();
-	public channels: Collection<string, import("./Partial/PartialChannel")> = new Collection();
-	public roles: Collection<string, import("./Partial/PartialRole")> = new Collection();
-	public crosspostedChannels: Collection<string, import("./GuildChannel")> = new Collection();
+	public users = new Collection<string, import("./User")>();
+	public members = new Collection<string, import("./GuildMember")>();
+	public channels = new Collection<string, import("./Partial/PartialChannel")>();
+	public roles = new Collection<string, import("./Partial/PartialRole")>();
+	public crosspostedChannels = new Collection<string, import("./GuildChannel")>();
 
-	public constructor(message: import("./Message"), users: Array<import("@amanda/discordtypings").UserData & { member?: import("@amanda/discordtypings").MemberData }> | undefined, roles: Array<string> | undefined, everyone: boolean, crosspostedChannels: Array<import("@amanda/discordtypings").ChannelMentionData> | undefined) {
+	public static readonly default = MessageMentions;
+
+	public constructor(message: import("./Message"), users: Array<import("discord-typings").UserData & { member?: import("discord-typings").MemberData }> | undefined, roles: Array<string> | undefined, everyone: boolean, crosspostedChannels: Array<import("discord-typings").ChannelMentionData> | undefined) {
 		this.client = message.client;
 		this.guild = message.guild;
 		this._content = message.content;
@@ -42,7 +47,7 @@ class MessageMentions {
 
 		const matches = (this._content || "").match(MessageMentions.CHANNELS_PATTERN);
 		if (matches) {
-			for (const channel of matches.slice(1)) this.channels.set(channel, new PartialChannel(this.client, { id: channel, guild_id: this.guild?.id, type: this.guild?.id ? "text" : "dm" }));
+			for (const channel of matches.slice(1)) this.channels.set(channel, new PartialChannel(this.client, { id: channel, guild_id: this.guild?.id, type: this.guild?.id ? Constants.ChannelTypes[0] : Constants.ChannelTypes[1] }));
 		}
 
 		if (roles && this.guild) {
@@ -50,24 +55,8 @@ class MessageMentions {
 		}
 
 		if (crosspostedChannels) {
-			const TextChannel: typeof import("./TextChannel") = require("./TextChannel");
-			const VoiceChannel: typeof import("./VoiceChannel") = require("./VoiceChannel");
-			const CategoryChannel: typeof import("./CategoryChannel") = require("./CategoryChannel");
-			const NewsChannel: typeof import("./NewsChannel") = require("./NewsChannel");
-			const StoreChannel: typeof import("./StoreChannel") = require("./StoreChannel");
-			const StageChannel: typeof import("./StageChannel") = require("./StageChannel");
-			const GuildChannel: typeof import("./GuildChannel") = require("./GuildChannel");
-			const Channel: typeof import("./Channel") = require("./Channel");
 			for (const channel of crosspostedChannels) {
-				let data;
-				if (channel.type === 0 && this.guild) data = new TextChannel(this.guild, channel as any);
-				else if (channel.type === 2 && this.guild) data = new VoiceChannel(this.guild, channel as any);
-				else if (channel.type === 4 && this.guild) data = new CategoryChannel(this.guild, channel as any);
-				else if (channel.type === 5 && this.guild) data = new NewsChannel(this.guild, channel as any);
-				else if (channel.type === 6 && this.guild) data = new StoreChannel(this.guild, channel as any);
-				else if (channel.type === 13 && this.guild) data = new StageChannel(this.guild, channel as any);
-				else if (this.guild) data = new GuildChannel(this.guild, channel as any);
-				else data = new Channel(this.client, channel as any);
+				const data = Util.createChannelFromData(this.client, channel as import("discord-typings").TextChannelData);
 				this.crosspostedChannels.set(data.id, data as any);
 			}
 		}
@@ -77,7 +66,7 @@ class MessageMentions {
 		return {
 			mentions: [...this.users.values()].map(u => {
 				const member = this.members.get(u.id);
-				const value: import("@amanda/discordtypings").UserData & { member?: import("@amanda/discordtypings").MemberData } = u.toJSON();
+				const value: import("discord-typings").UserData & { member?: import("discord-typings").MemberData } = u.toJSON();
 				if (member) {
 					const mj = member.toJSON();
 					// @ts-ignore I know what I'm doing
@@ -88,7 +77,7 @@ class MessageMentions {
 			}),
 			mention_roles: [...this.roles.values()].map(r => r.id),
 			mention_everyone: this.everyone,
-			mention_channels: [...this.crosspostedChannels.values()].map(c => c.toJSON()) as Array<import("@amanda/discordtypings").ChannelMentionData>
+			mention_channels: [...this.crosspostedChannels.values()].map(c => c.toJSON()) as Array<import("discord-typings").ChannelMentionData>
 		};
 	}
 }

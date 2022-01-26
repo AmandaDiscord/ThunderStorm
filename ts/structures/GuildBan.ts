@@ -1,11 +1,15 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Base from "./Base";
 
+// @ts-ignore
 class GuildBan extends Base {
 	public guild: import("./Partial/PartialGuild");
 	public user!: import("./User");
 	public reason: string | null = null;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").GuildBanAddData & { reason?: string }, guild: import("./Partial/PartialGuild")) {
+	public static readonly default = GuildBan;
+
+	public constructor(client: import("../client/Client"), data: import("discord-typings").GuildBanAddData & { reason?: string }, guild: import("./Partial/PartialGuild")) {
 		super(client);
 
 		this.id = data.user.id;
@@ -14,7 +18,7 @@ class GuildBan extends Base {
 		this._patch(data);
 	}
 
-	public _patch(data: import("@amanda/discordtypings").GuildBanAddData & { reason?: string }) {
+	public _patch(data: import("discord-typings").GuildBanAddData & { reason?: string }) {
 		const User: typeof import("./User") = require("./User");
 		if (data.user) this.user = new User(this.client, data.user);
 		if (data.reason) this.reason = data.reason;

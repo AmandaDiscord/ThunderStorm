@@ -1,7 +1,8 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BaseManager from "./BaseManager";
 import { TypeError } from "../errors";
 import ApplicationCommand from "../structures/ApplicationCommand";
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 
 interface ApplicationCommandManagerConstructor {
 	new(client: import("../client/Client"), iterable?: IterableIterator<import("../structures/ApplicationCommand")>): ApplicationCommandManager;
@@ -9,26 +10,24 @@ interface ApplicationCommandManagerConstructor {
 	readonly [Symbol.species]: ApplicationCommandManagerConstructor;
 }
 
+// @ts-ignore
 class ApplicationCommandManager extends BaseManager<import("../structures/ApplicationCommand"), Collection<string, import("../structures/ApplicationCommand")>> {
-	// @ts-ignore
 	public ["constructor"]: typeof ApplicationCommandManager;
-	public static readonly default: typeof ApplicationCommandManager = ApplicationCommandManager;
-	// @ts-ignore
+	public static readonly default = ApplicationCommandManager;
 	readonly [Symbol.species]: ApplicationCommandManagerConstructor;
 
 	public constructor(client: import("../client/Client"), iterable?: IterableIterator<import("../structures/ApplicationCommand")>) {
+		// @ts-ignore
 		super(client, iterable, ApplicationCommand);
 	}
 
 	public _add(data: import("../structures/ApplicationCommand"), cache?: boolean) {
-		// @ts-ignore
-		return super._add(data, cache, { extras: [this.guild] });
+		return super._add(data, cache, { extras: [(this as unknown as import("./GuildApplicationCommandManager")).guild] });
 	}
 
 	public get commandPath() {
-		let path = this.client.api.applications(this.client.application?.id);
-		// @ts-ignore
-		if (this.guild) path = path.guilds(this.guild.id);
+		let path = this.client.api.applications(this.client.application!.id);
+		if ((this as unknown as import("./GuildApplicationCommandManager")).guild) path = path.guilds((this as unknown as import("./GuildApplicationCommandManager")).guild.id);
 		return path.commands;
 	}
 
@@ -36,6 +35,7 @@ class ApplicationCommandManager extends BaseManager<import("../structures/Applic
 	public async fetch(id: undefined, cache?: boolean, force?: boolean): Promise<Collection<string, import("../structures/ApplicationCommand")>>;
 	public async fetch(id: string, cache?: boolean, force?: boolean): Promise<import("../structures/ApplicationCommand")>;
 	public async fetch(id?: string, cache = true, force = false): Promise<Collection<string, import("../structures/ApplicationCommand")> | import("../structures/ApplicationCommand")> {
+		const PartialGuild = require("../structures/Partial/PartialGuild") as typeof import("../structures/Partial/PartialGuild");
 		if (id) {
 			if (!force) {
 				const existing = this.cache.get(id);
@@ -45,9 +45,8 @@ class ApplicationCommandManager extends BaseManager<import("../structures/Applic
 			return this._add(command, cache);
 		}
 
-		const data = await this.commandPath.get();
-		// @ts-ignore
-		return data.reduce((coll, command) => coll.set(command.id, this._add(command, cache)), new Collection());
+		const data = await this.commandPath.get() as Array<import("discord-typings").ApplicationCommand>;
+		return data.reduce((coll, command) => coll.set(command.id, this._add(new ApplicationCommand(this.client, command, command.guild_id ? new PartialGuild(this.client, { id: command.guild_id }) : undefined), cache)), new Collection<string, import("../structures/ApplicationCommand")>());
 	}
 
 	public async create(command: import("../Types").ApplicationCommandData) {
@@ -58,15 +57,15 @@ class ApplicationCommandManager extends BaseManager<import("../structures/Applic
 	}
 
 	public async set(commands: Array<import("../Types").ApplicationCommandData>): Promise<Collection<string, import("../structures/ApplicationCommand")>> {
+		const PartialGuild = require("../structures/Partial/PartialGuild") as typeof import("../structures/Partial/PartialGuild");
 		const data = await this.commandPath.put({
 			data: commands.map(c => this.constructor.transformCommand(c))
-		});
-		// @ts-ignore
-		return data.reduce((coll, command) => coll.set(command.id, this._add(command)), new Collection());
+		}) as Array<import("discord-typings").ApplicationCommand>;
+		return data.reduce((coll, command) => coll.set(command.id, this._add(new ApplicationCommand(this.client, command, command.guild_id ? new PartialGuild(this.client, { id: command.guild_id }) : undefined))), new Collection<string, import("../structures/ApplicationCommand")>());
 	}
 
 	public async edit(command: import("../Types").ApplicationCommandResolvable, data: import("../Types").ApplicationCommandData) {
-		const id = this.resolveID(command);
+		const id = this.resolveId(command);
 		if (!id) throw new TypeError("INVALID_TYPE", "command", "ApplicationCommandResolvable");
 
 		const patched = await this.commandPath(id).patch({ data: this.constructor.transformCommand(data) });
@@ -75,7 +74,7 @@ class ApplicationCommandManager extends BaseManager<import("../structures/Applic
 
 
 	public async delete(command: import("../Types").ApplicationCommandResolvable) {
-		const id = this.resolveID(command);
+		const id = this.resolveId(command);
 		if (!id) throw new TypeError("INVALID_TYPE", "command", "ApplicationCommandResolvable");
 
 		await this.commandPath(id).delete();

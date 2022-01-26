@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import BitField from "./BitField";
 
 const FLAGS = {
@@ -15,7 +16,8 @@ const FLAGS = {
 	BUGHUNTER_LEVEL_2: BigInt(1) << BigInt(14),
 	VERIFIED_BOT: BigInt(1) << BigInt(16),
 	EARLY_VERIFIED_BOT_DEVELOPER: BigInt(1) << BigInt(17),
-	CERTIFIED_MODERATOR: BigInt(1) << BigInt(18)
+	CERTIFIED_MODERATOR: BigInt(1) << BigInt(18),
+	BOT_HTTP_INTERACTIONS: BigInt(1) << BigInt(19)
 };
 
 interface UserFlagsConstructor {
@@ -27,7 +29,7 @@ interface UserFlagsConstructor {
 class UserFlags extends BitField<typeof FLAGS> {
 	// @ts-ignore
 	public ["constructor"]: typeof UserFlags;
-	public static readonly default: typeof UserFlags = UserFlags;
+	public static readonly default = UserFlags;
 	// @ts-ignore
 	readonly [Symbol.species]: UserFlagsConstructor;
 

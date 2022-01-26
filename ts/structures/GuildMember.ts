@@ -1,12 +1,13 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import TextBasedChannel from "./interfaces/TextBasedChannel";
 
-import Collection from "../util/Collection";
+import { Collection } from "@discordjs/collection";
 
 import User from "./User";
 
 // @ts-ignore
 class GuildMember implements TextBasedChannel {
-	public lastMessageID!: TextBasedChannel["lastMessageID"];
+	public lastMessageId!: TextBasedChannel["lastMessageId"];
 	public lastMessage!: TextBasedChannel["lastMessage"];
 	public send!: TextBasedChannel["send"];
 
@@ -20,14 +21,16 @@ class GuildMember implements TextBasedChannel {
 	public joinedTimestamp!: number;
 	public premiumSince: Date | null = null;
 	public premiumSinceTimestamp: number | null = null;
-	public roles: Collection<string, import("./Partial/PartialRole")> = new Collection();
+	public roles = new Collection<string, import("./Partial/PartialRole")>();
 	public guild!: import("./Partial/PartialGuild");
 	public avatar: string | null = null;
 	public hoistRole: import("./Partial/PartialRole") | null = null;
 	public presence: import("./Presence").Presence | null = null;
-	public lastMessageChannelID: string | null = null;
+	public lastMessageChannelId: string | null = null;
 
-	public constructor(client: import("../client/Client"), data: import("@amanda/discordtypings").MemberData & { user: import("@amanda/discordtypings").UserData; guild_id?: string }) {
+	public static readonly default = GuildMember;
+
+	public constructor(client: import("../client/Client"), data: import("discord-typings").MemberData & { user: import("discord-typings").UserData; guild_id?: string }) {
 		this.client = client;
 
 		if (data) this._patch(data);
@@ -83,7 +86,7 @@ class GuildMember implements TextBasedChannel {
 		};
 	}
 
-	public _patch(data: import("@amanda/discordtypings").MemberData & { user: import("@amanda/discordtypings").UserData; guild_id?: string }) {
+	public _patch(data: import("discord-typings").MemberData & { user: import("discord-typings").UserData; guild_id?: string }) {
 		const PartialGuild: typeof import("./Partial/PartialGuild") = require("./Partial/PartialGuild");
 		const PartialRole: typeof import("./Partial/PartialRole") = require("./Partial/PartialRole");
 
@@ -100,7 +103,7 @@ class GuildMember implements TextBasedChannel {
 			this.joinedTimestamp = this.joinedAt.getTime();
 		}
 		if (data.premium_since !== undefined) {
-			this.premiumSince = new Date(data.premium_since);
+			this.premiumSince = new Date(data.premium_since!);
 			this.premiumSinceTimestamp = this.premiumSince.getTime();
 		}
 		if (!this.guild || data.guild_id) {

@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import fs from "fs";
 import path from "path";
 import stream from "stream";
@@ -6,7 +7,9 @@ import { Error as DiscordError, TypeError } from "../errors";
 import Invite from "../structures/Invite";
 
 class DataResolver {
-	constructor() {
+	public static readonly default = DataResolver;
+
+	public constructor() {
 		throw new Error(`The ${this.constructor.name} class may not be instantiated.`);
 	}
 

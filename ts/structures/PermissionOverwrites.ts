@@ -1,13 +1,16 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 import Permissions from "../util/Permissions";
 
 class PermissionOverwrites {
 	public channel: import("./GuildChannel");
 	public id: string;
-	public type: "member" | "role"
+	public type: "member" | "role";
 	public deny: Readonly<Permissions>;
 	public allow: Readonly<Permissions>;
 
-	public constructor(guildChannel: import("./GuildChannel"), data: import("@amanda/discordtypings").PermissionOverwriteData) {
+	public static readonly default = PermissionOverwrites;
+
+	public constructor(guildChannel: import("./GuildChannel"), data: import("discord-typings").PermissionOverwriteData) {
 		this.channel = guildChannel;
 
 		this.id = data.id;
@@ -16,7 +19,7 @@ class PermissionOverwrites {
 		this.allow = new Permissions(BigInt(data.allow)).freeze();
 	}
 
-	public toJSON(): import("@amanda/discordtypings").PermissionOverwriteData {
+	public toJSON(): import("discord-typings").PermissionOverwriteData {
 		return {
 			id: this.id,
 			type: this.type === "role" ? 0 : 1,

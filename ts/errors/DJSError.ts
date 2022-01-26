@@ -1,3 +1,4 @@
+// THIS FILE HAS BEEN MODIFIED FROM DISCORD.JS CODE
 const kCode = Symbol("code");
 const messages = new Map();
 
@@ -46,20 +47,24 @@ function register(sym: string, val: any) {
 	messages.set(sym, typeof val === "function" ? val : String(val));
 }
 
-// @ts-ignore
-const DJSError: {
+type DJSErrorModule = {
 	register: typeof register,
 	Error: ReturnType<typeof makeDiscordjsError>;
 	TypeError: ReturnType<typeof makeDiscordjsError>;
 	RangeError: ReturnType<typeof makeDiscordjsError>;
-	Messages: typeof import("./Messages")
-} = {
+	Messages: typeof import("./Messages");
+	default: DJSErrorModule;
+}
+
+const DJSError: DJSErrorModule = {
 	register,
 	Error: makeDiscordjsError(Error),
-	// @ts-ignore
 	TypeError: makeDiscordjsError(TypeError),
-	// @ts-ignore
-	RangeError: makeDiscordjsError(RangeError)
+	RangeError: makeDiscordjsError(RangeError),
+	Messages: undefined as unknown as typeof import("./Messages"),
+	default: undefined as unknown as DJSErrorModule
 };
+
+DJSError.default = DJSError;
 
 export = DJSError;
