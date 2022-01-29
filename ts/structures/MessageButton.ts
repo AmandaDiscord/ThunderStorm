@@ -44,7 +44,7 @@ class MessageButton extends BaseMessageComponent {
 	public setEmoji(emoji: import("../Types").EmojiIdentifierResolvable): this {
 		if (typeof emoji === "string" && /^\d+$/.test(emoji)) this.emoji = { id: emoji };
 		else if (typeof emoji === "string") this.emoji = Util.parseEmoji(`${emoji}`);
-		else this.emoji = { id: (emoji as Exclude<import("../Types").EmojiIdentifierResolvable, import("./GuildEmoji") | import("./ReactionEmoji") | string>).id || emoji.id || "", name: emoji.name, animated: emoji.animated };
+		else this.emoji = { id: (emoji as Exclude<import("../Types").EmojiIdentifierResolvable, import("./GuildEmoji") | import("./ReactionEmoji") | string>).id || emoji.id || null, name: emoji.name, animated: emoji.animated };
 		return this;
 	}
 
