@@ -39,7 +39,7 @@ class MessageButton extends BaseMessageComponent_1.default {
         else if (typeof emoji === "string")
             this.emoji = Util_1.default.parseEmoji(`${emoji}`);
         else
-            this.emoji = { id: emoji.id || emoji.id || "", name: emoji.name, animated: emoji.animated };
+            this.emoji = { id: emoji.id || emoji.id || null, name: emoji.name, animated: emoji.animated };
         return this;
     }
     setLabel(label) {
