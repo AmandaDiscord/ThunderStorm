@@ -24,13 +24,13 @@ import handle from "./handle";
 import ApplicationCommandManager from "./managers/ApplicationCommandManager";
 import GuildApplicationCommandManager from "./managers/GuildApplicationCommandManager";
 
+import { Activity } from "./structures/Presence";
 import AnonymousGuild from "./structures/AnonymousGuild";
 import Application from "./structures/interfaces/Application";
 import ApplicationCommand from "./structures/ApplicationCommand";
 import AutocompleteInteraction from "./structures/AutocompleteInteraction";
 import Base from "./structures/Base";
 import BaseCommandInteraction from "./structures/BaseCommandInteraction";
-import { Activity } from "./structures/Presence";
 import BaseGuild from "./structures/BaseGuild";
 import BaseGuildEmoji from "./structures/BaseGuildEmoji";
 import BaseGuildVoiceChannel from "./structures/BaseGuildVoiceChannel";
@@ -80,9 +80,10 @@ import ReactionCollector from "./structures/ReactionCollector";
 import ReactionEmoji from "./structures/ReactionEmoji";
 import { RichPresenceAssets } from "./structures/Presence";
 import Role from "./structures/Role";
+import SelectMenuInteraction from "./structures/SelectMenuInteraction";
+import StageChannel from "./structures/StageChannel";
 import Sticker from "./structures/Sticker";
 import StoreChannel from "./structures/StoreChannel";
-import StageChannel from "./structures/StageChannel";
 import Team from "./structures/Team";
 import TeamMember from "./structures/TeamMember";
 import TextChannel from "./structures/TextChannel";
@@ -203,6 +204,7 @@ export {
 	ReactionEmoji,
 	RichPresenceAssets,
 	Role,
+	SelectMenuInteraction,
 	Sticker,
 	StoreChannel,
 	StageChannel,
