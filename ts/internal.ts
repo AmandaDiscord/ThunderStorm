@@ -1,6 +1,7 @@
 import Discord from "discord-typings";
 
-type ChannelDatas = Discord.DMChannelData | Discord.TextChannelData | Discord.CategoryChannelData | Discord.NewsChannelData | Discord.VoiceChannelData | Discord.StageChannelData | Discord.StoreChannelData;
+export type ChannelDatas = Discord.DMChannelData | Discord.TextChannelData | Discord.CategoryChannelData | Discord.NewsChannelData | Discord.VoiceChannelData | Discord.StageChannelData | Discord.StoreChannelData;
+export type AnyChannel = import("./structures/NewsChannel") | import("./structures/TextChannel") | import("./structures/GuildChannel") | import("./structures/StageChannel") | import("./structures/StoreChannel") | import("./structures/VoiceChannel") | import("./structures/CategoryChannel") | import("./structures/ThreadNewsChannel") | import("./structures/ThreadTextChannel") | import("./structures/DMChannel");
 export interface GatewayEventDataTable {
 	CHANNEL_CREATE: ChannelDatas;
 	CHANNEL_DELETE: ChannelDatas;

@@ -4,15 +4,14 @@ import Constants from "./util/Constants";
 import MessageAttachment from "./structures/MessageAttachment";
 import MessageEmbed from "./structures/MessageEmbed";
 
-type AnyChannel = import("./structures/DMChannel") | import("./structures/TextChannel") | import("./structures/VoiceChannel") | import("./structures/CategoryChannel") | import("./structures/NewsChannel") | import("./structures/StoreChannel") | import("./structures/StageChannel");
 export type FlattenIfArray<T> = T extends Array<infer R> ? R : T;
 export type FlattenIfReadonlyArray<T> = T extends ReadonlyArray<infer R> ? R : T;
 
 export interface ClientEvents {
-	channelCreate: [AnyChannel];
+	channelCreate: [import("./internal").AnyChannel];
 	channelDelete: [import("./structures/Partial/PartialChannel")];
 	channelPinsUpdate: [import("./structures/Partial/PartialChannel"), Date];
-	channelUpdate: [AnyChannel];
+	channelUpdate: [import("./internal").AnyChannel];
 	debug: [string];
 	guildBanAdd: [import("./structures/GuildBan")];
 	guildBanRemove: [import("./structures/GuildBan")];

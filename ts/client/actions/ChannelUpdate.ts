@@ -7,7 +7,7 @@ class ChannelUpdateAction extends Action {
 	public static readonly default = ChannelUpdateAction;
 
 	public handle(data: import("../../internal").ChannelDatas) {
-		const channel = Util.createChannelFromData(this.client, data) as import("../../Types").AnyChannel;
+		const channel = Util.createChannelFromData(this.client, data) as import("../../internal").AnyChannel;
 		this.client.emit(Events.CHANNEL_UPDATE, channel);
 		return { channel };
 	}
