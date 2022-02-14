@@ -32,7 +32,7 @@ declare class ReactionCollector extends Collector<import("./MessageReaction")> {
     collect(reaction: import("./MessageReaction"), user: import("./Partial/PartialUser")): string | null;
     dispose(reaction: import("./MessageReaction"), user: import("./Partial/PartialUser")): string | null;
     empty(): void;
-    get endReason(): "limit" | "emojiLimit" | "userLimit" | null;
+    get endReason(): "limit" | "userLimit" | "emojiLimit" | null;
     _handleMessageDeletion(message: import("./Partial/PartialMessage") | import("./Message")): void;
     _handleChannelDeletion(channel: import("./Partial/PartialChannel")): void;
     _handleGuildDeletion(guild: import("./Partial/PartialGuild") | import("./Guild")): void;

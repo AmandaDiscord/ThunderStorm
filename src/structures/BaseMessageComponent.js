@@ -22,6 +22,12 @@ class BaseMessageComponent {
                 component = new MessageButton(data);
                 break;
             }
+            case Constants_1.MessageComponentTypes.SELECT_MENU: {
+                const MessageSelectMenu = require("./MessageSelectMenu");
+                // @ts-ignore
+                component = new MessageSelectMenu(data);
+                break;
+            }
             default:
                 if (!skipValidation) {
                     throw new errors_1.TypeError("INVALID_TYPE", "data.type", "valid MessageComponentType");

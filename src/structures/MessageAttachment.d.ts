@@ -22,7 +22,7 @@ declare class MessageAttachment {
         height: number | null;
         width: number | null;
         name: string | null;
-        attachment: string | import("stream").Stream | Buffer;
+        attachment: string | Buffer | import("stream").Stream;
     };
 }
 export = MessageAttachment;

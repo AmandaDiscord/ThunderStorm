@@ -4,7 +4,7 @@ import ThreadNewsChannel from "../../structures/ThreadNewsChannel";
 declare class ThreadDeleteAction extends Action {
     static readonly default: typeof ThreadDeleteAction;
     handle(data: import("discord-typings").ThreadChannelData): {
-        thread: ThreadNewsChannel | ThreadTextChannel;
+        thread: ThreadTextChannel | ThreadNewsChannel;
     };
 }
 export = ThreadDeleteAction;

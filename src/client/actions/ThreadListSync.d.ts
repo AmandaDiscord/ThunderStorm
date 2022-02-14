@@ -5,7 +5,7 @@ import ThreadNewsChannel from "../../structures/ThreadNewsChannel";
 declare class ThreadListSyncAction extends Action {
     static readonly default: typeof ThreadListSyncAction;
     handle(data: import("discord-typings").ThreadListSyncData): {
-        syncedThreads: Collection<string, ThreadNewsChannel | ThreadTextChannel>;
+        syncedThreads: Collection<string, ThreadTextChannel | ThreadNewsChannel>;
     };
     removeStale(channel: any): void;
 }

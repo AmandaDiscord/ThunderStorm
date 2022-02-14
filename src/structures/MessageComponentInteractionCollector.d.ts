@@ -31,7 +31,7 @@ declare class MessageComponentInteractionCollector extends Collector<import("./M
     collect(interaction: import("./MessageComponentInteraction")): string | null;
     dispose(interaction: import("./MessageComponentInteraction")): string | null;
     empty(): void;
-    get endReason(): "limit" | "userLimit" | "componentLimit" | null;
+    get endReason(): "limit" | "componentLimit" | "userLimit" | null;
     private _handleMessageDeletion;
     private _handleChannelDeletion;
     private _handleGuildDeletion;

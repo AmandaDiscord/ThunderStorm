@@ -18,7 +18,7 @@ declare class GuildApplicationCommandManager extends ApplicationCommandManager {
     static transformPermissions(permissions: import("../Types").ApplicationCommandPermissionData, received?: boolean): {
         id: string;
         permission: boolean;
-        type: 1 | 2 | "USER" | "ROLE";
+        type: 2 | 1 | "USER" | "ROLE";
     };
 }
 export = GuildApplicationCommandManager;
