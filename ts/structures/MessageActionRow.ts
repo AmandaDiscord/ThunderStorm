@@ -12,12 +12,12 @@ class MessageActionRow extends BaseMessageComponent {
 	public constructor(data?: MessageActionRow | import("../Types").MessageActionRowOptions) {
 		super({ type: "ACTION_ROW" });
 
-		this.components = (data?.components ?? []).map(c => BaseMessageComponent.create(c, null, true)) as Array<import("./MessageButton")>;
+		this.components = (data?.components ?? []).map(c => BaseMessageComponent.create(c, null, true)) as Array<import("./MessageButton") | import("./MessageSelectMenu")>;
 	}
 
 	public addComponents(...components: Array<Array<import("../Types").MessageActionRowComponentResolvable>>) {
 
-		this.components.push(...components.flat(Infinity).map(c => BaseMessageComponent.create(c as any, null, true)) as Array<import("./MessageButton")>);
+		this.components.push(...components.flat(Infinity).map(c => BaseMessageComponent.create(c as any, null, true)) as Array<import("./MessageButton") | import("./MessageSelectMenu")>);
 		return this;
 	}
 
@@ -25,7 +25,7 @@ class MessageActionRow extends BaseMessageComponent {
 		this.components.splice(
 			index,
 			deleteCount,
-			...components.flat(Infinity).map(c => BaseMessageComponent.create(c as any, null, true)) as Array<import("./MessageButton")>
+			...components.flat(Infinity).map(c => BaseMessageComponent.create(c as any, null, true)) as Array<import("./MessageButton") | import("./MessageSelectMenu")>
 		);
 		return this;
 	}

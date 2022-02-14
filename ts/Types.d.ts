@@ -377,7 +377,7 @@ export type MessageComponent = import("./structures/MessageActionRow") | import(
 
 export type MessageComponentTypeResolvable = Exclude<keyof typeof Constants.MessageComponentTypes, string> | MessageComponentType;
 
-export type MessageActionRowComponent = import("./structures/MessageButton");
+export type MessageActionRowComponent = import("./structures/MessageButton") | import("./structures/MessageSelectMenu");
 
 export type MessageActionRowComponentOptions = MessageButtonOptions;
 
@@ -535,4 +535,35 @@ export type CommandInteractionResolvedData = {
 	roles?: import("@discordjs/collection").Collection<string, import("./structures/Role")>;
 	channels?: import("@discordjs/collection").Collection<string, import("./structures/Channel")>;
 	messages?: import("@discordjs/collection").Collection<string, import("./structures/Message")>;
+}
+
+export type MessageSelectOption = {
+	label: string;
+	value: string;
+	description: string | null;
+	emoji: RawEmoji | null;
+	default: boolean;
+}
+
+export type MessageSelectOptionData = {
+	label: string;
+	value: string;
+	description?: string;
+	emoji?: EmojiIdentifierResolvable;
+	default?: boolean;
+}
+
+export type RawEmoji = {
+	id: string | null;
+	name: string | null;
+	animated: boolean | null;
+}
+
+export interface MessageSelectMenuOptions extends BaseMessageComponentOptions {
+	customId?: string;
+	placeholder?: string;
+	minValues?: number;
+	maxValues?: number;
+	options?: Array<MessageSelectOption>;
+	disabled?: boolean;
 }

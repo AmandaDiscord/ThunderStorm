@@ -71,6 +71,7 @@ import MessageEmbed from "./structures/MessageEmbed";
 import MessageMentions from "./structures/MessageMentions";
 import MessagePayload from "./structures/MessagePayload";
 import MessageReaction from "./structures/MessageReaction";
+import MessageSelectMenu from "./structures/MessageSelectMenu";
 import NewsChannel from "./structures/NewsChannel";
 import OAuth2Guild from "./structures/Oauth2Guild";
 import PermissionOverwrites from "./structures/PermissionOverwrites";
@@ -193,6 +194,7 @@ export {
 	MessageEmbed,
 	MessageMentions,
 	MessageReaction,
+	MessageSelectMenu,
 	NewsChannel,
 	OAuth2Guild,
 	PermissionOverwrites,
