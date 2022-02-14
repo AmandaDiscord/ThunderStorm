@@ -66,6 +66,6 @@ declare class Util {
         id: string;
         guild_id?: string;
         type: undefined;
-    }): import("../structures/NewsChannel") | import("../structures/TextChannel") | import("../structures/StageChannel") | import("../structures/VoiceChannel") | import("../structures/CategoryChannel") | import("../structures/DMChannel") | import("../structures/Partial/PartialChannel") | import("../structures/Channel");
+    }): import("../structures/Channel") | import("../structures/CategoryChannel") | import("../structures/Partial/PartialChannel") | import("../structures/DMChannel") | import("../structures/TextChannel") | import("../structures/NewsChannel") | import("../structures/VoiceChannel") | import("../structures/StageChannel");
 }
 export = Util;

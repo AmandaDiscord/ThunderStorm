@@ -31,7 +31,7 @@ declare class MessageSelectMenu extends BaseMessageComponent {
         min_values: number | null;
         max_values: number | undefined;
         options: import("../Types").MessageSelectOption[];
-        type: 1 | 2 | 3 | null;
+        type: 2 | 1 | 3 | null;
     };
     static normalizeOption(option: import("../Types").MessageSelectOptionData): import("../Types").MessageSelectOption;
     static normalizeOptions(...options: Array<import("../Types").MessageSelectOptionData | Array<import("../Types").MessageSelectOptionData>>): import("../Types").MessageSelectOption[];

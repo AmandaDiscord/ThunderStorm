@@ -13,7 +13,7 @@ declare class Channel extends Base {
     toJSON(): {
         id: string;
         name: string;
-        type: 0 | 1 | 4 | 5 | 2 | 13 | 6 | -1 | 10 | 11 | 12;
+        type: 0 | 2 | 1 | 4 | 11 | 6 | -1 | 5 | 10 | 12 | 13;
     };
     _patch(data: import("discord-typings").ChannelData): void;
 }

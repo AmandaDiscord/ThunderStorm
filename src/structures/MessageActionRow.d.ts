@@ -10,25 +10,25 @@ declare class MessageActionRow extends BaseMessageComponent {
         components: ({
             custom_id: string | null;
             disabled: boolean;
+            placeholder: string | null;
+            min_values: number | null;
+            max_values: number | undefined;
+            options: import("../Types").MessageSelectOption[];
+            type: 2 | 1 | 3 | null;
+        } | {
+            custom_id: string | null;
+            disabled: boolean;
             emoji: {
                 id: string | null;
                 name?: string | undefined;
                 animated?: boolean | undefined;
             } | null;
             label: string | null;
-            style: 1 | 4 | 5 | 2 | 3;
-            type: 1 | 2 | 3;
+            style: 2 | 1 | 4 | 5 | 3;
+            type: 2 | 1 | 3;
             url: string | null;
-        } | {
-            custom_id: string | null;
-            disabled: boolean;
-            placeholder: string | null;
-            min_values: number | null;
-            max_values: number | undefined;
-            options: import("../Types").MessageSelectOption[];
-            type: 1 | 2 | 3 | null;
         })[];
-        type: 1 | 2 | 3;
+        type: 2 | 1 | 3;
     };
 }
 export = MessageActionRow;

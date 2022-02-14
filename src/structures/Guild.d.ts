@@ -40,7 +40,7 @@ declare class Guild extends AnonymousGuild {
     maximumMembers: number;
     maximumPresences: number;
     shardId: number;
-    threads: Collection<string, import("./ThreadNewsChannel") | import("./ThreadTextChannel")>;
+    threads: Collection<string, import("./ThreadTextChannel") | import("./ThreadNewsChannel")>;
     stageInstances: Collection<string, import("./Partial/PartialChannel")>;
     joinedTimestamp: number;
     commands: GuildApplicationCommandManager;

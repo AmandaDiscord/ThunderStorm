@@ -11,7 +11,7 @@ declare class TeamMember extends Base {
     toJSON(): {
         id: string;
         team_id: string;
-        membership_state: 1 | 2;
+        membership_state: 2 | 1;
         permissions: ["*"];
         user: {
             username: string;

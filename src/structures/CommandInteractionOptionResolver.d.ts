@@ -19,7 +19,7 @@ declare class CommandInteractionOptionResolver {
     getUser(name: string, required?: boolean): import("./User") | null;
     getMember(name: string, required?: boolean): import("./GuildMember") | null;
     getRole(name: string, required?: boolean): import("./Role") | null;
-    getMentionable(name: string, required?: boolean): import("./User") | import("./GuildMember") | import("./Role") | null;
+    getMentionable(name: string, required?: boolean): import("./Role") | import("./User") | import("./GuildMember") | null;
     getMessage(name: string, required?: boolean): import("./Message") | null;
     getFocused(getFull?: boolean): string | number | boolean | import("../Types").CommandInteractionOption | undefined;
 }
