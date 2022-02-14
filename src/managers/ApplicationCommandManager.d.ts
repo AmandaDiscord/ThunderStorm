@@ -24,13 +24,13 @@ declare class ApplicationCommandManager extends BaseManager<import("../structure
         name: string;
         description: string;
         options: {
-            type: 2 | 1 | 9 | 4 | 6 | 5 | 10 | 3 | 7 | 8;
+            type: 1 | 4 | 5 | 2 | 6 | 10 | 8 | 3 | 7 | 9;
             name: string;
             description: string;
             required?: boolean | undefined;
             choices?: import("../Types").ApplicationCommandOptionChoice[] | undefined;
             options?: {
-                type: 2 | 1 | 9 | 4 | 6 | 5 | 10 | 3 | 7 | 8;
+                type: 1 | 4 | 5 | 2 | 6 | 10 | 8 | 3 | 7 | 9;
                 name: string;
                 description: string;
                 required?: boolean | undefined;

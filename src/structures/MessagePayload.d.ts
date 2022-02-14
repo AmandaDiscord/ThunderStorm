@@ -1,4 +1,3 @@
-/// <reference types="node" />
 interface MessagePayloadConstructor {
     new (target: import("../Types").MessageTarget, options: import("../Types").MessageOptions | import("../Types").WebhookMessageOptions): MessagePayload;
     readonly prototype: MessagePayload;
@@ -22,7 +21,7 @@ declare class MessagePayload {
     resolveFiles(): Promise<this>;
     split(): MessagePayload[];
     static resolveFile(fileLike: import("../Types").BufferResolvable | import("stream").Stream | import("../Types").FileOptions | import("./MessageAttachment")): Promise<{
-        attachment: import("../Types").BufferResolvable | import("./MessageAttachment") | import("stream").Stream | import("../Types").FileOptions;
+        attachment: import("./MessageAttachment") | import("../Types").BufferResolvable | import("stream").Stream | import("../Types").FileOptions;
         name: string;
         file: Buffer | import("stream").Stream;
     }>;

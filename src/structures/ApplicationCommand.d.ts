@@ -17,7 +17,7 @@ declare class ApplicationCommand extends Base {
     _patch(data: import("discord-typings").ApplicationCommand): void;
     get createdTimestamp(): number;
     get createdAt(): Date;
-    get manager(): import("../managers/ApplicationCommandManager") | import("../managers/GuildApplicationCommandManager");
+    get manager(): import("../managers/GuildApplicationCommandManager") | import("../managers/ApplicationCommandManager");
     edit(data: import("../Types").ApplicationCommandData): Promise<ApplicationCommand>;
     delete(): Promise<ApplicationCommand | null>;
     fetchPermissions(): Promise<import("../Types").ApplicationCommandPermissions[]>;

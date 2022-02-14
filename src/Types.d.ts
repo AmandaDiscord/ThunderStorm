@@ -2,14 +2,13 @@
 import Constants from "./util/Constants";
 import MessageAttachment from "./structures/MessageAttachment";
 import MessageEmbed from "./structures/MessageEmbed";
-declare type AnyChannel = import("./structures/DMChannel") | import("./structures/TextChannel") | import("./structures/VoiceChannel") | import("./structures/CategoryChannel") | import("./structures/NewsChannel") | import("./structures/StoreChannel") | import("./structures/StageChannel");
 export declare type FlattenIfArray<T> = T extends Array<infer R> ? R : T;
 export declare type FlattenIfReadonlyArray<T> = T extends ReadonlyArray<infer R> ? R : T;
 export interface ClientEvents {
-    channelCreate: [AnyChannel];
+    channelCreate: [import("./internal").AnyChannel];
     channelDelete: [import("./structures/Partial/PartialChannel")];
     channelPinsUpdate: [import("./structures/Partial/PartialChannel"), Date];
-    channelUpdate: [AnyChannel];
+    channelUpdate: [import("./internal").AnyChannel];
     debug: [string];
     guildBanAdd: [import("./structures/GuildBan")];
     guildBanRemove: [import("./structures/GuildBan")];
@@ -241,6 +240,7 @@ export declare type PresenceStatus = import("discord-typings").PresenceUpdateDat
 export declare type ClientPresenceStatus = Exclude<PresenceStatus, "offline">;
 export declare type ActivityType = FlattenIfReadonlyArray<typeof Constants.ActivityTypes>;
 export declare type StickerFormatType = Exclude<keyof typeof Constants.StickerFormatTypes, number>;
+export declare type ApplicationCommandType = Exclude<keyof typeof Constants.ApplicationCommandTypes, number>;
 export declare type ApplicationCommandOptionType = Exclude<keyof typeof Constants.ApplicationCommandOptionTypes, number>;
 export declare type ApplicationCommandPermissionType = Exclude<keyof typeof Constants.ApplicationCommandPermissionTypes, number>;
 export declare type InteractionType = Exclude<keyof typeof Constants.InteractionTypes, number>;
@@ -323,7 +323,7 @@ export declare type BaseMessageComponentOptions = {
 export declare type MessageComponentOptions = MessageActionRowOptions | MessageButtonOptions;
 export declare type MessageComponent = import("./structures/MessageActionRow") | import("./structures/MessageButton");
 export declare type MessageComponentTypeResolvable = Exclude<keyof typeof Constants.MessageComponentTypes, string> | MessageComponentType;
-export declare type MessageActionRowComponent = import("./structures/MessageButton");
+export declare type MessageActionRowComponent = import("./structures/MessageButton") | import("./structures/MessageSelectMenu");
 export declare type MessageActionRowComponentOptions = MessageButtonOptions;
 export declare type MessageActionRowComponentResolvable = MessageActionRowComponent | MessageActionRowComponentOptions;
 export interface MessageActionRowOptions extends BaseMessageComponentOptions {
@@ -380,13 +380,15 @@ export declare type AuditLogChange = {
 };
 export declare type CommandInteractionOption = {
     name: string;
-    type: ApplicationCommandOptionType;
+    type: ApplicationCommandOptionType | "_MESSAGE";
     value?: string | number | boolean;
-    options?: import("@discordjs/Collection").Collection<string, CommandInteractionOption>;
+    focused?: boolean;
+    options?: Array<CommandInteractionOption>;
     user?: import("./structures/User");
     member?: import("./structures/GuildMember");
-    channel?: import("./structures/GuildChannel");
+    channel?: import("./structures/Channel");
     role?: import("./structures/Role");
+    message?: import("./structures/Message");
 };
 export interface ReactionCollectorOptions extends CollectorOptions {
     max?: number;
@@ -446,4 +448,37 @@ export declare type LifetimeFilterOptions<K, V> = {
     getComparisonTimestamp?: (value: V, key: K, col: import("./util/LimitedCollection")<K, V>) => number;
     excludeFromSweep?: (value: V, key: K, col: import("./util/LimitedCollection")<K, V>) => boolean;
 };
-export {};
+export declare type CommandInteractionResolvedData = {
+    users?: import("@discordjs/collection").Collection<string, import("./structures/User")>;
+    members?: import("@discordjs/collection").Collection<string, import("./structures/GuildMember")>;
+    roles?: import("@discordjs/collection").Collection<string, import("./structures/Role")>;
+    channels?: import("@discordjs/collection").Collection<string, import("./structures/Channel")>;
+    messages?: import("@discordjs/collection").Collection<string, import("./structures/Message")>;
+};
+export declare type MessageSelectOption = {
+    label: string;
+    value: string;
+    description: string | null;
+    emoji: RawEmoji | null;
+    default: boolean;
+};
+export declare type MessageSelectOptionData = {
+    label: string;
+    value: string;
+    description?: string;
+    emoji?: EmojiIdentifierResolvable;
+    default?: boolean;
+};
+export declare type RawEmoji = {
+    id: string | null;
+    name: string | null;
+    animated: boolean | null;
+};
+export interface MessageSelectMenuOptions extends BaseMessageComponentOptions {
+    customId?: string;
+    placeholder?: string;
+    minValues?: number;
+    maxValues?: number;
+    options?: Array<MessageSelectOption>;
+    disabled?: boolean;
+}
