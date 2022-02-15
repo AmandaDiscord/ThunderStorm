@@ -8,7 +8,7 @@ class SelectMenuInteraction extends MessageComponentInteraction {
 	public constructor(client: import("../client/Client"), data: import("discord-typings").InteractionData) {
 		super(client, data);
 
-		this.values = data.data?.values?.map(i => i.value) ?? [];
+		this.values = data.data?.values ?? [];
 	}
 }
 
