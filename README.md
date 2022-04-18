@@ -1,29 +1,49 @@
+# Notice!
+This module is no longer used by the AmandaDiscord organization and will not receive anymore maintenence updates. Whatever is left in this semi-broken state is what you get. You may fork this module and update should you so desire, but you will not receive any official support from the AmandaDiscord organization.
+
+## Why?
+Realistically, there was only 1 person working on ThunderStorm and trying to match the progress and speed of an entire community on top of trying to keep up with the speed of Discord's updates is not feasible. This is pretty hard to manage solo on its own, but also trying to be original with implementations as the Discord.js community might not always offer the latest and greatest of what Discord can handle and then changing those implementations once official implementations are released. As such, this entire project, while nice and helpful, was a large mental strain that was not needed.
+
+## Memory Usage
+The AmandaDiscord organization is an advocate for better performing software, but just importing this module makes it so that we do not meet our memory usage demands. As such, we are migrating to using the raw api/gateway as that has the most minimal memory footprint. We would strongly advise doing the same and avoiding using libs of such magnitude.
+
+## What about contributing to Discord.js?
+If you are a maintainer or contributer to Discord.js and you would like to use my work for the end goal of converting Discord.js to TypeScript, you may do so. We do not care.
+
 # ThunderStorm
-ThunderStorm is a work in progress library to act as a compatibility layer between modular Discord interfaces such as DasWolke's WeatherStack libs and bot codebases which are based off of or directly coming from Discord.js. This library technically only covers the REST portion of Discord's API.
+ThunderStorm is a compatibility layer between modular Discord interfaces such as DasWolke's WeatherStack libs and bot codebases which are based off of or directly coming from Discord.js.
+
+# Legal
+This lib uses a lot of code by Discord.js, thus their license has been included.
+Please don't sue me.
 
 # Why?
-Well, *almost* nothing is cached internally, so memory usage will be significantly lower than libs with internally managed caches. The structures try to closely resemble Discord.js but working around not having caches or gateway actions makes it very limited. Not having caches is an intentional design choice to help you realize what you need cached and what you don't.
+Let's be honest, Discord.js takes a lot of memory which is the price it pays for being user friendly. But what if I told you it doesn't have to be that way?
 
 # Notes
-Currently ThunderStorm is based off of a mix of Discord.js v12 prior and post to the Manager PR. Some Managers are implemented. The other Managers *might* get implemented eventually, but the concept of Managers was to make distinctions between caches from rest/gateway interfaces which doesn't apply to ThunderStorm as there are no caches.
+Currently ThunderStorm is based off of a mix of Discord.js v13 and v11. Where it mostly resembles v11 is the fact that there is no such thing as caches in ThunderStorm, so some methods have been moved back to where they were in v11 such as Client.fetchUser instead of Client.users.fetch. The index will export the latest v11 version string just for memes.
 
-Because this lib doesn't operate with any caching, **A LOT** of assumptions are made such as channel types where applicable such as message create only being "text" or "dm" depending on if guild_id is present.
+Because this lib doesn't operate with any caching, **A LOT** of assumptions are made such as channel types where applicable such as message create only being "GUILD_TEXT" or "DM" depending on if guild_id is present.
 
-## What You Need
-You *need* to install AmandaDiscord/SnowTransfer.
-What you use to cover the Gateway portion and receive events is up to you, but I will recommend AmandaDiscord/CloudStorm.
-
-These libs have been updated to support the latest Discord API base url/API/Gateway versions and will continue to receive support and typing improvements/general cleanup.
-
-## Basic Code Example
-### Quick note for TS/ESM users.
-You *may* have to use the require statement. You can still easily get typings by doing something similar to this if you are on TS. ESM can use JSDoc type annotations.
-
-```ts
-const ThunderStorm: typeof import("thunderstorm") = require("thunderstorm");
+If you want to install ThunderStorm and have it work with *some* modules which depend on Discord.js, you could change the entry in the package.json to have its key be listed as discord.js
+This also allows you to import thunderstorm as if it were Discord.js such as:
+```js
+const Discord = require("discord.js")
 ```
 
-TS users are also encouraged to add `skipLibCheck: true` to their tsconfig.json or ThunderStorm may throw errors when you try to transpile. I'm sorry, but there isn't much I can do until Discord.js introduces more type safe logic. Trying to make a type safe Discord.js is already proving very difficult.
+## What You Need
+ThunderStorm requires node 14 at least.
+You *need* to install DasWolke/SnowTransfer because that's the lib ThunderStorm uses to send REST actions.
+
+What you use to cover the Gateway portion and receive events is up to you, but we recommend DasWolke/CloudStorm.
+
+## Basic Code Example
+
+```ts
+import ThunderStorm from "thunderstorm";
+```
+
+TS users are encouraged to add `skipLibCheck: true` to their tsconfig.json or ThunderStorm may throw errors when you try to transpile. We're sorry, but there isn't much we can do until Discord.js introduces more type safe logic.
 
 ```js
 const SnowTransfer = require("snowtransfer");
@@ -31,7 +51,7 @@ const ThunderStorm = require("thunderstorm");
 
 const token = "Your Token Here";
 
-const Rest = new SnowTransfer(token);
+const Rest = new SnowTransfer.SnowTransfer(token);
 
 const client = new ThunderStorm.Client({ snowtransfer: Rest });
 
