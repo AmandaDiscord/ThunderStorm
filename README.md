@@ -1,3 +1,15 @@
+# Notice!
+This module is no longer used by the AmandaDiscord organization and will not receive anymore maintenence updates. Whatever is left in this semi-broken state is what you get. You may fork this module and update should you so desire, but you will not receive any official support from the AmandaDiscord organization.
+
+## Why?
+Realistically, there was only 1 person working on ThunderStorm and trying to match the progress and speed of an entire community on top of trying to keep up with the speed of Discord's updates is not feasible. This is pretty hard to manage solo on its own, but also trying to be original with implementations as the Discord.js community might not always offer the latest and greatest of what Discord can handle and then changing those implementations once official implementations are released. As such, this entire project, while nice and helpful, was a large mental strain that was not needed.
+
+## Memory Usage
+The AmandaDiscord organization is an advocate for better performing software, but just importing this module makes it so that we do not meet our memory usage demands. As such, we are migrating to using the raw api/gateway as that has the most minimal memory footprint. We would strongly advise doing the same and avoiding using libs of such magnitude.
+
+## What about contributing to Discord.js?
+If you are a maintainer or contributer to Discord.js and you would like to use my work for the end goal of converting Discord.js to TypeScript, you may do so. We do not care.
+
 # ThunderStorm
 ThunderStorm is a compatibility layer between modular Discord interfaces such as DasWolke's WeatherStack libs and bot codebases which are based off of or directly coming from Discord.js.
 
@@ -23,7 +35,7 @@ const Discord = require("discord.js")
 ThunderStorm requires node 14 at least.
 You *need* to install DasWolke/SnowTransfer because that's the lib ThunderStorm uses to send REST actions.
 
-What you use to cover the Gateway portion and receive events is up to you, but I will recommend DasWolke/CloudStorm.
+What you use to cover the Gateway portion and receive events is up to you, but we recommend DasWolke/CloudStorm.
 
 ## Basic Code Example
 
@@ -31,7 +43,7 @@ What you use to cover the Gateway portion and receive events is up to you, but I
 import ThunderStorm from "thunderstorm";
 ```
 
-TS users are encouraged to add `skipLibCheck: true` to their tsconfig.json or ThunderStorm may throw errors when you try to transpile. I'm sorry, but there isn't much I can do until Discord.js introduces more type safe logic.
+TS users are encouraged to add `skipLibCheck: true` to their tsconfig.json or ThunderStorm may throw errors when you try to transpile. We're sorry, but there isn't much we can do until Discord.js introduces more type safe logic.
 
 ```js
 const SnowTransfer = require("snowtransfer");
